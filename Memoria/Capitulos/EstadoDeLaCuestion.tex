@@ -1,13 +1,34 @@
 \chapter{Estado de la Cuestión}
 \label{cap:estadoDeLaCuestion}
 
-En el estado de la cuestión es donde aparecen gran parte de las referencias bibliográficas del trabajo. Una de las formas más cómodas de gestionar la bibliografía en {\LaTeX} es utilizando \textbf{bibtex}. Las entradas bibliográficas deben estar en un fichero con extensión \textit{.bib} (con esta plantilla se proporcionan 3, dos de los cuales están vacíos). Cada entrada bibliográfica tiene una clave que permite referenciarla desde cualquier parte del texto con los siguiente comandos:
+\section{Servicio Web}
+Según la W3C (World Wide Web Consortium) que es una organización que se responsabiliza de la reglamentación y de la arquitectura de los servicios web. Un servicio Web es un sistema software diseñado para soportar la interacción máquina-a-máquina, a través de una red, de forma interoperable.  Cuenta con una interfaz descrita en un formato procesable por un equipo informático (específicamente en WSDL), a través de la que es posible interactuar con el mismo mediante el intercambio de mensajes SOAP, típicamente transmitidos usando serialización XML sobre HTTP conjuntamente con otros estándares web.
 
-\begin{itemize}
-\item Referencia bibliografica con cite: \cite{ldesc2e}
-\item Referencia bibliográfica con citep: \citep{notsoshort}
-\item Referencia bibliográfica con citet: \citet{latexAPrimer}
-\end{itemize}
+
+Es decir, un Servicio Web es un sistema que permite a dos máquinas comunicarse entre sí, por ejemplo una calculadora online, un email, el campus de la universidad… etc, y que puede estar montado sobre cualquier plataforma como puede ser internet.
+El lenguaje de programación que vamos a utilizar para su desarrollo será Python ya que es un lenguaje bastante flexible y que puede integrarse fácilmente muchos de los protocolos disponibles actualmente para desarrollo de servicios web.
+Para la realización del Servicio Web utilizaremos JSON-WSP, que es un protocolo basado en JSON con una implementación basada en Python y que utiliza una comunicación cliente-servidor basada en el protocolo HTTP con los datos encapsulados en formato JSON.
+Hemos elegido esta ya que utiliza el JSON como contenedor de datos y es un formato que es de nuestro agrado y nos sentimos cómodos utilizándolo además está basado en JSON-RTC, que es muy sencillo de usar y bastante potente.
+El servidor que hemos seleccionado será un Apache HTTP Server ya que soporta las tecnologías mencionadas anteriormente (HTTP y JSON) además de que es multiplataforma y hay mucha documentación disponible, así como soporte.
+
+\section{Figuras retóricas}
+Se entiende por figura a cualquier tipo de recurso o manipulación del lenguaje con fines retóricos.
+Las figuras retóricas son recursos del lenguaje literario utilizados para dar más belleza y una mejor expresión a sus palabras.
+Nuestro servicio web se va a basar en el uso de figuras retóricas (especialmente metáforas, símiles y analogías) para la ayuda al aprendizaje de palabras más complejas, como se ha ejemplificado anteriormente.
+Analogía: Según la RAE, es la relación de semejanza entre dos cosas distintas
+Símil: Según la RAE, es la comparación, semejanza entre dos cosas
+Metáfora: Una metáfora es una Figura retórica de pensamiento por medio de la cual una realidad o concepto se expresan por medio de una realidad o concepto diferentes con los que lo representado guarda cierta relación de semejanza
+
+\section{Lectura Fácil}
+
+Son documentos de todo tipo que siguen las directrices internacionales de la IFLA (International Federation of Library Associations and Institutions) y de Inclusion Europe en cuanto al contenido y la forma.
+
+Está dirigida a colectivos que tengan dificultades lectoras como inmigrantes o personas con trastornos de aprendizaje o problemas cognitivos.
+
+\section{ConceptNet} 
+
+Es una red semántica diseñada para ayudar a los ordenadores a entender los significados de las palabras utilizadas por la gente lanzada por el MIT en 1999.
+Tiene un buscador de palabras en el que al introducir una palabra, se selecciona el idioma y devuelve sinónimos y términos relacionados.
 
 Es posible citar más de una fuente, como por ejemplo \citep{latexCompanion,LaTeXLamport,texKnuth}
 
