@@ -3,28 +3,37 @@
 
 \chapterquote{Frase célebre dicha por alguien inteligente}{Autor}
 
-En nuestra sociedad actual, existen ciertos colectivos como pueden ser personas con algún tipo de trastorno cognitivo, inmigrantes, ancianos,  analfabetos funcionales, niños, etc... que tienen dificultad para aprender conceptos complejos o no tan complejos. Para ellos, esto supone una serie de limitaciones en su vida cotidiana, en la forma de relacionarse con otros individuos, su vida profesional e incluso su vida personal, que puede afectarles de una manera considerada.
-Para ayudar a estas personas a que puedan entender el significado de cualquier palabra, y de esta forma sentirse mejor consigo mismo, vamos a desarrollar una aplicación que mediante analogías se pueda definir de la manera más detallada dicha palabra/concepto.
+En nuestra sociedad actual, existen ciertos colectivos como pueden ser personas con algún tipo de trastorno cognitivo, inmigrantes, ancianos,  analfabetos funcionales, niños, etc... que tienen dificultad para aprender conceptos complejos o no tan complejos. Para ellos, esto supone una serie de limitaciones en su vida cotidiana, en la forma de relacionarse con otros individuos, en su vida profesional e incluso su vida personal.
+
+Para ayudar a estas personas a que puedan entender el significado de cualquier palabra, y de esta forma superar algunas de sus limitaciones, vamos a desarrollar una aplicación que permita definir palabras complejas mediante comparaciones con otras palabras más fáciles ya conocidas por los usuarios. 
 
 \section{Motivación}
-Realizaremos un Servicio Web en el que utilizaremos principalmente \textbf{analogías, símiles y metáforas}, para, como se ha comentado en el apartado anterior, describir un concepto más o menos complejo. 
-El usuario podrá buscar cualquier palabra, teniendo a su alcance una descripción lo más sencilla posible, por ejemplo, si buscamos la palabra piraña, la aplicación devolverá una descripción parecida a:
-\textit{Nada como un pez, es pequeño como un ratón y es agresivo como un león}
-De esta manera, cualquier persona que no sepa lo que es una piraña, puede  hacerse una idea de como es dicho animal y facilitar la asimilación del concepto.
-Para ello, las palabras que utilizaremos principalmente serán adverbios, adjetivos, verbos y nombres.
-Además, utilizaremos técnicas para mejorar la experiencia del usuario como pueden ser realizar un diseño plano o respetar la ley de proximidad para que la interfaz sea lo más usable posible y el usuario tenga una experiencia satisfactoria utilizando nuestra aplicación.
-Actualmente hay servicios web parecidos a lo que queremos hacer nosotros como por ejemplo conceptnet que es una red semántica disponible en varios idiomas, entre ellos el castellano, que fue lanzado en 1999 por el MIT y está diseñado para ayudar a las máquinas a entender las palabras que las personas usamos habitualmente.
+Crearemos una serie de servicios Web para describir un concepto más o menos complejo, a partir de comparaciones con otros conceptos más sencillos. Crearemos una aplicacion que se apoye en dichos Servicios Web donde el usuario podrá buscar cualquier palabra, y obtendrá una descripción lo más sencilla posible. Por ejemplo, si buscamos la palabra piraña, la aplicación devolvera la siguiente descripción:  \textit{Nada como un pez, es pequeño como un ratón y es agresivo como un león}. De esta manera, cualquier persona que no sepa lo que es una piraña, puede hacerse una idea de como es dicho animalny asimilar el nuevo concepto. Además, utilizaremos técnicas centradas en el usuario para diseñar una interfaz lo más usable posible y que así el usuario tenga una experiencia satisfactoria utilizando nuestra aplicación.
+
+\section{Objetivos}
+Ambos autores de dicho documento nos fijamos una serie de objetivos que esperemos queden reflejados con total claridad tanto en la aplicación como en la documentación aquí presente.
+Por un lado, nuestros objetivos respecto al trabajo es implementar un servicio web  que se encuentre al alcance de todas aquellas personas que lo necesiten, que puedan sentir que es realmente útil por que obtienen resultados satisfactorios.
+Para que todo ello ocurra, los objetivos principales a alcanzar son:
+\begin{itemize}
+	\item Desarrollar un servicio web que este al alcance de todos los usuarios.	
+	\item Aplicaciones?
+	\item Un diseño de Interfaz que cumpla con las Ocho Reglas de Oro, es decir: 
+	\begin{itemize}
+		\item Consistencia
+		\item Usabilidad Universal
+		\item Retroalimentación activa
+		\item Diálogos para conducir la finalización
+		\item Prevención de errores
+		\item Deshacer acciones fácilmente
+		\item Sensación de control
+		\item Reducir la carga de memoria a corto plazo
+\end{itemize}
+
+Y no nos tenemos que olvidar de los objetivos académicos. Pondremos en práctica los conocimientos adquiridos durante los años de duración del Grado así como ampliar nuestros conocimientos en base a herramientas nuevas utilizadas, nuevos lenguajes de programación y nuevos conceptos.
 
 
 
-\subsection{Explicaciones adicionales}
-Si quieres cambiar el \textbf{estilo del título} de los capítulos, abre el fichero \verb|TeXiS\TeXiS_pream.tex| y comenta la línea \verb|\usepackage[Lenny]{fncychap}| para dejar el estilo básico de \LaTeX.
-
-Si no te gusta que no haya \textbf{espacios entre párrafos} y quieres dejar un pequeño espacio en blanco, no metas saltos de línea (\verb|\\|) al final de los párrafos. En su lugar, busca el comando  \verb|\setlength{\parskip}{0.2ex}| en \verb|TeXiS\TeXiS_pream.tex| y aumenta el valor de $0.2ex$ a, por ejemplo, $1ex$.
-
-El siguiente texto se genera con el comando \verb|\lipsum[2-20]| que viene a continuación en el fichero .tex. El único propósito es mostrar el aspecto de las páginas usando esta plantilla. Quita este comando y, si quieres, comenta o elimina el paquete \textit{lipsum} al final de \verb|TeXiS\TeXiS_pream.tex|
-
-\subsubsection{Texto de prueba}
 
 
-\lipsum[2-20]
+
+

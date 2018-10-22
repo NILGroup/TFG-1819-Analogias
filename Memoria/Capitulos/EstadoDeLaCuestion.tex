@@ -1,23 +1,48 @@
 \chapter{Estado de la Cuestión}
 \label{cap:estadoDeLaCuestion}
+En este capítulo se va a tratar aspectos importantes dentro del ámbito de la retórica así como una explicación detallada de Lectura Fácil, y sin olvidar aquellas herramientas y tecnologías que se van a utilizar.
+En la sección 2.1 quedará detalladamente explicado el concepto de Servicio Web, su funcionalidad, ventajas y desventajas, tipos que existen....
+En la sección 2.2 se definirá las Figuras retóricas...
 
-\section{Servicio Web}
-Según la W3C (World Wide Web Consortium) que es una organización que se responsabiliza de la reglamentación y de la arquitectura de los servicios web. Un servicio Web es un sistema software diseñado para soportar la interacción máquina-a-máquina, a través de una red, de forma interoperable.  Cuenta con una interfaz descrita en un formato procesable por un equipo informático (específicamente en WSDL), a través de la que es posible interactuar con el mismo mediante el intercambio de mensajes SOAP, típicamente transmitidos usando serialización XML sobre HTTP conjuntamente con otros estándares web.
 
 
-Es decir, un Servicio Web es un sistema que permite a dos máquinas comunicarse entre sí, por ejemplo una calculadora online, un email, el campus de la universidad… etc, y que puede estar montado sobre cualquier plataforma como puede ser internet.
-El lenguaje de programación que vamos a utilizar para su desarrollo será Python ya que es un lenguaje bastante flexible y que puede integrarse fácilmente muchos de los protocolos disponibles actualmente para desarrollo de servicios web.
-Para la realización del Servicio Web utilizaremos JSON-WSP, que es un protocolo basado en JSON con una implementación basada en Python y que utiliza una comunicación cliente-servidor basada en el protocolo HTTP con los datos encapsulados en formato JSON.
-Hemos elegido esta ya que utiliza el JSON como contenedor de datos y es un formato que es de nuestro agrado y nos sentimos cómodos utilizándolo además está basado en JSON-RTC, que es muy sencillo de usar y bastante potente.
-El servidor que hemos seleccionado será un Apache HTTP Server ya que soporta las tecnologías mencionadas anteriormente (HTTP y JSON) además de que es multiplataforma y hay mucha documentación disponible, así como soporte.
+%-------------------------------------------------------------------
+\section{Servicios Web}
+%-------------------------------------------------------------------
+\label{cap:sec:servicios_web}
+
+Para definir el concepto de servicio Web de la forma más simple posible, se podría decir que es una tecnología que utiliza un conjunto de protocolos para intercambiar datos entre aplicaciones, sin importar el lenguaje de programación en el cual estén programadas o ejecutadas en cualquier tipo de plataforma. Otra definición más técnica según la W3C (\textit{World Wide Web Consortium})\footnote{https://www.w3.org/},  un servicio web es un sistema software diseñado para soportar la interacción máquina-a-máquina, a través de una red, de forma interoperable. 
+
+\subsection{Características de  Servicios Web}
+\label{cap:subsec:serviciosweb}
+
+\item Un servicio debe poder ser accesible a travñes de la Web. Para ello debe utilizar protocolos de transporte estándares como HTTP, y condificar los mensajes en un lenguaje estándar que pueda conocder cualquier cliente que quiera utilizar el servicio. 
+
+\item Un servicio debe contener una descripción de sí mismo. De esta forma, una aplicación podrá saber cual es la función de un determinado Servicio Web, y cuál es su interfaz, de manera que pueda ser utilizado de forma autómatica por cualquier aplicación, sin la interveción del usuario.
+\item Debe poder ser localizado. Deberemos tener algún mecanismo que nos permita encontrar un Servicio Web que realice una determinada función. De esta forma tendremos la posibilidad de que una aplicación localice el servicio que necesite de forma automática, sin tener que conocerlo previamente el usuario.
+
+\subsection{Tipos de Servicios Web}
+\label{cap:subsec:serviciosweb}
+Los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico, es por ello que mediante este último podemos diferenciar dos tipos distintos de servicio web:
+\begin{itemize}
+\item Servicios web RESTful: no tienen estado. Cada petición del cliente al servidor debe contener toda la información necesaria para entender la petición, y no puede aprovecharse de ningún contexto almacenado en el servidor.
+\item Servicios web SOAP  \textit({Simple Object Access Protocol}): es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos.
+
+
 
 \section{Figuras retóricas}
 Se entiende por figura a cualquier tipo de recurso o manipulación del lenguaje con fines retóricos.
 Las figuras retóricas son recursos del lenguaje literario utilizados para dar más belleza y una mejor expresión a sus palabras.
+
 Nuestro servicio web se va a basar en el uso de figuras retóricas (especialmente metáforas, símiles y analogías) para la ayuda al aprendizaje de palabras más complejas, como se ha ejemplificado anteriormente.
-Analogía: Según la RAE, es la relación de semejanza entre dos cosas distintas
-Símil: Según la RAE, es la comparación, semejanza entre dos cosas
-Metáfora: Una metáfora es una Figura retórica de pensamiento por medio de la cual una realidad o concepto se expresan por medio de una realidad o concepto diferentes con los que lo representado guarda cierta relación de semejanza
+
+\begin{itemize}
+\item Analogía: Según la RAE, es la relación de semejanza entre dos cosas distintas.
+\item Símil: Según la RAE, es la comparación, semejanza entre dos cosas.
+\item Metáfora: Una metáfora es una Figura retórica de pensamiento por medio de la cual una realidad o concepto se expresan por medio de una realidad o concepto diferentes con los que lo representado guarda cierta relación de semejanza.
+\end{itemize}
+
+
 
 \section{Lectura Fácil}
 
@@ -30,8 +55,3 @@ Está dirigida a colectivos que tengan dificultades lectoras como inmigrantes o 
 Es una red semántica diseñada para ayudar a los ordenadores a entender los significados de las palabras utilizadas por la gente lanzada por el MIT en 1999.
 Tiene un buscador de palabras en el que al introducir una palabra, se selecciona el idioma y devuelve sinónimos y términos relacionados.
 
-Es posible citar más de una fuente, como por ejemplo \citep{latexCompanion,LaTeXLamport,texKnuth}
-
-Después, latex se ocupa de rellenar la sección de bibliografía con las entradas \textbf{que hayan sido citadas} (es decir, no con todas las entradas que hay en el .bib, sino sólo con aquellas que se hayan citado en alguna parte del texto).
-
-Bibtex es un programa separado de latex, pdflatex o cualquier otra cosa que se use para compilar los .tex, de manera que para que se rellene correctamente la sección de bibliografía es necesario compilar primero el trabajo (a veces es necesario compilarlo dos veces), compilar después con bibtex, y volver a compilar otra vez el trabajo (de nuevo, puede ser necesario compilarlo dos veces). 
