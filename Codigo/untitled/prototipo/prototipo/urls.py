@@ -23,11 +23,12 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from prototipo.views import current_datetime
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     
     url(
-        regex=r'^hello-world/$',
+        regex=r'^index/$',
         view=current_datetime,
         name='hola_mundo'
 
