@@ -14,10 +14,9 @@ def index(request):
         if form.is_valid():
             form.save()
 
-            resultados = Formulario.objects.order_by('-id')[:1]
-            #resultados ='dinero'
-            #obj = requests.get('http://api.conceptnet.io/c/es/' + resultados + '?offset=0&limit=100').json()
-            salida = sinonimosDevueltos(resultados)
+            resultado = form['campoPalabra'].value()
+
+            salida = sinonimosDevueltos(resultado)
             return render(request, 'prototipo/formulario.html', {'resultados': salida,'form': form})
     else:
         form = PostForm()
@@ -31,9 +30,9 @@ def sinonimosDevueltos(palabra):
     for j in range(len(obj['edges'])):
         if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and \
                 obj['edges'][j]['start']['label'] == palabra:
-            arraySalida.append(obj['edges'][j]['end']['label'])
+            arraySalida.append("SINONIMO: "+obj['edges'][j]['end']['label'])
 
         elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and \
                 obj['edges'][j]['start']['label'] == palabra:
-            arraySalida.append(obj['edges'][j]['end']['label'])
+            arraySalida.append("TERMINO RELACIONADO: "+obj['edges'][j]['end']['label'])
     return arraySalida
