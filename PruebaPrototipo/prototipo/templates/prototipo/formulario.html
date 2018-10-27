@@ -8,4 +8,9 @@
 
         <button type="submit" class="save btn btn-default">Enviar</button>
     </form>
+    <p>{{ form.campoPalabra }} </p>
+
+    {% for resultado in resultados %}
+        <p>{{ resultado }} </p>
+    {% endfor %}
 {% endblock %}

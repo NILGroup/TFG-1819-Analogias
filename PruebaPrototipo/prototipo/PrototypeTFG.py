@@ -34,12 +34,26 @@ csvsalida.close()
 csvarchivo = open('entrada1000palabrasAPI.csv',encoding="utf8",errors='ignore')
 entrada = csv.DictReader(csvarchivo,delimiter=";")
 
-for i in entrada:
-    obj = requests.get('http://api.conceptnet.io/c/es/'+i['PALABRA']+'?offset=0&limit=100').json()
+def sinonimosDevueltos(palabra):
+    arraySalida = []
+    obj = requests.get('http://api.conceptnet.io/c/es/'+palabra+'?offset=0&limit=100').json()
     for j in range (len(obj['edges'])):
-        if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and obj['edges'][j]['start']['label'] == i['PALABRA']:
-            print("Palabra a buscar:",i['PALABRA'],'SINÓNIMO:',obj['edges'][j]['end']['label'])
-        elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and obj['edges'][j]['start']['label'] == i['PALABRA']:
-            print("Palabra a buscar:",i['PALABRA'],"TÉRMINO RELACIONADO:", obj['edges'][j]['end']['label'])
+        if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and obj['edges'][j]['start']['label'] == palabra:
+            arraySalida.append(obj['edges'][j]['end']['label'])
+
+        elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and obj['edges'][j]['start']['label'] == palabra:
+            arraySalida.append(obj['edges'][j]['end']['label'])
+    return arraySalida
+
+'''
+    for i in entrada:
+        obj = requests.get('http://api.conceptnet.io/c/es/'+i['PALABRA']+'?offset=0&limit=100').json()
+        for j in range (len(obj['edges'])):
+            if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and obj['edges'][j]['start']['label'] == i['PALABRA']:
+                print("Palabra a buscar:",i['PALABRA'],'SINÓNIMO:',obj['edges'][j]['end']['label'])
+            elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and obj['edges'][j]['start']['label'] == i['PALABRA']:
+                print("Palabra a buscar:",i['PALABRA'],"TÉRMINO RELACIONADO:", obj['edges'][j]['end']['label'])
+
+'''
 
 csvarchivo.close()
