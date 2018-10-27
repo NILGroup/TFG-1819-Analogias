@@ -1,9 +1,9 @@
 from django import forms
 
+from .models import Formulario
 
-
-class PostForm(forms.Form):
+class PostForm(forms.ModelForm):
 
     class Meta:
-
-        fields = ('title', 'text',)
+        model = Formulario
+        fields = ('campoPalabra',)

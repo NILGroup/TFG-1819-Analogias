@@ -1,59 +1,8 @@
-<!--<!DOCTYPE html>
-    {% load static %}
-	<html lang="es">
-	<head>
-		<title>Sinónimos y terminos relacionados</title>
+{% extends 'prototipo/base.html' %}
 
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static '/css/style.css' %}">
-	</head>
+{% block content %}
 
-    <body>
-    {% for prueba in posts %}
-    <div class="prueba">
-
-        <h1>Django Girls Blog</h1>
-    </div>
-    {% endfor %}
-    <form>
-       Introduzca la palabra <input type="text"><br>
-
-        <input type="submit" value="Enviar">
-    </form>
-
-    <textarea rows="4" cols="50">
-
-     </textarea>
-
-    </body>
-</html>-->
-
-{% load static %}
-<html>
-    <head>
-        <title>Django Girls blog</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    </head>
-    <body>
-
-
-
-    <form>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Introduzca la palabra</label>
-        <input type="text" class="form-control" id="exampleInputEmail1">
-      </div>
-
-      <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
-
-
-
-
-    </body>
-</html>
-
+<p>que tal</p>
+<p>{{ palabra.campoPalabra }} </p>
+{% endblock %}
 
