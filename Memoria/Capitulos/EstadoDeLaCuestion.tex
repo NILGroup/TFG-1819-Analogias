@@ -25,11 +25,28 @@ Para definir el concepto de servicio Web de la forma más simple posible, se pod
 
 
 \subsection{Tipos de Servicios Web}
+\label{cap:subsec:serviciosweb}
 
 Los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico, es por ello que mediante este último podemos diferenciar dos tipos distintos de servicio web:
 \begin{itemize}
 	\item Servicios Web RESTful: no tienen estado. Cada petición del cliente al servidor debe contener toda la información necesaria para entender la petición, y no puede aprovecharse de ningún contexto almacenado en el servidor.
 	\item Servicios web SOAP  \textit({Simple Object Access Protocol}): es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos.
+\end{itemize}
+
+\subsection{Arquitectura Servicios Web}
+\label{cap:subsec:serviciosweb}
+	
+
+\subsection{Ventajas  Servicios Web}
+\label{cap:subsec:serviciosweb}
+Estos tienen multitud de ventajas pero las principales son las siguientes:
+\begin{itemize}
+	 \item Permiten la integración “justo-a-tiempo”: El proceso de descubrimiento se ejecuta dinámicamente, a medida que los solicitantes de servicio utilizan a los agentes para encontrar proveedores de servicio. Una vez el solicitante y el proveedor de servicio se han ubicado, se utiliza el documento WSDL del proveedor para enlazar al solicitante con el servicio. Esto significa que los solicitantes, los proveedores y los agentes actúan en conjunto para crear sistemas que son auto-configurables, adaptativos y robustos.
+	\item Reducen la complejidad por medio del encapsulamiento: Los solicitantes y los proveedores del servicio se preocupan por las interfaces necesarias para interactuar. Como resultado, un solicitante de servicio no sabe cómo fue implementado el servicio por parte del proveedor, y éste a su vez, no sabe cómo utiliza el cliente el servicio. Estos detalles se encapsulan en los solicitantes y proveedores. El encapsulamiento es crucial para reducir la complejidad.
+	\item Promueven la interoperabilidad: La interacción entre un proveedor y un solicitante de servicio está diseñada para que sea completamente independiente de la plataforma y el lenguaje. Esta interacción requiere un documento WSDL para definir la interfaz y describir el servicio, junto con un protocolo de red (generalmente HTTP).
+	\item  Dan una “nueva vida” a las aplicaciones de legado: Es relativamente correcto tomar una aplicación, generar un wrapper SOAP, luego generar un documento WSDL para moldear la aplicación como un servicio web.
+	\item Abren la puerta a nuevas oportunidades de negocio: Los servicios web facilitan la interacción con socios de negocios, al poder compartir servicios internos con un alto grado de integración.
+	\item Disminuyen el tiempo de desarrollo de las aplicaciones: Pues gracias a la filosofía de orientación a objetos utilizada, el desarrollo se convierte más bien en una labor de composición.
 \end{itemize}
 
 
