@@ -2,12 +2,14 @@
 
 {% block content %}
 
-    <h1>Nueva palabra</h1>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-
-        <button type="submit" class="save btn btn-default">Enviar</button>
-    </form>
+    <div class="border">
+        <h3>A continuación, introduzca la palabra:</h3>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Enviar</button>
+        </form>
+    </div>
+    <h3>RESULTADOS:</h3>
 
     {% for resultado in resultados %}
         <p>{{ resultado }} </p>

@@ -1,23 +1,25 @@
-h1{
-    color: black;
-}
 
 
 body {
     padding-left: 90px;
+    padding-right: 90px;
 }
 
+h1 {
+    color: white;
+}
 
+h3 {
+    color: orange;
+}
 .page-header {
     background-color: black;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
 
-.prueba {
-    background-color:blue;
-}
+.border{
 
-.hola {
-color: red;
+    border-bottom:2px solid black;
+
 }
