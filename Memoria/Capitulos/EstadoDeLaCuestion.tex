@@ -35,12 +35,16 @@ Los servicios web pueden definirse tanto a nivel conceptual como a nivel técnic
 
 \subsection{Arquitectura Servicios Web}
 \label{cap:subsec:serviciosweb}
-Para que los servicios web funcionen correctamente,hay que implementar distintos "roles", como por ejemplo, el proveedor del servicio es la aplicación que implementa el servicio y lo hace accesible desde Internet. El solicitante, es decir, cualquier cliente que necesite utilizar un servicio web, y por último, el registro y publicación del servicio, el cual se refiere a que debería existir algún repositorio centralizado que nos proporcione información sobre los servicios que tenemos disponibles y cómo se utilizan. A continuación, explicamos más detalladamente las distintas capas que tiene el servicio web:
+Para que los servicios web funcionen correctamente, hay que implementar distintos "roles", como por ejemplo, el proveedor del servicio es
+la aplicación que implementa el servicio y lo hace accesible desde Internet. El soliciante, es decir, cualquier cliente que necesite
+utilizar un servicio web, y por último, el registro y publicación del servicio, el cual se refiere a que debería existir algún
+repositorio centralizado que nos proporcione información sobre los servicios que tenemos disponibles y cómo se utilizan. A continuación,
+explicamos más detalladamente las distintas capas que tiene el servicio web:
 \begin{itemize}
  \item Service Discovery. Es el responsable de centralizar los servicios web en un directorio común de desta forma es mas sencillo buscar y publicar.
- \item Service Description. Como ya hemos comentado con anteriorirdad, los servicios web se pueden definir así mismos, por lo que una vez qque los localicemos nos darán suficiente información para saber que operaciones soporta y como activarlo.
+ \item Service Description. Como ya hemos comentado con anterioridad, los servicios web se pueden definir así mismos, por lo que una vez que los localicemos nos darán suficiente información para saber que operaciones soporta y como activarlo.
  \item Service Invocation. Invocar a un Web Service implica pasar mensajes entre el cliente y el servidor. SOAP  \textit({Simple Object Access Protocol}) especifica cómo deberíamos formatear los mensajes request para el servidor, y cómo el servidor debería formatear sus mensajes de respuesta.
- \item Transport. Todos estos mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP  \textit({(yperText Transfer Protocol)). 
+ \item Transport. Todos estos mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP  \textit({(HyperText Transfer Protocol)}). 
 \end{itemize}
 
 \subsection{Ventajas y Desventajas de los  Servicios Web}
@@ -55,10 +59,11 @@ Estos tienen multitud de ventajas pero las principales son las siguientes:
 	\item Fomentan los estándares y protocolos basados en texto, que hacen más fácil acceder a su contenido y entender su funcionamiento.
 \end{itemize}
 Pero también tiene desventajas, las cuales tenemos que nombrar:
+\begin{itemize}
 	\item Al apoyarse en HTTP, pueden esquivar medidas de seguridad basadas en firewall cuyas reglas tratan de bloquear.
 	\item Existe poca información de servicios web para algunos lenguajes de programación .
 	\item Dependencia de la disponibilidad de servidores y comunicaciones.
-
+\end{itemize}
 \section{Figuras retóricas}
 
  Las figuras literarias(o retóricas) son formas no convencionales de utilizar las palabras, de manera que, aunque se emplean con sus acepciones habituales (a diferencia de lo que ocurre en los tropos), se acompañan de algunas particularidades fónicas, gramaticales o semánticas, que las alejan de ese uso habitual, por lo que terminan por resultar especialmente expresivas. (\textit {Introducción al análisis retórico: tropos, figuras y sintaxis del estilo})\footnote{Azaustre Galiana, Antonio y Juan Casas Rigall, Introducción al análisis retórico: tropos, figuras y sintaxis del estilo, Universidad de Santiago de Compostela, Santiago de Compostela, 1994.}
@@ -89,6 +94,24 @@ En este trabajo vamos a trabajar con tres tipos: Analogía, metáfora y símil.
 Son documentos de todo tipo que siguen las directrices internacionales de la IFLA (International Federation of Library Associations and Institutions) y de Inclusion Europe en cuanto al contenido y la forma.
 
 Está dirigida a colectivos que tengan dificultades lectoras como inmigrantes o personas con trastornos de aprendizaje o problemas cognitivos.
+Algunos ejemplos de estas directrices son:
+\begin{itemize}
+	\item Evitar mayúsculas fuera de la norma, es decir, escribir en mayúsculas sólo cuando toca según las reglas ortográficas
+	\item Limitar el uso de la coma y evitar signos menos usados de puntuación
+	\item Evitar tiempos verbales complejos
+	\item Utilizar oraciones simples
+	\item Utilizar palabras cortas y de sílabas poco complejas
+	\item Incluir imágenes y pictogramas a la izquierda y su texto vinculado a la derecha
+	\item Utilizar uno o dos tipos de letra como mucho
+	\item Tamaño de letra entre 12 y 16 puntos
+	\item Evitar frases superiores a 60 caracteres
+	\item Transmitir una idea por línea y cada línea se rompe en un punto natural del discurso
+	\item Alineación a la izquierda
+	\item Evitar la saturación de texto e imágenes
+	\item Incluir el logo de lectura fácil para que se reconozca este tipo de obras. 
+	\item Si el documento está paginado, incluir la paginación claramente y reforzar el mensaje de que la información continúa en la página siguiente.
+	(\textit {Lectura fácil: Métodos de redacción y evaluación.  Óscar García Muñoz.})	
+\end{itemize}
 
 \section{ConceptNet} 
 
