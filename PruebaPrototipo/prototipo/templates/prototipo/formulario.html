@@ -4,14 +4,29 @@
 
     <div class="border">
         <h3>A continuación, introduzca la palabra:</h3>
-        <form method="POST" class="post-form">{% csrf_token %}
+        <form method="POST" class="post-form" >{% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="save btn btn-default">Enviar</button>
+            <button type="submit" class="save btn btn-default" name="boton-principal">Enviar</button>
         </form>
     </div>
+
+
+    <form   method="POST" class="post-form">{% csrf_token %}
+
+       <button type="submit" class="save btn btn-default" name="boton-RAE">Mostrar sinonimos RAE</button>
+
+        </form>
+
+
+
     <h3>RESULTADOS:</h3>
 
     {% for resultado in resultados %}
         <p>{{ resultado }} </p>
     {% endfor %}
+
+    {% for resultado in todosSinonimos %}
+        <p>{{ resultado }} </p>
+    {% endfor %}
+
 {% endblock %}
