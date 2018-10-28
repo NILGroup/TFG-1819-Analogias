@@ -20,11 +20,11 @@ def index(request):
                     form.save()
                     resultado = form['campoPalabra'].value()
                     salida = sinonimosDevueltos(resultado)
-                    return render(request, 'prototipo/formulario.html', {'resultados': salida,'form': form})
+                    return render(request, 'prototipo/formulario.html', {'resultados': salida, 'form': form})
 
             elif 'boton-RAE' in request.POST:
                 todosSinonimos = sinonimosPalabrasRAE()
-                return render(request, 'prototipo/formulario.html', {'todosSinonimos' : todosSinonimos})
+                return render(request, 'prototipo/formulario.html', {'todosSinonimos': todosSinonimos})
 
         else:
             form = PostForm()
@@ -53,8 +53,12 @@ def sinonimosDevueltos(palabra):
 
 
 def sinonimosPalabrasRAE():
+    import os
 
-    csvarchivo = open('/Users/IRENE/git/TFG-1819-Analogias/PruebaPrototipo/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    #csvarchivo = open('/Users/IRENE/git/TFG-1819-Analogias/PruebaPrototipo/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+    #csvarchivo = open('C:/Users/Pablo/Documents/GitHub/TFG-1819-Analogias/PruebaPrototipo/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR+'/prototipo/entrada1000palabrasAPI.csv',encoding="utf8", errors='ignore')
     entrada = csv.DictReader(csvarchivo, delimiter=";")
     arraySalida = []
     for i in entrada:
