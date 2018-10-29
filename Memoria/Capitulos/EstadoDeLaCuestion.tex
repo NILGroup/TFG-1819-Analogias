@@ -91,10 +91,10 @@ En este trabajo vamos a trabajar con tres tipos de figuras retóricas: Analogía
 
 \section{Lectura Fácil}
 
-// por que era de lectura facil
+
 La lectura fácil surgió en Suecia. En 1968 se editó el primer libro en la Agencia de Educación en el marco de un proyecto experimental. A continuación, en 1976 se creó en el Ministerio de Justicia un grupo de trabajo para conseguir textos legales más claros.
 
-La rama de educación, comenzó en 1984 la edición de un libro llamado  "8 Sidor", que tres años más tarde,en 1987, se publica de forma permanente en papel hasta que empezó a editarse en la web. Este mismo año la Fundación Lectura Fácil asume la publicación del semanario y de los libros escritos en lectura fácil.
+El Ministerio de Educación comenzó en 1984 la edición de un libro llamado  "8 Sidor", que tres años más tarde,en 1987, se publica de forma permanente en papel hasta que empezó a editarse en la web. Este mismo año la Fundación Lectura Fácil asume la publicación del semanario y de los libros escritos en lectura fácil.
 
 
 \footnote{https://dilofacil.wordpress.com/2013/12/04/el-origen-de-la-lectura-facil/}
@@ -121,8 +121,35 @@ Algunos ejemplos de como se debe de escribir un texto en Lectura Fácil son:
 	(\textit {Lectura fácil: Métodos de redacción y evaluación.  Óscar García Muñoz.})	
 \end{itemize}
 
+A continuación vamos a hablar del lenguaje natural, y de que relación tiene con la lectura fácil:
+
+El lenguaje natural es la forma en la que los humanos nos comunicamos día a día ya sea de forma escrita u oral
+\footnote{https://sistemas.com/lenguaje-natural.php/}
+
+Actualmente, el Procesamiento del lenguaje natural, que es un campo de la Inteligencia Artificial que investiga la manera de comunicar a las máquinas con el ser humano, se está aplicando a la lectura fácil. Por ejemplo, el proyecto "Simplext" desarrollado por una empresa de la Fundación ONCE que tiene como objetivo conseguir un adaptador automático de texto normal a texto en lectural fácil
+\footnote{http://www.iic.uam.es/inteligencia/que-es-procesamiento-del-lenguaje-natural/}
+\footnote{https://dilofacil.wordpress.com/2013/11/07/procesamiento-del-lenguaje-natural-el-futuro-para-la-lectura-facil/}
+\footnote{https://www.fundaciononce.es/es/noticia/el-proyecto-simplext-de-technosite-finalista-de-los-premios-bdigital-la-innovacion/}
+
+
 \section{ConceptNet} 
 
 Es una red semántica diseñada para ayudar a los ordenadores a entender los significados de las palabras utilizadas por la gente lanzada por el MIT en 1999.
 Tiene un buscador de palabras en el que al introducir una palabra, se selecciona el idioma y devuelve sinónimos y términos relacionados.
+\footnote{http://conceptnet.io/}
 
+Por ejemplo, si introducimos la palabra "dinero", especificando que el lenguaje en el que está dicha palabra, en ese caso español, ConceptNet te devuelve como sinónimos:
+\begin{itemize}
+	\item lana
+	\item pasta
+	\item billete
+	\item plata
+\end{itemize}
+y como términos relacionados:
+\begin{itemize}
+	\item dineral
+	\item moneda
+\end{itemize}
+Entre otros, también te devuelve tanto sinónimos como términos relacionados en otros idiomas, pero nosotros solo nos centraremos en los que estén en castellano.
+
+Dispone de una API \textit({http://api.conceptnet.io/}) que devuelve los datos en formato JSON, que utilizaremos para obtener los términos relacionados y sinónimos que necesitamos.
