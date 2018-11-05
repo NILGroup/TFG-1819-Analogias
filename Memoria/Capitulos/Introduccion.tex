@@ -3,28 +3,43 @@
 
 \chapterquote{Frase célebre dicha por alguien inteligente}{Autor}
 
-En nuestra sociedad actual, existen ciertos colectivos como pueden ser personas con algún tipo de trastorno cognitivo, inmigrantes, ancianos,  analfabetos funcionales, niños, etc... que tienen dificultad para aprender conceptos complejos o no tan complejos. Para ellos, esto supone una serie de limitaciones en su vida cotidiana, en la forma de relacionarse con otros individuos, en su vida profesional e incluso su vida personal.
+\begin{resumen}
+	En el capítulo 1 vamos a realizar una introducción a nuestro TFG. Dicha introducción la dividiremos en varias secciones. En el apartado 1.1 hablaremos de la razón de ser nuestro trabajo y en el 1.2 de los objetivos que queremos alcanzar con el mismo
+	
+	
+\end{resumen}
 
-Para ayudar a estas personas a que puedan entender el significado de cualquier palabra, y de esta forma superar algunas de sus limitaciones, vamos a desarrollar una aplicación que permita definir palabras complejas mediante comparaciones con otras palabras más fáciles ya conocidas por los usuarios. 
 
 \section{Motivación}
-Crearemos una serie de servicios Web para describir un concepto más o menos complejo, a partir de comparaciones con otros conceptos más sencillos. Crearemos una aplicación que se apoye en dichos Servicios Web donde el usuario podrá buscar cualquier palabra, y obtendrá una descripción lo más sencilla posible. Por ejemplo, si buscamos la palabra piraña, la aplicación devolverá la siguiente descripción:  \textit{Nada como un pez, es pequeño como un ratón y es agresivo como un león}. De esta manera, cualquier persona que no sepa lo que es una piraña, puede hacerse una idea de como es dicho animal y asimilar el nuevo concepto. Además, utilizaremos técnicas centradas en el usuario para diseñar una interfaz lo más usable posible y que así el usuario tenga una experiencia satisfactoria utilizando nuestra aplicación.
+\label{cap:sec:motivacion}
+En nuestra sociedad actual, existen ciertos colectivos como pueden ser personas con algún tipo de trastorno cognitivo, inmigrantes, ancianos, analfabetos funcionales, niños, etc... que tienen dificultad para aprender conceptos complejos o no tan complejos. Para ellos, esto supone una serie de limitaciones en su vida cotidiana, en la forma de relacionarse con otros individuos, en su vida profesional e incluso su vida personal.
+
+Para ayudar a estas personas a que puedan entender el significado de cualquier palabra, y de esta forma superar algunas de sus limitaciones, vamos a desarrollar una aplicación que permita definir palabras complejas mediante comparaciones con otras más fáciles ya conocidas por los usuarios. 
 
 \section{Objetivos}
-Ambos autores de dicho documento nos fijamos una serie de objetivos que esperemos queden reflejados con total claridad tanto en la aplicación como en la documentación aquí presente. Por un lado, nuestros objetivos respecto al trabajo es implementar un servicio web  que se encuentre al alcance de todas aquellas personas que lo necesiten, que puedan sentir que es realmente útil por que obtienen resultados satisfactorios. Para que todo ello ocurra, los objetivos principales a alcanzar son:
+\label{cap:sec:objetivos}
+Nuestro objetivo final es crear una aplicación que dada una palabra compleja, genere símiles, analogías o metáforas que expliquen dicha palabra utilizando conceptos más simples, preferiblemente que estén entre las 1000 palabras más utilizadas de la RAE.
+La aplicación se apoyará en varios servicios web donde el usuario podrá buscar cualquier palabra, y obtendrá una descripción lo más sencilla posible. Por ejemplo, si buscamos la palabra piraña, la aplicación devolverá la siguiente descripción:  \textit{Nada como un pez, es pequeño como un ratón y es agresivo como un león}. De esta manera, cualquier persona que no sepa lo que es una piraña, puede hacerse una idea de como es dicho animal y asimilar el nuevo concepto. Además, utilizaremos técnicas centradas en el usuario para diseñar una interfaz lo más usable posible y que así el usuario tenga una experiencia de uso satisfactoria.
+
+Por otra parte, queremos que nuestro producto se encuentre al alcance de todas aquellas personas que lo necesiten, que puedan sentir que es realmente útil porque obtienen resultados satisfactorios. Para que todo ello ocurra, los objetivos principales a alcanzar son:
 \begin{itemize}
-	\item Desarrollar un servicio web que este al alcance de todos los usuarios.	
-	\item Aplicaciones: Nuestro proyecto está enfocado para ser utilizado por personas con algún tipo de dificultad de aprendizaje para la mejora de la comprensión de palabras complejas.
-	\item Un diseño de Interfaz que cumpla con las Ocho Reglas de Oro, es decir:
+	\item Desarrollar una aplicación que esté al alcance de todos los usuarios.	
+	\item Aplicaciones del proyecto: Estará enfocado en ser utilizado por personas con algún tipo de dificultad de aprendizaje para la mejora de la comprensión de palabras complejas
+	\item Desarrollar servicios web que puedan ser utilizados por cualquier programador
+	\item Construir la aplicación de manera incremental, añadiéndole valor poco a poco
+	\item Construir una aplicación que esté entrada en el usuario, que solucione sus problemas de manera usable
+	\item Realizar un producto que sea eficiente
+	\item Que la aplicación cumpla con unos estándares de calidad
+	\item Un diseño de Interfaz que cumpla con las Ocho Reglas de Oro del diseño de interfaces:
 	\begin{itemize} 
-		\item Consistencia
-		\item Usabilidad Universal
-		\item Retroalimentación activa
-		\item Diálogos para conducir la finalización
-		\item Prevención de errores
-		\item Deshacer acciones fácilmente
-		\item Sensación de control
-		\item Reducir la carga de memoria a corto plazo
+		\item Consistencia: La funcionalidad de la interfaz sea similar a otras aplicaciones que el usuario utiliza normalmente.
+		\item Usabilidad Universal: Cualquier usuario sea capaz de utilizar nuestra aplicación.
+		\item Retroalimentación activa: Informar al usuario de cada acción que realiza.
+		\item Diálogos para conducir la finalización: El usuario sepa en que etapa está cuando quiere realizar una acción que requiera varios pasos.
+		\item Prevención de errores: Diseñar la interfaz para que el usuario cometa el mínimos de errores posibles.
+		\item Deshacer acciones fácilmente: Cualquier acción pueda ser deshecha
+		\item Sensación de control: Dar al usuario la sensación de que tiene el control en todo momento de la aplicación.
+		\item Reducir la carga de memoria a corto plazo: Minimizar la cantidad de elementos que tiene que memorizar el usuario.
 	\end{itemize}
 \end{itemize}
-Y no nos tenemos que olvidar de los objetivos académicos. Pondremos en práctica los conocimientos adquiridos durante los años de duración del Grado como el uso del lenguaje Python o el maquetado web mediante html y css así como el uso de Bootstrap, además de ampliar nuestros conocimientos en base a herramientas nuevas utilizadas, como el Pycharm, que es el entorno de desarrollo que utilizaremos para la codificación del proyecto.
+Y no nos tenemos que olvidar de los objetivos académicos. Poner en práctica los conocimientos adquiridos durante el Grado, y ampliar nuestros conocimientos gracias a la utilización de herramientas, lenguajes y metodologías nuevas.
