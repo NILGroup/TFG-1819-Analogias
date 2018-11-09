@@ -77,55 +77,68 @@ def terminosRelacionadosDevueltos(palabra):
 
 
 
-#Servicio Web 3
 
+#Servicio Web 3
 def consultaSinonimosYterminos(palabra):
 
-
-    arrayContenidoDevuelto = []
-    arrayContenidoDevuelto = sinonimosDevueltos(palabra)
-
-    arraySinonimosFinal = []
-    encontrado = False
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
-    archivo = csv.DictReader(csvarchivo, delimiter=";")
 
+    arrayconsultaSinonimo = []
+    arrayConsultaTermino = []
+
+
+    arrayconsultaSinonimo = consultaSinonimo(palabra, csvarchivo)
+
+    if len(arrayconsultaSinonimo) == 0:
+        arrayConsultaTermino = consultaTerminos(palabra, csvarchivo)
+
+
+    if len(arrayconsultaSinonimo) > 0:
+        return arrayconsultaSinonimo
+    elif len(arrayConsultaTermino) > 0:
+        return arrayConsultaTermino
+
+
+
+
+def consultaSinonimo(palabra, csvarchivo):
+
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+    arrayContenidoDevuelto = []
+    arrayContenidoDevuelto = sinonimosDevueltos(palabra)
+    arraySinonimosFinal = []
+    encontradoSinonimo = False
 
     for i in range(len(arrayContenidoDevuelto)):
+        csvarchivo.seek(0)
         for j in archivo:
-            if arrayContenidoDevuelto[i] == "SINONIMO: "+j['PALABRA']:
-                arraySinonimosFinal.append(j['PALABRA'])
-                encontrado = True
+            if arrayContenidoDevuelto[i] == "SINONIMO: " + j['PALABRA']:
+                arraySinonimosFinal.append("SINONIMO: " + j['PALABRA'])
+                encontradoSinonimo = True
 
 
-    print(arraySinonimosFinal)
     return arraySinonimosFinal
 
 
 
 
+def consultaTerminos(palabra, csvarchivo):
 
-'''
-def sinonimosPalabrasRAE():
-    import os
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
 
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    #csvarchivo = open('/Users/IRENE/git/TFG-1819-Analogias/PruebaPrototipo/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
-    #csvarchivo = open('C:/Users/Pablo/Documents/GitHub/TFG-1819-Analogias/PruebaPrototipo/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
-    csvarchivo = open(BASE_DIR+'/prototipo/entrada1000palabrasAPI.csv',encoding="utf8", errors='ignore')
-    entrada = csv.DictReader(csvarchivo, delimiter=";")
-    arraySalida = []
-    for i in entrada:
-        obj = requests.get('http://api.conceptnet.io/c/es/' + i['PALABRA'] + '?offset=0&limit=100').json()
-        for j in range(len(obj['edges'])):
-            if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and \
-                    obj['edges'][j]['start']['label'] == i['PALABRA']:
-                arraySalida.append( "Palabra a buscar:" + i['PALABRA'] + "SINONIMO:" + obj['edges'][j]['end']['label'])
-            elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and \
-                    obj['edges'][j]['start']['label'] == i['PALABRA']:
-                arraySalida.append("Palabra a buscar:" + i['PALABRA'] + "TÉRMINO RELACIONADO:" + obj['edges'][j]['end']['label'])
+    arrayContenidoDevuelto = []
+    arrayContenidoDevuelto = terminosRelacionadosDevueltos(palabra)
+    arrayTerminosFinal = []
+    encontradoTermino = False
 
-    csvarchivo.close()
-    return arraySalida
-'''
+    for i in range(len(arrayContenidoDevuelto)):
+        csvarchivo.seek(0)
+        for j in archivo:
+            if arrayContenidoDevuelto[i] == "TERMINO RELACIONADO: " + j['PALABRA']:
+                arrayTerminosFinal.append("TERMINO RELACIONADO: " + j['PALABRA'])
+                encontradoTermino = True
+
+    return arrayTerminosFinal
+
+

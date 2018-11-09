@@ -73,3 +73,30 @@ for i in range(len(arrayContenidoDevuelto)):
 
 for i in range(len(arraySinonimosFinal)):
     print(arraySinonimosFinal[i])
+
+
+
+    #####   DEVUELVE TODOS LOS SINONIMOS Y TERMINOS RELACIONADOS DE LAS 1000 PALABRAS DE LA RAE
+    '''
+    def sinonimosPalabrasRAE():
+        import os
+
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        #csvarchivo = open('/Users/IRENE/git/TFG-1819-Analogias/PruebaPrototipo/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+        #csvarchivo = open('C:/Users/Pablo/Documents/GitHub/TFG-1819-Analogias/PruebaPrototipo/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+        csvarchivo = open(BASE_DIR+'/prototipo/entrada1000palabrasAPI.csv',encoding="utf8", errors='ignore')
+        entrada = csv.DictReader(csvarchivo, delimiter=";")
+        arraySalida = []
+        for i in entrada:
+            obj = requests.get('http://api.conceptnet.io/c/es/' + i['PALABRA'] + '?offset=0&limit=100').json()
+            for j in range(len(obj['edges'])):
+                if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and \
+                        obj['edges'][j]['start']['label'] == i['PALABRA']:
+                    arraySalida.append( "Palabra a buscar:" + i['PALABRA'] + "SINONIMO:" + obj['edges'][j]['end']['label'])
+                elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and \
+                        obj['edges'][j]['start']['label'] == i['PALABRA']:
+                    arraySalida.append("Palabra a buscar:" + i['PALABRA'] + "TÉRMINO RELACIONADO:" + obj['edges'][j]['end']['label'])
+
+        csvarchivo.close()
+        return arraySalida
+    '''

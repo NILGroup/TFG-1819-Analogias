@@ -8,6 +8,12 @@
             {{ form.as_p }}
             <button type="submit" class="save btn btn-default" name="boton-sinonimos">Enviar</button>
         </form>
+
+
+        <h3>RESULTADOS:</h3>
+         {% for resultado_sinonimos in resultadosSinonimos %}
+            <p>{{ resultado_sinonimos }} </p>
+         {% endfor %}
     </div>
 
 
@@ -18,33 +24,30 @@
             {{ form_term.as_p }}
             <button type="submit" class="save btn btn-default" name="boton-terminos">Enviar</button>
         </form>
+
+
+        <h3>RESULTADOS:</h3>
+
+         {% for resultado_term in resultadosTerminos %}
+            <p>{{ resultado_term }} </p>
+         {% endfor %}
     </div>
 
 
+
     <div class="border">
-        <h3>A continuación, introduzca la palabra para obtener todo:</h3>
+        <h3>A continuación, introduzca la palabra para obtener la palabra fácil:</h3>
         <form method="POST" class="post-form" >{% csrf_token %}
             {{ form_final.as_p }}
             <button type="submit" class="save btn btn-default" name="boton-final">Enviar</button>
         </form>
-    </div>
 
 
+        <h3>RESULTADOS:</h3>
 
-
-    <h3>RESULTADOS:</h3>
-
-    {% for resultado_sinonimos in resultadosSinonimos %}
-        <p>{{ resultado_sinonimos }} </p>
-    {% endfor %}
-
-     {% for resultado_term in resultadosTerminos %}
-        <p>{{ resultado_term }} </p>
-     {% endfor %}
-
-     {% for resultado_final in resultadosFinal %}
-        <p>{{ resultado_final }} </p>
-     {% endfor %}
-
+         {% for resultado_final in resultadosFinal %}
+            <p>{{ resultado_final }} </p>
+         {% endfor %}
+     </div>
 
 {% endblock %}
