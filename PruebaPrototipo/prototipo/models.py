@@ -13,3 +13,9 @@ class FormularioTerminos(models.Model):
 
     Palabra = models.CharField(max_length=200)
     ordering = ('Palabra',)
+
+
+class FormularioFinal(models.Model):
+
+    Word = models.CharField(max_length=200)
+    ordering = ('Word',)

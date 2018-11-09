@@ -31,7 +31,7 @@ for i in range(len(data)):
 csvarchivo.close()
 csvsalida.close()
 '''
-
+'''
 csvarchivo = open('entrada1000palabrasAPI.csv',encoding="utf8",errors='ignore')
 entrada = csv.DictReader(csvarchivo,delimiter=";")
 
@@ -53,3 +53,23 @@ print('SINONIMOS: ', contSinonimos)
 print('TERMINOS RELACIONADOS: ', contRel)
 
 csvarchivo.close()
+'''
+import os
+arrayContenidoDevuelto = []
+arrayContenidoDevuelto = ["madrid"]
+
+arraySinonimosFinal = []
+encontrado = False
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+for i in range(len(arrayContenidoDevuelto)):
+    for j in archivo:
+        if arrayContenidoDevuelto[i] == j['PALABRA']:
+            arraySinonimosFinal.append(j['PALABRA'])
+            encontrado = True
+
+
+for i in range(len(arraySinonimosFinal)):
+    print(arraySinonimosFinal[i])

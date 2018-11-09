@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Formulario, FormularioTerminos
+from .models import Formulario, FormularioTerminos, FormularioFinal
 
 class PostForm(forms.ModelForm):
 
@@ -21,3 +21,13 @@ class PostFormTerminos(forms.ModelForm):
 
         def __str__(self):
             return self.Palabra
+
+
+class PostFormFinal(forms.ModelForm):
+
+    class Meta:
+        model = FormularioFinal
+        fields = ('Word',)
+
+        def __str__(self):
+            return self.Word

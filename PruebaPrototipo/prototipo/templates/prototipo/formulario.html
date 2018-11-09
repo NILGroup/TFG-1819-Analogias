@@ -21,11 +21,14 @@
     </div>
 
 
-    <!--<form   method="POST" class="post-form">{% csrf_token %}
+    <div class="border">
+        <h3>A continuación, introduzca la palabra para obtener todo:</h3>
+        <form method="POST" class="post-form" >{% csrf_token %}
+            {{ form_final.as_p }}
+            <button type="submit" class="save btn btn-default" name="boton-final">Enviar</button>
+        </form>
+    </div>
 
-       <button type="submit" class="save btn btn-default" name="boton-RAE">Mostrar sinonimos RAE</button>
-
-        </form>-->
 
 
 
@@ -38,5 +41,10 @@
      {% for resultado_term in resultadosTerminos %}
         <p>{{ resultado_term }} </p>
      {% endfor %}
+
+     {% for resultado_final in resultadosFinal %}
+        <p>{{ resultado_final }} </p>
+     {% endfor %}
+
 
 {% endblock %}
