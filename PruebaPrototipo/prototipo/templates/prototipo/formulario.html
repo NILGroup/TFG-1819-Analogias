@@ -3,30 +3,40 @@
 {% block content %}
 
     <div class="border">
-        <h3>A continuación, introduzca la palabra:</h3>
+        <h3>A continuación, introduzca la palabra para obtener sus sinónimos:</h3>
         <form method="POST" class="post-form" >{% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="save btn btn-default" name="boton-principal">Enviar</button>
+            <button type="submit" class="save btn btn-default" name="boton-sinonimos">Enviar</button>
         </form>
     </div>
 
 
-    <form   method="POST" class="post-form">{% csrf_token %}
+
+    <div class="border">
+        <h3>A continuación, introduzca la palabra para obtener sus terminos relacionados:</h3>
+        <form method="POST" class="post-form" >{% csrf_token %}
+            {{ form_term.as_p }}
+            <button type="submit" class="save btn btn-default" name="boton-terminos">Enviar</button>
+        </form>
+    </div>
+
+
+    <!--<form   method="POST" class="post-form">{% csrf_token %}
 
        <button type="submit" class="save btn btn-default" name="boton-RAE">Mostrar sinonimos RAE</button>
 
-        </form>
+        </form>-->
 
 
 
     <h3>RESULTADOS:</h3>
 
-    {% for resultado in resultados %}
-        <p>{{ resultado }} </p>
+    {% for resultado_sinonimos in resultadosSinonimos %}
+        <p>{{ resultado_sinonimos }} </p>
     {% endfor %}
 
-    {% for resultado in todosSinonimos %}
-        <p>{{ resultado }} </p>
-    {% endfor %}
+     {% for resultado_term in resultadosTerminos %}
+        <p>{{ resultado_term }} </p>
+     {% endfor %}
 
 {% endblock %}
