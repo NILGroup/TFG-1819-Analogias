@@ -12,41 +12,39 @@ from .models import Formulario
 
 
 def index(request):
+    form_sinonimos = PostForm()
+    form_terminos = PostFormTerminos()
+    form_final = PostFormFinal()
 
-        if request.method == "POST":
-            form_sinonimos = PostForm(request.POST)
-            form_terminos = PostFormTerminos(request.POST)
-            form_final = PostFormFinal(request.POST)
+    if request.method == "POST":
+        form_sinonimos = PostForm(request.POST)
+        form_terminos = PostFormTerminos(request.POST)
+        form_final = PostFormFinal(request.POST)
 
-            if 'boton-sinonimos' in request.POST:
-                if form_sinonimos.is_valid():
-                    form_sinonimos.save()
-                    resultado = form_sinonimos['campoPalabra'].value()
-                    salida_sinonimos = sinonimosDevueltos(resultado)
-                    return render(request, 'prototipo/formulario.html', {'resultadosSinonimos': salida_sinonimos, 'form_term ': form_terminos, 'form': form_sinonimos})
+        if 'boton-sinonimos' in request.POST:
+            if form_sinonimos.is_valid():
+                form_sinonimos.save()
+                resultado = form_sinonimos['campoPalabra'].value()
+                salida_sinonimos = sinonimosDevueltos(resultado)
+                return render(request, 'prototipo/formulario.html', {'resultadosSinonimos': salida_sinonimos, 'form_term': form_terminos, 'form': form_sinonimos, 'form_final': form_final})
 
-            elif 'boton-terminos' in request.POST:
-                if form_terminos.is_valid():
-                    form_terminos.save()
-                    resultado = form_terminos['Palabra'].value()
-                    salida_terminos = terminosRelacionadosDevueltos(resultado)
-                    return render(request, 'prototipo/formulario.html', {'resultadosTerminos': salida_terminos, 'form_term': form_terminos, 'form': form_sinonimos})
+        elif 'boton-terminos' in request.POST:
+            if form_terminos.is_valid():
+                form_terminos.save()
+                resultado = form_terminos['Palabra'].value()
+                salida_terminos = terminosRelacionadosDevueltos(resultado)
+                return render(request, 'prototipo/formulario.html', {'resultadosTerminos': salida_terminos, 'form_term': form_terminos, 'form': form_sinonimos, 'form_final': form_final})
 
-            elif 'boton-final' in request.POST:
-                if form_final.is_valid():
-                    form_final.save()
-                    resultado = form_final['Word'].value()
-                    #print(resultado)
-                    salida_final = consultaSinonimosYterminos(resultado)
-                   # print(salida_final)
-                    return render(request, 'prototipo/formulario.html', {'resultadosFinal': salida_final, 'form_final': form_final})
-        else:
-            form_sinonimos = PostForm()
-            form_term = PostFormTerminos()
-            form_final = PostFormFinal()
+        elif 'boton-final' in request.POST:
+            if form_final.is_valid():
+                form_final.save()
+                resultado = form_final['Word'].value()
+                #print(resultado)
+                salida_final = consultaSinonimosYterminos(resultado)
+               # print(salida_final)
+                return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final})
 
-
-        return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_term, 'form_final' : form_final})
+    return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'form_final': form_final})
 
 
 
@@ -105,7 +103,7 @@ def consultaSinonimosYterminos(palabra):
 def consultaSinonimo(palabra, csvarchivo):
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
-    arrayContenidoDevuelto = []
+
     arrayContenidoDevuelto = sinonimosDevueltos(palabra)
     arraySinonimosFinal = []
     encontradoSinonimo = False
@@ -113,6 +111,8 @@ def consultaSinonimo(palabra, csvarchivo):
     for i in range(len(arrayContenidoDevuelto)):
         csvarchivo.seek(0)
         for j in archivo:
+            if encontradoSinonimo == True:
+                break
             if arrayContenidoDevuelto[i] == "SINONIMO: " + j['PALABRA']:
                 arraySinonimosFinal.append("SINONIMO: " + j['PALABRA'])
                 encontradoSinonimo = True
@@ -127,13 +127,14 @@ def consultaTerminos(palabra, csvarchivo):
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
-    arrayContenidoDevuelto = []
     arrayContenidoDevuelto = terminosRelacionadosDevueltos(palabra)
     arrayTerminosFinal = []
     encontradoTermino = False
 
     for i in range(len(arrayContenidoDevuelto)):
         csvarchivo.seek(0)
+        if encontradoTermino == True:
+            break
         for j in archivo:
             if arrayContenidoDevuelto[i] == "TERMINO RELACIONADO: " + j['PALABRA']:
                 arrayTerminosFinal.append("TERMINO RELACIONADO: " + j['PALABRA'])

@@ -76,6 +76,9 @@ for i in range(len(arraySinonimosFinal)):
 
 
 
+
+
+
     #####   DEVUELVE TODOS LOS SINONIMOS Y TERMINOS RELACIONADOS DE LAS 1000 PALABRAS DE LA RAE
     '''
     def sinonimosPalabrasRAE():
