@@ -53,7 +53,7 @@ print('SINONIMOS: ', contSinonimos)
 print('TERMINOS RELACIONADOS: ', contRel)
 
 csvarchivo.close()
-'''
+
 import os
 arrayContenidoDevuelto = []
 arrayContenidoDevuelto = ["madrid"]
@@ -80,7 +80,7 @@ for i in range(len(arraySinonimosFinal)):
 
 
     #####   DEVUELVE TODOS LOS SINONIMOS Y TERMINOS RELACIONADOS DE LAS 1000 PALABRAS DE LA RAE
-    '''
+
     def sinonimosPalabrasRAE():
         import os
 
@@ -103,3 +103,8 @@ for i in range(len(arraySinonimosFinal)):
         csvarchivo.close()
         return arraySalida
     '''
+palabra = "gato"
+obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
+for i in range (len(obj['edges'])):
+    if obj['edges'][i]['rel']['label'] == 'Synonym':
+        print(obj['edges'][i])

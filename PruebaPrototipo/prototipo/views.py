@@ -57,6 +57,10 @@ def sinonimosDevueltos(palabra):
         if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and \
                 obj['edges'][j]['start']['label'] == palabra:
             arraySalida.append("SINONIMO: "+obj['edges'][j]['end']['label'])
+        elif obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['start']['language'] == 'es' and \
+                obj['edges'][j]['end']['label'] == palabra:
+            arraySalida.append("SINONIMO con n: " + obj['edges'][j]['start']['label'])
+
 
 
     return arraySalida
@@ -71,6 +75,9 @@ def terminosRelacionadosDevueltos(palabra):
         if obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and \
                 obj['edges'][j]['start']['label'] == palabra:
             arraySalida.append("TERMINO RELACIONADO: " + obj['edges'][j]['end']['label'])
+        elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['start']['language'] == 'es' and \
+                obj['edges'][j]['end']['label'] == palabra:
+            arraySalida.append("TERMINO RELACIONADO con n: " + obj['edges'][j]['start']['label'])
     return arraySalida
 
 
