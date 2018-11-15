@@ -36,9 +36,10 @@ class PostFormFinal(forms.ModelForm):
         super(PostFormFinal, self).__init__(*args, **kwargs)
         self.fields['Word'].required = False
 
+
     class Meta:
         model = FormularioFinal
-        fields = ('Word',)
+        fields = ('Word', 'Depth',)
 
         def __str__(self):
             return self.Word

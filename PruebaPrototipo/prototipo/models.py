@@ -18,4 +18,5 @@ class FormularioTerminos(models.Model):
 class FormularioFinal(models.Model):
 
     Word = models.CharField(max_length=200)
-    ordering = ('Word',)
+    Depth = models.IntegerField(default=1)
+    ordering = ('Word', 'Depth')

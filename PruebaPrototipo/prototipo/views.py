@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from collections import defaultdict
 import requests
 import csv
 import os
@@ -39,8 +40,8 @@ def index(request):
             if form_final.is_valid():
                 form_final.save()
                 resultado = form_final['Word'].value()
-                #print(resultado)
-                salida_final = consultaSinonimosYterminos(resultado)
+                profundidad = form_final['Depth'].value()
+                salida_final = consultaSinonimosYterminos(resultado, profundidad)
                # print(salida_final)
                 return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final})
 
@@ -51,77 +52,79 @@ def index(request):
 #Servicio Web 1 que devuelve los sinonimos
 def sinonimosDevueltos(palabra):
 
-    arraySalida = []
+    conjuntoSalida = set()
     obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
     for j in range(len(obj['edges'])):
         if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and \
                 obj['edges'][j]['start']['label'] == palabra:
-            arraySalida.append("SINONIMO: "+obj['edges'][j]['end']['label'])
+            conjuntoSalida.add(obj['edges'][j]['end']['label'])
         elif obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['start']['language'] == 'es' and \
                 obj['edges'][j]['end']['label'] == palabra:
-            arraySalida.append("SINONIMO con n: " + obj['edges'][j]['start']['label'])
+            conjuntoSalida.add(obj['edges'][j]['start']['label'])
 
-
-
-    return arraySalida
+    return conjuntoSalida
 
 
 #Servicio Web 2 que devuelve los terminos relacionados
 def terminosRelacionadosDevueltos(palabra):
 
-    arraySalida = []
+    conjuntoSalida = set()
     obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
     for j in range(len(obj['edges'])):
         if obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and \
                 obj['edges'][j]['start']['label'] == palabra:
-            arraySalida.append("TERMINO RELACIONADO: " + obj['edges'][j]['end']['label'])
+            conjuntoSalida.add(obj['edges'][j]['end']['label'])
         elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['start']['language'] == 'es' and \
                 obj['edges'][j]['end']['label'] == palabra:
-            arraySalida.append("TERMINO RELACIONADO con n: " + obj['edges'][j]['start']['label'])
-    return arraySalida
+            conjuntoSalida.add(obj['edges'][j]['start']['label'])
+    return conjuntoSalida
 
 
 
 
 #Servicio Web 3
-def consultaSinonimosYterminos(palabra):
-
+def consultaSinonimosYterminos(palabra, profundidad):
+    print(profundidad)
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
 
     arrayconsultaSinonimo = []
     arrayConsultaTermino = []
+    contadorProfundidad = 0
 
+    #for i in range(profundidad):
+        #profundidad+=1
 
     arrayconsultaSinonimo = consultaSinonimo(palabra, csvarchivo)
 
-    if len(arrayconsultaSinonimo) == 0:
-        arrayConsultaTermino = consultaTerminos(palabra, csvarchivo)
-
-
+    arrayConsultaTermino = consultaTerminos(palabra, csvarchivo)
+    return arrayConsultaTermino, arrayconsultaSinonimo
+'''
     if len(arrayconsultaSinonimo) > 0:
         return arrayconsultaSinonimo
     elif len(arrayConsultaTermino) > 0:
-        return arrayConsultaTermino
+    '''
 
 
 
 
+#consulta los sinónimos devueltos de conceptnet con el csv
 def consultaSinonimo(palabra, csvarchivo):
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
-    arrayContenidoDevuelto = sinonimosDevueltos(palabra)
+    #devuelve las palabras de conceptnet
+    conjuntoContenidoDevuelto = sinonimosDevueltos(palabra)
+    listaContenidoDevuelto = list(conjuntoContenidoDevuelto)
     arraySinonimosFinal = []
     encontradoSinonimo = False
 
-    for i in range(len(arrayContenidoDevuelto)):
+    for i in range(len(listaContenidoDevuelto)):
         csvarchivo.seek(0)
         for j in archivo:
-            if encontradoSinonimo == True:
-                break
-            if arrayContenidoDevuelto[i] == "SINONIMO: " + j['PALABRA']:
-                arraySinonimosFinal.append("SINONIMO: " + j['PALABRA'])
+
+            if listaContenidoDevuelto[i] == j['PALABRA']:
+                arraySinonimosFinal.append(j['PALABRA'])
                 encontradoSinonimo = True
 
 
@@ -134,17 +137,17 @@ def consultaTerminos(palabra, csvarchivo):
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
-    arrayContenidoDevuelto = terminosRelacionadosDevueltos(palabra)
+    conjuntoContenidoDevuelto = terminosRelacionadosDevueltos(palabra)
+    listaContenidoDevuelto = list(conjuntoContenidoDevuelto)
     arrayTerminosFinal = []
     encontradoTermino = False
 
-    for i in range(len(arrayContenidoDevuelto)):
+    for i in range(len(listaContenidoDevuelto)):
         csvarchivo.seek(0)
-        if encontradoTermino == True:
-            break
+
         for j in archivo:
-            if arrayContenidoDevuelto[i] == "TERMINO RELACIONADO: " + j['PALABRA']:
-                arrayTerminosFinal.append("TERMINO RELACIONADO: " + j['PALABRA'])
+            if listaContenidoDevuelto[i] == j['PALABRA']:
+                arrayTerminosFinal.append(j['PALABRA'])
                 encontradoTermino = True
 
     return arrayTerminosFinal
