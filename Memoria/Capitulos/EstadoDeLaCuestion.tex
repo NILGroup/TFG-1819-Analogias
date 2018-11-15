@@ -1,91 +1,11 @@
 \chapter{Estado de la Cuestión}
 \label{cap:estadoDeLaCuestion}
-En este capítulo se va a tratar aspectos importantes dentro del ámbito de la retórica así como una explicación detallada de Lectura Fácil, y sin olvidar aquellas herramientas y tecnologías que se van a utilizar.
-En la sección 2.1 quedará detalladamente explicado el concepto de Servicio Web, su funcionalidad, ventajas y desventajas, tipos que existen....
-En la sección 2.2 se definirá las Figuras retóricas...
 
-
-
-%-------------------------------------------------------------------
-\section{Servicios Web}
-%-------------------------------------------------------------------
-\label{cap:sec:servicios_web}
-
-Para definir el concepto de servicio Web de la forma más simple posible, se podría decir que es una tecnología que utiliza un conjunto de protocolos para intercambiar datos entre aplicaciones, sin importar el lenguaje de programación en el cual estén programadas o ejecutadas en cualquier tipo de plataforma. Otra definición más técnica según la W3C (\textit{World Wide Web Consortium})\footnote{https://www.w3.org/},  un servicio web es un sistema software diseñado para soportar la interacción máquina-a-máquina, a través de una red, de forma interoperable. 
-
-\subsection{Características de  Servicios Web}
-\label{cap:subsec:caracteristicasserviciosweb}
-
-\begin{itemize}
-\item Un servicio debe poder ser accesible a través de la Web. Para ello debe utilizar protocolos de transporte estándares como HTTP, y codificar los mensajes en un lenguaje estándar que pueda ser accesible por cualquier cliente que quiera utilizar el servicio. 
-
-\item Un servicio debe contener una descripción de sí mismo. De esta forma, una aplicación podrá saber cual es la función de un determinado Servicio Web, y cuál es su interfaz, de manera que pueda ser utilizado de forma automática por cualquier aplicación, sin la intervención del usuario.
-\item Debe poder ser localizado. Deberemos tener algún mecanismo que nos permita encontrar un Servicio Web que realice una determinada función. De esta forma tendremos la posibilidad de que una aplicación localice el servicio que necesite de forma automática, sin tener que conocerlo previamente el usuario.
-\end{itemize}
-
-
-\subsection{Tipos de Servicios Web}
-\label{cap:subsec:tiposserviciosweb}
-
-Los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico, es por ello que mediante este último podemos diferenciar dos tipos distintos de servicio web:
-\begin{itemize}
-	\item Servicios Web RESTful: no tienen estado. Cada petición del cliente al servidor debe contener toda la información necesaria para entender la petición, y no puede aprovecharse de ningún contexto almacenado en el servidor.
-	\item Servicios web SOAP  \textit({Simple Object Access Protocol}): es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos.
-\end{itemize}
-
-\subsection{Arquitectura Servicios Web}
-\label{cap:subsec:arquitecturaserviciosweb}
-Para que los servicios web funcionen correctamente, hay que implementar distintos "roles", como por ejemplo, el proveedor del servicio es
-la aplicación que implementa el servicio y lo hace accesible desde Internet. El soliciante, es decir, cualquier cliente que necesite
-utilizar un servicio web, y por último, el registro y publicación del servicio, el cual se refiere a que debería existir algún
-repositorio centralizado que nos proporcione información sobre los servicios que tenemos disponibles y cómo se utilizan. A continuación,
-explicamos más detalladamente las distintas capas que tiene el servicio web:
-\begin{itemize}
- \item Service Discovery. Es el responsable de centralizar los servicios web en un directorio común de desta forma es mas sencillo buscar y publicar.
- \item Service Description. Como ya hemos comentado con anterioridad, los servicios web se pueden definir así mismos, por lo que una vez que los localicemos nos darán suficiente información para saber que operaciones soporta y como activarlo.
- \item Service Invocation. Invocar a un Web Service implica pasar mensajes entre el cliente y el servidor. SOAP  \textit({Simple Object Access Protocol}) especifica cómo deberíamos formatear los mensajes request para el servidor, y cómo el servidor debería formatear sus mensajes de respuesta.
- \item Transport. Todos estos mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP  \textit({(HyperText Transfer Protocol)}). 
-\end{itemize}
-
-\subsection{Ventajas y Desventajas de los  Servicios Web}
-\label{cap:subsec:ventajasserviciosweb}
-Estos tienen multitud de ventajas pero las principales son las siguientes:
-\begin{itemize}
-	 \item Permiten la integración “justo-a-tiempo”:  Esto significa que los solicitantes, los proveedores y los agentes actúan en conjunto para crear sistemas que son auto-configurables, adaptativos y robustos.
-	\item Reducen la complejidad por medio del encapsulamiento: Los solicitantes y los proveedores del servicio se preocupan por las interfaces necesarias para interactuar. Como resultado, un solicitante de servicio no sabe cómo fue implementado el servicio por parte del proveedor, y éste a su vez, no sabe cómo utiliza el cliente el servicio. Estos detalles se encapsulan en los solicitantes y proveedores. El encapsulamiento es crucial para reducir la complejidad.
-	\item Promueven la interoperabilidad: La interacción entre un proveedor y un solicitante de servicio está diseñada para que sea completamente independiente de la plataforma y el lenguaje. 
-	\item Abren la puerta a nuevas oportunidades de negocio: Los servicios web facilitan la interacción con socios de negocios, al poder compartir servicios internos con un alto grado de integración.
-	\item Disminuyen el tiempo de desarrollo de las aplicaciones: Pues gracias a la filosofía de orientación a objetos que utilizan, el desarrollo se convierte más bien en una labor de composición.
-	\item Fomentan los estándares y protocolos basados en texto, que hacen más fácil acceder a su contenido y entender su funcionamiento.
-\end{itemize}
-Pero también tiene desventajas, las cuales tenemos que nombrar:
-\begin{itemize}
-	\item Al apoyarse en HTTP, pueden esquivar medidas de seguridad basadas en firewall cuyas reglas tratan de bloquear.
-	\item Existe poca información de servicios web para algunos lenguajes de programación .
-	\item Dependencia de la disponibilidad de servidores y comunicaciones.
-\end{itemize}
-\section{Figuras retóricas}
-
- Las figuras literarias(o retóricas) son formas no convencionales de utilizar las palabras, de manera que, aunque se emplean con sus acepciones habituales, se acompañan de algunas particularidades fónicas, gramaticales o semánticas, que las alejan de ese uso habitual, por lo que terminan por resultar especialmente expresivas. (\textit {Introducción al análisis retórico: tropos, figuras y sintaxis del estilo})\footnote{Azaustre Galiana, Antonio y Juan Casas Rigall, Introducción al análisis retórico: tropos, figuras y sintaxis del estilo, Universidad de Santiago de Compostela, Santiago de Compostela, 1994.}
-
-En este trabajo vamos a trabajar con tres tipos de figuras retóricas: Analogía, metáfora y símil.
-\begin{itemize}
-	\item Una metáfora: Su estudio se remonta a Aristóteles y su Retórica. Una metáfora se refiere a una cosa mencionando otra, utiliza el desplazamiento de características similares entre dos conceptos con fines estéticos o retóricos. Por ejemplo, cuando una persona tiene muy buena memoria, se la dice que tiene memoria de elefante.
-	
-	\item Un símil: Realiza una comparación entre términos. A pesar de que los símiles y las metáforas son similares, los símiles utilizan explícitamente, aunque no necesariamente, conectores (por ejemplo, como, cual, que, o varios verbos tales como se asemejan).
-	Por ejemplo: Cuando nos referimos a una persona que es muy corpulenta, se dice que es como un oso.
-	
-	\item Una analogía: Es la comparación entre varios conceptos, indicando las características que permiten dicha relación. En la retórica, una analogía es una comparación textual que resalta alguna de las similitudes semánticas entre los conceptos protagonistas en dicha comparación. Por ejemplo, sus ojos son azules como el mar.
-	
-(\footnote {GENERACIÓN DE RECURSOS LINGÜÍSTICOS MEDIANTE LA EXTRACCIÓN DE RELACIONES ENTRE CONCEPTOS})	
-	
-\end{itemize}
-
-\begin{itemize}
-\item Analogía: Según la RAE, es la relación de semejanza entre dos cosas distintas.
-\item Símil: Según la RAE, es la comparación, semejanza entre dos cosas.
-\item Metáfora: Una metáfora es una Figura retórica de pensamiento por medio de la cual una realidad o concepto se expresan por medio de una realidad o concepto diferentes con los que lo representado guarda cierta relación de semejanza.
-\end{itemize}
+\begin{resumen}
+	En este capítulo se van a tratar aspectos importantes dentro del ámbito de la retórica así como una explicación detallada de Lectura Fácil, sin olvidar aquellas herramientas y tecnologías que se van a utilizar.
+	En la sección 2.1 se explica el concepto de Servicio Web, su funcionalidad, ventajas y desventajas y tipos que existentes.
+	En la sección 2.2 se definirán las Figuras retóricas.
+\end{resumen}
 
 
 
@@ -132,7 +52,8 @@ Actualmente, el Procesamiento del lenguaje natural, que es un campo de la Inteli
 \footnote{https://www.fundaciononce.es/es/noticia/el-proyecto-simplext-de-technosite-finalista-de-los-premios-bdigital-la-innovacion/}
 
 
-\section{ConceptNet} 
+\section{Procesamiento del lenguaje natural}
+\subsection{ConceptNet} 
 
 Es una red semántica diseñada para ayudar a los ordenadores a entender los significados de las palabras utilizadas por la gente lanzada por el MIT en 1999.
 Tiene un buscador de palabras en el que al introducir una palabra, se selecciona el idioma y devuelve sinónimos y términos relacionados.
@@ -153,3 +74,97 @@ y como términos relacionados:
 Entre otros, también te devuelve tanto sinónimos como términos relacionados en otros idiomas, pero nosotros solo nos centraremos en los que estén en castellano.
 
 Dispone de una API \textit({http://api.conceptnet.io/}) que devuelve los datos en formato JSON, que utilizaremos para obtener los términos relacionados y sinónimos que necesitamos.
+
+\section{Figuras retóricas}
+
+Las figuras literarias(o retóricas) son formas no convencionales de utilizar las palabras, de manera que, aunque se emplean con sus acepciones habituales, se acompañan de algunas particularidades fónicas, gramaticales o semánticas, que las alejan de ese uso habitual, por lo que terminan por resultar especialmente expresivas. (\textit {Introducción al análisis retórico: tropos, figuras y sintaxis del estilo})\footnote{Azaustre Galiana, Antonio y Juan Casas Rigall, Introducción al análisis retórico: tropos, figuras y sintaxis del estilo, Universidad de Santiago de Compostela, Santiago de Compostela, 1994.}
+
+En este trabajo vamos a trabajar con tres tipos de figuras retóricas: Analogía, metáfora y símil.
+\begin{itemize}
+	\item Una metáfora: Su estudio se remonta a Aristóteles y su Retórica. Una metáfora se refiere a una cosa mencionando otra, utiliza el desplazamiento de características similares entre dos conceptos con fines estéticos o retóricos. Por ejemplo, cuando una persona tiene muy buena memoria, se la dice que tiene memoria de elefante.
+	
+	\item Un símil: Realiza una comparación entre términos. A pesar de que los símiles y las metáforas son similares, los símiles utilizan explícitamente, aunque no necesariamente, conectores (por ejemplo, como, cual, que, o varios verbos tales como se asemejan).
+	Por ejemplo: Cuando nos referimos a una persona que es muy corpulenta, se dice que es como un oso.
+	
+	\item Una analogía: Es la comparación entre varios conceptos, indicando las características que permiten dicha relación. En la retórica, una analogía es una comparación textual que resalta alguna de las similitudes semánticas entre los conceptos protagonistas en dicha comparación. Por ejemplo, sus ojos son azules como el mar.
+	
+	(\footnote {GENERACIÓN DE RECURSOS LINGÜÍSTICOS MEDIANTE LA EXTRACCIÓN DE RELACIONES ENTRE CONCEPTOS})	
+	
+\end{itemize}
+
+\begin{itemize}
+	\item Analogía: Según la RAE, es la relación de semejanza entre dos cosas distintas.
+	\item Símil: Según la RAE, es la comparación, semejanza entre dos cosas.
+	\item Metáfora: Una metáfora es una Figura retórica de pensamiento por medio de la cual una realidad o concepto se expresan por medio de una realidad o concepto diferentes con los que lo representado guarda cierta relación de semejanza.
+\end{itemize}
+
+
+
+%-------------------------------------------------------------------
+\section{Servicios Web}
+%-------------------------------------------------------------------
+\label{cap:sec:servicios_web}
+
+Para definir el concepto de servicio Web de la forma más simple posible, se podría decir que es una tecnología que utiliza un conjunto de protocolos para intercambiar datos entre aplicaciones, sin importar el lenguaje de programación en el cual estén programadas o ejecutadas en cualquier tipo de plataforma. Según el W3C(\textit{World Wide Web Consortium})\footnote{https://www.w3.org/}, un servicio web es un sistema software diseñado para soportar la interacción máquina-a-máquina, a través de una red, de forma interoperable. \\
+
+
+
+\textbf{Las principales características de un servicio web son:}
+
+
+\begin{itemize}
+\item Debe poder ser accesible a través de la Web. Para ello debe utilizar protocolos de transporte estándares como HTTP, y codificar los mensajes en un lenguaje estándar que pueda ser accesible por cualquier cliente que quiera utilizar el servicio. 
+
+\item Debe contener una descripción de sí mismo. De esta forma, una aplicación web podrá saber cual es la función de un determinado Servicio Web, y cuál es su interfaz, de manera que pueda ser utilizado de forma automática por cualquier aplicación, sin la intervención del usuario.
+\item Debe poder ser localizado. Deberemos tener algún mecanismo que nos permita encontrar un Servicio Web que realice una determinada función. De esta forma tendremos la posibilidad de que una aplicación localice el servicio que necesite de forma automática, sin tener que conocerlo previamente el usuario.
+\end{itemize}
+
+
+Los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico, es por ello que mediante este último podemos diferenciar dos tipos distintos de servicio web:
+\begin{itemize}
+	\item Servicios Web RESTful: no tienen estado. Cada petición del cliente al servidor debe contener toda la información necesaria para entender la petición, y no puede aprovecharse de ningún contexto almacenado en el servidor.
+	\item Servicios web SOAP  \textit({Simple Object Access Protocol}): es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos.
+\end{itemize}
+
+\subsection{Arquitectura Servicios Web}
+\label{cap:subsec:arquitecturaserviciosweb}
+Los servicios web se componen fundamentalmente de tres partes:
+\begin{itemize}
+	\item Proveedor:
+	\item Quien realiza la petición
+	\item Quien publica el servicio web
+	
+\end{itemize}
+ A continuación,
+explicamos más detalladamente las distintas capas que tiene el servicio web:
+\begin{itemize}
+ \item Service Discovery. Es el responsable de centralizar los servicios web en un directorio común de esta forma es mas sencillo buscar y publicar.
+ \item Service Description. Como ya hemos comentado con anterioridad, los servicios web se pueden definir así mismos, por lo que una vez que los localicemos nos darán suficiente información para saber que operaciones soporta y como activarlo.
+ \item Service Invocation. Invocar a un Web Service implica pasar mensajes entre el cliente y el servidor. SOAP  \textit({Simple Object Access Protocol}) especifica cómo deberíamos formatear los mensajes request para el servidor, y cómo el servidor debería formatear sus mensajes de respuesta.
+ \item Transport. Todos estos mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP  \textit({(HyperText Transfer Protocol)}). 
+\end{itemize}
+
+\subsection{Ventajas de los  Servicios Web}
+\label{cap:subsec:ventajasserviciosweb}
+Estos tienen multitud de ventajas pero las principales son las siguientes:
+\begin{itemize}
+	 \item Permiten la integración “justo-a-tiempo”:  Esto significa que los solicitantes, los proveedores y los agentes actúan en conjunto para crear sistemas que son auto-configurables, adaptativos y robustos.
+	\item Reducen la complejidad por medio del encapsulamiento: Los solicitantes y los proveedores del servicio se preocupan por las interfaces necesarias para interactuar. Como resultado, un solicitante de servicio no sabe cómo fue implementado el servicio por parte del proveedor, y éste a su vez, no sabe cómo utiliza el cliente el servicio. Estos detalles se encapsulan en los solicitantes y proveedores. El encapsulamiento es crucial para reducir la complejidad.
+	\item Promueven la interoperabilidad: La interacción entre un proveedor y un solicitante de servicio está diseñada para que sea completamente independiente de la plataforma y el lenguaje. 
+	\item Abren la puerta a nuevas oportunidades de negocio: Los servicios web facilitan la interacción con socios de negocios, al poder compartir servicios internos con un alto grado de integración.
+	\item Disminuyen el tiempo de desarrollo de las aplicaciones: Pues gracias a la filosofía de orientación a objetos que utilizan, el desarrollo se convierte más bien en una labor de composición.
+	\item Fomentan los estándares y protocolos basados en texto, que hacen más fácil acceder a su contenido y entender su funcionamiento.
+\end{itemize}
+
+\subsection{Desventajas de los  Servicios Web}
+\label{cap:subsec:desventajasserviciosweb}
+Pero también tiene desventajas, las cuales tenemos que nombrar:
+\begin{itemize}
+	\item Al apoyarse en HTTP, pueden esquivar medidas de seguridad basadas en firewall cuyas reglas tratan de bloquear.
+	\item Existe poca información de servicios web para algunos lenguajes de programación .
+	\item Dependencia de la disponibilidad de servidores y comunicaciones.
+\end{itemize}
+
+
+
+
