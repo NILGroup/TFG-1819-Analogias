@@ -51,6 +51,22 @@ def index(request):
 
 
 
+def busquedaPorNivel(palabra):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+    arrayconsultaSinonimo = consultaSinonimo(palabra, csvarchivo)
+
+    if arrayconsultaSinonimo[len(arrayconsultaSinonimo) - 1] == False:
+        arrayConsultaTermino = consultaTerminos(palabra, csvarchivo)
+        if arrayConsultaTermino[len(arrayConsultaTermino) - 1] == False:
+            arrayconsultaSinonimo.pop()
+            arrayConsultaTermino.pop()
+            return arrayconsultaSinonimo + arrayConsultaTermino,False
+        else:
+
+            return arrayConsultaTermino,True
+    else:
+        return arrayconsultaSinonimo,True
 
 
 
@@ -58,31 +74,25 @@ def index(request):
 #Servicio Web 3
 def consultaSinonimosYterminos(palabra, profundidad):
 
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+    resultadosAcumulados = []
 
-    arrayconsultaSinonimo = []
-    arrayConsultaTermino = []
-    contadorProfundidad = 0
 
     for contadorProfundidad in range(profundidad):
 
         contadorProfundidad += 1
+        if contadorProfundidad == 1:
+            resultadosAcumulados = busquedaPorNivel(palabra)
+        else:
+            for i in range(len(resultadosAcumulados)):
+                resultados,encontrado = busquedaPorNivel(resultadosAcumulados[i])
+                if encontrado == False:
+                    resultadosAcumulados += resultados
+                else:
+                    return resultados, contadorProfundidad
 
-        if len(arrayconsultaSinonimo) == 0 or len(arrayConsultaTermino) == 0:
-            arrayconsultaSinonimo = consultaSinonimo(palabra, csvarchivo)
-            if arrayconsultaSinonimo[len(arrayconsultaSinonimo) - 1] == False:
-                 arrayConsultaTermino = consultaTerminos(palabra, csvarchivo)
-                 if arrayConsultaTermino[len(arrayConsultaTermino) - 1] == False:
-                    if contadorProfundidad == profundidad:
-                        print("no se encontro")
-                    else:
-                        for i in range(len(arrayconsultaSinonimo)):
-                            arrayconsultaSinonimo = consultaSinonimo(arrayconsultaSinonimo[i], csvarchivo)
-                            
+    return "No se ha encontrado una palabra facil"
 
-
-
+'''
         if len(arrayconsultaSinonimo) > 0 or len(arrayConsultaTermino) > 0:
             if len(arrayconsultaSinonimo) > 0:
                 arrayconsultaSinonimo.append("Se ha encontrado el sinónimo en el nivel de profundidad " + str(contadorProfundidad))
@@ -95,7 +105,7 @@ def consultaSinonimosYterminos(palabra, profundidad):
     if len(arrayconsultaSinonimo) == 0 and len(arrayConsultaTermino) == 0:
         return "error"
 
-
+'''
 
 
 
