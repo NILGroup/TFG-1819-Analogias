@@ -41,42 +41,16 @@ def index(request):
                 form_final.save()
                 resultado = form_final['Word'].value()
                 profundidad = form_final['Depth'].value()
-                salida_final = consultaSinonimosYterminos(resultado, profundidad)
+                salida_final = consultaSinonimosYterminos(resultado, int(profundidad))
                 return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final})
 
     return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'form_final': form_final})
 
 
 
-#Servicio Web 1 que devuelve los sinonimos
-def sinonimosDevueltos(palabra):
-
-    conjuntoSalida = set()
-    obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
-    for j in range(len(obj['edges'])):
-        if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and \
-                obj['edges'][j]['start']['label'] == palabra:
-            conjuntoSalida.add(obj['edges'][j]['end']['label'])
-        elif obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['start']['language'] == 'es' and \
-                obj['edges'][j]['end']['label'] == palabra:
-            conjuntoSalida.add(obj['edges'][j]['start']['label'])
-
-    return conjuntoSalida
 
 
-#Servicio Web 2 que devuelve los terminos relacionados
-def terminosRelacionadosDevueltos(palabra):
 
-    conjuntoSalida = set()
-    obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
-    for j in range(len(obj['edges'])):
-        if obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and \
-                obj['edges'][j]['start']['label'] == palabra:
-            conjuntoSalida.add(obj['edges'][j]['end']['label'])
-        elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['start']['language'] == 'es' and \
-                obj['edges'][j]['end']['label'] == palabra:
-            conjuntoSalida.add(obj['edges'][j]['start']['label'])
-    return conjuntoSalida
 
 
 
@@ -91,19 +65,25 @@ def consultaSinonimosYterminos(palabra, profundidad):
     arrayConsultaTermino = []
     contadorProfundidad = 0
 
-    for contadorProfundidad in range(int(profundidad)):
+    for contadorProfundidad in range(profundidad):
 
         contadorProfundidad += 1
 
         if len(arrayconsultaSinonimo) == 0 or len(arrayConsultaTermino) == 0:
-
             arrayconsultaSinonimo = consultaSinonimo(palabra, csvarchivo)
-            if len(arrayconsultaSinonimo) == 0:
-                arrayConsultaTermino = consultaTerminos(palabra, csvarchivo)
+            if arrayconsultaSinonimo[len(arrayconsultaSinonimo) - 1] == False:
+                 arrayConsultaTermino = consultaTerminos(palabra, csvarchivo)
+                 if arrayConsultaTermino[len(arrayConsultaTermino) - 1] == False:
+                    if contadorProfundidad == profundidad:
+                        print("no se encontro")
+                    else:
+                        for i in range(len(arrayconsultaSinonimo)):
+                            arrayconsultaSinonimo = consultaSinonimo(arrayconsultaSinonimo[i], csvarchivo)
+                            
+
 
 
         if len(arrayconsultaSinonimo) > 0 or len(arrayConsultaTermino) > 0:
-
             if len(arrayconsultaSinonimo) > 0:
                 arrayconsultaSinonimo.append("Se ha encontrado el sinónimo en el nivel de profundidad " + str(contadorProfundidad))
                 return arrayconsultaSinonimo
@@ -139,8 +119,28 @@ def consultaSinonimo(palabra, csvarchivo):
                 encontradoSinonimo = True
 
 
-    return arraySinonimosFinal
+    if encontradoSinonimo == False:
+        listaContenidoDevuelto.append(encontradoSinonimo)
+        return listaContenidoDevuelto
+    else:
+        arraySinonimosFinal.append(encontradoSinonimo)
+        return arraySinonimosFinal
 
+
+#Servicio Web 1 que devuelve los sinonimos
+def sinonimosDevueltos(palabra):
+
+    conjuntoSalida = set()
+    obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
+    for j in range(len(obj['edges'])):
+        if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and \
+                obj['edges'][j]['start']['label'] == palabra:
+            conjuntoSalida.add(obj['edges'][j]['end']['label'])
+        elif obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['start']['language'] == 'es' and \
+                obj['edges'][j]['end']['label'] == palabra:
+            conjuntoSalida.add(obj['edges'][j]['start']['label'])
+
+    return conjuntoSalida
 
 
 
@@ -161,6 +161,25 @@ def consultaTerminos(palabra, csvarchivo):
                 arrayTerminosFinal.append(j['PALABRA'])
                 encontradoTermino = True
 
-    return arrayTerminosFinal
+    if encontradoTermino == False:
+        listaContenidoDevuelto.append(encontradoTermino)
+        return listaContenidoDevuelto
+    else:
+        arrayTerminosFinal.append(encontradoTermino)
+        return arrayTerminosFinal
 
 
+
+#Servicio Web 2 que devuelve los terminos relacionados
+def terminosRelacionadosDevueltos(palabra):
+
+    conjuntoSalida = set()
+    obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
+    for j in range(len(obj['edges'])):
+        if obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and \
+                obj['edges'][j]['start']['label'] == palabra:
+            conjuntoSalida.add(obj['edges'][j]['end']['label'])
+        elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['start']['language'] == 'es' and \
+                obj['edges'][j]['end']['label'] == palabra:
+            conjuntoSalida.add(obj['edges'][j]['start']['label'])
+    return conjuntoSalida
