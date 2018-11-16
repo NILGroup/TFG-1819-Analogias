@@ -42,7 +42,6 @@ def index(request):
                 resultado = form_final['Word'].value()
                 profundidad = form_final['Depth'].value()
                 salida_final = consultaSinonimosYterminos(resultado, profundidad)
-               # print(salida_final)
                 return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final})
 
     return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'form_final': form_final})
@@ -84,7 +83,7 @@ def terminosRelacionadosDevueltos(palabra):
 
 #Servicio Web 3
 def consultaSinonimosYterminos(palabra, profundidad):
-    print(profundidad)
+
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
 
@@ -92,18 +91,30 @@ def consultaSinonimosYterminos(palabra, profundidad):
     arrayConsultaTermino = []
     contadorProfundidad = 0
 
-    #for i in range(profundidad):
-        #profundidad+=1
+    for contadorProfundidad in range(int(profundidad)):
 
-    arrayconsultaSinonimo = consultaSinonimo(palabra, csvarchivo)
+        contadorProfundidad += 1
 
-    arrayConsultaTermino = consultaTerminos(palabra, csvarchivo)
-    return arrayConsultaTermino, arrayconsultaSinonimo
-'''
-    if len(arrayconsultaSinonimo) > 0:
-        return arrayconsultaSinonimo
-    elif len(arrayConsultaTermino) > 0:
-    '''
+        if len(arrayconsultaSinonimo) == 0 or len(arrayConsultaTermino) == 0:
+
+            arrayconsultaSinonimo = consultaSinonimo(palabra, csvarchivo)
+            if len(arrayconsultaSinonimo) == 0:
+                arrayConsultaTermino = consultaTerminos(palabra, csvarchivo)
+
+
+        if len(arrayconsultaSinonimo) > 0 or len(arrayConsultaTermino) > 0:
+
+            if len(arrayconsultaSinonimo) > 0:
+                arrayconsultaSinonimo.append("Se ha encontrado el sinónimo en el nivel de profundidad " + str(contadorProfundidad))
+                return arrayconsultaSinonimo
+            elif len(arrayConsultaTermino) > 0:
+                arrayConsultaTermino.append("Se ha encontrado el término relacionado en el nivel de profundidad " + str(contadorProfundidad))
+                return arrayConsultaTermino
+
+
+    if len(arrayconsultaSinonimo) == 0 and len(arrayConsultaTermino) == 0:
+        return "error"
+
 
 
 
