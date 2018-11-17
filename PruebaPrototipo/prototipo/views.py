@@ -50,23 +50,20 @@ def index(request):
 
 
 
-
+#Dada una palabra, devuelve si hay algún match entre sus terminos relacionados o sinonimos con el csv
 def busquedaPorNivel(palabra):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
-    arrayconsultaSinonimo = consultaSinonimo(palabra, csvarchivo)
+    arrayconsultaSinonimo, encontrado = consultaSinonimo(palabra, csvarchivo)
 
-    if arrayconsultaSinonimo[len(arrayconsultaSinonimo) - 1] == False:
-        arrayConsultaTermino = consultaTerminos(palabra, csvarchivo)
-        if arrayConsultaTermino[len(arrayConsultaTermino) - 1] == False:
-            arrayconsultaSinonimo.pop()
-            arrayConsultaTermino.pop()
-            return arrayconsultaSinonimo + arrayConsultaTermino,False
+    if encontrado == False:
+        arrayConsultaTermino, encontrado = consultaTerminos(palabra, csvarchivo)
+        if encontrado == False:
+            return arrayconsultaSinonimo + arrayConsultaTermino, False
         else:
-
-            return arrayConsultaTermino,True
+            return arrayConsultaTermino, True
     else:
-        return arrayconsultaSinonimo,True
+        return arrayconsultaSinonimo, True
 
 
 
@@ -74,23 +71,33 @@ def busquedaPorNivel(palabra):
 #Servicio Web 3
 def consultaSinonimosYterminos(palabra, profundidad):
 
+    #Resultados a pasar al siguiente nivel
     resultadosAcumulados = []
+    #Resultados de este nivel
+    resultadosActuales = []
 
 
     for contadorProfundidad in range(profundidad):
 
         contadorProfundidad += 1
         if contadorProfundidad == 1:
-            resultadosAcumulados = busquedaPorNivel(palabra)
+            resultadosActuales, encontrado = busquedaPorNivel(palabra)
+            if encontrado == True:
+                return resultadosActuales, contadorProfundidad
         else:
             for i in range(len(resultadosAcumulados)):
-                resultados,encontrado = busquedaPorNivel(resultadosAcumulados[i])
+                resultados, encontrado = busquedaPorNivel(resultadosAcumulados[i])
                 if encontrado == False:
-                    resultadosAcumulados += resultados
+                    resultadosActuales += resultados
                 else:
                     return resultados, contadorProfundidad
+        resultadosAcumulados = resultadosActuales
 
-    return "No se ha encontrado una palabra facil"
+
+    if encontrado == True:
+        return resultadosActuales
+    else:
+        return "No se han encontrado"
 
 '''
         if len(arrayconsultaSinonimo) > 0 or len(arrayConsultaTermino) > 0:
@@ -130,11 +137,9 @@ def consultaSinonimo(palabra, csvarchivo):
 
 
     if encontradoSinonimo == False:
-        listaContenidoDevuelto.append(encontradoSinonimo)
-        return listaContenidoDevuelto
+        return listaContenidoDevuelto, False
     else:
-        arraySinonimosFinal.append(encontradoSinonimo)
-        return arraySinonimosFinal
+        return arraySinonimosFinal, True
 
 
 #Servicio Web 1 que devuelve los sinonimos
@@ -172,11 +177,9 @@ def consultaTerminos(palabra, csvarchivo):
                 encontradoTermino = True
 
     if encontradoTermino == False:
-        listaContenidoDevuelto.append(encontradoTermino)
-        return listaContenidoDevuelto
+        return listaContenidoDevuelto, False
     else:
-        arrayTerminosFinal.append(encontradoTermino)
-        return arrayTerminosFinal
+        return arrayTerminosFinal, True
 
 
 
