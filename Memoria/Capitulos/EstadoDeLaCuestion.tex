@@ -12,7 +12,9 @@
 \section{Lectura Fácil}
 
 
-La lectura fácil surgió en Suecia. En 1968 se editó el primer libro en la Agencia de Educación en el marco de un proyecto experimental. A continuación, en 1976 se creó en el Ministerio de Justicia un grupo de trabajo para conseguir textos legales más claros.
+La lectura fácil es la adaptación de textos, ilustraciones y maquetaciones que permite una mejor lectura y comprensión. (Nosotros nos vamos a centrar en la lectura fácil aplicada a textos) Surge para intentar evitar que colectivos que tienen problemas para el entendimiento como pueden ser inmigrantes, personas de la tercera edad, o con algún tipo de problema cognitivo como personas con Asperger puedan 
+
+Surgió en Suecia. En 1968 se editó el primer libro en la Agencia de Educación en el marco de un proyecto experimental. A continuación, en 1976 se creó en el Ministerio de Justicia un grupo de trabajo para conseguir textos legales más claros.
 
 El Ministerio de Educación comenzó en 1984 la edición de un libro llamado  "8 Sidor", que tres años más tarde,en 1987, se publica de forma permanente en papel hasta que empezó a editarse en la web. Este mismo año la Fundación Lectura Fácil asume la publicación del semanario y de los libros escritos en lectura fácil.
 
@@ -53,52 +55,36 @@ Actualmente, el Procesamiento del lenguaje natural, que es un campo de la Inteli
 
 
 \section{Procesamiento del lenguaje natural}
+El procesamiento del lenguaje natural es una rama de la Inteligencia Artificial
+que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso de lenguajes naturales, como pueden ser el español o el inglés...
+
 \subsection{ConceptNet} 
 
-Es una red semántica diseñada para ayudar a los ordenadores a entender los significados de las palabras utilizadas por la gente lanzada por el MIT en 1999.
-Tiene un buscador de palabras en el que al introducir una palabra, se selecciona el idioma y devuelve sinónimos y términos relacionados.
+Es una red semántica diseñada para ayudar a los ordenadores a entender el significado de las palabras y fue creada por el MIT en 1999. Esta disponible en múltiples idiomas, como el español, el inglés o el chino.
+Dada una palabra y el idioma, devuelve sinónimos y términos relacionados.
 \footnote{http://conceptnet.io/}
 
-Por ejemplo, si introducimos la palabra "dinero", especificando que el lenguaje en el que está dicha palabra, en ese caso español, ConceptNet te devuelve como sinónimos:
-\begin{itemize}
-	\item lana
-	\item pasta
-	\item billete
-	\item plata
-\end{itemize}
-y como términos relacionados:
-\begin{itemize}
-	\item dineral
-	\item moneda
-\end{itemize}
-Entre otros, también te devuelve tanto sinónimos como términos relacionados en otros idiomas, pero nosotros solo nos centraremos en los que estén en castellano.
+Por ejemplo, si introducimos la palabra "dinero", especificando que el idioma es el español, ConceptNet te devuelve como sinónimos: lana, pasta, billete, plata. y como términos relacionados: dineral y moneda.
 
 Dispone de una API \textit({http://api.conceptnet.io/}) que devuelve los datos en formato JSON, que utilizaremos para obtener los términos relacionados y sinónimos que necesitamos.
 
 \section{Figuras retóricas}
-
-Las figuras literarias(o retóricas) son formas no convencionales de utilizar las palabras, de manera que, aunque se emplean con sus acepciones habituales, se acompañan de algunas particularidades fónicas, gramaticales o semánticas, que las alejan de ese uso habitual, por lo que terminan por resultar especialmente expresivas. (\textit {Introducción al análisis retórico: tropos, figuras y sintaxis del estilo})\footnote{Azaustre Galiana, Antonio y Juan Casas Rigall, Introducción al análisis retórico: tropos, figuras y sintaxis del estilo, Universidad de Santiago de Compostela, Santiago de Compostela, 1994.}
+Las figuras literarias(o retóricas) son formas no convencionales de utilizar las palabras, de manera que, aunque se emplean con sus acepciones habituales, se acompañan de algunas particularidades fónicas, gramaticales o semánticas, que las alejan de ese uso habitual, por lo que terminan por resultar especialmente expresivas. 
+La metáfora, el símil y la analogía se basan en la comparación entre dos conceptos, el de origen, que es el término literal (al que la metáfora se refiere) es el llamado tenor. El de destino, que es el término figurado es el vehículo. La relación que hay entre el tenor y el vehículo se denomina fundamento. Por ejemplo, en la metáfora \textit{Tus ojos son dos luceros}, \textit{ojos} es el tenor, \textit{luceros} es el vehículo y el fundamentos es la belleza de los ojos.
+(\textit {Introducción al análisis retórico: tropos, figuras y sintaxis del estilo})\footnote{Azaustre Galiana, Antonio y Juan Casas Rigall, Introducción al análisis retórico: tropos, figuras y sintaxis del estilo, Universidad de Santiago de Compostela, Santiago de Compostela, 1994.}
 
 En este trabajo vamos a trabajar con tres tipos de figuras retóricas: Analogía, metáfora y símil.
 \begin{itemize}
-	\item Una metáfora: Su estudio se remonta a Aristóteles y su Retórica. Una metáfora se refiere a una cosa mencionando otra, utiliza el desplazamiento de características similares entre dos conceptos con fines estéticos o retóricos. Por ejemplo, cuando una persona tiene muy buena memoria, se la dice que tiene memoria de elefante.
+	\item Metáfora: Se refiere a una cosa mencionando otra, utiliza el desplazamiento de características similares entre dos conceptos con fines estéticos o retóricos. Por ejemplo, cuando una persona tiene muy buena memoria, se dice que tiene memoria de elefante. Ya que una de las características de los elefantes es que tienen buena memoria.
 	
-	\item Un símil: Realiza una comparación entre términos. A pesar de que los símiles y las metáforas son similares, los símiles utilizan explícitamente, aunque no necesariamente, conectores (por ejemplo, como, cual, que, o varios verbos tales como se asemejan).
-	Por ejemplo: Cuando nos referimos a una persona que es muy corpulenta, se dice que es como un oso.
+	\item Símil: Realiza una comparación entre dos términos. A pesar de que los símiles y las metáforas son similares, los símiles utilizan explícitamente, aunque no necesariamente, conectores (por ejemplo, como, cual, que, o varios verbos tales como se asemejan).
+	Por ejemplo, cuando nos referimos a una persona que es muy corpulenta, se dice que es como un oso, ya que los osos son muy grandes
 	
-	\item Una analogía: Es la comparación entre varios conceptos, indicando las características que permiten dicha relación. En la retórica, una analogía es una comparación textual que resalta alguna de las similitudes semánticas entre los conceptos protagonistas en dicha comparación. Por ejemplo, sus ojos son azules como el mar.
+	\item Analogía: Es la comparación entre varios conceptos, indicando las características que permiten dicha relación. En la retórica, una analogía es una comparación textual que resalta alguna de las similitudes semánticas entre los conceptos protagonistas en dicha comparación. Por ejemplo, sus ojos son azules como el mar, comparándolos con el color del mar
 	
 	(\footnote {GENERACIÓN DE RECURSOS LINGÜÍSTICOS MEDIANTE LA EXTRACCIÓN DE RELACIONES ENTRE CONCEPTOS})	
 	
 \end{itemize}
-
-\begin{itemize}
-	\item Analogía: Según la RAE, es la relación de semejanza entre dos cosas distintas.
-	\item Símil: Según la RAE, es la comparación, semejanza entre dos cosas.
-	\item Metáfora: Una metáfora es una Figura retórica de pensamiento por medio de la cual una realidad o concepto se expresan por medio de una realidad o concepto diferentes con los que lo representado guarda cierta relación de semejanza.
-\end{itemize}
-
-
 
 %-------------------------------------------------------------------
 \section{Servicios Web}
@@ -146,23 +132,23 @@ explicamos más detalladamente las distintas capas que tiene el servicio web:
 
 \subsection{Ventajas de los  Servicios Web}
 \label{cap:subsec:ventajasserviciosweb}
-Estos tienen multitud de ventajas pero las principales son las siguientes:
+	Las principales ventajas de los servicios web son las siguientes:
 \begin{itemize}
-	 \item Permiten la integración “justo-a-tiempo”:  Esto significa que los solicitantes, los proveedores y los agentes actúan en conjunto para crear sistemas que son auto-configurables, adaptativos y robustos.
-	\item Reducen la complejidad por medio del encapsulamiento: Los solicitantes y los proveedores del servicio se preocupan por las interfaces necesarias para interactuar. Como resultado, un solicitante de servicio no sabe cómo fue implementado el servicio por parte del proveedor, y éste a su vez, no sabe cómo utiliza el cliente el servicio. Estos detalles se encapsulan en los solicitantes y proveedores. El encapsulamiento es crucial para reducir la complejidad.
+	\item Permiten la integración “justo-a-tiempo”:  Esto significa que los solicitantes, los proveedores y los agentes actúan en conjunto para crear sistemas que son auto-configurables, adaptativos y robustos.
+	\item Reducen la complejidad por medio del encapsulamiento: Un solicitante de servicio no sabe cómo fue implementado el servicio por parte del proveedor, y éste a su vez, no sabe cómo utiliza el cliente el servicio. Estos detalles se encapsulan en los solicitantes y proveedores. El encapsulamiento es crucial para reducir la complejidad.
 	\item Promueven la interoperabilidad: La interacción entre un proveedor y un solicitante de servicio está diseñada para que sea completamente independiente de la plataforma y el lenguaje. 
 	\item Abren la puerta a nuevas oportunidades de negocio: Los servicios web facilitan la interacción con socios de negocios, al poder compartir servicios internos con un alto grado de integración.
-	\item Disminuyen el tiempo de desarrollo de las aplicaciones: Pues gracias a la filosofía de orientación a objetos que utilizan, el desarrollo se convierte más bien en una labor de composición.
+	\item Disminuyen el tiempo de desarrollo de las aplicaciones: Gracias a la filosofía de orientación a objetos que utilizan, el desarrollo se convierte más bien en una labor de composición.
 	\item Fomentan los estándares y protocolos basados en texto, que hacen más fácil acceder a su contenido y entender su funcionamiento.
 \end{itemize}
 
 \subsection{Desventajas de los  Servicios Web}
 \label{cap:subsec:desventajasserviciosweb}
-Pero también tiene desventajas, las cuales tenemos que nombrar:
+	El uso de servicios web también tiene desventajas:
 \begin{itemize}
 	\item Al apoyarse en HTTP, pueden esquivar medidas de seguridad basadas en firewall cuyas reglas tratan de bloquear.
-	\item Existe poca información de servicios web para algunos lenguajes de programación .
-	\item Dependencia de la disponibilidad de servidores y comunicaciones.
+	\item Existe poca información de servicios web para algunos lenguajes de programación.
+	\item Dependen de la disponibilidad de servidores y comunicaciones.
 \end{itemize}
 
 
