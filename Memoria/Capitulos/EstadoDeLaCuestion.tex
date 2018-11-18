@@ -55,13 +55,27 @@ Es por ello que este tipo de palabras deben estar totalmente descartadas en la l
 
 
 \section{Procesamiento del lenguaje natural}
-El procesamiento del lenguaje natural es una rama de la Inteligencia Artificial
-que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso de lenguajes naturales, como pueden ser el español o el inglés...
+El procesamiento del lenguaje natural(PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso de lenguajes naturales, como pueden ser el español, el ruso o el inglés. Gracias a esto podemos identificar mediante un programa informático que palabras son las más utilizadas en un idioma determinado(por lo que podemos deducir que esas palabras van a ser las más sencillas de aprender) e incluirlas en textos para que sea más fácil su comprensión.
 
 \subsection{ConceptNet} 
+Es una red semántica diseñada para ayudar a los ordenadores a entender el significado de las palabras y fue creada por el MIT en 1999. Esta disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone tanto de una aplicación web \textit{http://conceptnet.io/} "METER IMAGEN" que dispone de una interfaz en la que puedes introducir una palabra y seleccionar el idioma en el que está, a su vez, dispone de un servicio web\textit{http://api.conceptnet.io/ld/conceptnet5.6/context.ld.json}, es decir, una API a la que se puede acceder para realizar peticiones de palabras y que devuelve la información en formato JSON, este consta principalmente de tres campos:
+\begin{itemize}
+	\item @context: que muestra una URL hacia la documentación de la API.
+	\item @id: Indica el concepto que se quiere buscar y su idioma. Por ejemplo: si queremos buscar gato en español, aparece de la siguiente manera: \textit{/c/es/gato}, siendo "es" el id del idioma en el que hemos buscado la palabra, en este caso indica español y siendo "gato" la palabra buscada
+	\item edges: Que constituyen los datos devueltos por conceptnet y está formado por los siguientes campos:
+	\begin{itemize}
+		\item @id: Describe como están conectados dos nodos(palabras), la relación que hay entre ellos. Por ejemplo, si es un sinónimo o un termino relacionado
+		\item @type:Describe el tipo del id, es decir, si es una relación (edge) o un término (nodo)
+		\item dataset: No es muy importante, es un valor acerca de como está construido conceptnet
+		\item end: Describe el nodo destino, es decir, si hemos introducido la palabra "gato" un nodo destino sería por ejemplo "animal", ya que es un término relacionado. Dentro de end hay varios campos ya explicados anteriormente, como @id o @type, sin embargo hay otros nuevos como "language", en el que se indica el idioma en el que esta la palabra destino y "term" que en este caso tiene el mismo valor que el @id
+		\item license: Aporta información sobre como debe usarse la información proporcionada por conceptnet
+		\item rel: Describe la relación que hay entre la palabra origen y destino, dentro del cual hay tres campos: @id, @type y label, descritos anteriormente.
+		\item sources: Indica por qué conceptnet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id, además de un campo "activity" indicando la tarea del contribuidor que ha añadido esta palabra o si ha sido añadida mediante n proceso automático. Por último hay un campo "contributor", en el que aparece el nombre de la persona que ha añadido esta palabra
+	\end{itemize}
+	
+\end{itemize}
 
-Es una red semántica diseñada para ayudar a los ordenadores a entender el significado de las palabras y fue creada por el MIT en 1999. Esta disponible en múltiples idiomas, como el español, el inglés o el chino.
-Dada una palabra y el idioma, devuelve sinónimos y términos relacionados.
+
 \footnote{http://conceptnet.io/}
 
 Por ejemplo, si introducimos la palabra "dinero", especificando que el idioma es el español, ConceptNet te devuelve como sinónimos: lana, pasta, billete, plata. y como términos relacionados: dineral y moneda.
