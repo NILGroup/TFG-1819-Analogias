@@ -34,12 +34,13 @@ class PostFormFinal(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PostFormFinal, self).__init__(*args, **kwargs)
-        self.fields['Word'].required = False
+        self.fields['PalabraABuscar'].required = False
+        self.fields['Profundidad'].required = False
 
 
     class Meta:
         model = FormularioFinal
-        fields = ('Word', 'Depth',)
+        fields = ('PalabraABuscar', 'Profundidad',)
 
         def __str__(self):
             return self.Word

@@ -17,6 +17,6 @@ class FormularioTerminos(models.Model):
 
 class FormularioFinal(models.Model):
 
-    Word = models.CharField(max_length=200)
-    Depth = models.IntegerField(default=1)
-    ordering = ('Word', 'Depth')
+    PalabraABuscar = models.CharField(max_length=200)
+    Profundidad = models.IntegerField(default=1)
+    ordering = ('PalabraABuscar', 'Profundidad')

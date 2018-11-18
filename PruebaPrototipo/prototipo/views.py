@@ -27,24 +27,30 @@ def index(request):
                 form_sinonimos.save()
                 resultado = form_sinonimos['campoPalabra'].value()
                 salida_sinonimos = sinonimosDevueltos(resultado)
-                return render(request, 'prototipo/formulario.html', {'resultadosSinonimos': salida_sinonimos, 'form_term': form_terminos, 'form': form_sinonimos, 'form_final': form_final})
+                return render(request, 'prototipo/formulario.html', {'resultadosSinonimos': salida_sinonimos, 'form_term': form_terminos, 'form': form_sinonimos, 'form_final': form_final, 'encontrado': True})
 
         elif 'boton-terminos' in request.POST:
             if form_terminos.is_valid():
                 form_terminos.save()
                 resultado = form_terminos['Palabra'].value()
                 salida_terminos = terminosRelacionadosDevueltos(resultado)
-                return render(request, 'prototipo/formulario.html', {'resultadosTerminos': salida_terminos, 'form_term': form_terminos, 'form': form_sinonimos, 'form_final': form_final})
+                return render(request, 'prototipo/formulario.html', {'resultadosTerminos': salida_terminos, 'form_term': form_terminos, 'form': form_sinonimos, 'form_final': form_final, 'encontrado': True})
 
         elif 'boton-final' in request.POST:
             if form_final.is_valid():
                 form_final.save()
-                resultado = form_final['Word'].value()
-                profundidad = form_final['Depth'].value()
-                salida_final = consultaSinonimosYterminos(resultado, int(profundidad))
-                return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final})
+                resultado = form_final['PalabraABuscar'].value()
+                profundidad = form_final['Profundidad'].value()
+                salida_final, contadorProfundidad = consultaSinonimosYterminos(resultado, int(profundidad))
 
-    return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'form_final': form_final})
+                if contadorProfundidad == -1:
+                    encontrado = False
+                else:
+                    encontrado = True
+                profundidad = "Se ha encontrado en la profundidad: " + str(contadorProfundidad)
+                return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final, 'encontrado': encontrado, 'profundidad': profundidad})
+
+    return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'form_final': form_final, 'encontrado': True})
 
 
 
@@ -75,7 +81,8 @@ def consultaSinonimosYterminos(palabra, profundidad):
     resultadosAcumulados = []
     #Resultados de este nivel
     resultadosActuales = []
-
+    resultadosActualesValidos = []
+    encontradoFinal = False
 
     for contadorProfundidad in range(profundidad):
 
@@ -87,17 +94,18 @@ def consultaSinonimosYterminos(palabra, profundidad):
         else:
             for i in range(len(resultadosAcumulados)):
                 resultados, encontrado = busquedaPorNivel(resultadosAcumulados[i])
-                if encontrado == False:
-                    resultadosActuales += resultados
+                if encontrado == True:
+                    resultadosActualesValidos += resultados
+                    encontradoFinal = True
                 else:
-                    return resultados, contadorProfundidad
+                    resultadosActuales += resultados
+
         resultadosAcumulados = resultadosActuales
+        if encontradoFinal == True:
+            return resultadosActualesValidos, contadorProfundidad
 
-
-    if encontrado == True:
-        return resultadosActuales
-    else:
-        return "No se han encontrado"
+    if encontradoFinal == False:
+        return resultadosActualesValidos, -1
 
 '''
         if len(arrayconsultaSinonimo) > 0 or len(arrayConsultaTermino) > 0:

@@ -11,9 +11,12 @@
 
 
         <h3>RESULTADOS:</h3>
-         {% for resultado_sinonimos in resultadosSinonimos %}
+
+        {% for resultado_sinonimos in resultadosSinonimos %}
             <p>{{ resultado_sinonimos }} </p>
-         {% endfor %}
+        {% endfor %}
+
+
     </div>
 
 
@@ -45,10 +48,16 @@
 
 
         <h3>RESULTADOS:</h3>
+         {% if encontrado == True %}
+             {% for resultado_final in resultadosFinal %}
+                <p>{{ resultado_final }} </p>
+             {% endfor %}
+            <p> {{ profundidad }}</p>
+         {% else %}
+            <p>No se han encontrado resultados</p>
+        {% endif %}
 
-         {% for resultado_final in resultadosFinal %}
-            <p>{{ resultado_final }} </p>
-         {% endfor %}
+
      </div>
 
 {% endblock %}
