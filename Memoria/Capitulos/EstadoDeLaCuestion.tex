@@ -55,7 +55,8 @@ Es por ello que este tipo de palabras deben estar totalmente descartadas en la l
 
 
 \section{Procesamiento del lenguaje natural}
-El procesamiento del lenguaje natural(PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso de lenguajes naturales, como pueden ser el español, el ruso o el inglés. Gracias a esto podemos identificar mediante un programa informático que palabras son las más utilizadas en un idioma determinado(por lo que podemos deducir que esas palabras van a ser las más sencillas de aprender) e incluirlas en textos para que sea más fácil su comprensión.
+ 
+El procesamiento del lenguaje natural(PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso de lenguajes naturales (entendiendo el lenguaje natural al idioma ya sea hablado o escrito por humanos con fines de comunicación), como pueden ser el español, el ruso o el inglés. Gracias a esto podemos identificar mediante un programa informático que palabras son las más utilizadas en un idioma determinado(por lo que podemos deducir que esas palabras van a ser las más sencillas de aprender) e incluirlas en textos para que sea más fácil su comprensión.
 
 \subsection{ConceptNet} 
 
@@ -66,18 +67,21 @@ Es una red semántica diseñada para ayudar a los ordenadores a entender el sign
 Este consta principalmente de tres campos:
 \begin{itemize}
 	\item @context: que muestra una URL hacia la documentación de la API.
-	\item @id: Indica el concepto que se quiere buscar y su idioma. Por ejemplo: si queremos buscar gato en español, aparece de la siguiente manera: \textit{/c/es/gato}, siendo "es" el id del idioma en el que hemos buscado la palabra, en este caso indica español y siendo "gato" la palabra buscada
+	\item @id: Indica el concepto que se quiere buscar y su idioma. Por ejemplo: si queremos buscar gato en español, aparece de la siguiente manera: \textit{/c/es/gato}, siendo "es" el id del idioma en el que hemos buscado la palabra, en este caso indica español y siendo "gato" la palabra buscada.
 	\item edges: Que constituyen los datos devueltos por conceptnet y está formado por los siguientes campos:
 	\begin{itemize}
-		\item @id: Describe como están conectados dos nodos(palabras), la relación que hay entre ellos. Por ejemplo, si es un sinónimo o un termino relacionado
-		\item @type:Describe el tipo del id, es decir, si es una relación (edge) o un término (nodo)
-		\item dataset: No es muy importante, es un valor acerca de como está construido conceptnet
+		\item @id: Describe como están conectados dos nodos(palabras), es decir, la relación que hay entre ellos Por ejemplo, como podemos ver en la figura 2.3, la relación entre gato y animal, es que el gato pertenece al grupo de los animales.
+		\item @type:Describe el tipo del id, es decir, si es una relación (edge) o un término (nodo).
+		\item dataset: No es muy importante, es un valor acerca de como está construido conceptnet.
 		\item end: Describe el nodo destino, es decir, si hemos introducido la palabra "gato" un nodo destino sería por ejemplo "animal", ya que es un término relacionado. Dentro de end hay varios campos ya explicados anteriormente, como @id o @type, sin embargo hay otros nuevos como "language", en el que se indica el idioma en el que esta la palabra destino y "term" que en este caso tiene el mismo valor que el @id
-		\item license: Aporta información sobre como debe usarse la información proporcionada por conceptnet
+		\item license: Aporta información sobre como debe usarse la información proporcionada por conceptnet.
 		\item rel: Describe la relación que hay entre la palabra origen y destino, dentro del cual hay tres campos: @id, @type y label, descritos anteriormente.
-		\item sources: Indica por qué conceptnet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id, además de un campo "activity" indicando la tarea del contribuidor que ha añadido esta palabra o si ha sido añadida mediante n proceso automático. Por último hay un campo "contributor", en el que aparece el nombre de la persona que ha añadido esta palabra
+		\item sources: Indica por qué conceptnet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id, además de un campo "activity" indicando la tarea del contribuidor que ha añadido esta palabra o si ha sido añadida mediante n proceso automático. Por último hay un campo "contributor", en el que aparece el nombre de la persona que ha añadido esta palabra.
+		\item start: Describe el nodo origen, es decir, la palabra que hemos introducido en conceptnet para que haga la consulta, este campo esta compuesto por elementos ya descritos como son: @id, @type, label, language y term.
+		\item surfaceText: Indica de que frase del lenguaje natural se han extraido los datos que estan guardados en conceptnet
+		\item weight: Indica la fiabilidad de la información guardada en conceptnet, siendo normal que su valor sea 1.0. Dicho valor es mayor cuanto más filedigna sean los datos.
 	\end{itemize}
-	
+	\item view: Describe la longitud de la lista de paginación, es un objeto con un id propio,y además, aparecen los campos "firstPage" que tiene como valor un enlace a la primera pagina de los resultados obtenidos, "nextPage" que tiene un enlace a la siguiente página de la lista
 \end{itemize}
 
 	\figura{Bitmap/Capitulo2/json}{width=.9\textwidth}{fig:json}{Vista de JSON} 
@@ -87,10 +91,11 @@ Este consta principalmente de tres campos:
 Por ejemplo, si introducimos la palabra "dinero", especificando que el idioma es el español, ConceptNet te devuelve como sinónimos: lana, pasta, billete, plata. y como términos relacionados: dineral y moneda.
 
 Dispone de una API \textit({http://api.conceptnet.io/}) que devuelve los datos en formato JSON, que utilizaremos para obtener los términos relacionados y sinónimos que necesitamos.
-
+\subsection{Alternativas a conceptnet}
+Una de las alternativas que hemos encontrado a conceptnet es Thesaurus \textit{https://www.thesaurus.com } que es una aplicación web en la que introduces una palabra y obtienes términos relacionados y sinónimos en varios idiomas, principalmente en inglés, también te dice que tipo de palabra es (sustantivo, verbo... etc), esta opción en nuestro caso es inviable ya que la base de datos de palabras en castellano es bastante pobre.
 \section{Figuras retóricas}
 Las figuras literarias(o retóricas) son formas no convencionales de utilizar las palabras, de manera que, aunque se emplean con sus acepciones habituales, se acompañan de algunas particularidades fónicas, gramaticales o semánticas, que las alejan de ese uso habitual, por lo que terminan por resultar especialmente expresivas. 
-La metáfora, el símil y la analogía se basan en la comparación entre dos conceptos, el de origen, que es el término literal (al que la metáfora se refiere) es el llamado tenor. El de destino, que es el término figurado es el vehículo. La relación que hay entre el tenor y el vehículo se denomina fundamento. Por ejemplo, en la metáfora \textit{Tus ojos son dos luceros}, \textit{ojos} es el tenor, \textit{luceros} es el vehículo y el fundamentos es la belleza de los ojos.
+La metáfora, el símil y la analogía se basan en la comparación entre dos conceptos, el de origen, que es el término literal (al que la metáfora se refiere) es el llamado tenor. El de destino, que es el término figurado es el vehículo. La relación que hay entre el tenor y el vehículo se denomina fundamento. Por ejemplo, en la metáfora \textit{Tus ojos son dos luceros}, \textit{ojos} es el tenor, \textit{luceros} es el vehículo y el fundamento es la belleza de los ojos.
 (\textit {Introducción al análisis retórico: tropos, figuras y sintaxis del estilo})\footnote{Azaustre Galiana, Antonio y Juan Casas Rigall, Introducción al análisis retórico: tropos, figuras y sintaxis del estilo, Universidad de Santiago de Compostela, Santiago de Compostela, 1994.}
 
 En este trabajo vamos a trabajar con tres tipos de figuras retóricas: Analogía, metáfora y símil.
