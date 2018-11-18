@@ -58,7 +58,12 @@ Es por ello que este tipo de palabras deben estar totalmente descartadas en la l
 El procesamiento del lenguaje natural(PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso de lenguajes naturales, como pueden ser el español, el ruso o el inglés. Gracias a esto podemos identificar mediante un programa informático que palabras son las más utilizadas en un idioma determinado(por lo que podemos deducir que esas palabras van a ser las más sencillas de aprender) e incluirlas en textos para que sea más fácil su comprensión.
 
 \subsection{ConceptNet} 
-Es una red semántica diseñada para ayudar a los ordenadores a entender el significado de las palabras y fue creada por el MIT en 1999. Esta disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone tanto de una aplicación web \textit{http://conceptnet.io/} "METER IMAGEN" que dispone de una interfaz en la que puedes introducir una palabra y seleccionar el idioma en el que está, a su vez, dispone de un servicio web\textit{http://api.conceptnet.io/ld/conceptnet5.6/context.ld.json}, es decir, una API a la que se puede acceder para realizar peticiones de palabras y que devuelve la información en formato JSON, este consta principalmente de tres campos:
+
+Es una red semántica diseñada para ayudar a los ordenadores a entender el significado de las palabras y fue creada por el MIT en 1999. Esta disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone tanto de una aplicación web \textit{http://conceptnet.io/} 
+	\figura{Bitmap/Capitulo2/concepnet}{width=.9\textwidth}{fig:concepnet}{Sinonimos y Términos relacionados} 
+	 que dispone de una interfaz en la que puedes introducir una palabra y seleccionar el idioma en el que está, a su vez, dispone de un servicio web\textit{http://api.conceptnet.io/ld/conceptnet5.6/context.ld.json}, es decir, una API a la que se puede acceder para realizar peticiones de palabras y que devuelve la información en formato JSON.
+
+Este consta principalmente de tres campos:
 \begin{itemize}
 	\item @context: que muestra una URL hacia la documentación de la API.
 	\item @id: Indica el concepto que se quiere buscar y su idioma. Por ejemplo: si queremos buscar gato en español, aparece de la siguiente manera: \textit{/c/es/gato}, siendo "es" el id del idioma en el que hemos buscado la palabra, en este caso indica español y siendo "gato" la palabra buscada
@@ -75,6 +80,7 @@ Es una red semántica diseñada para ayudar a los ordenadores a entender el sign
 	
 \end{itemize}
 
+	\figura{Bitmap/Capitulo2/json}{width=.9\textwidth}{fig:json}{Vista de JSON} 
 
 \footnote{http://conceptnet.io/}
 
@@ -123,31 +129,30 @@ Las principales características de un servicio web son:
 Por otro lado, los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico, es por ello que mediante este último podemos diferenciar dos tipos distintos de servicio web:
 \begin{itemize}
 	\item Servicios web SOAP  \textit({Simple Object Access Protocol}): es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos.
-	\item Servicios Web RESTful: es un protocolo que suele integrar mejor con HTTP que los servicios basado en SOAP, ya que no requieren mensajes XML.
+	\item Servicios Web RESTful: es un protocolo que suele integrar mejor con HTTP que los servicios basado en SOAP, ya que no requieren mensajes XML. Cada petición del cliente debe contener toda la información necesaria para entender la petición, y no puede aprovecharse de ningún contexto almacenado en el servidor.
 	
 \end{itemize}
 
 \subsection{Arquitectura Servicios Web}
 \label{cap:subsec:arquitecturaserviciosweb}
-Los servicios web se componen fundamentalmente de tres partes:
+Hay que distinguir tres partes fundamentales en los servicios web:
 \begin{itemize}
-	\item Proveedor: Es la aplicación que implementa el servicio y lo hace accesible mediante Internet
-	\item Solicitante: Cualquier persona que necesite utilizar el servicio web
-	\item Publicador: Se refiere al repositorio centralizado en el que se encuentra la información de la funcionalidad disponible y como se utiliza
-	
+	\item El proveedor: Es la aplicación que implementa el servicio y lo hace accesible desde Internet.
+	\item El solicitante: Cualquier clienteque necesite utilizar el servicio web.
+	\item El publicador: Se refiere al repositorio centralizado en el que se encuentra la información de la funcionalidad disponible y como se utiliza.
+
 \end{itemize}
- A continuación,
-explicamos más detalladamente las distintas capas que tiene el servicio web:
+ Por otro lado, los servicios web se componen de varias capas:
 \begin{itemize}
  \item Service Discovery. Es el responsable de centralizar los servicios web en un directorio común de esta forma es mas sencillo buscar y publicar.
- \item Service Description. Como ya hemos comentado con anterioridad, los servicios web se pueden definir así mismos, por lo que una vez que los localicemos nos darán suficiente información para saber que operaciones soporta y como activarlo.
- \item Service Invocation. Invocar a un Web Service implica pasar mensajes entre el cliente y el servidor. SOAP  \textit({Simple Object Access Protocol}) especifica cómo deberíamos formatear los mensajes request para el servidor, y cómo el servidor debería formatear sus mensajes de respuesta.
+ \item Service Description. Como ya hemos comentado con anterioridad, los servicios web se pueden definir así mismos, por lo que una vez que los localicemos el Service Description nos dará suficiente información para saber que operaciones soporta y como activarlo.
+ \item Service Invocation. Invocar a un Web Service implica pasar mensajes entre el cliente y el servidor. Por ejemplo, si utilizamos SOAP  \textit({Simple Object Access Protocol}) , el Service Invocation especifica cómo deberíamos formatear los mensajes request para el servidor, y cómo el servidor debería formatear sus mensajes de respuesta.
  \item Transport. Todos estos mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP  \textit({(HyperText Transfer Protocol)}). 
 \end{itemize}
 
 \subsection{Ventajas de los  Servicios Web}
 \label{cap:subsec:ventajasserviciosweb}
-	Las principales ventajas de los servicios web son las siguientes:
+	Las principales ventajas del uso de los servicios web son las siguientes:
 \begin{itemize}
 	\item Permiten la integración “justo-a-tiempo”:  Esto significa que los solicitantes, los proveedores y los agentes actúan en conjunto para crear sistemas que son auto-configurables, adaptativos y robustos.
 	\item Reducen la complejidad por medio del encapsulamiento: Un solicitante de servicio no sabe cómo fue implementado el servicio por parte del proveedor, y éste a su vez, no sabe cómo utiliza el cliente el servicio. Estos detalles se encapsulan en los solicitantes y proveedores. El encapsulamiento es crucial para reducir la complejidad.
@@ -159,7 +164,7 @@ explicamos más detalladamente las distintas capas que tiene el servicio web:
 
 \subsection{Desventajas de los  Servicios Web}
 \label{cap:subsec:desventajasserviciosweb}
-	El uso de servicios web también tiene desventajas:
+	El uso de servicios web también tiene algunas desventajas:
 \begin{itemize}
 	\item Al apoyarse en HTTP, pueden esquivar medidas de seguridad basadas en firewall cuyas reglas tratan de bloquear.
 	\item Existe poca información de servicios web para algunos lenguajes de programación.
