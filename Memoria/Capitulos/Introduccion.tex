@@ -1,46 +1,49 @@
 \chapter{Introducción}
 \label{cap:introduccion}
 
-\chapterquote{Frase célebre dicha por alguien inteligente}{Autor}
 
-\begin{resumen}
-	En el capítulo 1 vamos a realizar una introducción a nuestro TFG. Dicha introducción la dividiremos en varias secciones. En el apartado 1.1 hablaremos de la razón de ser nuestro trabajo y en el 1.2 de los objetivos que queremos alcanzar con el mismo.	
-\end{resumen}
+
+
+	En el capítulo 1 vamos a realizar una introducción a nuestro TFG. Dicha introducción la dividiremos en varias secciones. En el apartado 1.1 hablaremos de la razón de ser nuestro trabajo, en el 1.2 de los objetivos que queremos alcanzar con el mismo y en la 1.3 de la estructura de esta memoria.
+
 
 
 \section{Motivación}
 \label{cap:sec:motivacion}
-En nuestra sociedad actual, existen ciertos colectivos como pueden ser personas con algún tipo de trastorno cognitivo, inmigrantes, ancianos, analfabetos funcionales, niños, etc... que tienen dificultad para aprender conceptos complejos o no tan complejos. Para ellos, esto supone una serie de limitaciones importantes en su vida cotidiana, como en la forma de relacionarse con otros individuos, en su vida profesional e incluso su vida personal.
-Existen multitud de palabras cuyo significado es bastante complicado de explicar de una manera sencilla, por lo que una solución para que cualquier persona pueda comprenderla es hacer uso de metáforas o analogías. De esta forma, pueden asimilar el concepto de una manera más rápida y sencilla. Intentamos con esto, que ninguna persona en nuestra sociedad pueda quedar discriminada en ningún ámbito de su vida, por no poder comprender ciertos términos.
-Para que se entienda mejor a lo que nos estamos refiriendo, podemos nombrar el caso más claro en el cuál una persona inmigrante necesita realizar gestiones de estancia, firma de documentación, situaciones en las cuales si no tienen una buena comprensión del lenguaje no saben las consecuencias de firmar los documentos sin llegar a entenderlos. 
-Otro ejemplo que podríamos añadir sería cuando una persona firma un contrato, como por ejemplo una póliza de seguros o un contrato de trabajo, en el cual añaden ciertas cláusulas que son incomprensibles. 
-\newline
-Para ayudar principalmente a estas personas a que puedan entender el significado de cualquier palabra, y de esta forma superar algunas de sus limitaciones, vamos a desarrollar una aplicación que permita definir palabras complejas mediante comparaciones con otras más fáciles ya conocidas por los usuarios. 
+En nuestra sociedad actual, existen ciertos colectivos como pueden ser las personas con algún tipo de trastorno cognitivo, inmigrantes, ancianos, analfabetos funcionales, niños, etc... que tienen dificultad para aprender conceptos complejos o no tan complejos. Esto supone una serie de limitaciones en su vida cotidiana, en la forma de relacionarse con otros individuos, en su vida profesional e incluso su vida personal.
+Existen multitud de palabras cuyo significado es bastante complicado de explicar de una manera sencilla, por lo que una solución para que cualquier persona lo pueda comprender es hacer uso de metáforas o analogías. De esta forma, se puede asimilar el concepto de una manera más rápida y sencilla. 
 
+Por ejemplo, suponemos que un inmigrante necesita realizar gestiones para legalizar su estancia, firmar documentación. Si no tiene una buena comprensión del lenguaje no sabe las consecuencias de firmar los documentos porque no los entiende. 
+Otro ejemplo que podríamos añadir sería cuando una persona firma un contrato, como por ejemplo, una póliza de seguros o un contrato de trabajo, en el cual añaden ciertas cláusulas que son incomprensibles. 
+\newline
+Para ayudar principalmente a estas personas a que puedan entender el significado de cualquier palabra, y de esta forma superar algunas de sus limitaciones, vamos a desarrollar una aplicación que permita definir palabras complejas mediante comparaciones con otras más fáciles ya conocidas por los usuarios. Por ejemplo, si queremos explicar una palabra compleja como puede ser piraña, podemos describir sus características utilizando conceptos simples para facilitar su entendimiento de la siguiente manera: \newline
+
+\textit{Una piraña nada como un pez y es agresiva como un león} \newline
+
+Mediante esta comparación, alguien que desconozca completamente el significado de \textit{piraña}, puede hacerse una idea muy aproximada de lo que es.
 \section{Objetivos}
 \label{cap:sec:objetivos}
-Crearemos una serie de servicios Web para describir un concepto más o menos complejo a partir de comparaciones con otros conceptos mas sencillos, es decir, nuestro objetivo principal es crear una aplicación que dada una palabra compleja para el usuario, obtenga una definición clara y sencilla mediante símiles, analogías o metáforas. 
-Por ejemplo, si buscamos la palabra piraña, la aplicación devolverá la siguiente descripción:  \textit{Nada como un pez, es pequeño como un ratón y es agresivo como un león}. De esta manera, cualquier persona que no sepa lo que es una piraña, puede hacerse una idea de como es dicho animal y asimilar el nuevo concepto. Además, utilizaremos técnicas centradas en el usuario para diseñar una interfaz lo más usable posible y que así el usuario tenga una experiencia de uso satisfactoria. Por último, queremos que nuestro producto se encuentre al alcance de todas aquellas personas que lo necesiten.
+Nuestro objetivo principal es crear una aplicación que dada una palabra compleja para el usuario, obtenga una definición clara y sencilla mediante símiles, analogías o metáforas. 
+Esto se puede ver claramente en el ejemplo de la piraña del apartado anterior, ya que de esa manera, cualquier persona que no sepa lo que es una piraña, puede hacerse una idea de como es dicho animal y asimilar el nuevo concepto. Además, utilizaremos técnicas centradas en el usuario para diseñar una interfaz lo más usable posible y que así el usuario tenga una experiencia de uso satisfactoria. Por último, queremos que nuestro producto se encuentre al alcance de todas aquellas personas que lo necesiten.
  Para que todo ello ocurra, los objetivos principales a alcanzar son:
 \begin{itemize}
-	\item Desarrollar una aplicación que esté al alcance de todos los usuarios, es decir, ninguna persona puede quedarse excluida de su uso por ningún motivo, debe ser una aplicación sencilla y fácil de usar y entender.
-	\item El proyecto se aplicará y enfocará principalmente para el uso de personas con algún tipo de dificultad de aprendizaje, como por ejemplo la dislexia o el síndrome de Asperger, para ayudar a mejorar la comprensión de palabras complejas.
-	\item Desarrollar una serie de servicios Web que puedan ser utilizados por cualquier programador en un futuro, es decir, deben estar implementados de la forma más simple y clara posible, ayudándonos de comentarios en cada función para explicar su funcionamiento y haciendo uso de la indentación correctamente. Debemos usar nombres significativos para las variables y funciones para que el programador pueda entender correctamente nuestro código ya que el nombre de la función será autodescriptiva.
-	\item Construir la aplicación de manera incremental, añadiéndole valor poco a poco. Esto quiere decir que se crearán funciones modulares, es decir, no se implementará todo en una misma función, sino que serán funciones cortas que realicen acciones muy específicas. 
-	\item Serán funciones reutilizables, tanto para ampliaciones de nuestro propio proyecto así como para proyectos de terceros.
-	\item Construir una aplicación que esté centrada en el usuario, que sea lo más amigable posible y que solucione sus problemas reales de una forma usable y rápida.
+	\item Desarrollar una aplicación que esté al alcance de todos los usuarios, es decir, ninguna persona puede quedarse excluida de su uso por ningún motivo, debe ser una aplicación sencilla, fácil de usar y entender.
+
+	\item La aplicación estará construida con servicios web que la doten de funcionalidad.
+	
+	\item Los servicios web desarrollados estarán disponibles en una API pública para que cualquiera pueda utilizarlos.
+	
+	\item Construir la aplicación de manera incremental, añadiéndole valor al producto poco a poco.
+	
+	\item Construir una aplicación que esté centrada en el usuario, que sea lo más amigable posible y que solucione problemas reales de una forma usable.
+	
 	\item Realizar un producto que sea eficiente.
-	\item El diseño de la Interfaz debe cumplir las Ocho Reglas de Oro del diseño de interfaces:
-	\begin{itemize} 
-		\item Consistencia: La funcionalidad debe ser similar a otras aplicaciones que el usuario está acostumbrado a utilizar. En cuanto a la interfaz debe tener los mismos colores, iconos, formas, botones, mensajes de aviso... Por ejemplo, si el usuario está acostumbrado a que el botón de eliminar o cancelar sea rojo, no debemos añadirle uno de color verde.
-		\item Usabilidad Universal: Debemos tener en cuenta las necesidades de los distintos tipos de usuario, como por ejemplo, atajos de teclado para un usuario experto o filtros de color para usuarios con deficiencias visuales.
-		\item Retroalimentación activa: Por cada acción debe existir una retroalimentación legible y razonable por parte de la aplicación. Por ejemplo, si el usuario quiere guardar los datos obtenidos de la búsqueda, la aplicación debe informarle de si han sido guardados o no.
-		\item Diálogos para conducir la finalización: El usuario debe saber en que paso se encuentra en cada momento. Por ejemplo, en un proceso de compra que conlleva varios pasos hasta la finalización de la misma, se le debe informar donde se encuentra y cuánto le queda para terminar.
-		\item Prevención de errores: La interfaz debe ayudar al usuario a no cometer errores serios, y en caso de cometerlos se le debe dar una solución lo más clara y sencilla posible. Por ejemplo, deshabilitando opciones o indicando en un formulario el campo en el cual se ha producido el error sin perder la información ya escrita.
-		\item Deshacer acciones fácilmente: Se debe dar al usuario la capacidad de poder deshacer o revertir acciones de una manera sencilla. 
-		\item Sensación de control: Hay que dar al usuario la sensación de que tiene en todo momento el control de la aplicación, añadiendo contenidos fáciles de encontrar y de esta forma no causarle ansiedad o frustración por utilizar nuestra aplicación.
-		\item Reducir la carga de memoria a corto plazo: La interfaz debe ser lo más sencilla posible y con una jerarquía de información evidente, es decir, hay que minimizar la cantidad de elementos a memorizar por el usuario.
-	\end{itemize}
+	
+\section{Estructura de la memoria}
+
+La memoria se dividirá en varios capítulos. El contenido de los mismos es el siguiente:
+\begin{itemize}
+	\item El \textbf{capítulo uno} (capítulo actual) contiene la introducción.
+	\item El \textbf{capítulo dos} es el estado de la cuestión, en el que se explicará que es la lectura fácil y como se aplica y se introducirán los conceptos de Procesamiento del Lenguaje Natural(PLN), figuras retóricas y servicios web.
+	\item El \textbf{capítulo tres} describe el trabajo realizado por cada uno de los autores.
 \end{itemize}
-Cumpliendo estos objetivos conseguiremos que nuestra aplicación sea usable, haciendo que los usuarios no se sientan frustrados ni con ansiedad al usarla. 
-Por último, no nos tenemos que olvidar de los objetivos académicos: poner en práctica los conocimientos adquiridos durante el Grado, y ampliar nuestros conocimientos gracias a la utilización de herramientas, lenguajes y metodologías nuevas.
