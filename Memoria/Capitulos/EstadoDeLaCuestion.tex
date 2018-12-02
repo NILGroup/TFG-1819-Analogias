@@ -55,18 +55,36 @@ Es por ello que este tipo de palabras deben estar totalmente descartadas en la l
 
 \section{Procesamiento del Lenguaje Natural}
  
-El procesamiento del lenguaje natural(PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso de lenguajes naturales (entendiendo el lenguaje natural al idioma ya sea hablado o escrito por humanos con fines de comunicación), como pueden ser el español, el ruso o el inglés. Gracias a esto podemos identificar mediante un programa informático que palabras son las más utilizadas en un idioma determinado(por lo que podemos deducir que esas palabras van a ser las más sencillas de aprender) e incluirlas en textos para que sea más fácil su comprensión.
+El Procesamiento del Lenguaje Natural(PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso de lenguajes naturales (entendiendo como lenguaje natural el idioma usado con fines de comunicación por humanos, ya sea hablado o escrito, como pueden ser el español, el ruso o el inglés). 
+El Procesamiento del Lenguaje Natural se ayuda de las redes semánticas, puesto que estas son una forma de representación del conocimiento lingüístico en la que los conceptos y sus interrelaciones se representan mediante un grafo. Se utilizan para representar mapas conceptuales y mentales \citep{wiki:redSemantica20184}.
+Los nodos están representados por el elemento lingüístico, y  la relación entre los nodos sería la arista, como podemos ver en la figura  \ref{fig:red}
+ 	\figura{Bitmap/Capitulo2/redSemantica}{width=.9\textwidth}{fig:red}{Ejemplo Red Semántica}.
+Existen principalmente tres tipos de redes semánticas \footnote{http://elies.rediris.es/elies9/4-3-2.htm}:
+\begin{itemize}
+	\item Redes IS-A: Los enlaces entre los nodos están etiquetados con una relación entre ambos. Es el tipo que habitualmente se utiliza junto con las Redes de Marcos.
+	\item Grafos Conceptuales: Existen dos tipos de nodos: nodos de conceptos y de relaciones. En este tipo de red semántica no existen enlaces entre los nodos con una etiqueta, sino que son los propios nodos los que tienen el significado. Es por ello que pueden ser de dos tipos:
+		\begin{itemize}
+			\item Nodos de conceptos: Pueden representar una entidad, asi como un estado o proceso.
+			\item Nodos de relación: Indican como se relacionan los nodos.			
+		\end{itemize}
+	\item Redes de Marcos: Los enlaces de unión de los nodos son parte del propio nodo, es decir, se encuentran organizados jerárquicamente, según un número de criterios estrictos como por ejemplo, la similitud entre nodos.
+\end{itemize}
+
+Para el trabajo que queremos realizar, existen multitud de páginas web que son redes semánticas capaces de procesar el Lenguaje Natural.  A continuación, hablaremos de algunas de ellas.
 
 \subsection{ConceptNet} 
 
-Es una red semántica diseñada para ayudar a los ordenadores a entender el significado de las palabras y fue creada por el MIT en 1999. Esta disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone tanto de una aplicación web \textit{http://conceptnet.io/} 
-	\figura{Bitmap/Capitulo2/concepnet}{width=.9\textwidth}{fig:concepnet}{Sinonimos y Términos relacionados} 
-	 que dispone de una interfaz en la que puedes introducir una palabra y seleccionar el idioma en el que está, a su vez, dispone de un servicio web\textit{http://api.conceptnet.io/ld/conceptnet5.6/context.ld.json}, es decir, una API a la que se puede acceder para realizar peticiones de palabras y que devuelve la información en formato JSON.
+Es una red semántica creada por el MIT \textit{Massachusetts Institute of Technology} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Esta disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone de una aplicación web \footnote{http://conceptnet.io/} , como se puede ver en la figura \ref{fig:concepnetPrin}, donde seleccionas el idioma deseado y añades la palabra a buscar.  En la figura  \ref{fig:busquedaPelea}, podemos ver que si añadimos la palabra "Pelea" nos devuelve una cantidad de columnas, distinguiéndolas por sinónimos, términos relacionados, símbolos, etc... Principalmente, lo que a nosotros nos interesa son los sinónimos y términos relacionados. \figura{Bitmap/Capitulo2/concepnetPrincipal}{width=.9\textwidth}{fig:concepnetPrin}{Página principal Concepnet}  
+\figura{Bitmap/Capitulo2/busquedaPelea}{width=.9\textwidth}{fig:busquedaPelea}{Resultados de búsqueda de una palabra} 
+\figura{Bitmap/Capitulo2/json}{width=.9\textwidth}{fig:json}{Vista de JSON}
+Por otro lado, concepnet dispone de un servicio web \footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, podemos ver en la figura  \ref{fig:json} los resultados en dicho formato:
+	
 
-Este consta principalmente de tres campos:
+	
+Este consta de cuatro campos principales:
 \begin{itemize}
-	\item @context: que muestra una URL hacia la documentación de la API.
-	\item @id: Indica el concepto que se quiere buscar y su idioma. Por ejemplo: si queremos buscar gato en español, aparece de la siguiente manera: \textit{/c/es/gato}, siendo "es" el id del idioma en el que hemos buscado la palabra, en este caso indica español y siendo "gato" la palabra buscada.
+	\item @context:  URL enlazada a un archivo de información del JSON para comprender la API. También puede contener comentarios que pueden ser útiles para el usuario.
+	\item @id: Concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/pelea}, donde  \textit{c} significa concepto,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{pelea} que es la palabra buscada.
 	\item edges: Que constituyen los datos devueltos por conceptnet y está formado por los siguientes campos:
 	\begin{itemize}
 		\item @id: Describe como están conectados dos nodos(palabras), es decir, la relación que hay entre ellos Por ejemplo, como podemos ver en la figura 2.3, la relación entre gato y animal, es que el gato pertenece al grupo de los animales.
