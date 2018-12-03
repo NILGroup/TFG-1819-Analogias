@@ -56,7 +56,7 @@ Es por ello que este tipo de palabras deben estar totalmente descartadas en la l
 \section{Procesamiento del Lenguaje Natural}
  
 El Procesamiento del Lenguaje Natural(PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso de lenguajes naturales (entendiendo como lenguaje natural el idioma usado con fines de comunicación por humanos, ya sea hablado o escrito, como pueden ser el español, el ruso o el inglés). 
-El Procesamiento del Lenguaje Natural se ayuda de las redes semánticas, puesto que estas son una forma de representación del conocimiento lingüístico en la que los conceptos y sus interrelaciones se representan mediante un grafo. Se utilizan para representar mapas conceptuales y mentales \citep{wiki:redSemantica20184}.
+El Procesamiento del Lenguaje Natural se ayuda de las redes semánticas, puesto que estas son una forma de representación del conocimiento lingüístico en la que los conceptos y sus interrelaciones se representan mediante un grafo. Se utilizan para representar mapas conceptuales y mentales \citep{wiki:redSemantica2018}.
 Los nodos están representados por el elemento lingüístico, y  la relación entre los nodos sería la arista, como podemos ver en la figura  \ref{fig:red}
  	\figura{Bitmap/Capitulo2/redSemantica}{width=.9\textwidth}{fig:red}{Ejemplo Red Semántica}.
 Existen principalmente tres tipos de redes semánticas \footnote{http://elies.rediris.es/elies9/4-3-2.htm}:
@@ -148,14 +148,23 @@ Las principales características de un servicio web son:
 
 
 \begin{itemize}
-\item Debe poder ser accesible a través de la Web. Para ello debe utilizar protocolos de transporte estándares como HTTP, y codificar los mensajes en un lenguaje estándar que pueda ser accesible por cualquier cliente que quiera utilizar el servicio. 
-\item Debe contener una descripción de sí mismo. De esta forma, una aplicación web podrá saber cual es la función de un determinado Servicio Web, y cuál es su interfaz, de manera que pueda ser utilizado de forma automática por cualquier aplicación, sin la intervención del usuario.
-\item Debe poder ser localizado. Deberemos tener algún mecanismo que nos permita encontrar un Servicio Web que realice una determinada función. De esta forma tendremos la posibilidad de que una aplicación localice el servicio que necesite de forma automática, sin tener que conocerlo previamente el usuario.
+	\item Ser accesible a través de la Web. Para ello debe utilizar protocolos de transporte estándares como HTTP, y codificar los mensajes en un lenguaje estándar que pueda ser accesible por cualquier cliente que quiera utilizar el servicio. 
+	\item Contener una descripción de sí mismo. De esta forma, una aplicación web podrá saber cual es la función de un determinado Servicio Web, y cuál es su interfaz, de manera que pueda ser utilizado de forma automática por cualquier aplicación, sin la intervención del usuario.
+	\item Debe ser localizado. Deberemos tener algún mecanismo que nos permita encontrar un Servicio Web que realice una determinada función. De esta forma tendremos la posibilidad de que una aplicación localice el servicio que necesite de forma automática, sin tener que conocerlo previamente el usuario.
 \end{itemize}
 
 Por otro lado, los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico, es por ello que mediante este último podemos diferenciar dos tipos distintos de servicio web:
 \begin{itemize}
-	\item Servicios web SOAP  \textit({Simple Object Access Protocol}): es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos.
+	\item Servicios web SOAP  \textit({Simple Object Access Protocol}): es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos 
+	\footnote{https://www.ibm.com/support/knowledgecenter/es/SSMKHH_10.0.0/com.ibm.etools.mft.doc/ac55780_.htm}. Los mensajes SOAP tienen el siguiente formato representado en la figura \ref{fig:SOAP}:
+	\figura{Bitmap/Capitulo2/SOAP}{width=.9\textwidth}{fig:SOAP}{Estructura de un mensaje SOAP}
+	
+	\begin{itemize}
+		\item <Envelope>: Elemento raíz de cada mensaje SOAP y contiene dos elementos, el <Header> que es opcional y el <Body> que es obligatorio, ambos elementos los describiremos a continuación.
+		\item <Header>: Es un elemento que se utiliza para indicar información acerca de los mensajes SOAP.
+		\item <Body>: Elemento que contiene información dirigida al destinatario del mensaje.
+		\item <Fault>Elemento en el que se notifican los errores.
+	\end{itemize}
 	\item Servicios Web RESTful: es un protocolo que suele integrar mejor con HTTP que los servicios basado en SOAP, ya que no requieren mensajes XML. Cada petición del cliente debe contener toda la información necesaria para entender la petición, y no puede aprovecharse de ningún contexto almacenado en el servidor.
 	
 \end{itemize}
@@ -167,14 +176,14 @@ Hay que distinguir tres partes fundamentales en los servicios web:
 	\item El proveedor: Es la aplicación que implementa el servicio y lo hace accesible desde Internet.
 	\item El solicitante: Cualquier clienteque necesite utilizar el servicio web.
 	\item El publicador: Se refiere al repositorio centralizado en el que se encuentra la información de la funcionalidad disponible y como se utiliza.
-
+	
 \end{itemize}
- Por otro lado, los servicios web se componen de varias capas:
+Por otro lado, los servicios web se componen de varias capas:
 \begin{itemize}
- \item Service Discovery. Es el responsable de centralizar los servicios web en un directorio común de esta forma es mas sencillo buscar y publicar.
- \item Service Description. Como ya hemos comentado con anterioridad, los servicios web se pueden definir así mismos, por lo que una vez que los localicemos el Service Description nos dará suficiente información para saber que operaciones soporta y como activarlo.
- \item Service Invocation. Invocar a un Web Service implica pasar mensajes entre el cliente y el servidor. Por ejemplo, si utilizamos SOAP  \textit({Simple Object Access Protocol}) , el Service Invocation especifica cómo deberíamos formatear los mensajes request para el servidor, y cómo el servidor debería formatear sus mensajes de respuesta.
- \item Transport. Todos estos mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP  \textit({(HyperText Transfer Protocol)}). 
+	\item Service Discovery: Responsable de centralizar los servicios web en un directorio común, de esta forma es mas sencillo buscar y publicar.
+	\item Service Description. Como ya hemos comentado con anterioridad, los servicios web se pueden definir así mismos, por lo que una vez que los localicemos el Service Description nos dará la información para saber que operaciones soporta y como activarlo.
+	\item Service Invocation. Invocar a un Web Service implica pasar mensajes entre el cliente y el servidor. Por ejemplo, si utilizamos SOAP  \textit({Simple Object Access Protocol}), el Service Invocation especifica cómo deberíamos formatear los mensajes request para el servidor, y cómo el servidor debería formatear sus mensajes de respuesta.
+	\item Transport. Todos estos mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP  \textit({(HyperText Transfer Protocol)}). 
 \end{itemize}
 
 \subsection{Ventajas de los  Servicios Web}
