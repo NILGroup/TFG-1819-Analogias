@@ -133,6 +133,13 @@ Esta consulta devuelve un fichero XML como el expuesto en la figura \ref{fig:xml
 \figura{Bitmap/Capitulo2/metaphormagnet}{width=.9\textwidth}{fig:metaphormagnet}{Resultados búsqueda Metaphor Magnet con la palabra \textit{house}}
 \figura{Bitmap/Capitulo2/xmlmetaphormagnet}{width=.9\textwidth}{fig:xmlmetaphormagnet}{Ejemplos formato XML Metaphor Magnet}
 
+
+
+\subsection{Wordnet}
+\label{cap:subsec:wordnet}
+Es una base de datos léxica solamente en inglés donde agrupa las palabras en función de su significado \citep{wordnet2010}. Utiliza distintos tipos de palabras tales como sustantivos, verbos, adjetivos y adverbios ignorando preposiciones, determinantes y otras palabras funcionales. Agrupando estos tipos en conjuntos de sinónimos cognitivos o también llamados \textit{synsets}. Estos, aparte contienen una breve definición y en muchas ocasiones oraciones cortas que explican el significado. En el caso de que la palabra tenga distintos significados se representará en tantos \textit{synsets} como significados haya. Podemos ver un ejemplo en la figura \ref{fig:wordnet} realizando una búsqueda con la palabra \textit{house}.
+WordNet dispone de una API HTTP donde permite buscar información en la base de datos de WordNet mediante métodos GET y POST a través de la URL raíz \textit{/graph/v1}.
+\figura{Bitmap/Capitulo2/wordnet}{width=.9\textwidth}{fig:wordnet}{Resultados búsqueda Wordnet con la palabra \textit{house}}
 %-------------------------------------------------------------------
 \section{Figuras retóricas}
 %-------------------------------------------------------------------
