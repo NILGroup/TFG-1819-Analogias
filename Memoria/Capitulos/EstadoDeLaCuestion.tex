@@ -78,10 +78,10 @@ Para el trabajo que queremos realizar, existen multitud de páginas web que son 
 \subsection{ConceptNet} 
 \label{cap:subsec:concepnet}
 
-Es una red semántica creada por el MIT \textit{Massachusetts Institute of Technology} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Esta disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone de una aplicación web \footnote{http://conceptnet.io/} , como se puede ver en la figura \ref{fig:concepnetPrin}, donde seleccionas el idioma deseado y añades la palabra a buscar.  En la figura  \ref{fig:busquedaConcepnet}, podemos ver que si añadimos la palabra "Chaqueta" nos devuelve una cantidad de columnas, distinguiéndolas por sinónimos, términos relacionados, símbolos, etc... Principalmente, lo que a nosotros nos interesa son los sinónimos y términos relacionados. \figura{Bitmap/Capitulo2/concepnetPrincipal}{width=.9\textwidth}{fig:concepnetPrin}{Página principal Concepnet}  
+Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Esta disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone de una aplicación web \footnote{http://conceptnet.io/} , como se puede ver en la figura \ref{fig:concepnetPrin}, donde seleccionas el idioma deseado y añades la palabra a buscar.  En la figura  \ref{fig:busquedaConcepnet}, podemos ver que si añadimos la palabra Chaqueta nos devuelve una cantidad de columnas, distinguiéndolas por sinónimos, términos relacionados, símbolos, etc... Principalmente, lo que a nosotros nos interesa son los sinónimos y términos relacionados. \figura{Bitmap/Capitulo2/concepnetPrincipal}{width=.9\textwidth}{fig:concepnetPrin}{Página principal Concepnet}  
 \figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de búsqueda de una palabra} 
 \figura{Bitmap/Capitulo2/json}{width=.9\textwidth}{fig:json}{Vista de JSON}
-Por otro lado, concepnet dispone de un servicio web \footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, podemos ver en la figura  \ref{fig:json} los resultados en dicho formato:
+Por otro lado, Concepnet dispone de un servicio web \footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, podemos ver en la figura  \ref{fig:json} los resultados en dicho formato:
 	
 
 	
@@ -89,7 +89,7 @@ Este consta de cuatro campos \footnote{principaleshttps://github.com/commonsense
 \begin{itemize}
 	\item @context:  URL enlazada a un archivo de información del JSON para comprender la API. También puede contener comentarios que pueden ser útiles para el usuario.
 	\item @id: Concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
-	\item edges: Representa una estructura de datos devueltos por conceptnet compuesta por:
+	\item edges: Representa una estructura de datos devueltos por Conceptnet compuesta por:
 	\begin{itemize}
 		\item @id: Describe el tipo de relación que existe entre la palabra introducida y la devuelta, en nuestro caso \textit{/a/[/r/Synonym/,/c/es/chaqueta/n/,/c/es/americana/]}, nos indica que la palabra \textit{americana} es un sinónimo de \textit{chaqueta}.
 		\item @type:Define el tipo del id, es decir, si es una relación (edge) o un término (nodo).
@@ -99,13 +99,13 @@ Este consta de cuatro campos \footnote{principaleshttps://github.com/commonsense
 		\begin{itemize}
 			\item @id: Coincide con la palabra del id anterior.
 			\item @type: Define el tipo de id, como se ha explicado anteriormente.
-			\item label: Frase más completa como "un ejemplo" en lugar de solo la palabra "ejemplo" que aparece en el URI.
+			\item label: Frase más completa, donde adquiera significado la palabra obtenida.
 			\item language: Lenguaje en el que está la palabra devuelta de la consulta.
 			\item term: Enlace a una versión mas general del propio término. Normalmente, suele coincidir con la URI.			
 		\end{itemize}
 		\item license: Aporta información sobre como debe usarse la información proporcionada por conceptnet.
 		\item rel: Describe la relación que hay entre la palabra origen y destino, dentro del cual hay tres campos: @id, @type y label, descritos anteriormente.
-		\item sources: Indica por qué ConceptNet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id, además de un campo \textit{activity} indicando la tarea del contribuidor que ha añadido esta palabra o si ha sido añadida mediante un proceso automático. Por último, hay un campo \textit{contributor}, en el que aparece el nombre de la persona que ha añadido esta palabra.
+		\item sources: Indica por qué ConceptNet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id y un campo @type, A parte, hay un campo \textit{contributor}, en el que aparece la fuente por la que se ha obtenido ese resultado y por último un campo \textit{process} indicando si la palabra se ha añadido mediante un proceso automático.
 		\item start: Describe el nodo origen, es decir, la palabra que hemos introducido en ConceptNet para que haga la consulta, este campo esta compuesto por elementos ya descritos como son: @id, @type, label, language y term.
 		\item surfaceText: Indica de que frase del lenguaje natural se han extraido los datos que estan guardados en conceptnet. En nuestro caso es nulo.
 		\item weight: Indica la fiabilidad de la información guardada en conceptnet, siendo normal que su valor sea 1.0. Cuanto mayor sea este valor, más fiables serán.
