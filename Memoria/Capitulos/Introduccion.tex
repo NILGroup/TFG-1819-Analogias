@@ -1,9 +1,9 @@
 \chapter{Introducción}
 \label{cap:introduccion}
 
-
-Actualmente existen multitud de herramientas online para facilitar el entendimiento de personas que hablan distintos idiomas, como pueden ser los servicios de traducción instantánea en los que al escribir un texto se traduce automáticamente cualquier lengua que el usuario desee. Sin embargo, estas herramientas no disponen de un sistema que permita definir palabras complejas utilizando términos sencillos, para que cualquier persona que no entienda su significado pueda hacerlo. Esto puede suponer un gran impedimento en el desarrollo de su vida diaria, sobretodo para los colectivos más vulnerables ya que pueden ser fácilmente engañados.
-Por este motivo es importante ofrecer alguna herramienta accesible a todo el mundo que pueda definir palabras de una manera clara y sencilla.
+Actualmente, existen diversos colectivos con un entendimiento limitado del castellano, lo que convierte a sus integrantes en personas vulnerables, ya que se las puede engañar fácilmente. Aunque existen multitud de herramientas online para facilitar el entendimiento de un lenguaje determinado a personas que no lo hablan, como pueden ser los servicios de traducción instantánea, en los que al escribir un texto se traduce automáticamente a cualquier lengua que el usuario desee. No existen herramientas que permitan definir palabras difíciles utilizando comparaciones o términos más sencillos para facilitar su comprensión. 
+Por este motivo es importante ofrecer un servicio accesible a todo el mundo que pueda definir palabras de una manera clara y sencilla.
+ 
 
 	
 
@@ -14,18 +14,13 @@ Por este motivo es importante ofrecer alguna herramienta accesible a todo el mun
 \label{cap:sec:motivacion}
 
 En nuestra sociedad actual, existen ciertos colectivos como pueden ser las personas con algún tipo de trastorno cognitivo, inmigrantes, ancianos, analfabetos funcionales, niños, etc... que tienen dificultad para aprender conceptos complejos o no tan complejos. 
-Existen multitud de palabras cuyo significado es bastante complicado de explicar de una manera sencilla, por lo que una solución para que cualquier persona lo pueda comprender es hacer uso de metáforas o analogías. De esta forma, se puede asimilar el concepto de una manera más rápida y sencilla. 
+Existen multitud de palabras cuyo significado es bastante complicado de explicar de una manera sencilla, por lo que una solución para que cualquier persona lo pueda comprender es hacer uso de metáforas o analogías. De esta forma (como se verá más adelante), se puede asimilar el concepto de una manera más rápida y sencilla. 
 
-Esto supone una serie de limitaciones en su vida cotidiana, en la forma de relacionarse con otros individuos, en su vida profesional e incluso su vida personal. Por ejemplo, suponemos que un inmigrante necesita realizar gestiones para legalizar su estancia o firmar documentación. Si no tiene una buena comprensión del lenguaje no sabe las consecuencias de firmar los documentos porque no los entiende. 
-Otro ejemplo que podríamos añadir sería cuando una persona firma un contrato, como por ejemplo, una póliza de seguros o un contrato de trabajo, en el cual añaden ciertas cláusulas que son incomprensibles. 
-
-
-Para ayudar principalmente a estas personas a que puedan entender el significado de cualquier palabra, y de esta forma superar algunas de sus limitaciones, vamos a desarrollar una aplicación que permita definir palabras complejas mediante comparaciones con otras más fáciles ya conocidas por los usuarios. Por ejemplo, si queremos explicar una palabra compleja como puede ser piraña, podemos describir sus características utilizando conceptos simples para facilitar su entendimiento de la siguiente manera:
- 
-\textit{Una piraña nada como un pez y es agresiva como un león}
+La dificultad para entender conceptos complejos supone una serie de limitaciones en la vida cotidiana, en la forma de relacionarse con otros individuos, en la vida profesional e incluso la vida personal. Por ejemplo, suponemos que un inmigrante necesita realizar gestiones para legalizar su estancia o firmar documentación. Si no tiene una buena comprensión del lenguaje no sabe las consecuencias de firmar los documentos porque no los entiende. 
+Otro ejemplo sería cuando una persona firma un contrato, como por ejemplo una póliza de seguros o un contrato de trabajo, en el cual añaden ciertas cláusulas que son incomprensibles. 
 
 
-
+Para ayudar principalmente a estas personas a que puedan entender el significado de cualquier palabra, y de esta forma superar algunas de sus limitaciones, vamos a desarrollar una aplicación que permita definir palabras complejas mediante comparaciones con otras más fáciles ya conocidas por ellos. Por ejemplo, si queremos explicar una palabra compleja como puede ser piraña, podemos describirla utilizando conceptos más simples de la siguiente manera:\textit{ ``Una piraña nada como un pez y es agresiva como un león''.}
 
 Mediante esta comparación, alguien que desconozca completamente el significado de \textit{piraña}, puede hacerse una idea muy aproximada de lo que es.
 
@@ -35,21 +30,20 @@ Mediante esta comparación, alguien que desconozca completamente el significado 
 %-------------------------------------------------------------------
 \label{cap:sec:objetivos}
 
-Nuestro objetivo principal es crear una aplicación que dada una palabra compleja para el usuario, obtenga una definición clara y sencilla mediante símiles, analogías o metáforas. 
-Esto se puede ver claramente en el ejemplo de la piraña del apartado anterior, ya que de esa manera, cualquier persona que no sepa lo que es una piraña, puede hacerse una idea de como es dicho animal y asimilar el nuevo concepto. Además, utilizaremos técnicas centradas en el usuario para diseñar una interfaz lo más usable posible y que así el usuario tenga una experiencia de uso satisfactoria. Por último, queremos que nuestro producto se encuentre al alcance de todas aquellas personas que lo necesiten.
- Para que todo ello ocurra, los objetivos principales a alcanzar son:
+El objetivo principal es crear una aplicación que dada una palabra compleja para el usuario obtenga una definición clara y sencilla mediante símiles, analogías o metáforas. 
+Esto se puede ver claramente en el ejemplo de la piraña del apartado anterior, ya que, de esa manera, cualquier persona que no sepa lo que es una piraña pueda hacerse una idea de cómo es dicho animal y asimilar el nuevo concepto. Además, se utilizarán técnicas centradas en el usuario para diseñar una interfaz lo más usable posible y que así el usuario tenga una experiencia de uso satisfactoria. Por último, el producto se diseñará para que se encuentre al alcance de todas aquellas personas que lo necesiten.
+ Para que todo ello ocurra, los principales objetivos tecnológicos a alcanzar son:
 \begin{itemize}
-	\item Desarrollar una aplicación que esté al alcance de todos los usuarios, es decir, ninguna persona puede quedarse excluida de su uso por ningún motivo, debe ser una aplicación sencilla, fácil de usar y entender.
-	\item La aplicación estará construida con servicios web que la doten de funcionalidad.
+	\item La aplicación estará construida con servicios web que la doten de funcionalidad. 
 	\item Los servicios web desarrollados estarán disponibles en una API pública para que todo el mundo pueda utilizarlos.	
-	\item La aplicación funcionará con un amplio número de palabras complejas para que tenga la mayor utilidad posible.
 	\item La aplicación se construirá de manera incremental, añadiéndole valor al producto poco a poco.	
-	\item Construir una aplicación que esté centrada en el usuario, que sea lo más amigable posible y que solucione problemas reales de una forma usable.		
-	\item La aplicación tendrá una apariencia atractiva y amigable con el usuario.
+	\item Hacer un desarrollo que esté centrado en el usuario, que sea lo más amigable posible y que solucione problemas reales de una forma usable.
+	\item La aplicación esté formada por distintos módulos independientes cada uno con una funcionalidad específica. 
 \end{itemize}
-Alcanzando los objetivos anteriormente descritos, conseguiremos obtener un producto de calidad, con una gran utilidad tanto social como académica, que puede ayudar a mucha gente a aprender ciertos conceptos de nuestro idioma de una manera más sencilla.
 
-Por último, no nos tenemos que olvidar de los objetivos académicos de este trabajo: Poner en práctica los conocimientos adquiridos durante el Grado, y ampliar nuestros conocimientos gracias a la utilización de herramientas, lenguajes y metodologías nuevas.
+Por último, no se deben de olvidar los objetivos académicos de este trabajo: poner en práctica los conocimientos adquiridos durante el Grado y ampliar nuestros conocimientos gracias a la utilización de herramientas, lenguajes y metodologías nuevas.
+
+Alcanzando los objetivos anteriormente descritos, se conseguirá obtener un producto de calidad, con una gran utilidad tanto social como académica, que puede ayudar a mucha gente a aprender ciertos conceptos de nuestro idioma de una manera más sencilla.
 	
 	
 %-------------------------------------------------------------------
@@ -57,9 +51,8 @@ Por último, no nos tenemos que olvidar de los objetivos académicos de este tra
 %-------------------------------------------------------------------
 \label{cap:sec:estructuramemoria}
 
-La memoria se dividirá en varios capítulos. El contenido de los mismos es el siguiente:
-\begin{itemize}
-	\item El \textbf{capítulo uno} (capítulo actual) contiene la introducción.
-	\item El \textbf{capítulo dos} es el Estado de la Cuestión, en el que se explicará que es la Lectura Fácil y como se aplica y se introducirán los conceptos de Procesamiento del Lenguaje Natural(PLN) y algunas herramientas que sirven para PLN, además se hablará de figuras retóricas y servicios web, en especial qué son, su arquitectura y las ventajas y desventajas de su uso.
-	\item El \textbf{capítulo tres} describe el trabajo realizado por cada uno de los autores.
-\end{itemize}
+
+En el \textbf{capítulo dos} se presenta el Estado de la Cuestión, en el que se explicará que es la Lectura Fácil y como se aplica y se introducirán los conceptos de Procesamiento del Lenguaje Natural (PLN) y algunas herramientas que sirven para PLN, además se hablará de figuras retóricas y servicios web, en especial qué son, su arquitectura y las ventajas y desventajas de su uso.\\
+
+
+En el \textbf{capítulo tres} se describe el trabajo realizado por cada uno de los autores.
