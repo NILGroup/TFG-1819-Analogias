@@ -49,10 +49,16 @@
 
         <h3>RESULTADOS:</h3>
          {% if encontrado == True %}
-             {% for resultado_final in resultadosFinal %}
-                <p>{{ resultado_final }} </p>
-             {% endfor %}
-            <p> {{ profundidad }}</p>
+            {% if tipo == "SINONIMO" and profundidad == 1 %}
+                 {% for resultado_final in resultadosFinal %}
+                    <p>{{ palabraInicial }} es {{ resultado_final }} </p>
+                 {% endfor %}
+            {% else %}
+                {% for resultado_final in resultadosFinal %}
+                    <p>{{ palabraInicial }} es como {{ resultado_final }} </p>
+                 {% endfor %}
+            {% endif %}
+            <p> Se ha encontrado en la profundidad:  {{ profundidad }}</p>
          {% else %}
             <p>No se han encontrado resultados</p>
         {% endif %}

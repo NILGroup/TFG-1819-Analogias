@@ -41,16 +41,16 @@ def index(request):
                 form_final.save()
                 resultado = form_final['PalabraABuscar'].value()
                 profundidad = form_final['Profundidad'].value()
-                salida_final, contadorProfundidad = consultaSinonimosYterminos(resultado, int(profundidad))
+                salida_final, contadorProfundidad, tipo = consultaSinonimosYterminos(resultado, int(profundidad))
 
                 if contadorProfundidad == -1:
                     encontrado = False
                 else:
                     encontrado = True
-                profundidad = "Se ha encontrado en la profundidad: " + str(contadorProfundidad)
-                return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final, 'encontrado': encontrado, 'profundidad': profundidad})
+                profundidad = contadorProfundidad
+                return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final, 'encontrado': encontrado, 'profundidad': profundidad,'palabraInicial':resultado, 'tipo':tipo})
 
-    return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'form_final': form_final, 'encontrado': True})
+    return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'form_final': form_final, })
 
 
 
@@ -65,11 +65,11 @@ def busquedaPorNivel(palabra):
     if encontrado == False:
         arrayConsultaTermino, encontrado = consultaTerminos(palabra, csvarchivo)
         if encontrado == False:
-            return arrayconsultaSinonimo + arrayConsultaTermino, False
+            return arrayconsultaSinonimo + arrayConsultaTermino, False," "
         else:
-            return arrayConsultaTermino, True
+            return arrayConsultaTermino, True,"TERMINO"
     else:
-        return arrayconsultaSinonimo, True
+        return arrayconsultaSinonimo, True,"SINONIMO"
 
 
 
@@ -88,12 +88,12 @@ def consultaSinonimosYterminos(palabra, profundidad):
 
         contadorProfundidad += 1
         if contadorProfundidad == 1:
-            resultadosActuales, encontrado = busquedaPorNivel(palabra)
+            resultadosActuales, encontrado,tipo = busquedaPorNivel(palabra)
             if encontrado == True:
-                return resultadosActuales, contadorProfundidad
+                return resultadosActuales, contadorProfundidad,tipo
         else:
             for i in range(len(resultadosAcumulados)):
-                resultados, encontrado = busquedaPorNivel(resultadosAcumulados[i])
+                resultados, encontrado, tipo = busquedaPorNivel(resultadosAcumulados[i])
                 if encontrado == True:
                     resultadosActualesValidos += resultados
                     encontradoFinal = True
@@ -102,10 +102,10 @@ def consultaSinonimosYterminos(palabra, profundidad):
 
         resultadosAcumulados = resultadosActuales
         if encontradoFinal == True:
-            return resultadosActualesValidos, contadorProfundidad
+            return resultadosActualesValidos, contadorProfundidad,tipo
 
     if encontradoFinal == False:
-        return resultadosActualesValidos, -1
+        return resultadosActualesValidos, -1, tipo
 
 '''
         if len(arrayconsultaSinonimo) > 0 or len(arrayConsultaTermino) > 0:
