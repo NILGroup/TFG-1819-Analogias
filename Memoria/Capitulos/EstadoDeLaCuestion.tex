@@ -158,77 +158,68 @@ Por otro lado, los servicios web se componen de varias capas \footnote{https://d
 \section{Procesamiento del Lenguaje Natural}
 %-------------------------------------------------------------------
 \label{cap:sec:lenguajenatural}
-El Procesamiento del Lenguaje Natural(PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso de lenguajes naturales (entendiendo como lenguaje natural el idioma usado con fines de comunicación por humanos, ya sea hablado o escrito, como pueden ser el español, el ruso o el inglés). 
-El Procesamiento del Lenguaje Natural se ayuda de las redes semánticas, puesto que estas son una forma de representación del conocimiento lingüístico en la que los conceptos y sus interrelaciones se representan mediante un grafo. Se utilizan para representar mapas conceptuales y mentales \citep{wiki:redSemantica2018}.
-Los nodos están representados por el elemento lingüístico, y  la relación entre los nodos sería la arista, podemos ver un ejemplo en la figura \ref{fig:red}.
+El Procesamiento del Lenguaje Natural (PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso del lenguaje natural (entendiendo como lenguaje natural el idioma usado con fines de comunicación por humanos, ya sea hablado o escrito, como pueden ser el español, el ruso o el inglés). 
+El Procesamiento del Lenguaje Natural se ayuda de las redes semánticas, puesto que estas son una forma de representación del conocimiento en la que los conceptos que componen el mundo y sus relaciones se representan mediante un grafo. Se utilizan para representar mapas conceptuales y mentales \citep{wiki:redSemantica2018}.
+Los nodos están representados por el elemento lingüístico, y  la relación entre los nodos sería la arista. Podemos ver un ejemplo en la Figura \ref{fig:red}.
 \figura{Bitmap/Capitulo2/redSemantica}{width=.9\textwidth}{fig:red}{Ejemplo Red Semántica}
-Existen principalmente tres tipos de redes semánticas \footnote{http://elies.rediris.es/elies9/4-3-2.htm}:
+Existen principalmente tres tipos de redes semánticas\footnote{http://elies.rediris.es/elies9/4-3-2.htm}:
 \begin{itemize}
-	\item Redes IS-A: Los enlaces entre los nodos están etiquetados con una relación entre ambos. Es el tipo que habitualmente se utiliza junto con las Redes de Marcos.
-	\item Grafos Conceptuales: Existen dos tipos de nodos: nodos de conceptos y de relaciones. En este tipo de red semántica no existen enlaces entre los nodos con una etiqueta, sino que son los propios nodos los que tienen el significado. Es por ello que pueden ser de dos tipos:
-	\begin{itemize}
-		\item Nodos de conceptos: Pueden representar una entidad, asi como un estado o proceso.
-		\item Nodos de relación: Indican como se relacionan los nodos.			
-	\end{itemize}
-	\item Redes de Marcos: Los enlaces de unión de los nodos son parte del propio nodo, es decir, se encuentran organizados jerárquicamente, según un número de criterios estrictos como por ejemplo, la similitud entre nodos.
+	\item Redes de Marcos: los enlaces de unión de los nodos son parte del propio nodo, es decir, se encuentran organizados jerárquicamente, según un número de criterios estrictos, como por ejemplo la similitud entre nodos.
+	\item Redes IS-A: los enlaces entre los nodos están etiquetados con una relación entre ambos. Es el tipo que habitualmente se utiliza junto con las Redes de Marcos.
+	\item Grafos Conceptuales: existen dos tipos de nodos: nodos de conceptos, los cuáles representan una entidad, un estado o un proceso y los nodos de relaciones, que indican como se relacionan los nodos de concepto. En este tipo de red semántica no existen enlaces entre los nodos con una etiqueta, sino que son los propios nodos los que tienen el significado. 
 \end{itemize}
 
-Para el trabajo que queremos realizar, existen multitud de aplicaciones web que actúan como redes semánticas y son capaces de procesar el Lenguaje Natural.  A continuación, hablaremos de algunas de ellas.
+Para el trabajo que queremos realizar, existen varias aplicaciones web que actúan como redes semánticas y son capaces de procesar el Lenguaje Natural.  A continuación, hablaremos de algunas de ellas.
 
 \subsection{ConceptNet} 
 \label{cap:subsec:concepnet}
 
-Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Esta disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone de una aplicación web \footnote{http://conceptnet.io/} , como se puede ver en la figura \ref{fig:concepnetPrin}, donde seleccionas el idioma deseado y añades la palabra a buscar.  En la figura  \ref{fig:busquedaConcepnet}, podemos ver que si añadimos la palabra Chaqueta nos devuelve una cantidad de columnas, distinguiéndolas por sinónimos, términos relacionados, símbolos, etc... Principalmente, lo que a nosotros nos interesa son los sinónimos y términos relacionados. \figura{Bitmap/Capitulo2/concepnetPrincipal}{width=.9\textwidth}{fig:concepnetPrin}{Página principal Concepnet}  
-\figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de búsqueda de una palabra} 
-\figura{Bitmap/Capitulo2/json}{width=.9\textwidth}{fig:json}{Vista de JSON}
-Por otro lado, Concepnet dispone de un servicio web \footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, podemos ver en la figura  \ref{fig:json} los resultados en dicho formato:
-
-
-
-Este consta de cuatro campos \footnote{principales https://github.com/commonsense/conceptnet5/wiki/AP}:
+Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Está disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone de una aplicación web\footnote{http://conceptnet.io/}, donde seleccionas el idioma deseado y añades la palabra a buscar. En la Figura  \ref{fig:busquedaConcepnet}, podemos ver que si añadimos la palabra chaqueta nos devuelve sus sinónimos, términos relacionados, símbolos, etc...
+\figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de ConcepNet para la palabra chaqueta} 
+\figura{Bitmap/Capitulo2/json}{width=.9\textwidth}{fig:json}{JSON devuelto por la API de ConceptNet para la palabra chaqueta}
+Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, podemos ver en la Figura  \ref{fig:json} los resultados en dicho formato para la palabra chaqueta. Este consta de cuatro campos\footnote{principales https://github.com/commonsense/conceptnet5/wiki/AP}:
 \begin{itemize}
 	\item @context: URL enlazada a un archivo de información del JSON para comprender la API. También puede contener comentarios que pueden ser útiles para el usuario.
-	\item @id: Concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
-	\item edges: Representa una estructura de datos devueltos por Conceptnet compuesta por:
+	\item @id: concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
+	\item edges: representa una estructura de datos devueltos por Conceptnet compuesta por:
 	\begin{itemize}
-		\item @id: Describe el tipo de relación que existe entre la palabra introducida y la devuelta, en nuestro caso \textit{/a/[/r/Synonym/,/c/es/chaqueta/n/,/c/es/americana/]}, nos indica que la palabra \textit{americana} es un sinónimo de \textit{chaqueta}.
-		\item @type: Define el tipo del id, es decir, si es una relación (edge) o un término (nodo).
+		\item @id: describe el tipo de relación que existe entre la palabra introducida y la devuelta, en nuestro caso \textit{/a/[/r/Synonym/,/c/es/chaqueta/n/,/c/es/americana/]}, nos indica que la palabra \textit{americana} es un sinónimo de \textit{chaqueta}.
+		\item @type: define el tipo del id, es decir, si es una relación (edge) o un término (nodo).
 		\item dataset: URI que representa el conjunto de datos creado.
-		\item edges: Representa una estructura de datos devueltos por conceptnet compuesta por:
-		\item end: Nodo destino, que a su vez se compone de:	
+		\item edges: representa una estructura de datos devueltos por ConceptNet compuesta por:
+		\item end: nodo destino, que a su vez se compone de:	
 		\begin{itemize}
-			\item @id: Coincide con la palabra del id anterior.
-			\item @type: Define el tipo de id, como se ha explicado anteriormente.
-			\item label: Frase más completa, donde adquiera significado la palabra obtenida.
-			\item language: Lenguaje en el que está la palabra devuelta de la consulta.
-			\item term: Enlace a una versión mas general del propio término. Normalmente, suele coincidir con la URI.			
+			\item @id: coincide con la palabra del id anterior.
+			\item @type: define el tipo de id, como se ha explicado anteriormente.
+			\item label: frase más completa, donde adquiera significado la palabra obtenida.
+			\item language: lenguaje en el que está la palabra devuelta de la consulta.
+			\item term: enlace a una versión mas general del propio término. Normalmente, suele coincidir con la URI.			
 		\end{itemize}
-		\item license: Aporta información sobre como debe usarse la información proporcionada por conceptnet.
-		\item rel: Describe la relación que hay entre la palabra origen y destino, dentro del cual hay tres campos: @id, @type y label, descritos anteriormente.
-		\item sources: Indica por qué ConceptNet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id y un campo @type, A parte, hay un campo \textit{contributor}, en el que aparece la fuente por la que se ha obtenido ese resultado y por último un campo \textit{process} indicando si la palabra se ha añadido mediante un proceso automático.
-		\item start: Describe el nodo origen, es decir, la palabra que hemos introducido en ConceptNet para que haga la consulta, este campo esta compuesto por elementos ya descritos como son: @id, @type, label, language y term.
-		\item surfaceText: Indica de que frase del lenguaje natural se han extraido los datos que estan guardados en conceptnet. En nuestro caso es nulo.
-		\item weight: Indica la fiabilidad de la información guardada en conceptnet, siendo normal que su valor sea 1.0. Cuanto mayor sea este valor, más fiables serán.
+		\item license: aporta información sobre como debe usarse la información proporcionada por conceptnet.
+		\item rel: describe la relación que hay entre la palabra origen y destino, dentro del cual hay tres campos: @id, @type y label, descritos anteriormente.
+		\item sources: indica por qué ConceptNet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id y un campo @type, A parte, hay un campo \textit{contributor}, en el que aparece la fuente por la que se ha obtenido ese resultado y por último un campo \textit{process} indicando si la palabra se ha añadido mediante un proceso automático.
+		\item start: describe el nodo origen, es decir, la palabra que hemos introducido en ConceptNet para que haga la consulta, este campo esta compuesto por elementos ya descritos como son: @id, @type, label, language y term.
+		\item surfaceText: indica de que frase del lenguaje natural se han extraido los datos que estan guardados en conceptnet. En nuestro caso es nulo.
+		\item weight: indica la fiabilidad de la información guardada en conceptnet, siendo normal que su valor sea 1.0. Cuanto mayor sea este valor, más fiables serán.
 	\end{itemize}
-	\item view: Describe la longitud de la lista de paginación, es un objeto con un id propio,y además, aparecen los campos "firstPage" que tiene como valor un enlace a la primera pagina de los resultados obtenidos y "nextPage" que tiene un enlace a la siguiente página de la lista
+	\item view: describe la longitud de la lista de paginación, es un objeto con un id propio, y además, aparecen los campos \textit{firstPage} que tiene como valor un enlace a la primera pagina de los resultados obtenidos, y \textit{nextPage} que tiene un enlace a la siguiente página de la lista.
 \end{itemize}
 
 
 \subsection{Thesaurus}
 \label{cap:subsec:thesaurus}
-Es una aplicación web \footnote{https://www.thesaurus.com/} la cuál se define como principal diccionario de sinónimos de la web. Su nombre proviene de la palabra griega Tesauro, cuyo significado es \textit{Trabajo de referencia que enumera las palabras agrupadas según la similitud del significado}. Esta página ofrece la posibilidad de introducir una palabra para poder conocer sus sinónimos pero como podemos ver en la imagen \ref{fig:thesaurus}, solamente devuelve resultados en inglés. A parte del listado de sinónimos,  Thesaurus te dice que tipo de palabra es y una definición de la misma.
-Dicha aplicación\footnote{http://thesaurus.altervista.org/} proporciona una API tipo RESTful  que obtiene los sinónimos de una palabra según el idioma específico y devuelve los resultados en formato XML o JSON. El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: Categoría y Sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
-Podemos ver en la imagen \ref{fig:xmlthesaurus} un ejemplo de como sería el resultado de una petición en formato XML y en la imagen \ref{fig:jsonthesaurus} en formato JSON.
-\figura{Bitmap/Capitulo2/thesaurus}{width=.9\textwidth}{fig:thesaurus}{Resultados búsqueda Thesaurus con la palabra \textit{casa}}
+Es una aplicación web\footnote{https://www.thesaurus.com/} que se autodefine como principal diccionario de sinónimos de la web. Su nombre proviene de la palabra griega Tesauro, cuyo significado es \textit{Trabajo de referencia que enumera las palabras agrupadas según la similitud del significado}. Esta página ofrece la posibilidad de introducir una palabra para poder conocer sus sinónimos, pero solamente devuelve resultados en inglés. Aparte del listado de sinónimos,  Thesaurus te dice que tipo de palabra es y una definición de la misma.
+Esta aplicación proporciona una API tipo RESTful\footnote{http://thesaurus.altervista.org/} que obtiene los sinónimos de una palabra y devuelve los resultados en formato XML o JSON. El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: categoría y sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
+Podemos ver en la Figura \ref{fig:xmlthesaurus} un ejemplo de como sería el resultado de una petición en formato XML y en la Figura \ref{fig:jsonthesaurus} en formato JSON.
 \figura{Bitmap/Capitulo2/xmlthesaurus}{width=.9\textwidth}{fig:xmlthesaurus}{Ejemplo formato XML Thesaurus}
 \figura{Bitmap/Capitulo2/jsonthesaurus}{width=.9\textwidth}{fig:jsonthesaurus}{Ejemplo formato JSON Thesaurus}
 
 \subsection{Thesaurus Rex}
 \label{cap:subsec:thesaurusrex}
 
-Thesaurus Rex  \footnote{http://ngrams.ucd.ie/therex3/} es una distribución de la aplicación Thesaurus comentada en el apartado anterior. Es una red semántica en la cuál puedes introducir una palabra y te devuelve palabras relacionados o bien, puedes introducir un par de palabras (separadas por el operador  \& ) y te devolverá las categorías que comparten ambos términos.
-Thesaurus Rex solo admite palabras en inglés por lo que en nuestro proyecto no puede ser utilizado. En la imagen \ref{fig:thesaurusrex} podemos vemos los resultados de haber introducido la palabra  \textit{house}.
-La aplicación devuelve estos resultados en formato XML, y este como se puede ver en la imagen \ref{fig:xmlthesaurusrex} los divide en distintos campos: \textit{Categories}, \textit{Modifiers} y \textit{CategoryHeads}.
+Thesaurus Rex\footnote{http://ngrams.ucd.ie/therex3/} es una red semántica. La aplicación permite introducir una palabra y devuelve palabras relacionados, o bien puedes introducir un par de palabras (separadas por el operador  \& ) y devolverá las categorías que comparten ambos términos.
+Thesaurus Rex solo admite palabras en inglés. En la Figura \ref{fig:thesaurusrex} podemos ver los resultados para la palabra  \textit{house}.
+La aplicación devuelve estos resultados en formato XML, y este como se puede ver en la Figura \ref{fig:xmlthesaurusrex} los divide en distintos campos: \textit{Categories}, \textit{Modifiers} y \textit{CategoryHeads}.
 
 
 \figura{Bitmap/Capitulo2/thesaurusrex}{width=.9\textwidth}{fig:thesaurusrex}{Resultados búsqueda Thesaurus Rex con la palabra \textit{house}}
