@@ -210,9 +210,59 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 \label{cap:subsec:thesaurus}
 Es una aplicación web\footnote{https://www.thesaurus.com/} que se autodefine como principal diccionario de sinónimos de la web. Su nombre proviene de la palabra griega Tesauro, cuyo significado es \textit{Trabajo de referencia que enumera las palabras agrupadas según la similitud del significado}. Esta página ofrece la posibilidad de introducir una palabra para poder conocer sus sinónimos, pero solamente devuelve resultados en inglés. Aparte del listado de sinónimos,  Thesaurus te dice que tipo de palabra es y una definición de la misma.
 Esta aplicación proporciona una API tipo RESTful\footnote{http://thesaurus.altervista.org/} que obtiene los sinónimos de una palabra y devuelve los resultados en formato XML o JSON. El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: categoría y sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
-Podemos ver en la Figura \ref{fig:xmlthesaurus} un ejemplo de como sería el resultado de una petición en formato XML y en la Figura \ref{fig:jsonthesaurus} en formato JSON.
-\figura{Bitmap/Capitulo2/xmlthesaurus}{width=.9\textwidth}{fig:xmlthesaurus}{Ejemplo formato XML Thesaurus}
-\figura{Bitmap/Capitulo2/jsonthesaurus}{width=.9\textwidth}{fig:jsonthesaurus}{Ejemplo formato JSON Thesaurus}
+Podemos ver en la Figura \ref{fig:xmlthesaurus} un ejemplo de como sería el resultado de una petición en formato XML:
+
+
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+	basicstyle=\ttfamily,
+	columns=fullflexible,
+	showstringspaces=false,
+	commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+	morestring=[b]",
+	morestring=[s]{>}{<},
+	morecomment=[s]{<?}{?>},
+	stringstyle=\color{black},
+	identifierstyle=\color{darkblue},
+	keywordstyle=\color{cyan},
+	morekeywords={xmlns,version,type}% list your attributes here
+}
+
+
+ y en la Figura \ref{fig:jsonthesaurus} en formato JSON.
+\figura{Bitmap/Capitulo2/xmlthesaurus}{width=.9\textwidth}{fig:xmlthesaurus}{Ejemplo de salida de Thesaurus en formato XML}
+\figura{Bitmap/Capitulo2/jsonthesaurus}{width=.9\textwidth}{fig:jsonthesaurus}{Ejemplo de salida de Thesaurus en formato JSON}
+
+
+
+
+\lstset{language=XML}
+\begin{lstlisting}
+<response> 
+<list>
+	<category>(noun)</category> 
+	<synonyms>order | war (antonym) </synonyms>
+ </list>
+ <list>
+ 	<category>(noun)</category> 
+ 	<synonyms> harmony | concord | concordance </synonyms>
+ </list>
+ <list>
+ 	<category>(noun)</category> 
+ 	<synonyms>public security | security </synonyms>
+ </list>
+ <list>
+ 	<category>(noun)</category> 
+ 	<synonyms> tratado de paz | pacificacion | acuerdo | pact | accord </synonyms>
+ </list>
+\end{lstlisting}
 
 \subsection{Thesaurus Rex}
 \label{cap:subsec:thesaurusrex}
