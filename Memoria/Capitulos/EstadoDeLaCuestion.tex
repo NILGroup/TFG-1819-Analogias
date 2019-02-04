@@ -77,7 +77,7 @@ En este trabajo vamos a trabajar con tres tipos de figuras retóricas \citep{TFM
 %-------------------------------------------------------------------
 \label{cap:sec:serviciosweb}
 
-Para definir el concepto de servicio Web de la forma más simple posible, se podría decir que es una tecnología que utiliza un conjunto de protocolos para intercambiar datos entre aplicaciones, sin importar el lenguaje de programación en el cual estén programadas o ejecutadas en cualquier tipo de plataforma \citep{wiki:w3c2004}. Según el W3C(\textit{World Wide Web Consortium})\footnote{https://www.w3.org/}, un servicio web es un sistema software diseñado para soportar la interacción máquina-a-máquina, a través de una red, de forma interoperable.
+Para definir el concepto de servicio Web de la forma más simple posible, se podría decir que es una tecnología que utiliza un conjunto de protocolos para intercambiar datos entre aplicaciones, sin importar el lenguaje de programación en el cual estén programadas o ejecutadas en cualquier tipo de plataforma \citep{wiki:w3c2004}. Según el W3C (\textit{World Wide Web Consortium})\footnote{https://www.w3.org/},\textit{``un servicio web es un sistema software diseñado para soportar la interacción máquina-a-máquina, a través de una red, de forma interoperable"}.
 
 
 
@@ -87,29 +87,82 @@ Las principales características de un servicio web son \citep{TorresJoaquin2017
 
 
 \begin{itemize}
-	\item Accesible a través de la Web. Para ello debe utilizar protocolos de transporte estándares como HTTP, y codificar los mensajes en un lenguaje estándar que pueda ser accesible por cualquier cliente que quiera utilizar el servicio. 
+	\item Es accesible a través de la Web. Para ello debe utilizar protocolos de transporte estándares como HTTP, y codificar los mensajes en un lenguaje estándar que pueda ser accesible por cualquier cliente que quiera utilizar el servicio. 
 	\item Contiene una descripción de sí mismo. De esta forma, una aplicación web podrá saber cual es la función de un determinado Servicio Web, y cuál es su interfaz, de manera que pueda ser utilizado de forma automática por cualquier aplicación, sin la intervención del usuario.
-	\item Debe ser localizado. Deberemos tener algún mecanismo que nos permita encontrar un Servicio Web que realice una determinada función. De esta forma tendremos la posibilidad de que una aplicación localice el servicio que necesite de forma automática, sin tener que conocerlo previamente el usuario.
+	\item Debe ser localizado. Debe tener algún mecanismo que permita encontrarle. De esta forma tendremos la posibilidad de que una aplicación localice el servicio que necesite de forma automática, sin tener que conocerlo previamente el usuario.
 \end{itemize}
 
-Por otro lado, los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico, es por ello que mediante este último podemos diferenciar dos tipos distintos de servicio web \citep{TorresJoaquin2017SC}:
+Por otro lado, los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico. A nivel técnico podemos diferenciar dos tipos de servicios web \citep{TorresJoaquin2017SC}:
 \begin{itemize}
-	\item Servicios web SOAP  \textit({Simple Object Access Protocol}): es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos 
-	\footnote{https://www.ibm.com/support/knowledgecenter/es}. Los mensajes SOAP tienen el siguiente formato representado en la figura \ref{fig:SOAP}:
+	\item Servicios web SOAP \textit({Simple Object Access Protocol}): SOAP es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos\footnote{https://www.ibm.com/support/knowledgecenter/es}. Los mensajes SOAP tienen el formato representado en la Figura \ref{lst:SOAP}:
 
+	\definecolor{gray}{rgb}{0.4,0.4,0.4}
+	\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+	\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+	
+	
+	
+	
+	\lstdefinelanguage{XML}
+	{
+		morestring=[b]",
+		morestring=[s]{>}{<},
+		morecomment=[s]{<?}{?>},
+		stringstyle=\color{black},
+		identifierstyle=\color{darkblue},
+		keywordstyle=\color{purple},
+		morekeywords={xmlns,version,type}% list your attributes here
+	}
+	
+	
+	\lstset{language=XML}
+	\begin{lstlisting}[caption= Estructura de un mensaje SOAP, label={lst:SOAP}, frame=single]
+	<?xml version='1.0' Encoding='UTF-8' ?>
+	<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"> 
+		<env:Header>
+				<m:reservation xmlns:m="http://travelcompany.example.org/reservation" 
+							env:role="http://www.w3.org/2003/05/soap-envelope/role/next">
+					<m:reference>uuid:093a2da1-q345-739r-ba5d-pqff98fe8j7d</m:reference>
+					<m:dateAndTime>2007-11-29T13:20:00.000-05:00</m:dateAndTime>
+				</m:reservation>
+				<n:passenger xmlns:n="http://mycompany.example.com/employees" 
+						env:role="http://www.w3.org/2003/05/soap-envelope/role/next">
+					<n:name>Fred Bloggs</n:name>
+				</n:passenger>
+		</env:Header>
+		<env:Body>
+			<p:itinerary xmlns:p="http://travelcompany.example.org/reservation/travel">
+				<p:departure>
+					<p:departing>New York</p:departing>
+					<p:arriving>Los Angeles</p:arriving>
+					<p:departureDate>2007-12-14</p:departureDate>
+					<p:departureTime>late afternoon</p:departureTime>
+					<p:seatPreference>aisle</p:seatPreference>
+				</p:departure>
+				<p:return>
+					<p:departing>Los Angeles</p:departing>
+					<p:arriving>New York</p:arriving>
+					<p:departureDate>2007-12-20</p:departureDate>
+					<p:departureTime>mid-morning</p:departureTime>
+					<p:seatPreference></p:seatPreference>
+				</p:return>
+			</p:itinerary>
+		</env:Body>
+	</env:Envelope>
+	\end{lstlisting}
 	
 	\begin{itemize}
-		\item <Envelope>: Elemento raíz de cada mensaje SOAP y contiene dos elementos: <Header> que es opcional y <Body> que es obligatorio, ambos elementos los describiremos a continuación.
-		\item <Header>: Es un elemento que se utiliza para indicar información acerca de los mensajes SOAP.
-		\item <Body>: Elemento que contiene información dirigida al destinatario del mensaje.
-		\item <Fault>: Elemento en el que se notifican los errores.
+		\item <Envelope>: elemento raíz de cada mensaje SOAP y contiene dos elementos: <Header> que es opcional y <Body> que es obligatorio, ambos elementos los describiremos a continuación.
+		\item <Header>: es un elemento que se utiliza para indicar información acerca de los mensajes SOAP.
+		\item <Body>: elemento que contiene información dirigida al destinatario del mensaje.
+		\item <Fault>: elemento en el que se notifican los errores.
 			
 	\end{itemize}
 
-	\item Servicios Web RESTful: es un protocolo que suele integrar mejor con HTTP que los servicios basado en SOAP, ya que no requieren mensajes XML. Cada petición del cliente debe contener toda la información necesaria para entender la petición, y no puede aprovecharse de ningún contexto almacenado en el servidor.
+	\item Servicios Web RESTful: RESTful es un protocolo que suele integrar mejor con HTTP que los servicios basado en SOAP, ya que no requieren mensajes XML. Cada petición del cliente debe contener toda la información necesaria para entender la petición, y no puede aprovecharse de ningún contexto almacenado en el servidor.
 	
 \end{itemize}
-\figura{Bitmap/Capitulo2/SOAP}{width=.9\textwidth}{fig:SOAP}{Estructura de un mensaje SOAP}
+
 
 
 \subsection{Arquitectura Servicios Web}
@@ -117,17 +170,17 @@ Por otro lado, los servicios web pueden definirse tanto a nivel conceptual como 
 
 Hay que distinguir tres partes fundamentales en los servicios web \citep{TorresJoaquin2017SC}:
 \begin{itemize}
-	\item El proveedor: Es la aplicación que implementa el servicio y lo hace accesible desde Internet.
-	\item El solicitante: Cualquier cliente que necesite utilizar el servicio web.
-	\item El publicador: Se refiere al repositorio centralizado en el que se encuentra la información de la funcionalidad disponible y como se utiliza.
+	\item El proveedor: es la aplicación que implementa el servicio y lo hace accesible desde Internet.
+	\item El solicitante: cualquier cliente que necesite utilizar el servicio web.
+	\item El publicador: se refiere al repositorio centralizado en el que se encuentra la información de la funcionalidad disponible y como se utiliza.
 	
 \end{itemize}
-Por otro lado, los servicios web se componen de varias capas \footnote{https://diego.com.es/introduccion-a-los-web-services}:
+Por otro lado, los servicios web se componen de varias capas\footnote{https://diego.com.es/introduccion-a-los-web-services}:
 \begin{itemize}
-	\item Service Discovery: Responsable de centralizar los servicios web en un directorio común, de esta forma es más sencillo buscar y publicar.
-	\item Service Description: Como ya hemos comentado con anterioridad, los servicios web se pueden definir así mismos, por lo que una vez que los localicemos el Service Description nos dará la información para saber que operaciones soporta y como activarlo.
-	\item Service Invocatio: Invocar a un Web Service implica pasar mensajes entre el cliente y el servidor. Por ejemplo, si utilizamos SOAP  \textit({Simple Object Access Protocol}), el Service Invocation especifica cómo deberíamos formatear los mensajes request para el servidor, y cómo el servidor debería formatear sus mensajes de respuesta.
-	\item Transport: Todos los mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP  \textit({(HyperText Transfer Protocol)}). 
+	\item Service Discovery: responsable de centralizar los servicios web en un directorio común, de esta forma es más sencillo buscar y publicar.
+	\item Service Description: como ya hemos comentado con anterioridad, los servicios web se pueden definir así mismos, por lo que una vez que los localicemos el Service Description nos dará la información para saber que operaciones soporta y como activarlo.
+	\item Service Invocation: invocar a un Servicio Web implica pasar mensajes entre el cliente y el servidor. Por ejemplo, si utilizamos SOAP  \textit({Simple Object Access Protocol}), el Service Invocation especifica cómo deberíamos formatear los mensajes request para el servidor, y cómo el servidor debería formatear sus mensajes de respuesta.
+	\item Transport: todos los mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP \textit{(HyperText Transfer Protocol)}. 
 \end{itemize}
 
 
@@ -137,18 +190,18 @@ Por otro lado, los servicios web se componen de varias capas \footnote{https://d
 
 	Las principales ventajas del uso de los servicios web son las siguientes \citep{doctorado2005}:
 \begin{itemize}
-	\item Permiten la integración “justo-a-tiempo”:  Esto significa que los solicitantes, los proveedores y los agentes actúan en conjunto para crear sistemas que son auto-configurables, adaptativos y robustos.
-	\item Reducen la complejidad por medio del encapsulamiento: Un solicitante de servicio no sabe cómo fue implementado el servicio por parte del proveedor, y éste a su vez, no sabe cómo utiliza el cliente el servicio. Estos detalles se encapsulan en los solicitantes y proveedores. El encapsulamiento es crucial para reducir la complejidad.
-	\item Promueven la interoperabilidad: La interacción entre un proveedor y un solicitante de servicio está diseñada para que sea completamente independiente de la plataforma y el lenguaje. 
-	\item Abren la puerta a nuevas oportunidades de negocio: Los servicios web facilitan la interacción con socios de negocios, al poder compartir servicios internos con un alto grado de integración.
-	\item Disminuyen el tiempo de desarrollo de las aplicaciones: Gracias a la filosofía de orientación a objetos que utilizan, el desarrollo se convierte más bien en una labor de composición.
+	\item Permiten la integración “justo-a-tiempo”:  esto significa que los solicitantes, los proveedores y los agentes actúan en conjunto para crear sistemas que son auto-configurables, adaptativos y robustos.
+	\item Reducen la complejidad por medio del encapsulamiento: un solicitante de servicio no sabe cómo fue implementado el servicio por parte del proveedor, y éste, a su vez, no sabe cómo utiliza el cliente el servicio. Estos detalles se encapsulan en los solicitantes y proveedores. El encapsulamiento es crucial para reducir la complejidad.
+	\item Promueven la interoperabilidad: la interacción entre un proveedor y un solicitante de servicio está diseñada para que sea completamente independiente de la plataforma y el lenguaje. 
+	\item Abren la puerta a nuevas oportunidades de negocio: los servicios web facilitan la interacción con socios de negocios, al poder compartir servicios internos con un alto grado de integración.
+	\item Disminuyen el tiempo de desarrollo de las aplicaciones: gracias a la filosofía de orientación a objetos que utilizan, el desarrollo se convierte más bien en una labor de composición.
 	\item Fomentan los estándares y protocolos basados en texto, que hacen más fácil acceder a su contenido y entender su funcionamiento.
 \end{itemize}
 
 
 \subsection{Desventajas de los  Servicios Web}
 \label{cap:subsec:desventajasserviciosweb}
-	El uso de servicios web también tiene algunas desventajas \footnote{http://fabioalfarocc.blogspot.com/2012/08/ventajas-y-desventajas-del-soap.html}:
+	El uso de servicios web también tiene algunas desventajas\footnote{http://fabioalfarocc.blogspot.com/2012/08/ventajas-y-desventajas-del-soap.html}:
 \begin{itemize}
 	\item Al apoyarse en HTTP, pueden esquivar medidas de seguridad basadas en firewall cuyas reglas tratan de bloquear.
 	\item Existe poca información de servicios web para algunos lenguajes de programación.
@@ -448,15 +501,15 @@ Esta consulta devuelve un fichero XML como el expuesto en la Figura \ref{lst:xml
 </Metaphor>
 \end{lstlisting}
 \figura{Bitmap/Capitulo2/metaphormagnet}{width=.6\textwidth}{fig:metaphormagnet}{Resultados búsqueda Metaphor Magnet con la palabra \textit{house}}
-\figura{Bitmap/Capitulo2/xmlmetaphormagnet}{width=.9\textwidth}{fig:xmlmetaphormagnet}{Ejemplos formato XML Metaphor Magnet}
 
 
 
-\subsection{Wordnet}
+
+\subsection{WordNet}
 \label{cap:subsec:wordnet}
-Es una base de datos léxica solamente en inglés donde agrupa las palabras en función de su significado \citep{wordnet2010}. Utiliza distintos tipos de palabras tales como sustantivos, verbos, adjetivos y adverbios ignorando preposiciones, determinantes y otras palabras funcionales. Agrupando estos tipos en conjuntos de sinónimos cognitivos o también llamados \textit{synsets}. Estos, aparte contienen una breve definición y en muchas ocasiones oraciones cortas que explican el significado. En el caso de que la palabra tenga distintos significados se representará en tantos \textit{synsets} como significados haya. Podemos ver un ejemplo en la figura \ref{fig:wordnet} realizando una búsqueda con la palabra \textit{house}.
-WordNet dispone de una API HTTP donde permite buscar información en la base de datos de WordNet mediante métodos GET y POST a través de la URL raíz \textit{/graph/v1}.
-\figura{Bitmap/Capitulo2/wordnet}{width=.9\textwidth}{fig:wordnet}{Resultados búsqueda Wordnet con la palabra \textit{house}}
+Es una base de datos léxica en inglés que agrupa las palabras en función de su significado \citep{wordnet2010}. Almacena distintos tipos de palabras  como sustantivos, verbos, adjetivos y adverbios ignorando preposiciones, determinantes y otras palabras funcionales. Los conceptos de esta base de datos se agrupan en conjuntos de sinónimos cognitivos llamados \textit{synsets}. Los \textit{synsets} contienen una breve definición y en muchas ocasiones oraciones cortas que explican el significado. En el caso de que la palabra tenga distintos significados se representará en tantos \textit{synsets} como significados tenga. Se puede ver un ejemplo en la figura \ref{fig:wordnet} realizando una búsqueda con la palabra \textit{house}. WordNet devuelve si es un sustantivo, verbo o adjetivo y una definición al lado junto con un pequeño ejemplo.
+WordNet dispone de una API que permite buscar información en la base de datos de WordNet mediante métodos GET y POST a través de la URL raíz \textit{/graph/v1}.
+\figura{Bitmap/Capitulo2/wordnet}{width=.6\textwidth}{fig:wordnet}{Resultados búsqueda Wordnet con la palabra \textit{house}}
 
 
 \subsection{EuroWordnet}
