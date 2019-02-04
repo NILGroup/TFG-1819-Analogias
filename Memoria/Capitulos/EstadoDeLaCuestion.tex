@@ -403,14 +403,51 @@ La ventaja de utilizar esta herramienta es que se encuentra en continua actualiz
 
 \end{lstlisting}
 
-\figura{Bitmap/Capitulo2/thesaurusrex}{width=.9\textwidth}{fig:thesaurusrex}{Resultados búsqueda Thesaurus Rex con la palabra \textit{house}}
+\figura{Bitmap/Capitulo2/thesaurusrex}{width=.6\textwidth}{fig:thesaurusrex}{Resultados búsqueda Thesaurus Rex con la palabra \textit{house}}
 
 
 \subsection{Metaphor Magnet}
 \label{cap:subsec:metaphormagnet}
-Otra aplicación web \footnote{http://ngrams.ucd.ie/metaphor-magnet-acl/}, en la cuál introduces una palabra pero esta vez devuelve metáforas. El objetivo \citep{VealeT2012} de dicha aplicación es encontrar metáforas comunes en los n-gramas de Google y utilizar estos mapeos para interpretar metáforas, pero esta aplicación está limitada ya que solamente se puede buscar palalabras en inglés como podemos observar en la imagen \ref{fig:metaphormagnet} introduciendo la palabra  \textit{house}.
-Esta consulta devuelve un fichero XML como el expuesto en la figura \ref{fig:xmlmetaphormagnet} que puede ser utilizado para otras aplicaciones de Procesamiento de Lenguaje Natural.
-\figura{Bitmap/Capitulo2/metaphormagnet}{width=.9\textwidth}{fig:metaphormagnet}{Resultados búsqueda Metaphor Magnet con la palabra \textit{house}}
+Aplicación web\footnote{http://ngrams.ucd.ie/metaphor-magnet-acl/}, que dada una palabra crea metáforas. El objetivo \citep{VealeT2012} de dicha aplicación es encontrar metáforas comunes en los n-gramas de Google. Se llama n-grama\footnote{https://en.wikipedia.org/wiki/N-gram} a una subsecuencia de n elementos consecutivos en una secuencia dada, es decir, contar la cantidad de veces que aparece una palabra, la cantidad de veces que aparecen dos palabras juntas, tres palabras, etc... Google utiliza estos mapeos para interpretar metáforas. Esta aplicación está limitada, ya que como podemos observar en la Figura \ref{fig:metaphormagnet} introduciendo la palabra \textit{house} solo está disponible para el inglés.
+Esta consulta devuelve un fichero XML como el expuesto en la Figura \ref{lst:xmlmetaphormagnet}, que puede ser utilizado para otras aplicaciones de Procesamiento de Lenguaje Natural.
+\lstset{language=XML}
+\begin{lstlisting}[caption= Ejemplo formatos XML Metaphor Magnet, label={lst:xmlmetaphormagnet}, frame=single]
+<Metaphor>
+	<Source Name="house">
+		<Text> towering:mountain </Text>
+		<Score> 88 </Score>
+	</Source>
+	<Source Name="house">
+		<Text> protecting:home </Text>
+		<Score> 86 </Score>
+	</Source>
+	<Source Name="house">
+		<Text> tall:building </Text>
+		<Score> 86 </Score>
+	</Source>
+	<Source Name="house">
+		<Text> charming:castle </Text>
+		<Score> 85 </Score>
+	</Source>
+	<Source Name="house">
+		<Text> beautiful:tree </Text>
+		<Score> 84 </Score>
+	</Source>
+	<Source Name="house">
+		<Text> charming:mansion </Text>
+		<Score> 83 </Score>
+	</Source>
+	<Source Name="house">
+		<Text> strong:rock </Text>
+		<Score> 80 </Score>
+	</Source>
+	<Source Name="house">
+		<Text> strong:elephant </Text>
+		<Score> 80 </Score>
+	</Source>
+</Metaphor>
+\end{lstlisting}
+\figura{Bitmap/Capitulo2/metaphormagnet}{width=.6\textwidth}{fig:metaphormagnet}{Resultados búsqueda Metaphor Magnet con la palabra \textit{house}}
 \figura{Bitmap/Capitulo2/xmlmetaphormagnet}{width=.9\textwidth}{fig:xmlmetaphormagnet}{Ejemplos formato XML Metaphor Magnet}
 
 
