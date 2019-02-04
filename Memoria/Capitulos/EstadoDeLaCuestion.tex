@@ -59,7 +59,7 @@ Las figuras literarias (o retóricas) son formas no convencionales de utilizar l
 La metáfora, el símil y la analogía se basan en la comparación de dos conceptos: de origen (o tenor), que es el término literal (al que la metáfora se refiere) y el de destino (o vehículo), que es el término figurado. La relación que hay entre el tenor y el vehículo se denomina fundamento. Por ejemplo, en la metáfora \textit{Tus ojos son dos luceros}, \textit{ojos} es el tenor, \textit{luceros} es el vehículo y el fundamento es la belleza de los ojos \citep{GalianaYCasas1994}.
 
 
-En este trabajo vamos a trabajar con tres tipos de figuras retóricas \citep{TFMPaloma2017}: 
+En este trabajo vamos a trabajar con tres tipos de figuras retóricas \citep{TFMPaloma}: 
 \begin{itemize}
 	\item Metáfora: Utiliza el desplazamiento de características similares entre dos conceptos con fines estéticos o retóricos. Por ejemplo, cuando una tarea es muy fácil de realizar, se dice que es un regalo.
 	
@@ -359,11 +359,52 @@ Ambos son muy similares, por ejemplo en formato XML podemos ver que devuelve el 
 
 Thesaurus Rex\footnote{http://ngrams.ucd.ie/therex3/} es una red semántica. La aplicación permite introducir una palabra y devuelve palabras relacionados, o bien puedes introducir un par de palabras (separadas por el operador  \& ) y devolverá las categorías que comparten ambos términos.
 Thesaurus Rex solo admite palabras en inglés. En la Figura \ref{fig:thesaurusrex} podemos ver los resultados para la palabra  \textit{house}.
-La aplicación devuelve estos resultados en formato XML, y este como se puede ver en la Figura \ref{fig:xmlthesaurusrex} los divide en distintos campos: \textit{Categories}, \textit{Modifiers} y \textit{CategoryHeads}.
+La aplicación devuelve estos resultados en formato XML, y este como se puede ver en la Figura \ref{lst:xmlthesaurusrex} los divide en distintos campos: \textit{Categories}, \textit{Modifiers} y \textit{CategoryHeads}. Como se puede ver todos los resultados tienen un peso asignado, esto significa que cuanto mayor sea el peso mayor es la similitud con el concepto dado, y en la página aparecerá dicha palabra en un tamaño superior al resto.
+Los campos que se encuentran dentro del apartado \textit{categories} son los resultados de mayor grano fino que Thesaurus Rex ha encontrado, los que se encuentran dentro de  \textit{modifiers} son atributos del concepto a buscar y por último los que se encuentran en \textit{categoryHeads} son las categorías más simples que se han para dicho concepto.
+Thesaurus Rex utiliza la Web Semántica para generar sus resultados, con lo cual la información disponible no es fija, sino que varía según los datos actuales de la web.
+La ventaja de utilizar esta herramienta es que se encuentra en continua actualización, pero el incoveniente es que en algunos casos la información puede resultar un poco extraña dado que se creea semiautomáticamente desde contenido de la web \citep{TFMPaloma}.
 
+\lstset{language=XML}
+\begin{lstlisting}[caption= Ejemplo formatos XML Thesaurus Rex, label={lst:xmlthesaurusrex}, frame=single]
+<MemberData>
+	<Categories kw="house">
+		<Category weight="91"> large:object </Category>
+		<Category weight="307"> inanimate:object </Category>
+		<Category weight="261"> everyday:object </Category>
+		<Category weight="154"> sensitive:area </Category>
+		<Category weight="318"> permanent:structure </Category>
+		<Category weight="194"> permanent:construction </Category>
+		<Category weight="148"> permanent:installation </Category>
+		<Category weight="98"> fixed:object </Category>
+	</Categories>
+	
+	<Modifiers kw="house">
+		<Modifier weight="8"> recognizable </Modifier>
+		<Modifier weight="9"> relevant </Modifier>
+		<Modifier weight="863"> permanent </Modifier>
+		<Modifier weight="15"> moderate </Modifier>
+		<Modifier weight="477"> fixed </Modifier>
+		<Modifier weight="5"> odd </Modifier>
+		<Modifier weight="7"> archaeological </Modifier>
+		<Modifier weight="5"> electrical </Modifier>
+	</Modifiers>
+	
+	<CategoryHeads kw="house">
+		<CategoryHead weight="6"> protection </CategoryHead>
+		<CategoryHead weight="40"> obstruction </CategoryHead>
+		<CategoryHead weight="5"> whole </CategoryHead>
+		<CategoryHead weight="3320"> object </CategoryHead>
+		<CategoryHead weight="2340"> structure </CategoryHead>
+		<CategoryHead weight="98"> commodity </CategoryHead>
+		<CategoryHead weight="713"> thing </CategoryHead>
+		<CategoryHead weight="2"> theatre </CategoryHead>
+	</CategoryHeads>
+</MemberData>
+
+\end{lstlisting}
 
 \figura{Bitmap/Capitulo2/thesaurusrex}{width=.9\textwidth}{fig:thesaurusrex}{Resultados búsqueda Thesaurus Rex con la palabra \textit{house}}
-\figura{Bitmap/Capitulo2/xmlthesaurusrex}{width=.9\textwidth}{fig:xmlthesaurusrex}{Ejemplos formato XML Thesaurus Rex}
+
 
 \subsection{Metaphor Magnet}
 \label{cap:subsec:metaphormagnet}
