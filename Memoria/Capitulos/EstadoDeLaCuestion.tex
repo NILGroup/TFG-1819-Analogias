@@ -44,7 +44,7 @@ Algunas pautas a seguir para escribir correctamente un texto en Lectura Fácil s
 \end{itemize}
 
 Debemos también hacer hincapié en la distinción entre palabras fáciles y complejas, puesto que son de gran importancia para la lectura fácil. 
-Las palabras complejas son aquellas que no se utilizan a menudo en nuestra sociedad, como por ejemplo: melifluo o inefable. Es por ello que este tipo de palabras deben estar totalmente descartadas en la lectura fácil, y en su lugar debemos introducir palabras fáciles, que son aquellas que se utilizan asiduamente. La RAE dispone de un documento con las mil palabras más usadas\footnote{http://corpus.rae.es/lfrecuencias.html}.
+Las palabras complejas son aquellas que no se utilizan a menudo en nuestra sociedad, como por ejemplo: melifluo o inefable. Es por ello que este tipo de palabras deben estar totalmente descartadas en la lectura fácil, y en su lugar debemos introducir palabras fáciles, que son aquellas que se utilizan asiduamente. La RAE (Real Academia Española) dispone de un documento con las mil palabras más usadas\footnote{http://corpus.rae.es/lfrecuencias.html}.
 
 %-------------------------------------------------------------------
 
@@ -236,7 +236,10 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 	\item @id: concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
 	\item edges: representa una estructura de datos devueltos por Conceptnet compuesta por:
 	\begin{itemize}
-		\item @id: describe el tipo de relación que existe entre la palabra introducida y la devuelta, en nuestro caso \textit{/a/[/r/Synonym/,/c/es/chaqueta/n/,/c/es/americana/]}, nos indica que la palabra \textit{americana} es un sinónimo de \textit{chaqueta}.
+		\item @id: describe el tipo de relación que existe entre la palabra introducida y la devuelta.
+		
+		 \textit{/a/[/r/Synonym/,/c/es/chaqueta/n/,/c/es/americana/]},
+		 nos indica que la palabra \textit{americana} es un sinónimo de \textit{chaqueta}.
 		\item @type: define el tipo del id, es decir, si es una relación (edge) o un término (nodo).
 		\item dataset: URI que representa el conjunto de datos creado.
 		\item end: nodo destino, que a su vez se compone de:	
