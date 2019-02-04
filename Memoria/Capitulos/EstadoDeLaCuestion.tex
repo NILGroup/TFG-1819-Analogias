@@ -160,13 +160,14 @@ Por otro lado, los servicios web se componen de varias capas \footnote{https://d
 \label{cap:sec:lenguajenatural}
 El Procesamiento del Lenguaje Natural (PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso del lenguaje natural (entendiendo como lenguaje natural el idioma usado con fines de comunicación por humanos, ya sea hablado o escrito, como pueden ser el español, el ruso o el inglés). 
 El Procesamiento del Lenguaje Natural se ayuda de las redes semánticas, puesto que estas son una forma de representación del conocimiento en la que los conceptos que componen el mundo y sus relaciones se representan mediante un grafo. Se utilizan para representar mapas conceptuales y mentales \citep{wiki:redSemantica2018}.
-Los nodos están representados por el elemento lingüístico, y  la relación entre los nodos sería la arista. Podemos ver un ejemplo en la Figura \ref{fig:red}.
+Los nodos están representados por el elemento lingüístico, y la relación entre los nodos sería la arista. Podemos ver un ejemplo en la Figura \ref{fig:red}, donde el nodo \textit{Oso} representa un concepto, en este caso un sustantivo que identifíca a un tipo de animal,  y otro nodo \textit{Pelo}. Su relación se ve representada por la arista con valor \textit{tiene}, dando lugar a una característica de este animal: \textit{Oso tiene pelo}.
+ 
 \figura{Bitmap/Capitulo2/redSemantica}{width=.9\textwidth}{fig:red}{Ejemplo Red Semántica}
 Existen principalmente tres tipos de redes semánticas\footnote{http://elies.rediris.es/elies9/4-3-2.htm}:
 \begin{itemize}
 	\item Redes de Marcos: los enlaces de unión de los nodos son parte del propio nodo, es decir, se encuentran organizados jerárquicamente, según un número de criterios estrictos, como por ejemplo la similitud entre nodos.
-	\item Redes IS-A: los enlaces entre los nodos están etiquetados con una relación entre ambos. Es el tipo que habitualmente se utiliza junto con las Redes de Marcos.
-	\item Grafos Conceptuales: existen dos tipos de nodos: nodos de conceptos, los cuáles representan una entidad, un estado o un proceso y los nodos de relaciones, que indican como se relacionan los nodos de concepto. En este tipo de red semántica no existen enlaces entre los nodos con una etiqueta, sino que son los propios nodos los que tienen el significado. 
+	\item Redes IS-A: los enlaces entre los nodos están etiquetados con una relación entre ambos. Es el tipo que habitualmente se utiliza junto con las Redes de Marcos. Por ejemplo, \textit{la ballena vive en el agua}. 
+	\item Grafos Conceptuales: existen dos tipos de nodos: nodos de conceptos, los cuáles representan una entidad, un estado o un proceso y los nodos de relaciones, que indican como se relacionan los nodos de concepto. En este tipo de red semántica no existen enlaces entre los nodos con una etiqueta, sino que son los propios nodos los que tienen el significado. Por ejemplo......
 \end{itemize}
 
 Para el trabajo que queremos realizar, existen varias aplicaciones web que actúan como redes semánticas y son capaces de procesar el Lenguaje Natural.  A continuación, hablaremos de algunas de ellas.
@@ -176,8 +177,7 @@ Para el trabajo que queremos realizar, existen varias aplicaciones web que actú
 
 Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Está disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone de una aplicación web\footnote{http://conceptnet.io/}, donde seleccionas el idioma deseado y añades la palabra a buscar. En la Figura  \ref{fig:busquedaConcepnet}, podemos ver que si añadimos la palabra chaqueta nos devuelve sus sinónimos, términos relacionados, símbolos, etc...
 \figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de ConcepNet para la palabra chaqueta} 
-\figura{Bitmap/Capitulo2/json}{width=.9\textwidth}{fig:json}{JSON devuelto por la API de ConceptNet para la palabra chaqueta}
-Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, podemos ver en la Figura  \ref{fig:json} los resultados en dicho formato para la palabra chaqueta. Este consta de cuatro campos\footnote{principales https://github.com/commonsense/conceptnet5/wiki/AP}:
+Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, podemos ver en la Figura  \ref{lst:json} los resultados en dicho formato para la palabra chaqueta. Este consta de cuatro campos\footnote{principales https://github.com/commonsense/conceptnet5/wiki/AP}:
 \begin{itemize}
 	\item @context: URL enlazada a un archivo de información del JSON para comprender la API. También puede contener comentarios que pueden ser útiles para el usuario.
 	\item @id: concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
@@ -186,7 +186,6 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 		\item @id: describe el tipo de relación que existe entre la palabra introducida y la devuelta, en nuestro caso \textit{/a/[/r/Synonym/,/c/es/chaqueta/n/,/c/es/americana/]}, nos indica que la palabra \textit{americana} es un sinónimo de \textit{chaqueta}.
 		\item @type: define el tipo del id, es decir, si es una relación (edge) o un término (nodo).
 		\item dataset: URI que representa el conjunto de datos creado.
-		\item edges: representa una estructura de datos devueltos por ConceptNet compuesta por:
 		\item end: nodo destino, que a su vez se compone de:	
 		\begin{itemize}
 			\item @id: coincide con la palabra del id anterior.
@@ -205,24 +204,86 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 	\item view: describe la longitud de la lista de paginación, es un objeto con un id propio, y además, aparecen los campos \textit{firstPage} que tiene como valor un enlace a la primera pagina de los resultados obtenidos, y \textit{nextPage} que tiene un enlace a la siguiente página de la lista.
 \end{itemize}
 
+\lstset{
+	string=[s]{"}{"},
+	stringstyle=\color{blue},
+	comment=[l]{:},
+	commentstyle=\color{black},
+}
+
+\begin{lstlisting} [title=JSON devuelto por la API de ConceptNet para la palabra chaqueta, label={lst:json}, frame=single]
+{
+	"@context": [
+		"http://api.conceptnet.io/ld/conceptnet5.6/context.ld.json"
+],
+	"@id": "/c/es/chaqueta",
+	"edges": [
+{
+	"@id": "/a/[/r/Synonym/,/c/es/chaqueta/n/,/c/es/americana/]",
+	"@type": "Edge",
+	"dataset": "/d/wiktionary/fr",
+	"end": {
+	"@id": "/c/es/americana",
+	"@type": "Node",
+	"label": "americana",
+	"language": "es",
+	"term": "/c/es/americana"
+},
+	"license": "cc:by-sa/4.0",
+	"rel": {
+	"@id": "/r/Synonym",
+	"@type": "Relation",
+	"label": "Synonym"
+},
+	"sources": [
+{
+	"@id": "/and/[/s/process/wikiparsec/1/,/s/resource/wiktionary/fr/]",
+	"@type": "Source",
+	"contributor": "/s/resource/wiktionary/fr",
+	"process": "/s/process/wikiparsec/1"
+}
+],
+	"start": {
+	"@id": "/c/es/chaqueta/n",
+	"@type": "Node",
+	"label": "chaqueta",
+	"language": "es",
+	"sense_label": "n",
+	"term": "/c/es/chaqueta"
+},
+	"surfaceText": null,
+	"weight": 1.0
+},
+
+]
+
+	"view": {
+	"@id": "/c/es/chaqueta?offset=0&limit=20",
+	"@type": "PartialCollectionView",
+	"comment": "There are more results. Follow the 'nextPage' link for more.",
+	"firstPage": "/c/es/chaqueta?offset=0&limit=20",
+	"nextPage": "/c/es/chaqueta?offset=20&limit=20",
+	"paginatedProperty": "edges"
+	}
+
+}
+\end{lstlisting} 
+
 
 \subsection{Thesaurus}
 \label{cap:subsec:thesaurus}
-Es una aplicación web\footnote{https://www.thesaurus.com/} que se autodefine como principal diccionario de sinónimos de la web. Su nombre proviene de la palabra griega Tesauro, cuyo significado es \textit{Trabajo de referencia que enumera las palabras agrupadas según la similitud del significado}. Esta página ofrece la posibilidad de introducir una palabra para poder conocer sus sinónimos, pero solamente devuelve resultados en inglés. Aparte del listado de sinónimos,  Thesaurus te dice que tipo de palabra es y una definición de la misma.
+Es una aplicación web\footnote{https://www.thesaurus.com/} que se autodefine como principal diccionario de sinónimos de la web. Esta página ofrece la posibilidad de introducir una palabra para poder conocer sus sinónimos, pero solamente devuelve resultados en inglés. Aparte del listado de sinónimos,  Thesaurus te dice que tipo de palabra es y una definición de la misma.
 Esta aplicación proporciona una API tipo RESTful\footnote{http://thesaurus.altervista.org/} que obtiene los sinónimos de una palabra y devuelve los resultados en formato XML o JSON. El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: categoría y sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
-Podemos ver en la Figura \ref{fig:xmlthesaurus} un ejemplo de como sería el resultado de una petición en formato XML:
+Podemos ver en la Figura \ref{lst:xmlthesaurus} un ejemplo de como sería el resultado de una petición en formato XML  y en la Figura \ref{lst:jsonthesaurus} en formato JSON.
+Ambos son muy similares, por ejemplo en formato XML podemos ver que devuelve el tipo de categoría de las palabras, en este caso son sustantivos y a continuación aparcen los sinónimos. En caso de que alguna palabra sea un antónimo aparecera entre paréntesis al lado de la misma, como ocurre con la palabra \textit{war}. Por otro lado, el formato JSON devuelve dentro del campo \textit{category / categoría} todos los sinónimos, y en caso de ser un antónimo aparecerá de la misma forma que en el formato XML.
+
 
 
 \definecolor{gray}{rgb}{0.4,0.4,0.4}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.6}
 \definecolor{cyan}{rgb}{0.0,0.6,0.6}
 
-\lstset{
-	basicstyle=\ttfamily,
-	columns=fullflexible,
-	showstringspaces=false,
-	commentstyle=\color{gray}\upshape
-}
+
 
 \lstdefinelanguage{XML}
 {
@@ -236,33 +297,62 @@ Podemos ver en la Figura \ref{fig:xmlthesaurus} un ejemplo de como sería el res
 }
 
 
- y en la Figura \ref{fig:jsonthesaurus} en formato JSON.
-\figura{Bitmap/Capitulo2/xmlthesaurus}{width=.9\textwidth}{fig:xmlthesaurus}{Ejemplo de salida de Thesaurus en formato XML}
-\figura{Bitmap/Capitulo2/jsonthesaurus}{width=.9\textwidth}{fig:jsonthesaurus}{Ejemplo de salida de Thesaurus en formato JSON}
-
-
-
 
 \lstset{language=XML}
-\begin{lstlisting}
+\begin{lstlisting}[caption= Ejemplo de salida de Thesaurus en formato XML, label={lst:xmlthesaurus}, frame=single]
 <response> 
-<list>
-	<category>(noun)</category> 
-	<synonyms>order | war (antonym) </synonyms>
- </list>
- <list>
- 	<category>(noun)</category> 
- 	<synonyms> harmony | concord | concordance </synonyms>
- </list>
- <list>
- 	<category>(noun)</category> 
- 	<synonyms>public security | security </synonyms>
- </list>
- <list>
- 	<category>(noun)</category> 
- 	<synonyms> tratado de paz | pacificacion | acuerdo | pact | accord </synonyms>
- </list>
+	<list>
+		<category>(noun)</category> 
+		<synonyms> order | war (antonym) </synonyms>
+	</list>
+	<list>
+		<category>(noun)</category> 
+		<synonyms> harmony | concord | concordance </synonyms>
+	</list>
+	<list>
+		<category>(noun)</category> 
+		<synonyms> public security | security </synonyms>
+	</list>
+	<list>
+		<category>(noun)</category> 
+		<synonyms> tratado de paz | pacificacion | acuerdo | pact | accord </synonyms>
+	</list>
 \end{lstlisting}
+
+
+
+
+
+\lstset{
+	string=[s]{"}{"},
+	stringstyle=\color{blue},
+	comment=[l]{:},
+	commentstyle=\color{black},
+}
+
+\begin{lstlisting} [caption=Ejemplo de salida de Thesaurus en formato JSON, label={lst:jsonthesaurus}, frame=single]
+{
+	"response":
+	[
+		{ "list": 
+			{ "category": "(noun)", "sinonimos": "order | war (antonym)" }
+		},
+		{ "list": 
+			{ "category": "(noun)", "sinonimos": "armonia | concordia | concordancia" }
+		},
+		{ "lista": 
+			{ "categoria": "(sustantivo)", "sinonimos": "seguridad publica | seguridad" }
+		},
+		{ "lista": 
+			{ "categoria": "(sustantivo)", "sinonimos": "tratado de paz | pacificacion | tratado | pacto | acuerdo" }
+		}
+	
+	]
+}
+\end{lstlisting}
+
+
+
 
 \subsection{Thesaurus Rex}
 \label{cap:subsec:thesaurusrex}
