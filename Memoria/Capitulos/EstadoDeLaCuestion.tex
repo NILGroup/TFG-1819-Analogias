@@ -265,7 +265,7 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 	commentstyle=\color{black},
 }
 
-\begin{lstlisting} [title=JSON devuelto por la API de ConceptNet para la palabra chaqueta, label={lst:json}, frame=single]
+\begin{lstlisting} [caption=JSON devuelto por la API de ConceptNet para la palabra chaqueta, label={lst:json}, frame=single]
 {
 	"@context": [
 		"http://api.conceptnet.io/ld/conceptnet5.6/context.ld.json"
@@ -464,6 +464,8 @@ La ventaja de utilizar esta herramienta es que se encuentra en continua actualiz
 \label{cap:subsec:metaphormagnet}
 Aplicación web\footnote{http://ngrams.ucd.ie/metaphor-magnet-acl/}, que dada una palabra crea metáforas. El objetivo \citep{VealeT2012} de dicha aplicación es encontrar metáforas comunes en los n-gramas de Google. Se llama n-grama\footnote{https://en.wikipedia.org/wiki/N-gram} a una subsecuencia de n elementos consecutivos en una secuencia dada, es decir, contar la cantidad de veces que aparece una palabra, la cantidad de veces que aparecen dos palabras juntas, tres palabras, etc... Google utiliza estos mapeos para interpretar metáforas. Esta aplicación está limitada, ya que como podemos observar en la Figura \ref{fig:metaphormagnet} introduciendo la palabra \textit{house} solo está disponible para el inglés.
 Esta consulta devuelve un fichero XML como el expuesto en el Listing \ref{lst:xmlmetaphormagnet}, que puede ser utilizado para otras aplicaciones de Procesamiento de Lenguaje Natural.
+
+
 \lstset{language=XML}
 \begin{lstlisting}[caption= Ejemplo formatos XML Metaphor Magnet, label={lst:xmlmetaphormagnet}, frame=single]
 <Metaphor>
