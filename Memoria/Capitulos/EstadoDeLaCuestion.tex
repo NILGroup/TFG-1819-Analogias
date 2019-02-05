@@ -2,10 +2,8 @@
 \label{cap:estadoDeLaCuestion}
 
 
-
-Actualmente, los servicios web son una tecnología utilizada a diario por la mayoría de la población ya sea para la traducción de texto o la consulta del tiempo.
-
-Debido a esto, para el desarrollo de la aplicación utilizaremos esta tecnología. Además, las definiciones generadas deben de ser símiles, metáforas o analogías ya que mediante estas figuras retóricas, se puede comparar el término que se quiere definir con otro concepto más cotidiano para facilitar su comprensión. Estas definiciones deben de estar en un formato que sea comprensible por el mayor número de gente posible para ello se empleará una adaptación llamada ``lectura fácil'' que tiene como objetivo que los texto estén en un formato fácil de leer. Para crear estas definiciones se utilizará Inteligencia Artificial para buscar términos relacionados o sinónimos más sencillos de la palabra que se quiere definir, concretamente la rama del Procesamiento del Lenguaje Natural.
+Para que un contenido ilustrativo o en formato de texto sea sencillo de entender existe una adaptación llamada lectura fácil cuyo objetivo es facilitar la accesibilidad al mismo. En la sección 2.1 de este capítulo se explicará qué es la lectura fácil y algunas pautas que se pueden seguir para escribir correctamente un texto en lectura fácil. Por otro lado, para que las definiciones de las palabras díficiles sean fácilmente comprensibles para el usuario, utilizaremos figuras retóricas con las que compararemos conceptos complejos con otros más sencillos. De esta manera el usuario se podrá hacer una idea de sus características principales. En la sección 2.2 se hablará de las figuras retóricas y se explicará los tres tipos fundamentales que se van a utilizar para la realización de este trabajo. 
+Pero para poder plasmar todo esto en el trabajo realizado y conseguir una funcionalidad, se deberan usar servicios web, los cuáles se han convertido en una tecnología cotidiana para la mayoría de los usuarios sin ser estos mismos conscientes de su uso. En la sección 2.3 se explicará detalladamente que es un servicio web, los tipos que existen, sus características principales, su aquitectura y las ventajas de ser utilizados así como sus deventajas. Por último, las comparaciones entre conceptos más complejos con conceptos más sencillos, se construirán a través de conceptos relacionados con la palabra que el usuario busque, es por ello que en la sección 2.4 se explicará en qué consiste en procesamiento del Lenguaje Natural, los tipos de redes semánticas que existen y las diversas aplicaciones que actúan como redes semánticas y que son capaces de procesar el Lenguaje Natural.
 
 %-------------------------------------------------------------------
 \section{Lectura Fácil}
@@ -59,14 +57,14 @@ Las figuras literarias (o retóricas) son formas no convencionales de utilizar l
 La metáfora, el símil y la analogía se basan en la comparación de dos conceptos: de origen (o tenor), que es el término literal (al que la metáfora se refiere) y el de destino (o vehículo), que es el término figurado. La relación que hay entre el tenor y el vehículo se denomina fundamento. Por ejemplo, en la metáfora \textit{Tus ojos son dos luceros}, \textit{ojos} es el tenor, \textit{luceros} es el vehículo y el fundamento es la belleza de los ojos \citep{GalianaYCasas1994}.
 
 
-En este trabajo vamos a trabajar con tres tipos de figuras retóricas \citep{TFMPaloma}: 
+En este trabajo se van a utilizar tres tipos de figuras retóricas \citep{TFMPaloma}: 
 \begin{itemize}
-	\item Metáfora: Utiliza el desplazamiento de características similares entre dos conceptos con fines estéticos o retóricos. Por ejemplo, cuando una tarea es muy fácil de realizar, se dice que es un regalo.
+	\item Metáfora: Utiliza el desplazamiento de características similares entre dos conceptos con fines estéticos o retóricos. Por ejemplo, cuando el tiempo de una persona es muy preciado se dice: ``Mi tiempo vale oro".
 	
 	\item Símil: Realiza una comparación entre dos términos usando conectores (por ejemplo, como, cual, que, o verbos).
-	Por ejemplo, cuando nos referimos a una persona que es muy corpulenta, se dice: ``es como un oso'', ya que los osos son muy grandes.
+	Por ejemplo, cuando nos referimos a una persona que es muy corpulenta, se dice: ``Es como un oso'', ya que los osos son muy grandes.
 	
-	\item Analogía: Es la comparación entre varios conceptos, indicando las características que permiten dicha relación. En la retórica, una analogía es una comparación textual que resalta alguna de las similitudes semánticas entre los conceptos protagonistas de dicha comparación. Por ejemplo: \textit{Sus ojos son azules como el mar}.
+	\item Analogía: Es la comparación entre varios conceptos, indicando las características que permiten dicha relación. En la retórica, una analogía es una comparación textual que resalta alguna de las similitudes semánticas entre los conceptos protagonistas de dicha comparación. Por ejemplo: ``Sus ojos son azules como el mar".
 	
 	
 	
@@ -94,7 +92,7 @@ Las principales características de un servicio web son \citep{TorresJoaquin2017
 
 Por otro lado, los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico. A nivel técnico podemos diferenciar dos tipos de servicios web \citep{TorresJoaquin2017SC}:
 \begin{itemize}
-	\item Servicios web SOAP \textit({Simple Object Access Protocol}): SOAP es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos\footnote{https://www.ibm.com/support/knowledgecenter/es}. Los mensajes SOAP tienen el formato representado en la Figura \ref{lst:SOAP}:
+	\item Servicios web SOAP \textit({Simple Object Access Protocol}): SOAP es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos\footnote{https://www.ibm.com/support/knowledgecenter/es}. Los mensajes SOAP tienen el formato representado en el Listing \ref{lst:SOAP}:
 
 	\definecolor{gray}{rgb}{0.4,0.4,0.4}
 	\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
@@ -153,8 +151,8 @@ Por otro lado, los servicios web pueden definirse tanto a nivel conceptual como 
 	
 	\begin{itemize}
 		\item <Envelope>: elemento raíz de cada mensaje SOAP y contiene dos elementos: <Header> que es opcional y <Body> que es obligatorio, ambos elementos los describiremos a continuación.
-		\item <Header>: es un elemento que se utiliza para indicar información acerca de los mensajes SOAP.
-		\item <Body>: elemento que contiene información dirigida al destinatario del mensaje.
+		\item <Header>: es un elemento que se utiliza para indicar información acerca de los mensajes SOAP. Por ejemplo, como se puede ver en el Listing \ref{lst:SOAP} dentro del campo Header estarían los campos de reservas y pasajeros.
+		\item <Body>: elemento que contiene información dirigida al destinatario del mensaje. Haciendo referencia al Listing \ref{lst:SOAP} se puede ver los campos asociados a un itinerario, teniendo este el lugar de partida, de llegada, la fecha de llegada y la preferencia de asiento.
 		\item <Fault>: elemento en el que se notifican los errores.
 			
 	\end{itemize}
@@ -218,11 +216,11 @@ Los nodos están representados por el elemento lingüístico, y la relación ent
 \figura{Bitmap/Capitulo2/redSemantica}{width=.9\textwidth}{fig:red}{Ejemplo Red Semántica}
 Existen principalmente tres tipos de redes semánticas\footnote{http://elies.rediris.es/elies9/4-3-2.htm}:
 \begin{itemize}
-	\item Redes de Marcos: los enlaces de unión de los nodos son parte del propio nodo, es decir, se encuentran organizados jerárquicamente, según un número de criterios estrictos, como por ejemplo la similitud entre nodos.
-	\item Redes IS-A: los enlaces entre los nodos están etiquetados con una relación entre ambos. Es el tipo que habitualmente se utiliza junto con las Redes de Marcos. Por ejemplo, \textit{la ballena vive en el agua}. 
-	\item Grafos Conceptuales: existen dos tipos de nodos: nodos de conceptos, los cuáles representan una entidad, un estado o un proceso y los nodos de relaciones, que indican como se relacionan los nodos de concepto. En este tipo de red semántica no existen enlaces entre los nodos con una etiqueta, sino que son los propios nodos los que tienen el significado. Por ejemplo......
+	\item Redes de Marcos: los enlaces de unión de los nodos son parte del propio nodo, es decir, se encuentran organizados jerárquicamente, según un número de criterios estrictos, como por ejemplo la similitud entre nodos. Haciendo referencia a la Figura \ref{fig:red}, tanto la palabra ballena, oso, y gato tienen en común que son mamíferos.
+	\item Redes IS-A: los enlaces entre los nodos están etiquetados con una relación entre ambos. Es el tipo que habitualmente se utiliza junto con las Redes de Marcos. Un ejemplo de esto, haciendo referencia a la Figura \ref{fig:red} sería: la ballena vive en el agua. 
+	\item Grafos Conceptuales: existen dos tipos de nodos: nodos de conceptos, los cuáles representan una entidad, un estado o un proceso y los nodos de relaciones, que indican como se relacionan los nodos de concepto. En este tipo de red semántica no existen enlaces entre los nodos con una etiqueta, sino que son los propios nodos los que tienen el significado. Se puede ver un ejemplo en la Figura \ref{fig:grafoConceptual} \citep{osti_5673179} en la cual la frase \textit{``Man biting dog"} quedaría representada. Los cuadrados implican el concepto y el círculo la relación entre ambos, por lo que en el caso de \textit{man} y \textit{bite}, la acción de morder la realiza \textit{man} siendo éste el agente, y la relación entre \textit{bite} y \textit{dog} sería el objeto.
 \end{itemize}
-
+\figura{Bitmap/Capitulo2/grafoConceptual}{width=.9\textwidth}{fig:grafoConceptual}{Ejemplo Grafo Conceptual}
 Para el trabajo que queremos realizar, existen varias aplicaciones web que actúan como redes semánticas y son capaces de procesar el Lenguaje Natural.  A continuación, hablaremos de algunas de ellas.
 
 \subsection{ConceptNet} 
@@ -230,7 +228,7 @@ Para el trabajo que queremos realizar, existen varias aplicaciones web que actú
 
 Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Está disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone de una aplicación web\footnote{http://conceptnet.io/}, donde seleccionas el idioma deseado y añades la palabra a buscar. En la Figura  \ref{fig:busquedaConcepnet}, podemos ver que si añadimos la palabra chaqueta nos devuelve sus sinónimos, términos relacionados, símbolos, etc...
 \figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de ConcepNet para la palabra chaqueta} 
-Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, podemos ver en la Figura  \ref{lst:json} los resultados en dicho formato para la palabra chaqueta. Este consta de cuatro campos\footnote{principales https://github.com/commonsense/conceptnet5/wiki/AP}:
+Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, podemos ver en el Listing \ref{lst:json} los resultados en dicho formato para la palabra chaqueta. Este consta de cuatro campos principales\footnote{https://github.com/commonsense/conceptnet5/wiki/AP}:
 \begin{itemize}
 	\item @context: URL enlazada a un archivo de información del JSON para comprender la API. También puede contener comentarios que pueden ser útiles para el usuario.
 	\item @id: concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
@@ -330,7 +328,7 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 \label{cap:subsec:thesaurus}
 Es una aplicación web\footnote{https://www.thesaurus.com/} que se autodefine como principal diccionario de sinónimos de la web. Esta página ofrece la posibilidad de introducir una palabra para poder conocer sus sinónimos, pero solamente devuelve resultados en inglés. Aparte del listado de sinónimos,  Thesaurus te dice que tipo de palabra es y una definición de la misma.
 Esta aplicación proporciona una API tipo RESTful\footnote{http://thesaurus.altervista.org/} que obtiene los sinónimos de una palabra y devuelve los resultados en formato XML o JSON. El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: categoría y sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
-Podemos ver en la Figura \ref{lst:xmlthesaurus} un ejemplo de como sería el resultado de una petición en formato XML  y en la Figura \ref{lst:jsonthesaurus} en formato JSON.
+Podemos ver en el Listing \ref{lst:xmlthesaurus} un ejemplo de como sería el resultado de una petición en formato XML y en el Listing \ref{lst:jsonthesaurus} en formato JSON.
 Ambos son muy similares, por ejemplo en formato XML podemos ver que devuelve el tipo de categoría de las palabras, en este caso son sustantivos y a continuación aparcen los sinónimos. En caso de que alguna palabra sea un antónimo aparecera entre paréntesis al lado de la misma, como ocurre con la palabra \textit{war}. Por otro lado, el formato JSON devuelve dentro del campo \textit{category / categoría} todos los sinónimos, y en caso de ser un antónimo aparecerá de la misma forma que en el formato XML.
 
 
@@ -415,7 +413,7 @@ Ambos son muy similares, por ejemplo en formato XML podemos ver que devuelve el 
 
 Thesaurus Rex\footnote{http://ngrams.ucd.ie/therex3/} es una red semántica. La aplicación permite introducir una palabra y devuelve palabras relacionados, o bien puedes introducir un par de palabras (separadas por el operador  \& ) y devolverá las categorías que comparten ambos términos.
 Thesaurus Rex solo admite palabras en inglés. En la Figura \ref{fig:thesaurusrex} podemos ver los resultados para la palabra  \textit{house}.
-La aplicación devuelve estos resultados en formato XML, y este como se puede ver en la Figura \ref{lst:xmlthesaurusrex} los divide en distintos campos: \textit{Categories}, \textit{Modifiers} y \textit{CategoryHeads}. Como se puede ver todos los resultados tienen un peso asignado, esto significa que cuanto mayor sea el peso mayor es la similitud con el concepto dado, y en la página aparecerá dicha palabra en un tamaño superior al resto.
+La aplicación devuelve estos resultados en formato XML, y este como se puede ver en el Listing \ref{lst:xmlthesaurusrex} los divide en distintos campos: \textit{Categories}, \textit{Modifiers} y \textit{CategoryHeads}. Como se puede ver todos los resultados tienen un peso asignado, esto significa que cuanto mayor sea el peso mayor es la similitud con el concepto dado, y en la página aparecerá dicha palabra en un tamaño superior al resto.
 Los campos que se encuentran dentro del apartado \textit{categories} son los resultados de mayor grano fino que Thesaurus Rex ha encontrado, los que se encuentran dentro de  \textit{modifiers} son atributos del concepto a buscar y por último los que se encuentran en \textit{categoryHeads} son las categorías más simples que se han para dicho concepto.
 Thesaurus Rex utiliza la Web Semántica para generar sus resultados, con lo cual la información disponible no es fija, sino que varía según los datos actuales de la web.
 La ventaja de utilizar esta herramienta es que se encuentra en continua actualización, pero el incoveniente es que en algunos casos la información puede resultar un poco extraña dado que se creea semiautomáticamente desde contenido de la web \citep{TFMPaloma}.
@@ -465,7 +463,7 @@ La ventaja de utilizar esta herramienta es que se encuentra en continua actualiz
 \subsection{Metaphor Magnet}
 \label{cap:subsec:metaphormagnet}
 Aplicación web\footnote{http://ngrams.ucd.ie/metaphor-magnet-acl/}, que dada una palabra crea metáforas. El objetivo \citep{VealeT2012} de dicha aplicación es encontrar metáforas comunes en los n-gramas de Google. Se llama n-grama\footnote{https://en.wikipedia.org/wiki/N-gram} a una subsecuencia de n elementos consecutivos en una secuencia dada, es decir, contar la cantidad de veces que aparece una palabra, la cantidad de veces que aparecen dos palabras juntas, tres palabras, etc... Google utiliza estos mapeos para interpretar metáforas. Esta aplicación está limitada, ya que como podemos observar en la Figura \ref{fig:metaphormagnet} introduciendo la palabra \textit{house} solo está disponible para el inglés.
-Esta consulta devuelve un fichero XML como el expuesto en la Figura \ref{lst:xmlmetaphormagnet}, que puede ser utilizado para otras aplicaciones de Procesamiento de Lenguaje Natural.
+Esta consulta devuelve un fichero XML como el expuesto en el Listing \ref{lst:xmlmetaphormagnet}, que puede ser utilizado para otras aplicaciones de Procesamiento de Lenguaje Natural.
 \lstset{language=XML}
 \begin{lstlisting}[caption= Ejemplo formatos XML Metaphor Magnet, label={lst:xmlmetaphormagnet}, frame=single]
 <Metaphor>
@@ -515,12 +513,7 @@ WordNet dispone de una API que permite buscar información en la base de datos d
 \figura{Bitmap/Capitulo2/wordnet}{width=.6\textwidth}{fig:wordnet}{Resultados búsqueda Wordnet con la palabra \textit{house}}
 
 
-\subsection{EuroWordnet}
-\label{cap:subsec:eurowordnet}
-Es una base de datos multilingüe que se basa en relaciones semánticas básicas entre palabras. Es muy parecido a WordNet pero en vez de usar \textit{synsets} ellos lo llaman \textit{WordNet}. Cada \textit{WordNet} representa un sistema único de lexicalizaión y ádemas estos están conectados con el Índice Inter-Lingual (ILI) \citep{wiki:eurowordnet2017}.
-Podemos ver en la figura \ref{fig:eurowordnet} un ejemplo de búsqueda con la palabra  \textit{casa}, donde la aplicación devuelve los sinónimos, una pequeña definición así como un ejemplo para que el usuario pueda entender mejor el concepto.
-\figura{Bitmap/Capitulo2/eurowordnet}{width=.9\textwidth}{fig:eurowordnet}{Resultados búsqueda EuroWordnet con la palabra \textit{casa}}
 
 \section{Conclusiones}
-
+Finalmente, 
 
