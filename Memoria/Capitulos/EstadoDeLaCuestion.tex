@@ -514,6 +514,8 @@ Es un \textit{corpus}\footnote{Colección de documentos de texto} perteneciente 
 	
 	\lstset{language=Python}
 	\begin{lstlisting}[caption= Ejemplo de uso de WordNet, label={lst:ejemWordNet}, frame=single]
+	import nltk
+	from nltk.corpus import wordnet as wn
 	lista = wn.synsets('coche', lang='spa')
 	print(lista[0].lemma_names('spa'))
 	print(lista[0].definition())
@@ -524,16 +526,18 @@ Es un \textit{corpus}\footnote{Colección de documentos de texto} perteneciente 
 	print(lista[0].lemmas()[0].antonyms().name())
 	\end{lstlisting}
 
-Se puede ver en el Listing \ref{lst:ejemWordNet} la forma de obtener la lista de \textit{synsets} de la palabra coche y a continuación del primer \textit{synset} de la lista, se muestran por pantalla cada uno de sus sinónimos (en español), su definición, una oración de ejemplo, sus hiperónimos, hipónimos y holónimos. Por último, del primer \textit{lemma}, se obtienen sus antónimos.
+Se puede ver en el Listing \ref{lst:ejemWordNet} la forma de obtener la lista de \textit{synsets} de la palabra coche. Primero se debe importar el paquete nltk y el \textit{corpus} WordNet. A continuación, se invoca al método \textit{synset} de WordNet, introduciendo como parámetros la palabra de la que se quiere obtener los \textit{synsets} y el lenguaje en el que está dicha palabra (si es una palabra del lenguaje inglés se puede dejar el segundo parámetro en blanco). Después, del primer \textit{synset} de la lista, se muestran por pantalla cada uno de sus sinónimos (en español), su definición, una oración de ejemplo, sus hiperónimos, hipónimos y holónimos. Por último, del primer \textit{lemma}, se obtienen sus antónimos.
 
 	\lstset{language=Python}
 \begin{lstlisting}[caption= Ejemplo de relaciones entre synset, label={lst:ejemSynset}, frame=single]
+import nltk
+from nltk.corpus import wordnet as wn
 synset1 = wn.synset('dog.n.01')
 synset2 = wn.synset('cat.n.01')
 print(synset1.path_similarity(synset2))
 \end{lstlisting}
 
-En el Listing \ref{lst:ejemSynset} se ilustra como se puede obtener el grado de similitud que tienen dos \textit{synset}. En el caso de \textit{path similarity} dicho grado es un número entre 0 y 1, que cuanto más grande sea, mayor similitud existe entre ambos. Si no existiera ninguna similitud, aparecerá la palabra \textit{none}. Para obtener este índice, se navega entre los hiperónimos e hipónimos de uno de los \textit{synset} y se intenta llegar al otro. Cuanto menor sea el número de saltos necesarios para alcanzarlo, mayor será el número.
+En el Listing \ref{lst:ejemSynset} se ilustra como se puede obtener el grado de similitud que tienen dos \textit{synset}. Las primeras instrucciones son similares al Listing \ref{lst:ejemWordNet}, con la diferencia, de que en este caso a la hora de invocar al método \textit{synset}, se le pasa por parámetro el identificador de un \textit{synset} específico. Dicho identificador, se puede obtener invocando al método \textit{synsets} explicado anteriormente. En el caso de \textit{path similarity} dicho grado es un número entre 0 y 1, que cuanto más grande sea, mayor similitud existe entre ambos. Si no existiera ninguna similitud, aparecerá la palabra \textit{none}. Para obtener este índice, se navega entre los hiperónimos e hipónimos de uno de los \textit{synset} y se intenta llegar al otro. Cuanto menor sea el número de saltos necesarios para alcanzarlo, mayor será el número.
 
 \section{Conclusiones}
 Inicialmente, se empezó a trabajar con Conceptnet ya que es una red semántica muy completa en castellano.  Sin embargo, cuando se implementó el primer prototipo y se querían obtener los términos relacionados de un concepto, se observó que dichos términos relacionados no tenían nada que ver con la palabra inicialmente buscada, por lo que se descartó su uso. Se investigaron otras herramientas y finalmente, se decidió trabajar con WordNet, en su versión en español, ya que contiene una biblioteca muy amplia de palabras así como ejemplos, definiciones, sinónimos, hiperónimos y antónimos de las mismas, además los términos relacionados obtenidos son mucho más coherentes que los que se podían lograr con Conceptnet.
