@@ -510,11 +510,30 @@ Esta consulta devuelve un fichero XML como el expuesto en el Listing \ref{lst:xm
 
 \subsection{WordNet}
 \label{cap:subsec:wordnet}
-Es una base de datos léxica en inglés que agrupa las palabras en función de su significado \citep{wordnet2010}. Almacena distintos tipos de palabras  como sustantivos, verbos, adjetivos y adverbios ignorando preposiciones, determinantes y otras palabras funcionales. Los conceptos de esta base de datos se agrupan en conjuntos de sinónimos cognitivos llamados \textit{synsets}. Los \textit{synsets} contienen una breve definición y en muchas ocasiones oraciones cortas que explican el significado. En el caso de que la palabra tenga distintos significados se representará en tantos \textit{synsets} como significados tenga. Se puede ver un ejemplo en la figura \ref{fig:wordnet} realizando una búsqueda con la palabra \textit{house}. WordNet devuelve si es un sustantivo, verbo o adjetivo y una definición al lado junto con un pequeño ejemplo.
-WordNet dispone de una API que permite buscar información en la base de datos de WordNet mediante métodos GET y POST a través de la URL raíz \textit{/graph/v1}.
-\figura{Bitmap/Capitulo2/wordnet}{width=.6\textwidth}{fig:wordnet}{Resultados búsqueda Wordnet con la palabra \textit{house}}
+Es un \textit{corpus} \footnote{Colección de documentos de texto} perteneciente a NLTK(Natural Languaje Toolkit)\footnote{Conjunto de bibliotecas y programas para el Procesamiento del Lenguaje Natural} que almacena distintos tipos de palabras como sustantivos, verbos, adjetivos y adverbios ignorando preposiciones, determinantes y otras palabras funcionales en varios idiomas como el español, el inglés o el francés. Los conceptos se agrupan en conjuntos de sinónimos cognitivos llamados \textit{synsets}. Cada \textit{synset} contiene una serie de sinónimos(\textit{lemmas}), hiperónimos, hipónimos y holónimos así como una breve definición y en muchas ocasiones, oraciones cortas que explican su significado. Además, por cada uno de los \textit{lemmas} que contenga el \textit{synset}, se podrán consultar sus antónimos. En caso de que la palabra tenga distintas acepciones, aparecerá un \textit{synset} por cada una \footnote{http://www.nltk.org/howto/wordnet.html}.
+	
+	\lstset{language=Python}
+	\begin{lstlisting}[caption= Ejemplo de uso de WordNet, label={lst:ejemWordNet}, frame=single]
+	lista = wn.synsets('coche', lang='spa')
+	print(lista[0].lemma_names('spa'))
+	print(lista[0].definition())
+	print(lista[0].examples())
+	print(lista[0].hypernyms())
+	print(lista[0].hyponyms())
+	print(lista[0].member_holonyms())
+	print(lista[0].lemmas()[0].antonyms().name())
+	\end{lstlisting}
 
+En el listing \ref{lst:ejemWordNet} se obtiene la lista de \textit{synsets} de la palabra \textit{coche} y a continuación, del primer \textit{synset} de la lista se muestran por pantalla cada uno de sus sinónimos(en español), su definición, una oración de ejemplo, sus hiperónimos, hipónimos y holónimos. Por último, del primer \textit{lemma}, se obtienen sus antónimos.
 
+	\lstset{language=Python}
+\begin{lstlisting}[caption= Ejemplo de relaciones entre synset, label={lst:ejemSynset}, frame=single]
+synset1 = wn.synset('dog.n.01')
+synset2 = wn.synset('cat.n.01')
+print(synset1.path_similarity(synset2))
+\end{lstlisting}
+
+En el listing \ref{lst:ejemSynset} se ilustran como se puede obtener el grado de similaridad que tienen dos \textit{synset}. En el caso de \textit{path similarity}, dicho grado es un número entre 0 y 1, que cuanto mas grande sea, mayor similaridad habrá, en caso de que no haya, aparecerá la palabra \textit{None}. Para obtener este índice, se navega entre los hiperónimos e hipónimos de uno de los \textit{synset} y se intenta llegar al otro. Cuanto menor sea el número de saltos necesarios para alcanzarlo, mayor será el número.
 
 \section{Conclusiones}
 Finalmente, 
