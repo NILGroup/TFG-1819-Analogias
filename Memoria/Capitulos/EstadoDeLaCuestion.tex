@@ -524,7 +524,7 @@ Es un \textit{corpus} \footnote{Colección de documentos de texto} perteneciente
 	print(lista[0].lemmas()[0].antonyms().name())
 	\end{lstlisting}
 
-En el listing \ref{lst:ejemWordNet} se obtiene la lista de \textit{synsets} de la palabra \textit{coche} y a continuación, del primer \textit{synset} de la lista se muestran por pantalla cada uno de sus sinónimos(en español), su definición, una oración de ejemplo, sus hiperónimos, hipónimos y holónimos. Por último, del primer \textit{lemma}, se obtienen sus antónimos.
+En el Listing \ref{lst:ejemWordNet} se obtiene la lista de \textit{synsets} de la palabra \textit{coche} y a continuación, del primer \textit{synset} de la lista se muestran por pantalla cada uno de sus sinónimos(en español), su definición, una oración de ejemplo, sus hiperónimos, hipónimos y holónimos. Por último, del primer \textit{lemma}, se obtienen sus antónimos.
 
 	\lstset{language=Python}
 \begin{lstlisting}[caption= Ejemplo de relaciones entre synset, label={lst:ejemSynset}, frame=single]
@@ -533,8 +533,8 @@ synset2 = wn.synset('cat.n.01')
 print(synset1.path_similarity(synset2))
 \end{lstlisting}
 
-En el listing \ref{lst:ejemSynset} se ilustran como se puede obtener el grado de similaridad que tienen dos \textit{synset}. En el caso de \textit{path similarity}, dicho grado es un número entre 0 y 1, que cuanto mas grande sea, mayor similaridad habrá, en caso de que no haya, aparecerá la palabra \textit{None}. Para obtener este índice, se navega entre los hiperónimos e hipónimos de uno de los \textit{synset} y se intenta llegar al otro. Cuanto menor sea el número de saltos necesarios para alcanzarlo, mayor será el número.
+En el Listing \ref{lst:ejemSynset} se ilustran como se puede obtener el grado de similaridad que tienen dos \textit{synset}. En el caso de \textit{path similarity}, dicho grado es un número entre 0 y 1, que cuanto mas grande sea, mayor similaridad habrá, en caso de que no haya, aparecerá la palabra \textit{None}. Para obtener este índice, se navega entre los hiperónimos e hipónimos de uno de los \textit{synset} y se intenta llegar al otro. Cuanto menor sea el número de saltos necesarios para alcanzarlo, mayor será el número.
 
 \section{Conclusiones}
-Finalmente, 
+Inicialmente, se empezó a trabajar con Conceptnet ya que tiene es una red semántica muy completa en castellano, sin embargo, cuando se implementó el primer prototipo cuando se querían obtener términos relacionados de un concepto, se observó que dichos términos relacionados no tenían nada que ver con la palabra inicialmente buscada, por lo que se descartó su uso. Se investigaron otras herramientas y finalmente, se decidió trabajar con WordNet, en su versión en español, ya que contiene una biblioteca muy amplia de palabras así como ejemplos, definiciones, sinónimos, hiperónimos y antónimos de las mismas, además los términos relacionados obtenidos son mucho más coherentes que los que se podían lograr con Conceptnet.
 
