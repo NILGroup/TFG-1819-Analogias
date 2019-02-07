@@ -90,7 +90,7 @@ Las principales características de un servicio web son \citep{TorresJoaquin2017
 	\item Debe ser localizado. Debe tener algún mecanismo que permita encontrarle. De esta forma tendremos la posibilidad de que una aplicación localice el servicio que necesite de forma automática, sin tener que conocerlo previamente el usuario.
 \end{itemize}
 
-Por otro lado, los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico. A nivel técnico podemos diferenciar dos tipos de servicios web \citep{TorresJoaquin2017SC}:
+Por otro lado, los servicios web pueden definirse tanto a nivel conceptual como a nivel técnico. A nivel técnico se pueden diferenciar dos tipos de servicios web \citep{TorresJoaquin2017SC}:
 \begin{itemize}
 	\item Servicios web SOAP \textit({Simple Object Access Protocol}): SOAP es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos\footnote{https://www.ibm.com/support/knowledgecenter/es}. Los mensajes SOAP tienen el formato representado en el Listing \ref{lst:SOAP}:
 
@@ -211,7 +211,7 @@ Por otro lado, los servicios web se componen de varias capas\footnote{https://di
 \label{cap:sec:lenguajenatural}
 El Procesamiento del Lenguaje Natural (PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso del lenguaje natural (entendiendo como lenguaje natural el idioma usado con fines de comunicación por humanos, ya sea hablado o escrito, como pueden ser el español, el ruso o el inglés). 
 El Procesamiento del Lenguaje Natural se ayuda de las redes semánticas, puesto que estas son una forma de representación del conocimiento en la que los conceptos que componen el mundo y sus relaciones se representan mediante un grafo. Se utilizan para representar mapas conceptuales y mentales \citep{redSemantica2018}.
-Los nodos están representados por el elemento lingüístico, y la relación entre los nodos sería la arista. Podemos ver un ejemplo en la Figura \ref{fig:red}, donde el nodo \textit{Oso} representa un concepto, en este caso un sustantivo que identifica a un tipo de animal,  y otro nodo \textit{Pelo}. Su relación se ve representada por la arista con valor \textit{tiene}, dando lugar a una característica de este animal: \textit{Oso tiene pelo}.
+Los nodos están representados por el elemento lingüístico, y la relación entre los nodos sería la arista. Se puede ver un ejemplo en la Figura \ref{fig:red}, donde el nodo \textit{Oso} representa un concepto, en este caso un sustantivo que identifica a un tipo de animal,  y otro nodo \textit{Pelo}. Su relación se ve representada por la arista con valor \textit{tiene}, dando lugar a una característica de este animal: \textit{Oso tiene pelo}.
  
 \figura{Bitmap/Capitulo2/redSemantica}{width=.9\textwidth}{fig:red}{Ejemplo Red Semántica}
 Existen principalmente tres tipos de redes semánticas\footnote{http://elies.rediris.es/elies9/4-3-2.htm}:
@@ -226,9 +226,9 @@ Para el trabajo que queremos realizar, existen varias aplicaciones web que actú
 \subsection{ConceptNet} 
 \label{cap:subsec:concepnet}
 
-Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Está disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone de una aplicación web\footnote{http://conceptnet.io/}, donde seleccionas el idioma deseado y añades la palabra a buscar. En la Figura  \ref{fig:busquedaConcepnet}, podemos ver que si añadimos la palabra chaqueta nos devuelve sus sinónimos, términos relacionados, símbolos, etc...
+Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Está disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone de una aplicación web\footnote{http://conceptnet.io/}, donde seleccionas el idioma deseado y añades la palabra a buscar. En la Figura  \ref{fig:busquedaConcepnet}, se puede ver que si se añade la palabra chaqueta se devuelven sus sinónimos, términos relacionados, símbolos, etc...
 \figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de ConcepNet para la palabra chaqueta} 
-Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, podemos ver en el Listing \ref{lst:json} los resultados en dicho formato para la palabra chaqueta. Este consta de cuatro campos principales\footnote{https://github.com/commonsense/conceptnet5/wiki/AP}:
+Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, se puede ver en el Listing \ref{lst:json} los resultados en dicho formato para la palabra chaqueta. Este consta de cuatro campos principales\footnote{https://github.com/commonsense/conceptnet5/wiki/AP}:
 \begin{itemize}
 	\item @context: URL enlazada a un archivo de información del JSON para comprender la API. También puede contener comentarios que pueden ser útiles para el usuario.
 	\item @id: concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
