@@ -108,6 +108,20 @@
 
 \newpage
 
+% Índice de listados
+% Como antes, pero ahora .lot (List Of Tables)
+
+\ifpdf
+\pdfbookmark[1]{Índice de listados}{indice de listados}
+\fi
+
+\cabeceraEspecial{\'Indice de listados}
+
+\lstlistoflistings
+
+\newpage
+
+
 % Variable local para emacs, para  que encuentre el fichero maestro de
 % compilación y funcionen mejor algunas teclas rápidas de AucTeX
 
