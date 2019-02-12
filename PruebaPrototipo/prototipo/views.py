@@ -156,22 +156,15 @@ def consultaSinonimo(palabra, csvarchivo):
 #Servicio Web 1 que devuelve los sinonimos
 def sinonimosDevueltos(palabra):
 
-    #conjuntoSalida = set()
-    conjuntoSalida = []
-    lista = wn.synsets(palabra, lang='spa');
-    """obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
+    conjuntoSalida = set()
+    obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
     for j in range(len(obj['edges'])):
         if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and \
                 obj['edges'][j]['start']['label'] == palabra:
             conjuntoSalida.add(obj['edges'][j]['end']['label'])
         elif obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['start']['language'] == 'es' and \
                 obj['edges'][j]['end']['label'] == palabra:
-            conjuntoSalida.add(obj['edges'][j]['start']['label'])"""
-
-    for i in range(len(lista)):
-        conjuntoSalida.append(lista[i].lemma_names('spa'))
-
-        #print(lista[i].lemma_names('spa'))
+            conjuntoSalida.add(obj['edges'][j]['start']['label'])
 
 
 
