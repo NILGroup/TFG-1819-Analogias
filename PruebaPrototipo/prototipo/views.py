@@ -206,13 +206,17 @@ def consultaTerminos(palabra, csvarchivo):
 #Servicio Web 2 que devuelve los terminos relacionados
 def terminosRelacionadosDevueltos(palabra):
 
-    conjuntoSalida = set()
-    obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
-    for j in range(len(obj['edges'])):
-        if obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['end']['language'] == 'es' and \
-                obj['edges'][j]['start']['label'] == palabra:
-            conjuntoSalida.add(obj['edges'][j]['end']['label'])
-        elif obj['edges'][j]['rel']['label'] == 'RelatedTo' and obj['edges'][j]['start']['language'] == 'es' and \
-                obj['edges'][j]['end']['label'] == palabra:
-            conjuntoSalida.add(obj['edges'][j]['start']['label'])
+    lista = wn.synsets(palabra, lang='spa');
+    conjuntoSalida = []
+    for i in range(len(lista)):
+        listaHiper = lista[i].hypernyms()
+        listaHipo = lista[i].hyponyms()
+        for j in range(len(listaHiper)):
+            #este if y el de mas abajo son para que no meta vacios en la lista
+            if (len(listaHiper[j].lemma_names('spa'))) > 0:
+                conjuntoSalida.append(listaHiper[j].lemma_names('spa'))
+        for j in range(len(listaHipo)):
+            if (len(listaHipo[j].lemma_names('spa'))) > 0:
+                conjuntoSalida.append(listaHipo[j].lemma_names('spa'))
+
     return conjuntoSalida
