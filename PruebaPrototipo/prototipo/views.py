@@ -163,12 +163,12 @@ def sinonimosDevueltos(palabra):
     #http://www.talp.upc.edu/
     #http://www.talp.upc.edu/content/multilingual-central-repository-mrc
     #http://www.talp.upc.edu/content/spanish-and-catalan-wordnets-0
-    #conjuntoSalida = set()
-    conjuntoSalida = []
+    conjuntoSalida = set()
+    #conjuntoSalida = []
     lista = wn.synsets(palabra, lang='spa');
-    obj = requests.get('http://multiwordnet.fbk.eu/online/mwn-main.php?language=spanish&field=word&word=tarantula&wntype=Hypernyms&pos=').json()
-    print('resultados api')
-    print(obj)
+   # obj = requests.get('http://multiwordnet.fbk.eu/online/mwn-main.php?language=spanish&field=word&word=tarantula&wntype=Hypernyms&pos=').json()
+    #print('resultados api')
+    #print(obj)
     """obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
     for j in range(len(obj['edges'])):
         if obj['edges'][j]['rel']['label'] == 'Synonym' and obj['edges'][j]['end']['language'] == 'es' and \
@@ -179,7 +179,9 @@ def sinonimosDevueltos(palabra):
             conjuntoSalida.add(obj['edges'][j]['start']['label'])"""
 
     for i in range(len(lista)):
-        conjuntoSalida.append(lista[i].lemma_names('spa'))
+        for j in range(len(lista[i].lemma_names('spa'))):
+            conjuntoSalida.add(lista[i].lemma_names('spa')[j])
+            #conjuntoSalida.append(lista[i].lemma_names('spa'))
 
         #print(lista[i].lemma_names('spa'))
 
@@ -216,8 +218,8 @@ def consultaTerminos(palabra, csvarchivo):
 #Servicio Web 2 que devuelve los terminos relacionados
 def terminosRelacionadosDevueltos(palabra):
 
-    lista = wn.synsets(palabra, lang='eng');
-    conjuntoSalida = []
+    lista = wn.synsets(palabra, lang='spa');
+    conjuntoSalida = set()
     print('LISTA:')
     print(len(lista))
 
@@ -235,11 +237,15 @@ def terminosRelacionadosDevueltos(palabra):
             if (len(listaHiper[j].lemma_names('spa'))) > 0:
                 print('HIPERONIMOS')
                 print(listaHiper[j].lemma_names('spa'))
-                conjuntoSalida.append(listaHiper[j].lemma_names('spa'))
+                for k in range(len(listaHiper[j].lemma_names('spa'))):
+                    conjuntoSalida.add(listaHiper[j].lemma_names('spa')[k])
+                #conjuntoSalida.append(listaHiper[j].lemma_names('spa'))
         for j in range(len(listaHipo)):
             if (len(listaHipo[j].lemma_names('spa'))) > 0:
                 print('HIPONIMOS')
                 print(listaHipo[j].lemma_names('spa'))
-                conjuntoSalida.append(listaHipo[j].lemma_names('spa'))
+                for k in range(len(listaHipo[j].lemma_names('spa'))):
+                    conjuntoSalida.add(listaHipo[j].lemma_names('spa')[k])
+                #conjuntoSalida.append(listaHipo[j].lemma_names('spa'))
 
     return conjuntoSalida
