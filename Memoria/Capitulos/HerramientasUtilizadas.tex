@@ -1,36 +1,8 @@
 \chapter{Herramientas Utilizadas}
 \label{cap:herramientas}
 
-En este capítulo se van a explicar todas las herramientas utilizadas en este trabajo, desde las más básicas que se explicarán en el apartado 3.1, como las herramientas para gestión de tareas que se explicarán en el apartado 3.2. Y en el capítulo 3.3 explicaremos  Django.
+En este capítulo se van a explicar las herramientas utilizadas para el desarrollo de este trabajo, en el apartado 3.1 se explicará Django que es el \textit{framework} utilizado para el desarrollo del servicio web y en el apartado 3.2 se explicará SpaCy, que es la herramienta que se utilizó para la clasificación de palabras. Las herramientas y recursos que se utilizaron para la gestión del proyecto se explicarán en un capítulo aparte.
 
-
-%-------------------------------------------------------------------
-\section{Herramientas básicas}
-%-------------------------------------------------------------------
-\label{cap:sec:herramientasBasicas}
-	
-	
-    Repositorio: Para gestionar todas las versiones de nuestro código así como de la memoria, hacemos uso de un repositorio común en \textit{GitHub}. 
-	La dirección del mismo es https://github.com/NILGroup/TFG-1819-Analogias
-
-
-
-%-------------------------------------------------------------------
-\section{Herramientas para la Gestión de Tareas}
-%-------------------------------------------------------------------
-\label{cap:sec:herramientasGestionTareas}
-Nuestro equipo no se rige por una metodología en especial, ya que al ser únicamente dos personas no podemos utilizar Scrum o cualquier otra metodología ágil. Pero si que hemos adoptado ciertas características de ese tipo de metodologías para realizar nuestro trabajo.
-Hemos hecho uso de un gestor de tareas con el fin de ayudarnos a saber cuál es la próxima tarea por hacer, cuáles están en proceso y cuáles se encuentran ya finalizadas. Existen varios gestores de tareas, pero nos hemos decantado por Trello, ya que dispone de una interfaz simple, amigable y que no lleva a confusión a la hora de crear nuevas tareas o moverse por el tablero.
-Se han añadido tres columnas:
-\begin{itemize}
-	\item Lista de tareas: en dónde se ven representadas todas las tareas a realizar, desgranadas al mayor detalle posible e intentando que éstas sean lo más independientes las unas de las otras. De esta forma, nos aseguramos que cada integrante del equipo trabaja en una tarea específica que no influye en el trabajo del compañero.
-	\item En proceso: en el momento en el que un integrante del grupo se asigna una tarea, esta se traslada a la siguiente columna. Lo que indica que se encuentra en proceso de realización y que ningún otro compañero puede realizarla. 
-	\item Hecho: última columna de nuestro tablero. Cuando una tarea se encuentra en dicha columna implica que la tarea ha sido terminada y validada, esta validación la deben dar los directores y nunca los propios integrantes del grupo.
-	
-\end{itemize}
-
-Para que se pueda entender con mayor claridad, podemos ver la Figura \ref{fig:trello} dónde en cada columna se ve claramente la descripción de la tarea y quién la tiene asignada.
-\figura{Bitmap/Capitulo3/trello}{width=.9\textwidth}{fig:trello}{Ejemplo Gestor de Tareas en Trello}
 
 %-------------------------------------------------------------------
 \section{Django}
@@ -46,4 +18,13 @@ Es gratuito y de código abierto y dispone de una gran documentación actualizad
 	\item Mantenible: el código de Django está escrito usando principios y patrones de diseño para fomentar la creación de código mantenible y reutilizable, como por ejemplo el patrón MVC \textit{(Model View Controller)}, el cuál agrupa código relacionado en módulos.  Por otro lado, utiliza el principio No te repitas \textit{Don't Repeat Yourself} (DRY) para que no exista una duplicación innecesaria, reduciendo la cantidad de código. 
 	\item Portable: Django está escrito en Python, el cual se ejecuta en muchas plataformas. Lo que significa que no está sujeto a ninguna plataforma en particular, y puede ejecutar sus aplicaciones en muchas distribuciones de Linux, Windows y Mac OS X.
 \end{itemize}
+
+\section{SpaCy}
+\label{cap:sec:spacy}
+SpaCy es una biblioteca de código abierto para el Procesamiento del Lenguaje Natural en Python, soporta más de 34 idiomas entre ellos el español y tiene el mejor índice de acierto como analizador sintáctico\footnote{https://spacy.io/}, por estos motivos se decidió utilizar esta herramienta para la clasificación sintáctica de palabras.
+Para este proyecto se utilizó SpaCy para la clasificación sintáctica de palabras, más concretamente de las 1000 formas más comunes del castellano según la RAE y posteriormente solo utilizar aquellas que son útiles(verbos, pronombres, sustantivos y adverbios).
+
+Para su utilización, hay que importar la biblioteca de idioma correspondiente(en este caso español) e invocar al POS tagger pasando las palabras que se deseen clasificar, el resultado será una etiqueta según la siguiente tabla:
+
+
 
