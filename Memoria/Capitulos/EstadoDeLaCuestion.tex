@@ -526,10 +526,15 @@ WordNet es un \textit{corpus}\footnote{Colección de documentos de texto} perten
 	\item Hiperónimos, los cuales son palabras cuyo significado está incluido en el de otras\footnote{https://dle.rae.es/?id=KRW1qe2}, por ejemplo: mamífero es hiperónimo de gato y de perro ya que los gatos y los perros pertenecen al conjunto de los mamíferos.
 	\item Hipónimos, que son los antónimos del hiperónimo, es decir, son palabras cuyo significado incluyen el de otra\footnote{https://dle.rae.es/?id=KU5UAn5}, por ejemplo: gato es hipónimo de mamífero ya que está incluido dentro del conjunto de los mamíferos.
 	\item Holónimos, son palabras que representan el todo respecto a una parte, por ejemplo: coche es el holónimo de rueda, volante y acelerador ya que forman parte de un todo, que es el coche.
-	\item Por último, contiene una breve definición y en muchas ocasiones, oraciones cortas que explican su si.gnificado			
+	\item Por último, contiene una breve definición y en muchas ocasiones, oraciones cortas que explican su significado.		
 \end{itemize} 
 Por cada uno de los \textit{lemmas} que contenga el \textit{synset}, se podrán consultar sus antónimos. En caso de que la palabra tenga distintos significados, aparecerá un \textit{synset} por cada una\footnote{http://www.nltk.org/howto/wordnet.html}.
-	
 
+Hay múltiples interfaces web que implementan esta biblioteca, una de las más completas es eurowordnet, ya que está disponible en varios idiomas y permite extraer sinónimos, antónimos, hiperónimos, hipónimos y holónimos. Además de oraciones de ejemplo y definiciones de cada una de las acepciones obtenidas de la palabra que se haya buscado.
+
+
+\figura{Bitmap/Capitulo2/eurowordnet2}{width=.8\textwidth}{fig:eurowordnet2}{Resultados búsqueda en Eurowordnet con la palabra \textit{casa}}
+
+Como se puede observar en la figura \ref{fig:eurowordnet2} aparecen una serie de sinónimos que corresponden a una determinada acepción de la palabra buscada, con una frase de ejemplo y una definición explicándolo. Además, en el desplegable de la izquierda se muestra lo que se puede obtener de dicha palabra.
 
 
