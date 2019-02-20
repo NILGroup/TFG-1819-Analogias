@@ -213,6 +213,7 @@ Por otro lado, los servicios web se componen de varias capas\footnote{https://di
 	\item Dependen de la disponibilidad de servidores y comunicaciones.
 \end{itemize}
 
+%-------------------------------------------------------------------
 \section{Procesamiento del Lenguaje Natural}
 %-------------------------------------------------------------------
 \label{cap:sec:lenguajenatural}
@@ -236,9 +237,9 @@ Para el trabajo que queremos realizar, existen varias aplicaciones web que actú
 \subsection{ConceptNet} 
 \label{cap:subsec:concepnet}
 
-Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Está disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet dispone de una aplicación web\footnote{http://conceptnet.io/}, donde seleccionas el idioma deseado y añades la palabra a buscar. En la Figura  \ref{fig:busquedaConcepnet}, se puede ver que si se añade la palabra chaqueta se devuelven sus sinónimos, términos relacionados, símbolos, etc...
+Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Está disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet ofrece la posibilidad de obtener de una palabra un listado de sinónimos, términos relacionados, términos derivados, el contexto de la palabra, resultados etimológicamente relacionados, símbolos, etc... Y dispone de una aplicación web\footnote{http://conceptnet.io/}, donde seleccionas el idioma deseado y añades la palabra a buscar. En la Figura  \ref{fig:busquedaConcepnet}, se puede ver que si se añade la palabra chaqueta se devuelven sus sinónimos, términos relacionados, términos relacionados etimológicamente y formas de la palabra.
 \figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de ConcepNet para la palabra chaqueta} 
-Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, se puede ver en el Listing \ref{lst:json} los resultados en dicho formato para la palabra chaqueta. Este consta de cuatro campos principales\footnote{https://github.com/commonsense/conceptnet5/wiki/AP}:
+Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, se puede ver en el Listado \ref{lst:json} los resultados en dicho formato para la palabra chaqueta. Este consta de cuatro campos principales\footnote{https://github.com/commonsense/conceptnet5/wiki/AP}:
 \begin{itemize}
 	\item @context: URL enlazada a un archivo de información del JSON para comprender la API. También puede contener comentarios que pueden ser útiles para el usuario.
 	\item @id: concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
@@ -254,7 +255,7 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 		\begin{itemize}
 			\item @id: coincide con la palabra del id anterior.
 			\item @type: define el tipo de id, como se ha explicado anteriormente.
-			\item label: frase más completa, donde adquiera significado la palabra obtenida.
+			\item label: puede ser la misma palabra buscada o una frase más completa, donde adquiera significado la palabra obtenida.
 			\item language: lenguaje en el que está la palabra devuelta de la consulta.
 			\item term: enlace a una versión mas general del propio término. Normalmente, suele coincidir con la URI.			
 		\end{itemize}
@@ -262,7 +263,7 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 		\item rel: describe la relación que hay entre la palabra origen y destino, dentro del cual hay tres campos: @id, @type y label, descritos anteriormente.
 		\item sources: indica por qué ConceptNet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id y un campo @type, A parte, hay un campo \textit{contributor}, en el que aparece la fuente por la que se ha obtenido ese resultado y por último un campo \textit{process} indicando si la palabra se ha añadido mediante un proceso automático.
 		\item start: describe el nodo origen, es decir, la palabra que hemos introducido en ConceptNet para que haga la consulta, este campo esta compuesto por elementos ya descritos como son: @id, @type, label, language y term.
-		\item surfaceText: indica de que frase del lenguaje natural se han extraido los datos que estan guardados en conceptnet. En nuestro caso es nulo.
+		\item surfaceText: algunos datos de ConceptNet se extraen de texto en lenguaje natural. El valor de surface text muestra lo que era este texto, puede que este campo tenga valor nulo.
 		\item weight: indica la fiabilidad de la información guardada en conceptnet, siendo normal que su valor sea 1.0. Cuanto mayor sea este valor, más fiables serán.
 	\end{itemize}
 	\item view: describe la longitud de la lista de paginación, es un objeto con un id propio, y además, aparecen los campos \textit{firstPage} que tiene como valor un enlace a la primera pagina de los resultados obtenidos, y \textit{nextPage} que tiene un enlace a la siguiente página de la lista.
@@ -336,8 +337,9 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 
 \subsection{Thesaurus}
 \label{cap:subsec:thesaurus}
-Es una aplicación web\footnote{https://www.thesaurus.com/} que se autodefine como el principal diccionario de sinónimos de la web. Esta página ofrece la posibilidad de introducir una palabra para poder conocer sus sinónimos, pero solamente devuelve resultados en inglés. Aparte del listado de sinónimos,  Thesaurus indica que tipo de palabra es y una definición de la misma.
-Esta aplicación proporciona una API\footnote{http://thesaurus.altervista.org/} tipo RESTful que obtiene los sinónimos de una palabra y devuelve los resultados en formato XML o JSON. El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: categoría y sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
+Es una aplicación web\footnote{https://www.thesaurus.com/} que se autodefine como el principal diccionario de sinónimos de la web. Esta página ofrece la posibilidad de introducir una palabra para poder conocer sus sinónimos, pero solamente devuelve resultados en inglés. Aparte del listado de sinónimos, Thesaurus indica que tipo de palabra es y una definición de la misma así como un listado de antónimos y un listado de palabras relacionadas con dicho concepto. 
+Por otro lado esta aplicación proporciona una API\footnote{http://thesaurus.altervista.org/} tipo RESTful que obtiene los sinónimos de una palabra mediante una petición HTTP GET a la url \textit{http://thesaurus.altervista.org/thesaurus/v1}. 
+Este devuelve los resultados en formato XML o JSON. El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: categoría y sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
 Se puede ver en el Listiado \ref{lst:xmlthesaurus} un ejemplo de como sería el resultado de una petición en formato XML y en el Listado \ref{lst:jsonthesaurus} en formato JSON.
 Ambos son muy similares, por ejemplo en formato XML se puede ver que devuelve el tipo de categoría de las palabras, en este caso son sustantivos y a continuación aparcen los sinónimos. En caso de que alguna palabra sea un antónimo aparecera entre paréntesis al lado de la misma, como ocurre con la palabra \textit{war}. Por otro lado, el formato JSON devuelve dentro del campo \textit{category / categoría} todos los sinónimos, y en caso de ser un antónimo aparecerá de la misma forma que en el formato XML.
 
@@ -363,23 +365,23 @@ Ambos son muy similares, por ejemplo en formato XML se puede ver que devuelve el
 
 
 \lstset{language=XML}
-\begin{lstlisting}[caption= Ejemplo de salida de Thesaurus en formato XML, label={lst:xmlthesaurus}, frame=single]
+\begin{lstlisting}[caption= Ejemplo de salida de Thesaurus en formato XML para la palabra \textit{peace}, label={lst:xmlthesaurus}, frame=single]
 <response> 
 	<list>
 		<category>(noun)</category> 
-		<synonyms> order | war (antonym) </synonyms>
+		<synonyms> order|war (antonym) </synonyms>
 	</list>
 	<list>
 		<category>(noun)</category> 
-		<synonyms> harmony | concord | concordance </synonyms>
+		<synonyms> harmony|concord|concordance </synonyms>
 	</list>
 	<list>
 		<category>(noun)</category> 
-		<synonyms> public security | security </synonyms>
+		<synonyms> public security|security </synonyms>
 	</list>
 	<list>
 		<category>(noun)</category> 
-		<synonyms> tratado de paz | pacificacion | acuerdo | pact | accord </synonyms>
+		<synonyms> peace treaty|pacification|treaty|pact|accord </synonyms>
 	</list>
 \end{lstlisting}
 
@@ -394,21 +396,21 @@ Ambos son muy similares, por ejemplo en formato XML se puede ver que devuelve el
 	commentstyle=\color{black},
 }
 
-\begin{lstlisting} [caption=Ejemplo de salida de Thesaurus en formato JSON, label={lst:jsonthesaurus}, frame=single]
+\begin{lstlisting} [caption=Ejemplo de salida de Thesaurus en formato JSON para la palabra \textit{peace}, label={lst:jsonthesaurus}, frame=single]
 {
 	"response":
 	[
 		{ "list": 
-			{ "category": "(noun)", "sinonimos": "order | war (antonym)" }
+			{ "category": "(noun)", "synonyms": "order|war (antonym)" }
 		},
 		{ "list": 
-			{ "category": "(noun)", "sinonimos": "armonia | concordia | concordancia" }
+			{ "category": "(noun)", "synonyms": "harmony|concord|concordance" }
 		},
 		{ "lista": 
-			{ "categoria": "(sustantivo)", "sinonimos": "seguridad publica | seguridad" }
+			{ "categoria": "(noun)", "synonyms": "public security|security" }
 		},
 		{ "lista": 
-			{ "categoria": "(sustantivo)", "sinonimos": "tratado de paz | pacificacion | tratado | pacto | acuerdo" }
+			{ "categoria": "(noun)", "synonyms": "peace treaty|pacification|treaty|pact|accord" }
 		}
 	
 	]
@@ -421,11 +423,13 @@ Ambos son muy similares, por ejemplo en formato XML se puede ver que devuelve el
 \subsection{Thesaurus Rex}
 \label{cap:subsec:thesaurusrex}
 
-Thesaurus Rex\footnote{http://ngrams.ucd.ie/therex3/} es una red semántica. La aplicación permite introducir una palabra y devuelve palabras relacionados, o bien puedes introducir un par de palabras (separadas por el operador  \& ) y devolverá las categorías que comparten ambos términos.
-Thesaurus Rex solo admite palabras en inglés. En la Figura \ref{fig:thesaurusrex} se pueden ver los resultados para la palabra  \textit{house}.
-La aplicación devuelve estos resultados en formato XML, y este como se puede ver en el Listing \ref{lst:xmlthesaurusrex} los divide en distintos campos: \textit{Categories}, \textit{Modifiers} y \textit{CategoryHeads}. Como se puede ver todos los resultados tienen un peso asignado, esto significa que cuanto mayor sea el peso mayor es la similitud con el concepto dado, y en la página aparecerá dicha palabra en un tamaño superior al resto.
-Los campos que se encuentran dentro del apartado \textit{categories} son los resultados de mayor grano fino que Thesaurus Rex ha encontrado, los que se encuentran dentro de  \textit{modifiers} son atributos del concepto a buscar y por último los que se encuentran en \textit{categoryHeads} son las categorías más simples que se han para dicho concepto.
-Thesaurus Rex utiliza la Web Semántica para generar sus resultados, con lo cual la información disponible no es fija, sino que varía según los datos actuales de la web.
+Thesaurus Rex\footnote{http://ngrams.ucd.ie/therex3/} es una red semántica que solo admite palabras en inglés y que permite obtener las palabras relacionadas, con una palabra o las categorías que comparten dos palabras, por ejemplo si se introducen las palabras \textit{coffe y cola}, las categorías que comparten dichos conceptos son \textit{cold-beverage, dark-beverage, stimulating-beverage, etc...}
+Si por el contrario, únicamente se ha introducido una palabra como se puede ver en la Figura \ref{fig:thesaurusrex} para la palabra  \textit{house}. La aplicación devuelve un listado de las categorías más utilizadas por los hablantes de dicha lengua, como por ejemplo \textit{permanent-structure, inanimate-object, everyday-object, etc...},
+ otro listado de las categorías matizadas de dicho concepto, como por ejemplo \textit{permanent, fixed, wooden, etc...} y por último un listado de categorías simples del concepto, como por ejemplo \textit{structure, object, item, building, etc...}
+
+Por otro lado, la aplicación devuelve estos resultados en formato XML, y este como se puede ver en el Listado \ref{lst:xmlthesaurusrex} para la palabra \textit{house}, los divide en distintos campos: \textit{Categories}, \textit{Modifiers} y \textit{CategoryHeads}. Como se puede ver todos los resultados tienen un peso asignado, esto significa que cuanto mayor sea el peso mayor es la similitud con el concepto dado, y en la página aparecerá dicha palabra en un tamaño superior al resto.
+Los campos que se encuentran dentro del apartado \textit{categories} son los resultados más utilizados en ese momento por los hablantes y que Thesaurus Rex ha encontrado, los que se encuentran dentro de  \textit{modifiers} son atributos del concepto a buscar y por último los que se encuentran en \textit{categoryHeads} son las categorías más simples que se han para dicho concepto.
+Thesaurus Rex utiliza la Web para generar sus resultados, con lo cual la información disponible no es fija, sino que varía según los datos actuales de la web.
 La ventaja de utilizar esta herramienta es que se encuentra en continua actualización, pero el inconveniente es que en algunos casos la información puede resultar un poco extraña dado que se crea semiautomáticamente desde contenido de la web \citep{TFMPaloma}.
 
 \lstset{language=XML}
@@ -473,7 +477,7 @@ La ventaja de utilizar esta herramienta es que se encuentra en continua actualiz
 \subsection{Metaphor Magnet}
 \label{cap:subsec:metaphormagnet}
 Aplicación web\footnote{http://ngrams.ucd.ie/metaphor-magnet-acl/}, que dada una palabra crea metáforas. El objetivo \citep{VealeT2012} de dicha aplicación es encontrar metáforas comunes en los n-gramas de Google. Se llama n-grama\footnote{https://en.wikipedia.org/wiki/N-gram} a una subsecuencia de n elementos consecutivos en una secuencia dada, es decir, contar la cantidad de veces que aparece una palabra, la cantidad de veces que aparecen dos palabras juntas, tres palabras, etc... Google utiliza estos mapeos para interpretar metáforas. Esta aplicación está limitada, ya que como se puede observar en la Figura \ref{fig:metaphormagnet} introduciendo la palabra \textit{house} solo está disponible para el inglés.
-Esta consulta devuelve un fichero XML como el expuesto en el Listing \ref{lst:xmlmetaphormagnet}, que puede ser utilizado para otras aplicaciones de Procesamiento de Lenguaje Natural.
+Esta consulta devuelve un fichero XML como el expuesto en el Listado \ref{lst:xmlmetaphormagnet}, que puede ser utilizado para otras aplicaciones de Procesamiento de Lenguaje Natural.
 
 
 \lstset{language=XML}
