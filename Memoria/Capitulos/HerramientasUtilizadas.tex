@@ -24,9 +24,9 @@ Es gratuito y de código abierto y dispone de una gran documentación actualizad
 SpaCy es una biblioteca de código abierto para el Procesamiento del Lenguaje Natural en Python, soporta más de 34 idiomas entre ellos el español y tiene el mejor índice de acierto como analizador sintáctico\footnote{https://spacy.io/}, por estos motivos se decidió utilizar esta herramienta para la clasificación sintáctica de palabras.
 Para este proyecto se utilizó SpaCy para la clasificación sintáctica de palabras, más concretamente de las 1000 formas más comunes del castellano según la RAE y posteriormente solo utilizar aquellas que son útiles(verbos, pronombres, sustantivos y adverbios).
 
-\figura{Bitmap/Capitulo3/spacy}{width=.8\textwidth}{fig:spacy}{Ejemplo de clasificación de palabras}
+\figura{Bitmap/Capitulo3/spacy}{width=.4\textwidth}{fig:spacy}{Ejemplo de clasificación de palabras}
 
-Para su utilización, hay que importar la biblioteca de idioma correspondiente(en este caso español) e invocar al POS tagger pasando las palabras que se deseen clasificar, el resultado será una etiqueta tal y como se puede apreciar en la tabla \ref{fig:spacy} que se explicará a continuación:
+Para su utilización, hay que importar la biblioteca de idioma correspondiente (en este caso español) e invocar al POS tagger pasando las palabras que se deseen clasificar, el resultado será una etiqueta tal y como se puede apreciar en la tabla \ref{fig:spacy} que se explicará a continuación:
 \begin{itemize}
 	\item La columna \textit{text} indica cual es la palabra que se ha procesado
 	\item La columna \textit{lemma} indica la forma base de la palabra procesada
