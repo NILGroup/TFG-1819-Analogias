@@ -476,12 +476,18 @@ La ventaja de utilizar esta herramienta es que se encuentra en continua actualiz
 
 \subsection{Metaphor Magnet}
 \label{cap:subsec:metaphormagnet}
-Metaphor Magnet es una aplicación web\footnote{http://ngrams.ucd.ie/metaphor-magnet-acl/}, que crea metáforas a partir de una palabra y que solo está disponible para el inglés.. El objetivo \citep{VealeT2012} de dicha aplicación es encontrar metáforas comunes en los n-gramas de Google. Se llama n-grama\footnote{https://en.wikipedia.org/wiki/N-gram} a una subsecuencia de n elementos consecutivos en una secuencia dada, es decir, contar la cantidad de veces que aparece una palabra, la cantidad de veces que aparecen dos palabras juntas, tres palabras, etc... Google utiliza estos mapeos para interpretar metáforas. En la Figura \ref{fig:metaphormagnet} se puede ver el resultado obtenido para la palabra \textit{house}.
-Esta consulta devuelve un fichero XML como el expuesto en el Listado \ref{lst:xmlmetaphormagnet}, que puede ser utilizado para otras aplicaciones de Procesamiento de Lenguaje Natural.
+Metaphor Magnet es una aplicación web\footnote{http://ngrams.ucd.ie/metaphor-magnet-acl/}, que crea metáforas a partir de una palabra y que solo está disponible para el inglés. El objetivo de Metaphor Magnet \citep{VealeT2012} es encontrar y explotar metáforas comunes en textos cotidianos (en este caso, en los n-gramas de Google) y usar estos mapeos para interpretar metáforas.
+Se entiende como n-grama \citep{ngrama1999} a una subsecuencia de n elementos consecutivos en una secuencia dada y estos pueden ser bigramas, tigramas, etc... Por ejemplo, en el texto "Platero y yo"\footnote{https://www.ecured.cu/N-grama}, si se toma como elementos los caracteres que lo componen, sus trigramas serían: Pla, lat, ate, ter, ero, ro-, o-y, -y-, y-y, -yo\footnote{Se ha añadido el símbolo '-'  como indicador de espacio en blanco}.
+Para el caso de  ``El horizonte es límite de lo que podemos ver", si se establecen como elementos a las palabras del texto, sus bigramas son: El horizonte, horizonte es, es límite, límite de, de lo, lo que, que podemos, podemos ver.
+
+La propia aplicación permite introducir palabras o frases, a estas últimas se les puede añadir el signo + seguido de la palabra para indicar que se busquen resultados enfocados a la positividad y con un - indicando lo inverso. Por ejemplo, en la Figura \ref{fig:frasemetaphor} se puede ver un ejemplo introduciendo la frase \textit{``life is a +game"} añadiendo el signo + delante de la palabra game, obteniendo como resultado dos columnas, la columna del lado izquierdo (\textit{Target Metaphors}) se refiere a metáforas enfocadas al concepto \textit{``live"} y la columna del lado derecho (\textit{Source Metaphors}) devuelve metáforas positivas sobre el concepto \textit{game}. Por otro lado, en el caso de añadir una única palabra como en lo mostrado en la Figura \ref{fig:metaphormagnet} donde se puede ver el resultado obtenido para la palabra \textit{house}, devuelve métaforas propias del concepto, por ejemplo \textit{protecting:home}.
+Esta consulta devuelve un fichero XML como el expuesto en el Listado \ref{lst:xmlmetaphormagnet}, donde aparece la etiqueta \textit{<Source Name>} seguido de la palabra a buscar. Otra etiqueta \textit{<Score>} que muestra un número, cuanto mayor sea este indica que ese resultado es más acertado respecto al concepto introducido y se mostrará en un tamaño mayor como por ejemplo \textit{``tall:building"} con una etiqueta \textit{score} de 86. Y por último, una etiqueta \textit{<Text>} con la metáfora, por ejemplo \textit{``protecting:home"}.
+
+\figura{Bitmap/Capitulo2/metaphormagnetFrase}{width=.6\textwidth}{fig:frasemetaphor}{Resultados búsqueda Metaphor Magnet con la frase \textit{life is a game}}
 
 
 \lstset{language=XML}
-\begin{lstlisting}[caption= Ejemplo formatos XML Metaphor Magnet, label={lst:xmlmetaphormagnet}, frame=single]
+\begin{lstlisting}[caption= Ejemplo formatos XML Metaphor Magnet para la palabra \textit{house}, label={lst:xmlmetaphormagnet}, frame=single]
 <Metaphor>
 	<Source Name="house">
 		<Text> towering:mountain </Text>
