@@ -14,10 +14,9 @@ Nuestro objetivo es ofrecer un servicio accesible que defina palabras complejas 
 \label{cap:sec:motivacion}
 
 En nuestra sociedad, existen ciertos colectivos como pueden ser las personas con algún tipo de trastorno cognitivo, inmigrantes, ancianos, analfabetos funcionales, niños, etc... que tienen dificultad para aprender conceptos complejos o no tan complejos. 
-Existen multitud de palabras cuyo significado es bastante complicado de explicar de una manera sencilla, por lo que una solución para que cualquier persona los pueda comprender es hacer uso de metáforas o analogías en las que intervengan palabras conocidas para los usuarios. Por ejemplo, para explicar que una persona dispone de un gran intelecto se dice que: ``eres un cerebrito''. Se hace uso de una metáfora para explicar un concepto difícil de entender a través de una explicación sencilla. De esta forma, se puede asimilar el concepto de una manera más rápida y sencilla.
+Existen multitud de palabras cuyo significado es bastante complicado de explicar de una manera sencilla, por lo que una solución para que cualquier persona los pueda comprender es hacer uso de metáforas o analogías en las que intervengan palabras conocidas para los usuarios. Por ejemplo, para explicar que es un pony, se puede decir que un ``pony es como un caballito". De esta forma, se puede asimilar el concepto de una manera más rápida y sencilla.
 
-La dificultad para entender conceptos complejos supone una serie de limitaciones en la vida cotidiana, en la forma de relacionarse con otros individuos, en la vida profesional e incluso la vida personal. Por ejemplo, suponemos que un inmigrante necesita realizar gestiones para legalizar su estancia o firmar documentación. Si no tiene una buena comprensión del lenguaje no sabe las consecuencias de firmar los documentos porque no los entiende. 
-Otro ejemplo sería cuando una persona firma un contrato, como por ejemplo una póliza de seguros o un contrato de trabajo, en el cual añaden ciertas cláusulas que son incomprensibles. 
+La dificultad para entender conceptos complejos supone una serie de limitaciones en la vida cotidiana, en la forma de relacionarse con otros individuos, en la vida profesional e incluso la vida personal. Por ejemplo, si un inmigrante necesita realizar gestiones para legalizar su estancia o firmar un contrato, se enfrenta a ciertas posibles estafas y/o engaños ya que posiblemente no entienda las claúsulas y no sabe a ciencia cierta lo que está firmando lo que conlleva a la firma de claúsulas abusivas, incluso ilegales. Otro ejemplo sería una persona que sufre de dislexia, para la cual algo tan cotidiano como poder leer el periódico, les supone un gran esfuerzo.
 
 
 Para ayudar principalmente a estas personas a que puedan entender el significado de cualquier palabra, y de esta forma superar algunas de sus limitaciones, se va a desarrollar una aplicación que permita definir palabras complejas mediante comparaciones con otras más fáciles ya conocidas por ellos. Por ejemplo, si se quiere explicar una palabra compleja como puede ser piraña, se puede describir utilizando conceptos más simples de la siguiente manera:\textit{ ``Una piraña nada como un pez y es agresiva como un león''.} Mediante esta comparación, alguien que desconozca completamente el significado de \textit{piraña}, puede hacerse una idea muy aproximada de lo que es.
@@ -28,19 +27,23 @@ Para ayudar principalmente a estas personas a que puedan entender el significado
 %-------------------------------------------------------------------
 \label{cap:sec:objetivos}
 
-El objetivo principal es crear una aplicación que dada una palabra compleja para el usuario obtenga una definición clara y sencilla mediante símiles, analogías o metáforas. 
-Esto se puede ver claramente en el ejemplo de la piraña del apartado anterior, ya que, de esa manera cualquier persona que no sepa lo que es una piraña pueda hacerse una idea de cómo es dicho animal y asimilar el nuevo concepto. Además, se utilizarán técnicas centradas en el usuario para diseñar una interfaz lo más usable posible y que así el usuario tenga una experiencia de uso satisfactoria. Por último, el producto se diseñará para que se encuentre al alcance de todas aquellas personas que lo necesiten.
- Para que todo ello ocurra, los principales objetivos tecnológicos a alcanzar son:
+El objetivo principal de este Trabajo de Fin de Grado es crear una aplicación que dada una palabra compleja para el usuario obtenga una definición clara y sencilla mediante símiles, analogías o metáforas que empleen palabras más sencillas y conocidas. 
+Se utilizarán técnicas centradas en el usuario para diseñar la interfaz y así conseguir una aplicación usable y que se adapte a las necesidades y limitaciones de los potenciales usuarios finales.
+Los objetivos tecnológicos a alcanzar en este Trabajo de Fin de Grado son:
 \begin{itemize}
-	\item La aplicación estará construida con servicios web que la doten de funcionalidad para que finalmente se obtenga una aplicación con funcionalidad. 
+	\item La aplicación estará construida con servicios web que la doten de funcionalidad a la aplicación para que sean reutilizables en otras aplicaciones y se puedan adaptar a las distintas necesidades de los usuarios finales.
 	\item Los servicios web desarrollados estarán disponibles en una API pública para que todo el mundo pueda utilizarlos.	
 	\item La aplicación se construirá de manera incremental, añadiéndole valor al producto poco a poco.	
-	\item La aplicación esté formada por distintos módulos independientes cada uno con una funcionalidad específica.
-	\item Hacer un desarrollo que esté centrado en el usuario, que sea lo más amigable posible y que solucione problemas reales de una forma usable.
-	\item Hacer un uso correcto de analogías y metáforas, para que de esta forma resulte más sencillo la comprensión del concepto.
+	\item Aplicar patrones de diseño.
 \end{itemize}
 
-Por último, no se deben de olvidar los objetivos académicos de este trabajo: poner en práctica los conocimientos adquiridos durante el Grado y ampliar nuestros conocimientos gracias a la utilización de herramientas, lenguajes y metodologías nuevas.
+Por último, no se deben de olvidar los objetivos académicos de este trabajo:
+\begin{itemize}
+	\item Poner en práctica los conocimientos adquiridos durante el Grado y ampliar nuestros conocimientos en distintas áreas.
+	\item Usar correctamente Django y su modelo de uso MVT (\textit{model view template}) que es algo nuevo para los integrantes de este Trabajo de Fin de Grado.
+	\item Utilizar Python, así como intentar seguir correctamente sus buenas prácticas.
+	
+\end{itemize}
 
 Alcanzando los objetivos anteriormente descritos, se conseguirá obtener un producto de calidad, con una gran utilidad tanto social como académica, que puede ayudar a mucha gente a aprender ciertos conceptos de nuestro idioma de una manera más sencilla.
 	
