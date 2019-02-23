@@ -21,24 +21,28 @@ Es gratuito y de código abierto y dispone de una gran documentación actualizad
 
 \section{SpaCy}
 \label{cap:sec:spacy}
-SpaCy es una biblioteca de código abierto para el Procesamiento del Lenguaje Natural en Python, soporta más de 34 idiomas entre ellos el español y tiene el mejor índice de acierto como analizador sintáctico\footnote{https://spacy.io/}, por estos motivos se decidió utilizar esta herramienta para la clasificación sintáctica de palabras.
-Para este proyecto se utilizó SpaCy para la clasificación sintáctica de palabras, más concretamente de las 1000 formas más comunes del castellano según la RAE y posteriormente solo utilizar aquellas que son útiles(verbos, pronombres, sustantivos y adverbios).
+SpaCy es una biblioteca de código abierto para el Procesamiento del Lenguaje Natural en Python, soporta más de 34 idiomas entre ellos el español. Se requería una herramienta que clasificara según su categoría gramatical las 1000 palabras más utilizadas del castellano, ya que solo se necesitaban los verbos, pronombres sustantivos y adverbios. Se pensó inicialmente en la biblioteca NLTK de Python, pero tras una prueba inicial se vio que la clasificación no era una fiable por lo que se descartó su uso y se buscaron otras opciones, se probó con SpaCy y el resultado fue muy satisfactorio, por lo se decidió utilizar en el proyecto para el fin anteriormente descrito.
+
+
 
 \figura{Bitmap/Capitulo3/spacy}{width=.4\textwidth}{fig:spacy}{Ejemplo de clasificación de palabras}
 
-Para su utilización, hay que importar la biblioteca de idioma correspondiente (en este caso español) e invocar al POS tagger pasando las palabras que se deseen clasificar, el resultado será una etiqueta tal y como se puede apreciar en la tabla \ref{fig:spacy} que se explicará a continuación:
+SpaCy según su página web \footnote{https://spacy.io/}, tiene el mejor índice de acierto como analizador sintáctico, para su utilización hay que importar la biblioteca de idioma correspondiente (en este caso español: ``es\_core\_news\_sm'') y pasar como parámetro las palabras que se deseen clasificar, el resultado será una serie de etiquetas tal y como se pueden apreciar en la tabla \ref{fig:spacy}, que es un ejemplo de las etiquetas generadas para una frase en lengua inglesa y que se explica a continuación:
 \begin{itemize}
-	\item La columna \textit{text} indica cual es la palabra que se ha procesado.
-	\item La columna \textit{lemma} indica la forma base de la palabra procesada.
+	\item La columna \textit{text} indica cual es la palabra que se ha procesado. En el caso de la primera fila es la palabra \textit{Apple}.
+	\item La columna \textit{lemma} indica la forma base de la palabra procesada. En la primera fila es la palabra \textit{apple} en minúsculas.
 	\item La columna \textit{pos} es la etiqueta asignada a dicha palabra. Indicando lo siguiente:
 		\begin{itemize}
-			\item PROPN: Nombre propio
-			\item VERB: Verbo
-			\item ADP: Preposicion
-			\item NOUN: Nombre
-			\item SYM: Símbolo
-			\item NUM: Número
+			\item PROPN: Nombre propio. Por ejemplo \textit{Apple}
+			\item VERB: Verbo. Como \textit{is} que es una forma del verbo \textit{to be}.
+			\item ADP: Preposicion. Por ejemplo \textit{at}.
 		\end{itemize}
+	
+	\item La columna \textit{tag} indica cual es la palabra que se ha procesado con más detalle.
+	\item La columna \textit{dep} indica la dependencia sintáctica de la palabra en la frase. Por ejemplo en la segunda frase \textit{is} es un verbo auxiliar.
+	\item La columna \textit{shape} indica la apariencia de la palabra procesada, es decir, si está en mayúsculas o si tiene algún signo de puntuación. Por ejemplo en la última columna, la palabra \textit{U.K.} tiene un \textit{shape} X.X. ya que está formado por dos letras mayúsculas y dos puntos.
+	\item La columna \textit{alpha} es un valor booleano que tendrá el valor \textit{True} si la palabra es un carácter alfanumérico y \textit{False} si no lo és. Por ejemplo: \textit{buying} tiene la etiqueta \textit{alpha} a \textit{True} ya que está formada por caracteres alfanuméricos y \textit{U.K.} la tiene a \textit{False} ya que los ``.'' no se consideran caracteres alfanuméricos.
+	\item La columna \textit{stop} es un valor booleano que tendrá el valor \textit{True} si la palabra forma parte de las palabras más comunes del lenguaje en el que se encuentra \textit{False} si no lo és. Por ejemplo: \textit{is} que es una forma del verbo \textit{to be} tiene esta etiqueta a \textit{True} ya que es muy utilizado en el lenguaje inglés.
 \end{itemize}
 
 
