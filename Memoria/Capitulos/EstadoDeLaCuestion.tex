@@ -42,7 +42,7 @@ Algunas pautas a seguir para escribir correctamente un texto en Lectura Fácil s
 \end{itemize}
 
 Se debe también hacer hincapié en la distinción entre palabras fáciles y complejas \citep{GarciaMunoz2012LecturaFacil}, puesto que son de gran importancia para la lectura fácil. 
-Las palabras complejas son aquellas que no se utilizan a menudo en nuestra sociedad, como por ejemplo: melifluo o inefable. Es por ello que este tipo de palabras deben estar totalmente descartadas en la lectura fácil, y en su lugar debemos introducir palabras fáciles, que son aquellas que se utilizan asiduamente. La RAE (Real Academia Española) dispone de un documento con las mil palabras más usadas\footnote{http://corpus.rae.es/lfrecuencias.html}.
+Las palabras complejas son aquellas que no se utilizan a menudo, como por ejemplo: melifluo o inefable. Es por ello que este tipo de palabras deben estar totalmente descartadas en la lectura fácil, y en su lugar debemos introducir palabras fáciles, que son aquellas que se utilizan asiduamente. La RAE (Real Academia Española) dispone de un documento con las mil palabras más usadas\footnote{http://corpus.rae.es/lfrecuencias.html}.
 
 %-------------------------------------------------------------------
 
@@ -53,9 +53,9 @@ Las palabras complejas son aquellas que no se utilizan a menudo en nuestra socie
 %-------------------------------------------------------------------
 \label{cap:sec:figurasretoricas}
 
-Las figuras literarias (o retóricas) se podrían definir como formas no convencionales de utilizar las palabras, de manera que, aunque se emplean con sus acepciones habituales, se acompañan de algunas particularidades fónicas, gramaticales o semánticas, que las alejan de ese uso habitual, por lo que terminan por resultar especialmente expresivas. 
+Las figuras literarias (o retóricas) se podrían definir \citep{GalianaYCasas1994} como formas no convencionales de utilizar las palabras, de manera que, aunque se emplean con sus acepciones habituales, se acompañan de algunas particularidades fónicas, gramaticales o semánticas, que las alejan de ese uso habitual, por lo que terminan por resultar especialmente expresivas. 
 Según la RAE (Real Academia Española)\footnote{https://dle.rae.es/?id=WISC3uX},\textit{``la retórica es el arte de bien decir, de dar al lenguaje escrito o hablado eficacia bastante para deleitar, persuadir o conmover''}.
-La metáfora, el símil y la analogía se basan en la comparación de dos conceptos: el origen (o tenor), que es el término literal (al que la metáfora se refiere) y el de destino (o vehículo), que es el término figurado. La relación que hay entre el tenor y el vehículo se denomina fundamento. Por ejemplo, en la metáfora \textit{Tus ojos son dos luceros}, \textit{ojos} es el tenor, \textit{luceros} es el vehículo y el fundamento es la belleza de los ojos \citep{GalianaYCasas1994}.
+La metáfora, el símil y la analogía se basan en la comparación de dos conceptos  \citep{GalianaYCasas1994}: el origen (o tenor), que es el término literal (al que la metáfora se refiere) y el de destino (o vehículo), que es el término figurado. La relación que hay entre el tenor y el vehículo se denomina fundamento. Por ejemplo, en la metáfora \textit{Tus ojos son dos luceros}, \textit{ojos} es el tenor, \textit{luceros} es el vehículo y el fundamento es la belleza de los ojos.
 
 
 En este trabajo se van a utilizar tres tipos de figuras retóricas \citep{TFMPaloma}: 
@@ -99,12 +99,12 @@ Los servicios web pueden definirse tanto a nivel conceptual como a nivel técnic
 	\item Servicios web SOAP \textit({Simple Object Access Protocol}): SOAP es un protocolo basado en XML para el intercambio de información entre ordenadores. Normalmente utilizaremos SOAP para conectarnos a un servicio e invocar métodos remotos\footnote{https://www.ibm.com/support/knowledgecenter/es}. Los mensajes SOAP tienen el formato representado en el Listado \ref{lst:SOAP}, donde podemos ver un ejemplo para reservar un vuelo y está formado por los siguientes campos:
 	
 		\begin{itemize}
-		\item <Envelope>: elemento raíz de cada mensaje SOAP y contiene dos elementos: 
+		\item <Envelope>: elemento raíz de cada mensaje SOAP. Contiene dos elementos: 
 			\begin{itemize}
-			\item <Header>: es un elemento opcional que se utiliza para indicar información acerca de los mensajes SOAP. Por ejemplo, como se puede ver en el Listado \ref{lst:SOAP} dentro del campo Header estarían los campos de reservas y pasajeros.
-			\item <Body>: es un elemento obligatorio que contiene información dirigida al destinatario del mensaje. Haciendo referencia al Listado \ref{lst:SOAP} se puede ver los campos asociados a un itinerario, teniendo este el lugar de partida, de llegada, la fecha de llegada y la preferencia de asiento.
+			\item <Header>: es un elemento opcional que se utiliza para indicar información acerca de los mensajes SOAP. En el ejemplo del Listado \ref{lst:SOAP} dentro del campo Header estarían los campos de reservas y pasajeros.
+			\item <Body>: es un elemento obligatorio que contiene información dirigida al destinatario del mensaje. En el ejemplo del Listado \ref{lst:SOAP} se puede ver los campos asociados a un itinerario, teniendo este el lugar de partida, de llegada, la fecha de llegada y la preferencia de asiento.
 		\end{itemize}
-		\item <Fault>: es un elemento opcional para notificar errores. En el Listado \ref{lst:SOAP} podemos ver que no se encuentra presente, pero en caso de ser utilizado deberá aparecer dentro del elemento \textit{Body} y no puede aparecer más de una vez .
+		\item <Fault>: es un elemento opcional para notificar errores. En el Listado \ref{lst:SOAP} podemos ver que no se encuentra presente, pero en caso de ser utilizado deberá aparecer dentro del elemento \textit{Body} y no puede aparecer más de una vez.
 		
 	\end{itemize}
 	
@@ -185,7 +185,7 @@ Por otro lado, los servicios web se componen de varias capas\footnote{https://di
 	\item Descubrimiento del Servicio: responsable de centralizar los servicios web en un directorio común, de esta forma es más sencillo buscar y publicar.
 	\item Descripción del Servicio: como ya hemos comentado con anterioridad, los servicios web se pueden definir a sí mismos, por lo que una vez que los localicemos el Service Description nos dará la información para saber que operaciones soporta y como activarlo.
 	\item Invocación del Servicio: invocar a un Servicio Web implica pasar mensajes entre el cliente y el servidor. Por ejemplo, si utilizamos SOAP  \textit({Simple Object Access Protocol}), el Service Invocation especifica cómo deberíamos formatear los mensajes request para el servidor, y cómo el servidor debería formatear sus mensajes de respuesta.
-	\item Transporte: todos los mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP \textit{(HyperText Transfer Protocol)}. 
+	\item Transporte: todos los mensajes han de ser transmitidos de alguna forma entre el servidor y el cliente. El protocolo elegido para ello es HTTP. 
 \end{itemize}
 
 
@@ -217,27 +217,27 @@ Por otro lado, los servicios web se componen de varias capas\footnote{https://di
 \section{Procesamiento del Lenguaje Natural}
 %-------------------------------------------------------------------
 \label{cap:sec:lenguajenatural}
-El Procesamiento del Lenguaje Natural (PLN) es una rama de la Inteligencia Artificial que se encarga de investigar la manera de comunicar máquinas con personas mediante el uso del lenguaje natural (entendiendo como lenguaje natural el idioma usado con fines de comunicación por humanos, ya sea hablado o escrito, como pueden ser el español, el ruso o el inglés). 
+El Procesamiento del Lenguaje Natural (PLN) es una rama de la Inteligencia Artificial que se encarga de la comunicación entre máquinas y personas mediante el uso del lenguaje natural (entendiendo como lenguaje natural el idioma usado con fines de comunicación por humanos, ya sea hablado o escrito, como pueden ser el español, el ruso o el inglés). 
 Para ello, una de las tareas principales en el Procesamiento del Lenguaje Natural es interpretar un texto escrito en lenguaje natural y entender su significado, entendiendo como significado la relación entre una palabra o una frase con el mundo. Para realizar dicha acción no solo es necesario el conocimiento del propio lenguaje en que está escrito el texto sino que también es necesario un conocimiento del mundo. Por tanto, uno de los grandes retos del Procesamiento del Lenguaje Natural es la representación del conocimiento. Se deben de buscar técnicas que permitan representar conceptos y relaciones semánticas entre ellos. 
-Una de las principales técnicas de representación en el Procesamiento del Lenguaje Natural son las redes semánticas, en ellas los conceptos que componen el mundo y sus relaciones se representan mediante un grafo. Se utilizan para representar mapas conceptuales y mentales \citep{redSemantica2018}.
-Los nodos están representados por el elemento lingüístico, y la relación entre los nodos sería la arista. Se puede ver un ejemplo en la Figura \ref{fig:red}, donde el nodo \textit{Oso} representa un concepto, en este caso un sustantivo que identifica a un tipo de animal,  y otro nodo \textit{Pelo}. Su relación se ve representada por la arista con valor \textit{tiene}, dando lugar a una característica de este animal: \textit{Oso tiene pelo}.
+Una de las principales técnicas de representación en el Procesamiento del Lenguaje Natural son las redes semánticas, en ellas los conceptos que componen el mundo y sus relaciones se representan mediante un grafo. Las redes semánticas se utilizan para representar mapas conceptuales y mentales \citep{redSemantica2018}.
+Los nodos están representados por el elemento lingüístico, y la relación entre los nodos sería la arista. Se puede ver un ejemplo en la Figura \ref{fig:red}, donde el nodo \textit{Oso} representa un concepto, en este caso un sustantivo que identifica a un tipo de animal, y otro nodo \textit{Pelo} el cual también es un sustantivo. La relación entre ambos se ve representada por la arista con valor \textit{tiene}, dando lugar a una característica de este animal: \textit{Oso tiene pelo}.
  
-\figura{Bitmap/Capitulo2/redSemantica}{width=.9\textwidth}{fig:red}{Ejemplo Red Semántica}
-\figura{Bitmap/Capitulo2/ejemploRedMarco}{width=.9\textwidth}{fig:ejemploMarco}{Ejemplo Red de Marco}
-\figura{Bitmap/Capitulo2/ejemploRedIsa}{width=.9\textwidth}{fig:ejemploIsa}{Ejemplo Red IS-A}
+\figura{Bitmap/Capitulo2/redSemantica}{width=.9\textwidth}{fig:red}{Ejemplo de Red Semántica}
+\figura{Bitmap/Capitulo2/ejemploRedMarco}{width=.9\textwidth}{fig:ejemploMarco}{Ejemplo de Red de Marco}
+\figura{Bitmap/Capitulo2/ejemploRedIsa}{width=.9\textwidth}{fig:ejemploIsa}{Ejemplo de Red IS-A}
 Existen principalmente tres tipos de redes semánticas \citep{tiposRedesSemanticas}:
 \begin{itemize}
-	\item Redes de Marcos: los enlaces de unión de los nodos son parte del propio nodo, es decir, se encuentran organizados jerárquicamente, según un número de criterios estrictos, como por ejemplo la similitud entre nodos. Haciendo referencia a la Figura \ref{fig:ejemploMarco}, los conceptos cama, silla y mesa tienen en común que son objetos.
-	\item Redes IS-A: los enlaces entre los nodos están etiquetados con una relación entre ambos. Es el tipo que habitualmente se utiliza junto con las Redes de Marcos. Un ejemplo de esto, haciendo referencia a la Figura \ref{fig:ejemploIsa} sería: el pájaro tiene alas, que es una característica específica de los pájaros.
+	\item Redes de Marcos: los enlaces de unión de los nodos son parte del propio nodo, es decir, se encuentran organizados jerárquicamente, según un número de criterios estrictos, como por ejemplo la similitud entre nodos. En la Figura \ref{fig:ejemploMarco}, se muestra un ejemplo de Red de Marco donde los conceptos cama, silla y mesa tienen en común que son objetos.
+	\item Redes IS-A: los enlaces entre los nodos están etiquetados con una relación entre ambos. Es el tipo que habitualmente se utiliza junto con las Redes de Marcos. En la Figura \ref{fig:ejemploIsa} se muestra una red IS-A en la que se representa que: el pájaro tiene alas, que es una característica específica de los pájaros.
 	\item Grafos Conceptuales: existen dos tipos de nodos: nodos de conceptos, los cuáles representan una entidad, un estado o un proceso y los nodos de relaciones, que indican como se relacionan los nodos de concepto. En este tipo de red semántica no existen enlaces entre los nodos con una etiqueta, sino que son los propios nodos los que tienen el significado. Se puede ver un ejemplo en la Figura \ref{fig:grafoConceptual} \citep{osti_5673179} en la cual la frase \textit{``Man biting dog"} quedaría representada. Los cuadrados implican el concepto y el círculo la relación entre ambos, por lo que en el caso de \textit{man} y \textit{bite}, la acción de morder la realiza \textit{man} siendo éste el agente, y la relación entre \textit{bite} y \textit{dog} sería el objeto.
 \end{itemize}
-\figura{Bitmap/Capitulo2/grafoConceptual}{width=.9\textwidth}{fig:grafoConceptual}{Ejemplo Grafo Conceptual}
-Para el trabajo que queremos realizar, existen varias aplicaciones web que actúan como redes semánticas y son capaces de procesar el Lenguaje Natural.  A continuación, hablaremos de algunas de ellas.
+\figura{Bitmap/Capitulo2/grafoConceptual}{width=.9\textwidth}{fig:grafoConceptual}{Ejemplo de Grafo Conceptual}
+Para el trabajo que queremos realizar, existen varias aplicaciones web de redes semánticas y son capaces de procesar el Lenguaje Natural.  A continuación, hablaremos de algunas de ellas.
 
 \subsection{ConceptNet} 
 \label{cap:subsec:concepnet}
 
-Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Está disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet ofrece la posibilidad de obtener de una palabra un listado de sinónimos, términos relacionados, términos derivados, el contexto de la palabra, resultados etimológicamente relacionados, símbolos, etc... Y dispone de una aplicación web\footnote{http://conceptnet.io/}, donde seleccionas el idioma deseado y añades la palabra a buscar. En la Figura  \ref{fig:busquedaConcepnet}, se puede ver que si se añade la palabra chaqueta se devuelven sus sinónimos, términos relacionados, términos relacionados etimológicamente y formas de la palabra.
+Es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. Está disponible en múltiples idiomas, como el español, el inglés o el chino. ConceptNet ofrece la posibilidad de obtener de una palabra un listado de sinónimos, términos relacionados, términos derivados, el contexto de la palabra, resultados etimológicamente relacionados, símbolos, etc... Y dispone de una aplicación web\footnote{http://conceptnet.io/}, donde  buscar palabras en distintos idiomas. En la Figura  \ref{fig:busquedaConcepnet}, se puede ver que  devuelve la aplicación ConcepNet para la palabra chaqueta.
 \figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de ConcepNet para la palabra chaqueta} 
 Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior, se puede ver en el Listado \ref{lst:json} los resultados en dicho formato para la palabra chaqueta. Este consta de cuatro campos principales\footnote{https://github.com/commonsense/conceptnet5/wiki/AP}:
 \begin{itemize}
@@ -245,10 +245,7 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 	\item @id: concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
 	\item edges: representa una estructura de datos devueltos por Conceptnet compuesta por:
 	\begin{itemize}
-		\item @id: describe el tipo de relación que existe entre la palabra introducida y la devuelta.
-		
-		 \textit{/a/[/r/Synonym/,/c/es/chaqueta/n/,/c/es/americana/]},
-		 nos indica que la palabra \textit{americana} es un sinónimo de \textit{chaqueta}.
+		\item @id: describe el tipo de relación que existe entre la palabra introducida y la devuelta. En el Listado \ref{lst:json} se indica que la palabra \textit{americana} es un sinónimo de \textit{chaqueta}.
 		\item @type: define el tipo del id, es decir, si es una relación (edge) o un término (nodo).
 		\item dataset: URI que representa el conjunto de datos creado.
 		\item end: nodo destino, que a su vez se compone de:	
@@ -261,7 +258,7 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 		\end{itemize}
 		\item license: aporta información sobre como debe usarse la información proporcionada por conceptnet.
 		\item rel: describe la relación que hay entre la palabra origen y destino, dentro del cual hay tres campos: @id, @type y label, descritos anteriormente.
-		\item sources: indica por qué ConceptNet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id y un campo @type, A parte, hay un campo \textit{contributor}, en el que aparece la fuente por la que se ha obtenido ese resultado y por último un campo \textit{process} indicando si la palabra se ha añadido mediante un proceso automático.
+		\item sources: indica porqué ConceptNet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id y un campo @type, A parte, hay un campo \textit{contributor}, en el que aparece la fuente por la que se ha obtenido ese resultado y por último un campo \textit{process} indicando si la palabra se ha añadido mediante un proceso automático.
 		\item start: describe el nodo origen, es decir, la palabra que hemos introducido en ConceptNet para que haga la consulta, este campo esta compuesto por elementos ya descritos como son: @id, @type, label, language y term.
 		\item surfaceText: algunos datos de ConceptNet se extraen de texto en lenguaje natural. El valor de surface text muestra lo que era este texto, puede que este campo tenga valor nulo.
 		\item weight: indica la fiabilidad de la información guardada en conceptnet, siendo normal que su valor sea 1.0. Cuanto mayor sea este valor, más fiables serán.
@@ -340,7 +337,7 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 Es una aplicación web\footnote{https://www.thesaurus.com/} que se autodefine como el principal diccionario de sinónimos de la web. Esta página ofrece la posibilidad de introducir una palabra para poder conocer sus sinónimos, pero solamente devuelve resultados en inglés. Aparte del listado de sinónimos, Thesaurus indica que tipo de palabra es y una definición de la misma así como un listado de antónimos y un listado de palabras relacionadas con dicho concepto. 
 Por otro lado esta aplicación proporciona una API\footnote{http://thesaurus.altervista.org/} tipo RESTful que obtiene los sinónimos de una palabra mediante una petición HTTP GET a la url \textit{http://thesaurus.altervista.org/thesaurus/v1}. 
 Este devuelve los resultados en formato XML o JSON. El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: categoría y sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
-Se puede ver en el Listiado \ref{lst:xmlthesaurus} un ejemplo de como sería el resultado de una petición en formato XML y en el Listado \ref{lst:jsonthesaurus} en formato JSON.
+Se puede ver en el Listado \ref{lst:xmlthesaurus} un ejemplo para la palabra \textit{peace} de como sería el resultado de una petición en formato XML y en el Listado \ref{lst:jsonthesaurus} para la misma palabra, \textit{peace}, en formato JSON.
 Ambos son muy similares, por ejemplo en formato XML se puede ver que devuelve el tipo de categoría de las palabras, en este caso son sustantivos y a continuación aparcen los sinónimos. En caso de que alguna palabra sea un antónimo aparecera entre paréntesis al lado de la misma, como ocurre con la palabra \textit{war}. Por otro lado, el formato JSON devuelve dentro del campo \textit{category / categoría} todos los sinónimos, y en caso de ser un antónimo aparecerá de la misma forma que en el formato XML.
 
 
