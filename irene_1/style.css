@@ -1,3 +1,132 @@
-p{
-    color:red;
+@import url(https://fonts.googleapis.com/css?family=Sniglet);
+
+* {
+    font-family: 'Sniglet';
 }
+
+
+.container{
+    
+    height: 1000px;
+}
+
+.navbar {
+    background-color: transparent !important;
+    /*background-image: linear-gradient(to right, rgb(94, 92, 92) , rgb(247, 186, 226), rgb(94, 92, 92));*/
+}
+
+.header{
+ 
+}
+
+
+.panel-search-word{
+    
+    margin-top:80px;
+    
+}
+
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.input-word{
+
+   width: 500px;
+    border:0;
+   
+   border-bottom: 1px solid rgb(94, 92, 92); 
+
+}
+
+
+
+
+
+/* BOTON ENVIAR */
+
+button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  
+  
+}
+
+button.learn-more {
+  width: 140px;
+}
+
+button.learn-more .circle {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: relative;
+  margin: 0;
+  width: 3rem;
+  height: 30px;
+  background: linear-gradient(to right, rgb(94, 92, 92) , rgb(247, 186, 226));
+  /*background: rgb(94, 92, 92);*/
+  
+  border-radius: 1.625rem;
+}
+
+button.learn-more .circle .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #fff;
+}
+button.learn-more .circle .icon.arrow {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+button.learn-more .circle .icon.arrow::before {
+  position: absolute;
+  content: '';
+  top: -0.25rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid #fff;
+  border-right: 0.125rem solid #fff;
+ 
+          transform: rotate(45deg);
+}
+button.learn-more .button-text {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+ 
+  color: transparent;
+  /*color: #282936;*/
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  text-transform: uppercase;
+}
+button:hover .circle {
+  width: 100%;
+}
+
+button:hover .button-text {
+  color: #fff;
+}
+
+
