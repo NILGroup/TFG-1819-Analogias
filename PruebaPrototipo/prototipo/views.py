@@ -12,6 +12,9 @@ from .forms import PostForm, PostFormTerminos, PostFormFinal
 from django.shortcuts import redirect
 from .models import Formulario
 
+
+
+
 # Create your views here.
 
 

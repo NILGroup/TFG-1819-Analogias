@@ -2,6 +2,12 @@ import spacy
 import csv
 import requests
 
+
+
+
+
+
+
 nlp = spacy.load('es_core_news_sm')
 
 data = []
