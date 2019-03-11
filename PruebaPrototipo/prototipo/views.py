@@ -13,7 +13,7 @@ nltk.download('omw');
 
 from django.shortcuts import redirect
 
-from .models import WeiSpa30Variant
+from .models import WeiSpa30Variant, WeiSpa30Relation
 from .forms import PostFormWordSearch
 
 
@@ -29,13 +29,34 @@ def index(request):
         if 'boton-final' in request.POST:
 
             word = form['word'].value()
-            resultado = list(WeiSpa30Variant.objects.filter(word=word))
+            resultado = busquedaDePalabras(word)
 
 
 
             return render(request, 'prototipo/formulario.html', {'form': form, 'resultado' : resultado})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
+
+
+
+
+def busquedaDePalabras(word):
+
+    #Primero busca que palabras son iguales a la palabra de entrada y nos quedamos con la columna offset
+    palabrasQueCoinciden = list(WeiSpa30Variant.objects.filter(word=word).only('offset'))
+
+
+
+    if len(palabrasQueCoinciden) > 0:
+        for indice in range(len(palabrasQueCoinciden)):
+
+            offsetQueEstaEnSourceSynset = list(WeiSpa30Relation.objects.filter(sourcesynset=palabrasQueCoinciden[indice].offset, relation=12).only('relation'))
+            print(len(offsetQueEstaEnSourceSynset))
+
+            offsetQueEstaEnTargetSynset = list(WeiSpa30Relation.objects.filter(targetsynset=palabrasQueCoinciden[indice].offset, relation=12).only('relation'))
+
+
+    return palabrasQueCoinciden
 
 
 # Create your views here.

@@ -39,3 +39,23 @@ class WeiSpa30Variant(models.Model):
         managed = False
         db_table = 'wei_spa-30_variant'
         unique_together = (('word', 'sense', 'pos', 'offset'),)
+
+
+
+
+
+class WeiSpa30Relation(models.Model):
+    relation = models.SmallIntegerField(primary_key=True)
+    sourcesynset = models.CharField(db_column='sourceSynset', max_length=17)  # Field name made lowercase.
+    sourcepos = models.CharField(db_column='sourcePos', max_length=1)  # Field name made lowercase.
+    targetsynset = models.CharField(db_column='targetSynset', max_length=17)  # Field name made lowercase.
+    targetpos = models.CharField(db_column='targetPos', max_length=1)  # Field name made lowercase.
+    csco = models.FloatField()
+    method = models.CharField(max_length=2)
+    version = models.CharField(max_length=1)
+    wnsource = models.CharField(db_column='wnSource', max_length=4)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'wei_spa-30_relation'
+        unique_together = (('relation', 'sourcesynset', 'sourcepos', 'targetsynset', 'targetpos', 'method', 'version', 'wnsource'),)
