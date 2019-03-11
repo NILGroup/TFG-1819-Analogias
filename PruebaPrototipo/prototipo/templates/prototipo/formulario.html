@@ -2,67 +2,19 @@
 
 {% block content %}
 
-    <div class="border">
-        <h3>A continuación, introduzca la palabra para obtener sus sinónimos:</h3>
-        <form method="POST" class="post-form" >{% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="save btn btn-default" name="boton-sinonimos">Enviar</button>
-        </form>
-
-
-        <h3>RESULTADOS:</h3>
-
-        {% for resultado_sinonimos in resultadosSinonimos %}
-            <p>{{ resultado_sinonimos }} </p>
-        {% endfor %}
-
-
-    </div>
-
-
-
-    <div class="border">
-        <h3>A continuación, introduzca la palabra para obtener sus terminos relacionados:</h3>
-        <form method="POST" class="post-form" >{% csrf_token %}
-            {{ form_term.as_p }}
-            <button type="submit" class="save btn btn-default" name="boton-terminos">Enviar</button>
-        </form>
-
-
-        <h3>RESULTADOS:</h3>
-
-         {% for resultado_term in resultadosTerminos %}
-            <p>{{ resultado_term }} </p>
-         {% endfor %}
-    </div>
-
 
 
     <div class="border">
         <h3>A continuación, introduzca la palabra para obtener la palabra fácil:</h3>
         <form method="POST" class="post-form" >{% csrf_token %}
-            {{ form_final.as_p }}
+            {{ form.as_p }}
             <button type="submit" class="save btn btn-default" name="boton-final">Enviar</button>
 
         </form>
 
 
         <h3>RESULTADOS:</h3>
-         {% if encontrado == True %}
-            {% if tipo == "SINONIMO" and profundidad == 1 %}
-                 {% for resultado_final in resultadosFinal %}
-                    <p>{{ palabraInicial }} es {{ resultado_final }} </p>
-                 {% endfor %}
-            {% else %}
-                {% for resultado_final in resultadosFinal %}
-                    <p>{{ palabraInicial }} es como {{ resultado_final }} </p>
-                 {% endfor %}
-            {% endif %}
-            <p> Se ha encontrado en la profundidad:  {{ profundidad }}</p>
-         {% else %}
-            <p>No se han encontrado resultados</p>
-        {% endif %}
-
+            <p>{{ resultado }}</p>
 
      </div>
 

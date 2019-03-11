@@ -1,46 +1,21 @@
 from django import forms
 
-from .models import Formulario, FormularioTerminos, FormularioFinal
+from .models import WeiSpa30Variant
 
-class PostForm(forms.ModelForm):
+
+#Formulario para coger la palabra introducida en la vista
+class PostFormWordSearch(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(PostForm, self).__init__(*args, **kwargs)
-        self.fields['campoPalabra'].required = False
+        super(PostFormWordSearch, self).__init__(*args, **kwargs)
+       # self.fields['palabra'].required = False
+        self.fields['word'].required = False
 
     class Meta:
-        model = Formulario
-        fields = ('campoPalabra',)
+        model = WeiSpa30Variant
+        fields = ('word',)
+
+       # def __str__(self):
+       #     return self.palabra
 
         def __str__(self):
-            return self.campoPalabra
-
-
-
-class PostFormTerminos(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(PostFormTerminos, self).__init__(*args, **kwargs)
-        self.fields['Palabra'].required = False
-
-    class Meta:
-        model = FormularioTerminos
-        fields = ('Palabra',)
-
-        def __str__(self):
-            return self.Palabra
-
-
-class PostFormFinal(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(PostFormFinal, self).__init__(*args, **kwargs)
-        self.fields['PalabraABuscar'].required = False
-        self.fields['Profundidad'].required = False
-
-
-    class Meta:
-        model = FormularioFinal
-        fields = ('PalabraABuscar', 'Profundidad',)
-
-        def __str__(self):
-            return self.Word
+             return self.word

@@ -7,17 +7,41 @@ import os
 from nltk.corpus import wordnet as wn
 nltk.download('wordnet');
 nltk.download('omw');
-from .forms import PostForm, PostFormTerminos, PostFormFinal
+
+
+
 
 from django.shortcuts import redirect
-from .models import Formulario
+
+from .models import WeiSpa30Variant
+from .forms import PostFormWordSearch
 
 
+
+
+def index(request):
+    form = PostFormWordSearch()
+
+
+    if request.method == "POST":
+        form = PostFormWordSearch(request.POST)
+
+        if 'boton-final' in request.POST:
+
+            #word = form['word'].value()
+            resultado = WeiSpa30Variant.objects.all()
+            #resultado = WeiSpa30Variant.objects.filter(WeiSpa30Variant.word='pequeño')
+
+
+
+            return render(request, 'prototipo/formulario.html', {'form': form, 'resultado' : resultado})
+
+    return render(request, 'prototipo/formulario.html', {'form': form })
 
 
 # Create your views here.
 
-
+'''
 def index(request):
     form_sinonimos = PostForm()
     form_terminos = PostFormTerminos()
@@ -112,6 +136,8 @@ def consultaSinonimosYterminos(palabra, profundidad):
 
     if encontradoFinal == False:
         return resultadosActualesValidos, -1, tipo
+        
+ '''
 
 '''
         if len(arrayconsultaSinonimo) > 0 or len(arrayConsultaTermino) > 0:
@@ -129,7 +155,7 @@ def consultaSinonimosYterminos(palabra, profundidad):
 '''
 
 
-
+''' 
 #consulta los sinónimos devueltos de conceptnet con el csv
 def consultaSinonimo(palabra, csvarchivo):
 
@@ -252,3 +278,5 @@ def terminosRelacionadosDevueltos(palabra):
                 #conjuntoSalida.append(listaHipo[j].lemma_names('spa'))
 
     return conjuntoSalida
+
+'''
