@@ -31,7 +31,7 @@ class WeiSpa30Variant(models.Model):
     csco = models.FloatField()
     experiment = models.CharField(max_length=20, blank=True, null=True)
     mark = models.CharField(max_length=20)
-    palabra = models.CharField(max_length=200)
+   #palabra = models.CharField(max_length=200)
     ordering = ('word',)
 
 

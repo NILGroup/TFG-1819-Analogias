@@ -12,9 +12,14 @@
 
         </form>
 
-
         <h3>RESULTADOS:</h3>
-            <p>{{ resultado }}</p>
+            {% for result in resultado %}
+             <div class="panel-results">
+                <p>{{ result.word }}</p>
+                <p>{{ result.offset }}</p>
+                <p>{{ result.pos }}</p>
+             </div>
+            {% endfor %}
 
      </div>
 

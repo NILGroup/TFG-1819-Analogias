@@ -28,9 +28,8 @@ def index(request):
 
         if 'boton-final' in request.POST:
 
-            #word = form['word'].value()
-            resultado = WeiSpa30Variant.objects.all()
-            #resultado = WeiSpa30Variant.objects.filter(WeiSpa30Variant.word='pequeño')
+            word = form['word'].value()
+            resultado = list(WeiSpa30Variant.objects.filter(word=word))
 
 
 
