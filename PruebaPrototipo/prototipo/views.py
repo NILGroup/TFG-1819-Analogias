@@ -56,7 +56,9 @@ def busquedaDePalabras(word):
 
             offsetQueEstaEnTargetSynset = list(WeiSpa30Relation.objects.filter(targetsynset=palabrasQueCoinciden[indice].offset).only('relation') & (WeiSpa30Relation.objects.filter(relation=2) | WeiSpa30Relation.objects.filter(relation=12)
                                                | WeiSpa30Relation.objects.filter(relation=34) | WeiSpa30Relation.objects.filter(relation=64)))
-            #print(len(offsetQueEstaEnTargetSynset))
+
+
+    #print(offsetQueEstaEnTargetSynset[0].values())
 
 
 
@@ -65,9 +67,10 @@ def busquedaDePalabras(word):
     if len(offsetQueEstaEnSourceSynset) > 0:
 
         for i in range(len(offsetQueEstaEnSourceSynset)):
+            #print(offsetQueEstaEnSourceSynset[0][0].word)
             for j in range(len(offsetQueEstaEnSourceSynset[i])):
-                resultadoPalabra1.append(WeiSpa30Variant.objects.filter(offset=offsetQueEstaEnSourceSynset[i]).only('word'))
-                #print(resultadoPalabra1[0].word)
+                resultadoPalabra1.append(WeiSpa30Variant.objects.filter(offset=offsetQueEstaEnSourceSynset[i][j].sourcesynset))
+                print(resultadoPalabra1[j].sourcesynset)
 
 
         print(len(resultadoPalabra1))
