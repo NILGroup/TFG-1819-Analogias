@@ -45,18 +45,36 @@ def busquedaDePalabras(word):
     #Primero busca que palabras son iguales a la palabra de entrada y nos quedamos con la columna offset
     palabrasQueCoinciden = list(WeiSpa30Variant.objects.filter(word=word).only('offset'))
 
+    offsetQueEstaEnSourceSynset = list()
 
 
     if len(palabrasQueCoinciden) > 0:
         for indice in range(len(palabrasQueCoinciden)):
 
-            offsetQueEstaEnSourceSynset = list(WeiSpa30Relation.objects.filter(sourcesynset=palabrasQueCoinciden[indice].offset, relation=12).only('relation'))
-            print(len(offsetQueEstaEnSourceSynset))
-
-            offsetQueEstaEnTargetSynset = list(WeiSpa30Relation.objects.filter(targetsynset=palabrasQueCoinciden[indice].offset, relation=12).only('relation'))
+            offsetQueEstaEnSourceSynset.append(list(WeiSpa30Relation.objects.filter(sourcesynset=palabrasQueCoinciden[indice].offset).only('relation') & (WeiSpa30Relation.objects.filter(relation=2) | WeiSpa30Relation.objects.filter(relation=12) | WeiSpa30Relation.objects.filter(relation=34) | WeiSpa30Relation.objects.filter(relation=64))))
 
 
-    return palabrasQueCoinciden
+            offsetQueEstaEnTargetSynset = list(WeiSpa30Relation.objects.filter(targetsynset=palabrasQueCoinciden[indice].offset).only('relation') & (WeiSpa30Relation.objects.filter(relation=2) | WeiSpa30Relation.objects.filter(relation=12)
+                                               | WeiSpa30Relation.objects.filter(relation=34) | WeiSpa30Relation.objects.filter(relation=64)))
+            #print(len(offsetQueEstaEnTargetSynset))
+
+
+
+
+    resultadoPalabra1 = list()
+    if len(offsetQueEstaEnSourceSynset) > 0:
+
+        for i in range(len(offsetQueEstaEnSourceSynset)):
+            for j in range(len(offsetQueEstaEnSourceSynset[i])):
+                resultadoPalabra1.append(WeiSpa30Variant.objects.filter(offset=offsetQueEstaEnSourceSynset[i]).only('word'))
+                #print(resultadoPalabra1[0].word)
+
+
+        print(len(resultadoPalabra1))
+        return resultadoPalabra1
+
+
+
 
 
 # Create your views here.
