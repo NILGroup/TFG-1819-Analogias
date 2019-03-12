@@ -30,7 +30,7 @@ def index(request):
 
             word = form['word'].value()
             resultado = busquedaDePalabras(word)
-
+            print('resultado' + str(resultado))
 
 
             return render(request, 'prototipo/formulario.html', {'form': form, 'resultado' : resultado})
@@ -46,34 +46,38 @@ def busquedaDePalabras(word):
     palabrasQueCoinciden = list(WeiSpa30Variant.objects.filter(word=word).only('offset'))
 
     offsetQueEstaEnSourceSynset = list()
-
+    listaOffsetsSourceFinal = list()
 
     if len(palabrasQueCoinciden) > 0:
         for indice in range(len(palabrasQueCoinciden)):
 
-            offsetQueEstaEnSourceSynset.append(list(WeiSpa30Relation.objects.filter(sourcesynset=palabrasQueCoinciden[indice].offset).only('relation') & (WeiSpa30Relation.objects.filter(relation=2) | WeiSpa30Relation.objects.filter(relation=12) | WeiSpa30Relation.objects.filter(relation=34) | WeiSpa30Relation.objects.filter(relation=64))))
+            offsetQueEstaEnSourceSynset = WeiSpa30Relation.objects.filter(sourcesynset=palabrasQueCoinciden[indice].offset) & (WeiSpa30Relation.objects.filter(relation=2) | WeiSpa30Relation.objects.filter(relation=12) | WeiSpa30Relation.objects.filter(relation=34) | WeiSpa30Relation.objects.filter(relation=64))
+
+            for listaOffsets  in offsetQueEstaEnSourceSynset.values():
+                listaOffsetsSourceFinal.append(listaOffsets['sourcesynset'])
+                #print(listaOffsets['sourcesynset'])
+
+
+
 
 
             offsetQueEstaEnTargetSynset = list(WeiSpa30Relation.objects.filter(targetsynset=palabrasQueCoinciden[indice].offset).only('relation') & (WeiSpa30Relation.objects.filter(relation=2) | WeiSpa30Relation.objects.filter(relation=12)
                                                | WeiSpa30Relation.objects.filter(relation=34) | WeiSpa30Relation.objects.filter(relation=64)))
 
 
-    #print(offsetQueEstaEnTargetSynset[0].values())
-
 
 
 
     resultadoPalabra1 = list()
-    if len(offsetQueEstaEnSourceSynset) > 0:
 
-        for i in range(len(offsetQueEstaEnSourceSynset)):
-            #print(offsetQueEstaEnSourceSynset[0][0].word)
-            for j in range(len(offsetQueEstaEnSourceSynset[i])):
-                resultadoPalabra1.append(WeiSpa30Variant.objects.filter(offset=offsetQueEstaEnSourceSynset[i][j].sourcesynset))
-                print(resultadoPalabra1[j].sourcesynset)
+    if len(listaOffsetsSourceFinal) > 0:
+        for i in range (len(listaOffsetsSourceFinal)):
+            resultadoPalabra1 = WeiSpa30Variant.objects.filter(offset=listaOffsetsSourceFinal[i])
+            for listaPalabras in resultadoPalabra1.values():
+                print(listaPalabras['word'])
 
 
-        print(len(resultadoPalabra1))
+
         return resultadoPalabra1
 
 
