@@ -5,8 +5,8 @@ import csv
 import nltk
 import os
 from nltk.corpus import wordnet as wn
-nltk.download('wordnet');
-nltk.download('omw');
+#nltk.download('wordnet');
+#nltk.download('omw');
 
 
 
@@ -45,8 +45,8 @@ def busquedaDePalabras(word):
     #Primero busca que palabras son iguales a la palabra de entrada y nos quedamos con la columna offset
     palabrasQueCoinciden = list(WeiSpa30Variant.objects.filter(word=word).only('offset'))
 
-    offsetQueEstaEnSourceSynset = list()
     listaOffsetsSourceFinal = list()
+    listaOffsetsTargetFinal = list()
 
     if len(palabrasQueCoinciden) > 0:
         for indice in range(len(palabrasQueCoinciden)):
@@ -56,6 +56,14 @@ def busquedaDePalabras(word):
             for listaOffsets  in offsetQueEstaEnSourceSynset.values():
                 listaOffsetsSourceFinal.append(listaOffsets['sourcesynset'])
                 #print(listaOffsets['sourcesynset'])
+
+            offsetQueEstaEnTargetSynset = WeiSpa30Relation.objects.filter(
+                targetsynset=palabrasQueCoinciden[indice].offset) & (WeiSpa30Relation.objects.filter(
+                relation=2) | WeiSpa30Relation.objects.filter(relation=12) | WeiSpa30Relation.objects.filter(
+                relation=34) | WeiSpa30Relation.objects.filter(relation=64))
+
+            for listaOffsets in offsetQueEstaEnTargetSynset.values():
+                listaOffsetsTargetFinal.append(listaOffsets['sourcesynset'])
 
 
 
@@ -69,12 +77,19 @@ def busquedaDePalabras(word):
 
 
     resultadoPalabra1 = list()
+    resultadoPalabra2 = list()
 
     if len(listaOffsetsSourceFinal) > 0:
         for i in range (len(listaOffsetsSourceFinal)):
             resultadoPalabra1 = WeiSpa30Variant.objects.filter(offset=listaOffsetsSourceFinal[i])
-            for listaPalabras in resultadoPalabra1.values():
-                print(listaPalabras['word'])
+            #for listaPalabras in resultadoPalabra1.values():
+                #print(listaPalabras['word'])
+
+    if len(listaOffsetsTargetFinal) > 0:
+        for i in range(len(listaOffsetsTargetFinal)):
+            resultadoPalabra2 = WeiSpa30Variant.objects.filter(offset=listaOffsetsTargetFinal[i])
+            #for listaPalabras in resultadoPalabra2.values():
+                #print(listaPalabras['word'])
 
 
 
