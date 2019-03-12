@@ -13,12 +13,19 @@
         </form>
 
         <h3>RESULTADOS:</h3>
-            {% for result in resultado %}
+            <h3>SOURCE:</h3>
+            {% for result in resultado1 %}
              <div class="panel-results">
-              <p>{{ result.word }}</p>
+              <p>{{ result }}</p>
              </div>
             {% endfor %}
 
+            <h3>TARGET:</h3>
+            {% for result in resultado2 %}
+             <div class="panel-results">
+              <p>{{ result }}</p>
+             </div>
+            {% endfor %}
      </div>
 
 {% endblock %}
