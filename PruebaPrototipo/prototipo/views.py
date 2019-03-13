@@ -29,11 +29,11 @@ def index(request):
         if 'boton-final' in request.POST:
 
             word = form['word'].value()
-            resultado1, resultado2 = busquedaDePalabras(word)
+            resultadoSinonimos, resultado1, resultado2 = busquedaDePalabras(word)
             #print('resultado' + str(resultado))
 
 
-            return render(request, 'prototipo/formulario.html', {'form': form, 'resultado1' : resultado1, 'resultado2' : resultado2})
+            return render(request, 'prototipo/formulario.html', {'form': form, 'resultadoSinonimos': resultadoSinonimos, 'resultado1' : resultado1, 'resultado2' : resultado2})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
 
@@ -49,9 +49,9 @@ def busquedaDePalabras(word):
 
 
     #for indice in palabrasQueCoinciden.values():
-    #    print(indice['offset'])
+        #print(indice.values())
 
-
+    resultadoSinonimos = busquedadSinonimos(palabrasQueCoinciden)
 
     listaOffsetsSourceFinal = list()
     listaOffsetsTargetFinal = list()
@@ -65,9 +65,9 @@ def busquedaDePalabras(word):
             offsetQueEstaEnSourceSynset = WeiSpa30Relation.objects.filter(sourcesynset=palabrasQueCoinciden[offset].offset) & (WeiSpa30Relation.objects.filter(relation=2) | WeiSpa30Relation.objects.filter(relation=12) | WeiSpa30Relation.objects.filter(relation=34) | WeiSpa30Relation.objects.filter(relation=64))
 
             for listaOffsets in offsetQueEstaEnSourceSynset.values():
-               listaOffsetsSourceFinal.append(listaOffsets['sourcesynset'])
+               listaOffsetsSourceFinal.append(listaOffsets['targetsynset'])
 
-               #print(listaOffsets['sourcesynset'])
+               #print(listaOffsets.values())
 
 
             offsetQueEstaEnTargetSynset = WeiSpa30Relation.objects.filter(targetsynset=palabrasQueCoinciden[offset].offset) & (WeiSpa30Relation.objects.filter(relation=2) | WeiSpa30Relation.objects.filter(relation=12) | WeiSpa30Relation.objects.filter(relation=34) | WeiSpa30Relation.objects.filter(relation=64))
@@ -75,21 +75,21 @@ def busquedaDePalabras(word):
             for listaOffsets in offsetQueEstaEnTargetSynset.values():
                 listaOffsetsTargetFinal.append(listaOffsets['sourcesynset'])
 
-               # print(listaOffsets['sourcesynset'])
+                #print(listaOffsets.values())
 
 
 
 
 
-        resultadoPalabra1 = list()
-        resultadoPalabra2 = list()
+        resultadoPalabra1 = set()
+        resultadoPalabra2 = set()
 
 
         for i in range (len(listaOffsetsSourceFinal)):
             queryResultado1 = WeiSpa30Variant.objects.filter(offset=listaOffsetsSourceFinal[i])
 
             for indiceLista1 in queryResultado1.values():
-                resultadoPalabra1.append(indiceLista1['word'])
+                resultadoPalabra1.add(indiceLista1['word'])
 
 
 
@@ -98,14 +98,43 @@ def busquedaDePalabras(word):
             queryResultado2 = WeiSpa30Variant.objects.filter(offset=listaOffsetsTargetFinal[i])
 
             for indiceLista2 in queryResultado2.values():
-                resultadoPalabra2.append(indiceLista2['word'])
+                resultadoPalabra2.add(indiceLista2['word'])
 
 
 
 
-    return resultadoPalabra1, resultadoPalabra2
+    return resultadoSinonimos, resultadoPalabra1, resultadoPalabra2
 
 
+
+
+
+def busquedadSinonimos(palabrasQueCoinciden):
+
+
+
+    sinonimosPorCadaSynset = []
+    listaResultadoNombres = []
+    contador = 0
+
+
+    for indiceListaPalabras in range(len(palabrasQueCoinciden)):
+
+        sinonimos = WeiSpa30Variant.objects.filter(offset=palabrasQueCoinciden[indiceListaPalabras].offset)
+        print('PRIMERO' + str(sinonimos))
+
+
+        for indiceLista in sinonimos.values():
+          sinonimosPorCadaSynset.append(indiceLista['word'])
+          print('SEGUNDO' + str(sinonimosPorCadaSynset))
+
+        insertar = sinonimosPorCadaSynset.copy()
+        listaResultadoNombres.insert(contador, insertar)
+        contador = contador + 1
+        sinonimosPorCadaSynset.clear()
+        print('TERCERO' + str(listaResultadoNombres))
+
+    return listaResultadoNombres
 
 
 

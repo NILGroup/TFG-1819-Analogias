@@ -13,6 +13,18 @@
         </form>
 
         <h3>RESULTADOS:</h3>
+            <h3>SINONIMOS:</h3>
+            {% for results in resultadoSinonimos %}
+                <div class="panel-results">
+                {% for result in results %}
+
+                  <p>{{ result }}</p>
+
+                 {% endfor %}
+                </div>
+            {% endfor %}
+
+
             <h3>SOURCE:</h3>
             {% for result in resultado1 %}
              <div class="panel-results">
