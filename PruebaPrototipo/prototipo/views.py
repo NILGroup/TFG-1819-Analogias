@@ -44,19 +44,28 @@ def index(request):
                 form_final.save()
                 resultado = form_final['PalabraABuscar'].value()
                 profundidad = form_final['Profundidad'].value()
-                salida_final, contadorProfundidad, tipo = consultaSinonimosYterminos(resultado, int(profundidad))
+                #salida_final, contadorProfundidad, tipo = consultaSinonimosYterminos(resultado, int(profundidad))
+                salida_final = ""
+                encontrado = True
+                tipo = 1
+                prueba()
 
-                if contadorProfundidad == -1:
-                    encontrado = False
-                else:
-                    encontrado = True
-                profundidad = contadorProfundidad
+                #if contadorProfundidad == -1:
+                    #encontrado = False
+                #else:
+                    #encontrado = True
+                #profundidad = contadorProfundidad
                 return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final, 'encontrado': encontrado, 'profundidad': profundidad,'palabraInicial':resultado, 'tipo':tipo})
 
     return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'form_final': form_final, })
 
 
 
+def prueba():
+    csvarchivo = open('prueba.csv', encoding="utf8", errors='ignore')
+    entrada = csv.DictReader(csvarchivo, delimiter=";")
+    for i in entrada:
+        consultaSinonimosYterminos(i, 1)
 
 
 #Dada una palabra, devuelve si hay algún match entre sus terminos relacionados o sinonimos con el csv
