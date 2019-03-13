@@ -33,7 +33,7 @@ def index(request):
             #print('resultado' + str(resultadoHiponimo))
 
 
-            return render(request, 'prototipo/formulario.html', {'form': form, 'resultadoSinonimos': resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo})
+            return render(request, 'prototipo/formulario.html', {'form': form, 'resultadoSinonimos': resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
 
