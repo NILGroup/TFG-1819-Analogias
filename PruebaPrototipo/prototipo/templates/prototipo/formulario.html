@@ -25,18 +25,25 @@
             {% endfor %}
 
 
-            <h3>SOURCE:</h3>
-            {% for result in resultado1 %}
-             <div class="panel-results">
-              <p>{{ result }}</p>
-             </div>
+            <h3>HIPONIMOS:</h3>
+            {% for results in resultadoHiponimo %}
+                <div class="panel-results">
+                {% for result in results %}
+
+                <p>{{ result }}</p>
+
+                {% endfor %}
+                </div>
             {% endfor %}
 
-            <h3>TARGET:</h3>
-            {% for result in resultado2 %}
-             <div class="panel-results">
-              <p>{{ result }}</p>
-             </div>
+
+            <h3>HIPERONIMOS:</h3>
+            {% for results in resultadoHiperonimo %}
+                <div class="panel-results">
+                 {% for result in results %}
+                     <p>{{ result }}</p>
+                    {% endfor %}
+                 </div>
             {% endfor %}
      </div>
 
