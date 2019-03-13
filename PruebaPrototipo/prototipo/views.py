@@ -111,28 +111,21 @@ def busquedaDePalabras(word):
 
 def busquedadSinonimos(palabrasQueCoinciden):
 
-
-
     sinonimosPorCadaSynset = []
     listaResultadoNombres = []
     contador = 0
 
-
     for indiceListaPalabras in range(len(palabrasQueCoinciden)):
-
         sinonimos = WeiSpa30Variant.objects.filter(offset=palabrasQueCoinciden[indiceListaPalabras].offset)
-        print('PRIMERO' + str(sinonimos))
-
 
         for indiceLista in sinonimos.values():
-          sinonimosPorCadaSynset.append(indiceLista['word'])
-          print('SEGUNDO' + str(sinonimosPorCadaSynset))
+            if palabrasQueCoinciden[0].word != indiceLista['word']:
+                sinonimosPorCadaSynset.append(indiceLista['word'])
 
         insertar = sinonimosPorCadaSynset.copy()
         listaResultadoNombres.insert(contador, insertar)
         contador = contador + 1
         sinonimosPorCadaSynset.clear()
-        print('TERCERO' + str(listaResultadoNombres))
 
     return listaResultadoNombres
 
