@@ -33,9 +33,10 @@ def index(request):
             resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo = busquedaDePalabras(word)
             #print('resultado' + str(resultadoSinonimos))
             resultadoSinonimosEnLaRAE = busquedaSinonimosEnLaRAE(resultadoSinonimos)
-            print(resultadoSinonimosEnLaRAE)
+            resultadoHiponimosEnLaRAE = busquedaHiponimoseNLaRAE(resultadoHiponimo)
+            #print('resultadoSinonumosRAE' + str(resultadoSinonimosEnLaRAE))
 
-            return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'resultadoSinonimosRAE': resultadoSinonimosEnLaRAE})
+            return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'resultadoSinonimosRAE': resultadoSinonimosEnLaRAE, 'resultadoHiponimosRAE': resultadoHiponimosEnLaRAE})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
 
@@ -153,36 +154,66 @@ def busquedadHipoHiper(palabrasQueCoinciden):
 
 
 
-def busquedaSinonimosEnLaRAE(resultadoSinonimos):
+
+def aperturaYlecturaCSV():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
+    return archivo, csvarchivo
+
+
+
+
+def busquedaSinonimosEnLaRAE(resultadoSinonimos):
+
+    archivo, csvarchivo = aperturaYlecturaCSV()
     listaPalabras = list()
 
 
     for fila in range(len(resultadoSinonimos)):
         for palabra in resultadoSinonimos[fila]:
             listaPalabras.append(palabra)
-            print(palabra)
+            #print(palabra)
 
 
+    resultadoListaSinonimosRAE = set()
 
-    # devuelve las palabras de conceptnet
-    resultadoListaSinonimosRAE = []
-    encontradoSinonimo = False
 
     for i in range(len(listaPalabras)):
         csvarchivo.seek(0)
         for j in archivo:
 
             if listaPalabras[i] == j['PALABRA']:
-                resultadoListaSinonimosRAE.append(j['PALABRA'])
-                encontradoSinonimo = True
+                resultadoListaSinonimosRAE.add(j['PALABRA'])
 
-    if encontradoSinonimo == False:
-        return listaPalabras
-    else:
-        return resultadoListaSinonimosRAE
 
+
+    return resultadoListaSinonimosRAE
+
+
+
+
+def busquedaHiponimoseNLaRAE(resultadoHiponimo):
+    archivo, csvarchivo = aperturaYlecturaCSV()
+    listaPalabras = list()
+
+    for fila in range(len(resultadoHiponimo)):
+        for palabra in resultadoHiponimo[fila]:
+            listaPalabras.append(palabra)
+            #print(palabra)
+
+
+    resultadoListaHiponimosRAE = set()
+
+
+    for i in range(len(listaPalabras)):
+        csvarchivo.seek(0)
+        for j in archivo:
+
+            if listaPalabras[i] == j['PALABRA']:
+                resultadoListaHiponimosRAE.add(j['PALABRA'])
+
+
+    return resultadoListaHiponimosRAE
