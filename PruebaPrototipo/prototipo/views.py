@@ -21,40 +21,21 @@ def index(request):
     form_final = PostFormFinal()
 
     if request.method == "POST":
-        form_sinonimos = PostForm(request.POST)
-        form_terminos = PostFormTerminos(request.POST)
+
         form_final = PostFormFinal(request.POST)
 
-        if 'boton-sinonimos' in request.POST:
-            if form_sinonimos.is_valid():
-                form_sinonimos.save()
-                resultado = form_sinonimos['campoPalabra'].value()
-                salida_sinonimos = sinonimosDevueltos(resultado)
-                return render(request, 'prototipo/formulario.html', {'resultadosSinonimos': salida_sinonimos, 'form_term': form_terminos, 'form': form_sinonimos, 'form_final': form_final, 'encontrado': True})
 
-        elif 'boton-terminos' in request.POST:
-            if form_terminos.is_valid():
-                form_terminos.save()
-                resultado = form_terminos['Palabra'].value()
-                salida_terminos = terminosRelacionadosDevueltos(resultado)
-                return render(request, 'prototipo/formulario.html', {'resultadosTerminos': salida_terminos, 'form_term': form_terminos, 'form': form_sinonimos, 'form_final': form_final, 'encontrado': True})
-
-        elif 'boton-final' in request.POST:
+        if 'boton-final' in request.POST:
             if form_final.is_valid():
                 form_final.save()
                 resultado = form_final['PalabraABuscar'].value()
                 profundidad = form_final['Profundidad'].value()
-                #salida_final, contadorProfundidad, tipo = consultaSinonimosYterminos(resultado, int(profundidad))
-                salida_final, contadorProfundidad, tipo = prueba()
+                contador, totales = prueba()
 
-                #if contadorProfundidad == -1:
-                    #encontrado = False
-                #else:
-                    #encontrado = True
-                #profundidad = contadorProfundidad
-                return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final, 'encontrado': encontrado, 'profundidad': profundidad,'palabraInicial':resultado, 'tipo':tipo})
 
-    return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'form_final': form_final, })
+                return render(request, 'prototipo/formulario.html', {'resultado': contador, 'palabrasTotales': totales})
+
+    return render(request, 'prototipo/formulario.html',)
 
 
 
@@ -62,12 +43,19 @@ def prueba():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/prueba.csv', encoding="utf8", errors='ignore')
     entrada = csv.reader(csvarchivo, delimiter=";")
-
+    contador = 0
+    totales = 0
     for i in entrada:
-        resultadosActualesValidos, contadorProfundidad, tipo = consultaSinonimosYterminos(str(i), 1)
-        print(resultadosActualesValidos.values())
+        salida_final, contadorProfundidad, tipo = consultaSinonimosYterminos(str(i[0]), 1)
+        totales = totales + 1
+        print("totales: " + str(totales))
+        if contadorProfundidad != -1:
+            contador = contador + 1
 
-    return resultadosActualesValidos, contadorProfundidad, tipo
+        print("encontrados: " + str(contador))
+
+
+    return contador, totales
 
 
 
