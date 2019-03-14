@@ -13,13 +13,26 @@
         </form>
 
         <h3>RESULTADOS PARA LA PALABRA {{ word }}:</h3>
-            <h3>SINONIMOS:</h3>
+
+            <h3>SINÓNIMOS QUE COINCIDEN CON LAS MIL PALABRAS RAE:</h3>
+            {% for results in resultadoSinonimosRAE %}
+                <div class="panel-results">
+
+
+                  <p>{{ word }} es {{ results }}</p>
+
+
+                </div>
+            {% endfor %}
+
+
+            <h3>SINÓNIMOS EN LA APLICACIÓN WORDNET:</h3>
             {% for results in resultadoSinonimos %}
                 <div class="panel-results">
                 {% for result in results %}
 
                   <p>{{ word }} es {{ result }}</p>
-
+                     
                  {% endfor %}
                 </div>
             {% endfor %}

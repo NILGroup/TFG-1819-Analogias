@@ -28,12 +28,14 @@ def index(request):
 
         if 'boton-final' in request.POST:
 
+
             word = form['word'].value()
             resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo = busquedaDePalabras(word)
-            #print('resultado' + str(resultadoHiponimo))
+            #print('resultado' + str(resultadoSinonimos))
+            resultadoSinonimosEnLaRAE = busquedaSinonimosEnLaRAE(resultadoSinonimos)
+            print(resultadoSinonimosEnLaRAE)
 
-
-            return render(request, 'prototipo/formulario.html', {'form': form, 'resultadoSinonimos': resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word})
+            return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'resultadoSinonimosRAE': resultadoSinonimosEnLaRAE})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
 
@@ -148,4 +150,39 @@ def busquedadHipoHiper(palabrasQueCoinciden):
 
 
         return listaResultadoHiponimo, listaResultadoHiperonimo
+
+
+
+def busquedaSinonimosEnLaRAE(resultadoSinonimos):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    listaPalabras = list()
+
+
+    for fila in range(len(resultadoSinonimos)):
+        for palabra in resultadoSinonimos[fila]:
+            listaPalabras.append(palabra)
+            print(palabra)
+
+
+
+    # devuelve las palabras de conceptnet
+    resultadoListaSinonimosRAE = []
+    encontradoSinonimo = False
+
+    for i in range(len(listaPalabras)):
+        csvarchivo.seek(0)
+        for j in archivo:
+
+            if listaPalabras[i] == j['PALABRA']:
+                resultadoListaSinonimosRAE.append(j['PALABRA'])
+                encontradoSinonimo = True
+
+    if encontradoSinonimo == False:
+        return listaPalabras
+    else:
+        return resultadoListaSinonimosRAE
 
