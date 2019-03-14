@@ -5,18 +5,12 @@ import csv
 import nltk
 import os
 from nltk.corpus import wordnet as wn
-#nltk.download('wordnet');
-#nltk.download('omw');
-
-
 
 
 from django.shortcuts import redirect
 
 from .models import WeiSpa30Variant, WeiSpa30Relation
 from .forms import PostFormWordSearch
-
-
 
 
 def index(request):
@@ -28,14 +22,12 @@ def index(request):
 
         if 'boton-final' in request.POST:
 
-
             word = form['word'].value()
             resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo = busquedaDePalabras(word)
 
             resultadoSinonimosEnLaRAE = busquedaSinonimosEnLaRAE(resultadoSinonimos)
             resultadoHiponimosEnLaRAE = busquedaHiponimosEnLaRAE(resultadoHiponimo)
             resultadoHiperonimosEnLaRAE = busquedaHiperonimosEnLaRAE(resultadoHiperonimo)
-
 
             return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'resultadoSinonimosRAE': resultadoSinonimosEnLaRAE, 'resultadoHiponimosRAE': resultadoHiponimosEnLaRAE, 'resultadoHiperonimosRAE': resultadoHiperonimosEnLaRAE})
 
@@ -44,13 +36,17 @@ def index(request):
 
 
 
+########################################################################################################################################################
+
+##################      Método que busca que palabras son iguales a la introducida y se queda con su offset para posteriormente saber sus sinónimos
+#################       hipónimos e hiperónimos
+
+########################################################################################################################################################
+
 def busquedaDePalabras(word):
 
     #Primero busca que palabras son iguales a la palabra de entrada y nos quedamos con la columna offset
     palabrasQueCoinciden = WeiSpa30Variant.objects.filter(word=word).only('offset')
-
-
-
 
     #for indice in palabrasQueCoinciden.values():
         #print(indice.values())
@@ -65,6 +61,12 @@ def busquedaDePalabras(word):
 
 
 
+
+########################################################################################################################################################
+
+##################      Metódo que busca en la misma tabla la palabra, cuyo offset coincide con el offset de la palabra introducida ##################
+
+########################################################################################################################################################
 
 def busquedadSinonimos(palabrasQueCoinciden):
 
@@ -89,6 +91,13 @@ def busquedadSinonimos(palabrasQueCoinciden):
 
 
 
+
+########################################################################################################################################################
+
+##################      Metódo que en función de si el offset de la palabra introducida está en la columna sourcesynset o targetsynset,
+##################      busca en la columna contraria y lo guarda en una lista ##################
+
+########################################################################################################################################################
 
 def busquedadHipoHiper(palabrasQueCoinciden):
     listaOffsetsSourceFinal = list()
@@ -116,42 +125,9 @@ def busquedadHipoHiper(palabrasQueCoinciden):
 
                 # print(listaOffsets.values())
 
-        resultadoHiponimo = set()
-        listaResultadoHiponimo = []
-        contadorHipo = 0
 
-        for i in range(len(listaOffsetsSourceFinal)):
-            queryResultadoHipo = WeiSpa30Variant.objects.filter(offset=listaOffsetsSourceFinal[i])
-
-
-            for indiceLista1 in queryResultadoHipo.values():
-                if palabrasQueCoinciden[0].word != indiceLista1['word']:
-                 resultadoHiponimo.add(indiceLista1['word'])
-                #print(resultadoHiponimo)
-
-            insertar = resultadoHiponimo.copy()
-            listaResultadoHiponimo.insert(contadorHipo, insertar)
-            contadorHipo = contadorHipo + 1
-            resultadoHiponimo.clear()
-
-        #print(listaResultadoHiponimo)
-
-        resultadoHiperonimo = set()
-        listaResultadoHiperonimo = []
-        contadorHiper = 0
-
-        for i in range(len(listaOffsetsTargetFinal)):
-            queryResultadoHiper = WeiSpa30Variant.objects.filter(offset=listaOffsetsTargetFinal[i])
-
-            for indiceLista2 in queryResultadoHiper.values():
-                if palabrasQueCoinciden[0].word != indiceLista2['word']:
-                    resultadoHiperonimo.add(indiceLista2['word'])
-
-            insertar = resultadoHiperonimo.copy()
-            listaResultadoHiperonimo.insert(contadorHiper, insertar)
-            contadorHiper = contadorHiper + 1
-            resultadoHiperonimo.clear()
-
+        listaResultadoHiponimo = busquedaPalabrasQueSonHiponimos(palabrasQueCoinciden, listaOffsetsSourceFinal)
+        listaResultadoHiperonimo = busquedaPalabrasQueSonHiperonimos(palabrasQueCoinciden, listaOffsetsTargetFinal)
 
         return listaResultadoHiponimo, listaResultadoHiperonimo
 
@@ -159,15 +135,75 @@ def busquedadHipoHiper(palabrasQueCoinciden):
 
 
 
+########################################################################################################################################################
+
+##################      Método que busca las palabras que son hipónimos y que se mostrarán por pantalla a partir de los offsets que hacen match  ##################
+
+########################################################################################################################################################
+def busquedaPalabrasQueSonHiponimos(palabrasQueCoinciden, listaOffsetsSourceFinal):
+
+    resultadoHiponimo = set()
+    listaResultadoHiponimo = []
+    contadorHipo = 0
+
+    for i in range(len(listaOffsetsSourceFinal)):
+        queryResultadoHipo = WeiSpa30Variant.objects.filter(offset=listaOffsetsSourceFinal[i])
+
+        for indiceLista1 in queryResultadoHipo.values():
+            if palabrasQueCoinciden[0].word != indiceLista1['word']:
+                resultadoHiponimo.add(indiceLista1['word'])
+            # print(resultadoHiponimo)
+
+        insertar = resultadoHiponimo.copy()
+        listaResultadoHiponimo.insert(contadorHipo, insertar)
+        contadorHipo = contadorHipo + 1
+        resultadoHiponimo.clear()
+
+    return listaResultadoHiponimo
 
 
 
+
+
+
+
+########################################################################################################################################################
+
+##################      Método que busca las palabras que son hiperónimos y que se mostrarán por pantalla a partir de los offsets que hacen match  ##################
+
+########################################################################################################################################################
+
+def busquedaPalabrasQueSonHiperonimos(palabrasQueCoinciden, listaOffsetsTargetFinal):
+    resultadoHiperonimo = set()
+    listaResultadoHiperonimo = []
+    contadorHiper = 0
+
+    for i in range(len(listaOffsetsTargetFinal)):
+        queryResultadoHiper = WeiSpa30Variant.objects.filter(offset=listaOffsetsTargetFinal[i])
+
+        for indiceLista2 in queryResultadoHiper.values():
+            if palabrasQueCoinciden[0].word != indiceLista2['word']:
+                resultadoHiperonimo.add(indiceLista2['word'])
+
+        insertar = resultadoHiperonimo.copy()
+        listaResultadoHiperonimo.insert(contadorHiper, insertar)
+        contadorHiper = contadorHiper + 1
+        resultadoHiperonimo.clear()
+
+        return listaResultadoHiperonimo
+
+
+
+########################################################################################################################################################
+
+##################      Método que busca que sinónimos se encuentran en el archivo de de las 1000 palabras de la RAE  ##################
+
+########################################################################################################################################################
 
 def busquedaSinonimosEnLaRAE(resultadoSinonimos):
 
     archivo, csvarchivo = aperturaYlecturaCSV()
     listaPalabras = list()
-
 
     for fila in range(len(resultadoSinonimos)):
         for palabra in resultadoSinonimos[fila]:
@@ -177,7 +213,6 @@ def busquedaSinonimosEnLaRAE(resultadoSinonimos):
 
     resultadoListaSinonimosRAE = set()
 
-
     for i in range(len(listaPalabras)):
         csvarchivo.seek(0)
         for j in archivo:
@@ -185,12 +220,16 @@ def busquedaSinonimosEnLaRAE(resultadoSinonimos):
             if listaPalabras[i] == j['PALABRA']:
                 resultadoListaSinonimosRAE.add(j['PALABRA'])
 
-
-
     return resultadoListaSinonimosRAE
 
 
 
+
+########################################################################################################################################################
+
+##################      Método que busca que hipónimos se encuentran en el archivo de de las 1000 palabras de la RAE  ##################
+
+########################################################################################################################################################
 
 def busquedaHiponimosEnLaRAE(resultadoHiponimo):
     archivo, csvarchivo = aperturaYlecturaCSV()
@@ -216,6 +255,13 @@ def busquedaHiponimosEnLaRAE(resultadoHiponimo):
     return resultadoListaHiponimosRAE
 
 
+
+
+########################################################################################################################################################
+
+##################      Método que busca que hiperónimos se encuentran en el archivo de de las 1000 palabras de la RAE  ##################
+
+########################################################################################################################################################
 
 def busquedaHiperonimosEnLaRAE(resultadoHiperonimo):
     archivo, csvarchivo = aperturaYlecturaCSV()
