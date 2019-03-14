@@ -12,39 +12,13 @@
 
         </form>
 
-        <h3>RESULTADOS PARA LA PALABRA {{ word }}:</h3>
+        <h3>RESULTADOS :</h3>
             <h3>SINONIMOS:</h3>
-            {% for results in resultadoSinonimos %}
-                <div class="panel-results">
-                {% for result in results %}
 
-                  <p>{{ word }} es {{ result }}</p>
-
-                 {% endfor %}
-                </div>
-            {% endfor %}
+        <p>Se han encontrado {{ contador }} de {{ totales }}</p>
 
 
-            <h3>HIPONIMOS:</h3>
-            {% for results in resultadoHiponimo %}
-                <div class="panel-results">
-                {% for result in results %}
 
-                <p>{{ word }} es como {{ result }}</p>
-
-                {% endfor %}
-                </div>
-            {% endfor %}
-
-
-            <h3>HIPERONIMOS:</h3>
-            {% for results in resultadoHiperonimo %}
-                <div class="panel-results">
-                 {% for result in results %}
-                     <p>{{ word }} es como {{ result }}</p>
-                    {% endfor %}
-                 </div>
-            {% endfor %}
      </div>
 
 {% endblock %}

@@ -29,15 +29,37 @@ def index(request):
         if 'boton-final' in request.POST:
 
             word = form['word'].value()
-            resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo = busquedaDePalabras(word)
+            #resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo = #busquedaDePalabras(word)
             #print('resultado' + str(resultadoHiponimo))
 
+            contador, totales = prueba()
 
-            return render(request, 'prototipo/formulario.html', {'form': form, 'resultadoSinonimos': resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word})
+            return render(request, 'prototipo/formulario.html', {'form': form, 'contador': contador, 'totales': totales})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
 
 
+
+
+def prueba():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/prueba.csv', encoding="utf8", errors='ignore')
+    entrada = csv.reader(csvarchivo, delimiter=";")
+    contador = 0
+    totales = 0
+    for i in entrada:
+
+        listaResultadoSinonimo, listaResultadoHipo, listaResultadoHiper = busquedaDePalabras(str(i[0]))
+
+
+        totales = totales + 1
+
+       # print("totales: " + str(totales))
+        contador = contador + 1
+
+        #print("encontrados: " + str(contador))
+
+    return contador, totales
 
 
 def busquedaDePalabras(word):
@@ -46,15 +68,18 @@ def busquedaDePalabras(word):
     palabrasQueCoinciden = WeiSpa30Variant.objects.filter(word=word).only('offset')
 
 
-
-
-    #for indice in palabrasQueCoinciden.values():
-        #print(indice.values())
+    
+    for indice in palabrasQueCoinciden.values():
+        print('palabras que coinciden' + str(indice.values()))
 
     resultadoSinonimos = busquedadSinonimos(palabrasQueCoinciden)
+    print('sinonimos ' + str(len(resultadoSinonimos)))
+
 
     resultadoHiponimo, resultadoHiperonimo = busquedadHipoHiper(palabrasQueCoinciden)
 
+    print('hiponimos ' + str(len(resultadoHiponimo)))
+    print('hiperonimos ' + str(len(resultadoSinonimos)))
 
     return resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo
 
