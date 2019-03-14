@@ -59,3 +59,22 @@ class WeiSpa30Relation(models.Model):
         managed = False
         db_table = 'wei_spa-30_relation'
         unique_together = (('relation', 'sourcesynset', 'sourcepos', 'targetsynset', 'targetpos', 'method', 'version', 'wnsource'),)
+
+
+
+class WeiSpa30Synset(models.Model):
+    offset = models.CharField(primary_key=True, max_length=17)
+    pos = models.CharField(max_length=1)
+    sons = models.IntegerField()
+    status = models.CharField(max_length=1)
+    lexical = models.CharField(max_length=1)
+    instance = models.IntegerField()
+    gloss = models.TextField(blank=True, null=True)
+    level = models.IntegerField()
+    levelfromtop = models.IntegerField(db_column='levelFromTop')  # Field name made lowercase.
+    mark = models.CharField(max_length=20)
+
+    class Meta:
+        managed = False
+        db_table = 'wei_spa-30_synset'
+        unique_together = (('offset', 'pos'),)
