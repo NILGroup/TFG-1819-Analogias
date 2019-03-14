@@ -45,10 +45,7 @@ def index(request):
                 resultado = form_final['PalabraABuscar'].value()
                 profundidad = form_final['Profundidad'].value()
                 #salida_final, contadorProfundidad, tipo = consultaSinonimosYterminos(resultado, int(profundidad))
-                salida_final = ""
-                encontrado = True
-                tipo = 1
-                prueba()
+                salida_final, contadorProfundidad, tipo = prueba()
 
                 #if contadorProfundidad == -1:
                     #encontrado = False
@@ -62,10 +59,17 @@ def index(request):
 
 
 def prueba():
-    csvarchivo = open('prueba.csv', encoding="utf8", errors='ignore')
-    entrada = csv.DictReader(csvarchivo, delimiter=";")
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/prueba.csv', encoding="utf8", errors='ignore')
+    entrada = csv.reader(csvarchivo, delimiter=";")
+
     for i in entrada:
-        consultaSinonimosYterminos(i, 1)
+        resultadosActualesValidos, contadorProfundidad, tipo = consultaSinonimosYterminos(str(i), 1)
+        print(resultadosActualesValidos.values())
+
+    return resultadosActualesValidos, contadorProfundidad, tipo
+
+
 
 
 #Dada una palabra, devuelve si hay algún match entre sus terminos relacionados o sinonimos con el csv
