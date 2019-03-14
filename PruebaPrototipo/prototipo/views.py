@@ -67,21 +67,23 @@ def busquedaDePalabras(word):
     #Primero busca que palabras son iguales a la palabra de entrada y nos quedamos con la columna offset
     palabrasQueCoinciden = WeiSpa30Variant.objects.filter(word=word).only('offset')
 
-
+    #print("SOY unnnnnnn: ")
+    #print(len(palabrasQueCoinciden))
     
-    for indice in palabrasQueCoinciden.values():
-        print('palabras que coinciden' + str(indice.values()))
+    #for indice in palabrasQueCoinciden.values():
+        #print('palabras que coinciden' + str(indice.values()))
 
     resultadoSinonimos = busquedadSinonimos(palabrasQueCoinciden)
-    print('sinonimos ' + str(len(resultadoSinonimos)))
+    #print('sinonimos ' + str(len(resultadoSinonimos)))
 
+    if len(palabrasQueCoinciden) > 0:
+        resultadoHiponimo, resultadoHiperonimo = busquedadHipoHiper(palabrasQueCoinciden)
 
-    resultadoHiponimo, resultadoHiperonimo = busquedadHipoHiper(palabrasQueCoinciden)
+    #print('hiponimos ' + str(len(resultadoHiponimo)))
+    #print('hiperonimos ' + str(len(resultadoSinonimos)))
 
-    print('hiponimos ' + str(len(resultadoHiponimo)))
-    print('hiperonimos ' + str(len(resultadoSinonimos)))
-
-    return resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo
+        return resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo
+    return -1,-1,-1
 
 
 
