@@ -31,12 +31,13 @@ def index(request):
 
             word = form['word'].value()
             resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo = busquedaDePalabras(word)
-            #print('resultado' + str(resultadoSinonimos))
-            resultadoSinonimosEnLaRAE = busquedaSinonimosEnLaRAE(resultadoSinonimos)
-            resultadoHiponimosEnLaRAE = busquedaHiponimoseNLaRAE(resultadoHiponimo)
-            #print('resultadoSinonumosRAE' + str(resultadoSinonimosEnLaRAE))
 
-            return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'resultadoSinonimosRAE': resultadoSinonimosEnLaRAE, 'resultadoHiponimosRAE': resultadoHiponimosEnLaRAE})
+            resultadoSinonimosEnLaRAE = busquedaSinonimosEnLaRAE(resultadoSinonimos)
+            resultadoHiponimosEnLaRAE = busquedaHiponimosEnLaRAE(resultadoHiponimo)
+            resultadoHiperonimosEnLaRAE = busquedaHiperonimosEnLaRAE(resultadoHiperonimo)
+
+
+            return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'resultadoSinonimosRAE': resultadoSinonimosEnLaRAE, 'resultadoHiponimosRAE': resultadoHiponimosEnLaRAE, 'resultadoHiperonimosRAE': resultadoHiperonimosEnLaRAE})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
 
@@ -124,7 +125,8 @@ def busquedadHipoHiper(palabrasQueCoinciden):
 
 
             for indiceLista1 in queryResultadoHipo.values():
-                resultadoHiponimo.add(indiceLista1['word'])
+                if palabrasQueCoinciden[0].word != indiceLista1['word']:
+                 resultadoHiponimo.add(indiceLista1['word'])
                 #print(resultadoHiponimo)
 
             insertar = resultadoHiponimo.copy()
@@ -142,7 +144,8 @@ def busquedadHipoHiper(palabrasQueCoinciden):
             queryResultadoHiper = WeiSpa30Variant.objects.filter(offset=listaOffsetsTargetFinal[i])
 
             for indiceLista2 in queryResultadoHiper.values():
-                resultadoHiperonimo.add(indiceLista2['word'])
+                if palabrasQueCoinciden[0].word != indiceLista2['word']:
+                    resultadoHiperonimo.add(indiceLista2['word'])
 
             insertar = resultadoHiperonimo.copy()
             listaResultadoHiperonimo.insert(contadorHiper, insertar)
@@ -155,13 +158,7 @@ def busquedadHipoHiper(palabrasQueCoinciden):
 
 
 
-def aperturaYlecturaCSV():
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
 
-    archivo = csv.DictReader(csvarchivo, delimiter=";")
-
-    return archivo, csvarchivo
 
 
 
@@ -195,7 +192,7 @@ def busquedaSinonimosEnLaRAE(resultadoSinonimos):
 
 
 
-def busquedaHiponimoseNLaRAE(resultadoHiponimo):
+def busquedaHiponimosEnLaRAE(resultadoHiponimo):
     archivo, csvarchivo = aperturaYlecturaCSV()
     listaPalabras = list()
 
@@ -217,3 +214,36 @@ def busquedaHiponimoseNLaRAE(resultadoHiponimo):
 
 
     return resultadoListaHiponimosRAE
+
+
+
+def busquedaHiperonimosEnLaRAE(resultadoHiperonimo):
+    archivo, csvarchivo = aperturaYlecturaCSV()
+    listaPalabras = list()
+
+    for fila in range(len(resultadoHiperonimo)):
+        for palabra in resultadoHiperonimo[fila]:
+            listaPalabras.append(palabra)
+            # print(palabra)
+
+    resultadoListaHiperonimosRAE = set()
+
+    for i in range(len(listaPalabras)):
+        csvarchivo.seek(0)
+        for j in archivo:
+
+            if listaPalabras[i] == j['PALABRA']:
+                resultadoListaHiperonimosRAE.add(j['PALABRA'])
+
+    return resultadoListaHiperonimosRAE
+
+
+
+
+def aperturaYlecturaCSV():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    return archivo, csvarchivo

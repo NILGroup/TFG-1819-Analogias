@@ -56,7 +56,18 @@
             {% endfor %}
 
 
-            <h3>HIPERONIMOS:</h3>
+        <hr>
+        <hr>
+
+        <h3>HIPERÓNIMOS QUE COINCIDEN CON LAS MIL PALABRAS RAE:</h3>
+            {% for results in resultadoHiperonimosRAE %}
+                <div class="panel-results">
+                  <p>{{ word }} es {{ results }}</p>
+                </div>
+            {% endfor %}
+
+
+            <h3>HIPERONIMOS EN LA APLICACIÓN WORDNET:</h3>
             {% for results in resultadoHiperonimo %}
                 <div class="panel-results">
                  {% for result in results %}
