@@ -5,8 +5,8 @@ import csv
 import nltk
 import os
 from nltk.corpus import wordnet as wn
-nltk.download('wordnet');
-nltk.download('omw');
+#nltk.download('wordnet');
+#nltk.download('omw');
 from .forms import PostForm, PostFormTerminos, PostFormFinal
 
 from django.shortcuts import redirect
@@ -22,18 +22,16 @@ def index(request):
 
     if request.method == "POST":
 
-        form_final = PostFormFinal(request.POST)
+        #form_final = PostFormFinal(request.POST)
 
 
         if 'boton-final' in request.POST:
-            if form_final.is_valid():
-                form_final.save()
-                resultado = form_final['PalabraABuscar'].value()
-                profundidad = form_final['Profundidad'].value()
-                contador, totales = prueba()
 
 
-                return render(request, 'prototipo/formulario.html', {'resultado': contador, 'palabrasTotales': totales})
+            contadorSinonimos,contadorTerminos, totales = prueba()
+
+
+            return render(request, 'prototipo/formulario.html', {'contadorSinonimos': contadorSinonimos, 'contadorTerminos': contadorTerminos,'palabrasTotales': totales})
 
     return render(request, 'prototipo/formulario.html',)
 
@@ -43,19 +41,19 @@ def prueba():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/prueba.csv', encoding="utf8", errors='ignore')
     entrada = csv.reader(csvarchivo, delimiter=";")
-    contador = 0
+    contadorSinonimos = 0
+    contadorTerminos = 0
     totales = 0
     for i in entrada:
-        salida_final, contadorProfundidad, tipo = consultaSinonimosYterminos(str(i[0]), 1)
+        arraySinonimos, arrayTeminos = busquedaPorNivel(str(i[0]))
+        contadorSinonimos = contadorSinonimos + len(arraySinonimos)
+        contadorTerminos = contadorTerminos + len(arrayTeminos)
         totales = totales + 1
-        print("totales: " + str(totales))
-        if contadorProfundidad != -1:
-            contador = contador + 1
-
-        print("encontrados: " + str(contador))
+        print("Sinonimos encontrados: " + str(contadorSinonimos) + " de " + str(totales))
+        print("Terminos encontrados: " + str(contadorTerminos) + " de " + str(totales))
 
 
-    return contador, totales
+    return contadorSinonimos, contadorTerminos, totales
 
 
 
@@ -64,16 +62,10 @@ def prueba():
 def busquedaPorNivel(palabra):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
-    arrayconsultaSinonimo, encontrado = consultaSinonimo(palabra, csvarchivo)
+    conjuntoSinonimos = consultaSinonimo(palabra, csvarchivo)
+    conjuntoTerminos = consultaTerminos(palabra, csvarchivo)
 
-    if encontrado == False:
-        arrayConsultaTermino, encontrado = consultaTerminos(palabra, csvarchivo)
-        if encontrado == False:
-            return arrayconsultaSinonimo + arrayConsultaTermino, False," "
-        else:
-            return arrayConsultaTermino, True,"TERMINO"
-    else:
-        return arrayconsultaSinonimo, True,"SINONIMO"
+    return conjuntoSinonimos, conjuntoTerminos
 
 
 
@@ -134,24 +126,20 @@ def consultaSinonimo(palabra, csvarchivo):
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
     #devuelve las palabras de conceptnet
-    conjuntoContenidoDevuelto = sinonimosDevueltos(palabra)
-    listaContenidoDevuelto = list(conjuntoContenidoDevuelto)
-    arraySinonimosFinal = []
-    encontradoSinonimo = False
+    sinonimos = sinonimosDevueltos(palabra)
+    conjuntoSinonimos = set()
 
-    for i in range(len(listaContenidoDevuelto)):
+
+    for sinonimo in sinonimos:
         csvarchivo.seek(0)
         for j in archivo:
 
-            if listaContenidoDevuelto[i] == j['PALABRA']:
-                arraySinonimosFinal.append(j['PALABRA'])
-                encontradoSinonimo = True
+            if sinonimo == j['PALABRA']:
+                conjuntoSinonimos.add(j['PALABRA'])
 
 
-    if encontradoSinonimo == False:
-        return listaContenidoDevuelto, False
-    else:
-        return arraySinonimosFinal, True
+
+    return conjuntoSinonimos
 
 
 #Servicio Web 1 que devuelve los sinonimos
@@ -177,23 +165,19 @@ def consultaTerminos(palabra, csvarchivo):
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
-    conjuntoContenidoDevuelto = terminosRelacionadosDevueltos(palabra)
-    listaContenidoDevuelto = list(conjuntoContenidoDevuelto)
-    arrayTerminosFinal = []
-    encontradoTermino = False
+    terminos = terminosRelacionadosDevueltos(palabra)
 
-    for i in range(len(listaContenidoDevuelto)):
+    conjuntoTerminos = set()
+
+
+    for termino in terminos:
         csvarchivo.seek(0)
 
         for j in archivo:
-            if listaContenidoDevuelto[i] == j['PALABRA']:
-                arrayTerminosFinal.append(j['PALABRA'])
-                encontradoTermino = True
+            if termino == j['PALABRA']:
+                conjuntoTerminos.add(j['PALABRA'])
 
-    if encontradoTermino == False:
-        return listaContenidoDevuelto, False
-    else:
-        return arrayTerminosFinal, True
+    return conjuntoTerminos
 
 
 

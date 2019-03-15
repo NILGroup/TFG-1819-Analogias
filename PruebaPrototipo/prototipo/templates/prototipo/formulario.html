@@ -3,8 +3,7 @@
 {% block content %}
 
     <div class="border">
-        <h3>A continuación, introduzca la palabra para obtener la palabra fácil:</h3>
-        <form method="POST" class="post-form" >{% csrf_token %}
+        <form method="POST" class="" >{% csrf_token %}
 
             <button type="submit" class="save btn btn-default" name="boton-final">Enviar</button>
 
@@ -13,7 +12,8 @@
 
         <h3>RESULTADOS:</h3>
 
-            <p> Se han encontrado:  {{ resultado }} de {{ palabrasTotales }}</p>
+            <p> Se han encontrado:  {{ contadorSinonimos }} sinónimos de {{ palabrasTotales }}</p>
+            <p> Se han encontrado:  {{ contadorTerminos }} términos relacionados de {{ palabrasTotales }}</p>
 
 
      </div>
