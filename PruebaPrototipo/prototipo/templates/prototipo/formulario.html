@@ -5,15 +5,15 @@
 
 
     <div class="border">
-        <h3>A continuación, introduzca la palabra para obtener la palabra fácil:</h3>
-        <form method="POST" class="post-form" >{% csrf_token %}
-            {{ form.as_p }}
+
+        <form method="POST" class="" >{% csrf_token %}
+
             <button type="submit" class="save btn btn-default" name="boton-final">Enviar</button>
 
         </form>
 
         <h3>RESULTADOS :</h3>
-            <h3>SINONIMOS:</h3>
+
 
         <p>Se han encontrado {{ contadorSinonimos }} sinonimos de {{ totales }}</p>
         <p>Se han encontrado {{ contadorHiponimos }} hiponimos de {{ totales }}</p>
