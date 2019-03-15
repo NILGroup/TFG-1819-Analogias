@@ -32,9 +32,9 @@ def index(request):
             #resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo = #busquedaDePalabras(word)
             #print('resultado' + str(resultadoHiponimo))
 
-            contador, totales = prueba()
+            contadorSinonimos, contadorHiponimos, contadorHiperonimos, totales = prueba()
 
-            return render(request, 'prototipo/formulario.html', {'form': form, 'contador': contador, 'totales': totales})
+            return render(request, 'prototipo/formulario.html', {'form': form, 'contadorSinonimos': contadorSinonimos, 'contadorHiponimos': contadorHiponimos, 'contadorHiperonimos': contadorHiperonimos,'totales': totales})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
 
@@ -45,42 +45,49 @@ def prueba():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/prueba.csv', encoding="utf8", errors='ignore')
     entrada = csv.reader(csvarchivo, delimiter=";")
-    contador = 0
+    contadorSinonimos = 0
+    contadorHiponimos = 0
+    contadorHiperonimos = 0
     totales = 0
-    encontrado = False
+
     for i in entrada:
 
         listaResultadoSinonimo, listaResultadoHipo, listaResultadoHiper = busquedaDePalabras(str(i[0]))
-        encontrado1RAE = False
-        encontrado2RAE = False;
-        encontrado3RAE = False;
 
         if len(listaResultadoSinonimo) > 0:
+            #print(i[0])
+            #print("SINONIMOS:")
+            #print(listaResultadoSinonimo)
+            #print("HIPONIMOS:")
+            #print(listaResultadoHipo)
+            #print("HIPERONIMOS:")
+            #print(listaResultadoHiper)
             sinonimosRAE = busquedaSinonimosEnLaRAE(listaResultadoSinonimo)
-            if len(sinonimosRAE) > 0:
-                encontrado1RAE = True
-        if len(listaResultadoHipo) > 0:
+            #print(sinonimosRAE)
+
+            contadorSinonimos = contadorSinonimos + len(sinonimosRAE)
+            #print("HIPONIMOS:")
             hiponimosRAE = busquedaHiponimosEnLaRAE(listaResultadoHipo)
-            if len(hiponimosRAE) > 0:
-                encontrado2RAE = True
-        if len(listaResultadoHiper) > 0:
+            #print(hiponimosRAE)
+
+            contadorHiponimos = contadorHiponimos + len(hiponimosRAE)
+            #print("HIPERONIMOS:")
             hiperonimosRAE = busquedaHiperonimosEnLaRAE(listaResultadoHiper)
-            if len(hiperonimosRAE) > 0:
-                encontrado3RAE = True
+            #print(hiperonimosRAE)
+
+            contadorHiperonimos = contadorHiperonimos + len(hiperonimosRAE)
 
         totales = totales + 1
 
-        print("totales: " + str(totales))
 
-        if encontrado1RAE == True:
-            contador = contador + 1
-        if encontrado2RAE == True:
-            contador = contador + 1
-        if encontrado3RAE == True:
-            contador = contador + 1
-        print("encontrados: " + str(contador))
 
-    return contador, totales
+        print("Sinonimos encontrados: " + str(contadorSinonimos) + " de " + str(totales))
+        print("Hiponimos encontrados: " + str(contadorHiponimos) + " de " + str(totales))
+        print("Hiperonimos encontrados: " + str(contadorHiperonimos) + " de " + str(totales))
+
+        #print("totales: " + str(totales))
+
+    return contadorSinonimos, contadorHiponimos, contadorHiperonimos,totales
 
 
 def busquedaDePalabras(word):
@@ -94,20 +101,30 @@ def busquedaDePalabras(word):
     #for indice in palabrasQueCoinciden.values():
         #print('palabras que coinciden' + str(indice.values()))
 
+    #DEVUELVE UN SET CON LOS SINONIMOS OBTENIDOS
     resultadoSinonimos = busquedadSinonimos(palabrasQueCoinciden)
     #print('sinonimos ' + str(len(resultadoSinonimos)))
 
-    if len(palabrasQueCoinciden) > 0:
-        resultadoHiponimo, resultadoHiperonimo = busquedadHipoHiper(palabrasQueCoinciden)
 
-    #print('hiponimos ' + str(len(resultadoHiponimo)))
-    #print('hiperonimos ' + str(len(resultadoSinonimos)))
+     # DEVUELVE DOS SET UNO CON LOS SINONIMOS OBTENIDOS Y OTRO CON LOS HIPERONIMOS
+    resultadoHiponimo, resultadoHiperonimo = busquedadHipoHiper(palabrasQueCoinciden)
 
-        return resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo
-    resultado1 = list()
-    resultado2 = list()
-    resultado3 = list()
-    return resultado1, resultado2 , resultado3
+
+    #EL METODO DIFFERENCE ELIMINA LOS ELEMENTOS QUE ESTEN REPETIDOS EN DOS SET Y DEVOLVIENDOLO SIN REPETIDOS
+    resultadoSinonimos = resultadoSinonimos.difference(resultadoHiponimo)
+    resultadoSinonimos = resultadoSinonimos.difference(resultadoHiperonimo)
+
+    resultadoHiponimo = resultadoHiponimo.difference(resultadoSinonimos)
+    resultadoHiponimo = resultadoHiponimo.difference(resultadoHiperonimo)
+
+    resultadoHiperonimo = resultadoHiperonimo.difference(resultadoSinonimos)
+    resultadoHiperonimo = resultadoHiperonimo.difference(resultadoHiponimo)
+
+
+
+
+    return resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo
+
 
 
 
@@ -115,23 +132,26 @@ def busquedaDePalabras(word):
 
 def busquedadSinonimos(palabrasQueCoinciden):
 
-    sinonimosPorCadaSynset = []
-    listaResultadoNombres = []
-    contador = 0
+    #set que guarda todos los sinonimos obtenidos de la palabra introducida
+    sinonimosPorCadaSynset = set()
+
+    #palabrasQueCoinciden es una lista de offset de cada una de las acepciones de la palabra buscada
 
     for indiceListaPalabras in range(len(palabrasQueCoinciden)):
+
         sinonimos = WeiSpa30Variant.objects.filter(offset=palabrasQueCoinciden[indiceListaPalabras].offset)
+
 
         for indiceLista in sinonimos.values():
             if palabrasQueCoinciden[0].word != indiceLista['word']:
-                sinonimosPorCadaSynset.append(indiceLista['word'])
+                sinonimosPorCadaSynset.add(indiceLista['word'])
 
-        insertar = sinonimosPorCadaSynset.copy()
-        listaResultadoNombres.insert(contador, insertar)
-        contador = contador + 1
-        sinonimosPorCadaSynset.clear()
+        #insertar = sinonimosPorCadaSynset.copy()
+        #listaResultadoNombres.insert(contador, insertar)
+        #contador = contador + 1
+        #sinonimosPorCadaSynset.clear()
 
-    return listaResultadoNombres
+    return sinonimosPorCadaSynset
 
 
 
@@ -164,6 +184,7 @@ def busquedadHipoHiper(palabrasQueCoinciden):
                 # print(listaOffsets.values())
 
         resultadoHiponimo = set()
+
         listaResultadoHiponimo = []
         contadorHipo = 0
 
@@ -172,13 +193,14 @@ def busquedadHipoHiper(palabrasQueCoinciden):
 
 
             for indiceLista1 in queryResultadoHipo.values():
-                resultadoHiponimo.add(indiceLista1['word'])
+                if palabrasQueCoinciden[0].word != indiceLista1['word']:
+                    resultadoHiponimo.add(indiceLista1['word'])
                 #print(resultadoHiponimo)
 
-            insertar = resultadoHiponimo.copy()
-            listaResultadoHiponimo.insert(contadorHipo, insertar)
-            contadorHipo = contadorHipo + 1
-            resultadoHiponimo.clear()
+            #insertar = resultadoHiponimo.copy()
+            #listaResultadoHiponimo.insert(contadorHipo, insertar)
+            #contadorHipo = contadorHipo + 1
+            #resultadoHiponimo.clear()
 
         #print(listaResultadoHiponimo)
 
@@ -190,37 +212,36 @@ def busquedadHipoHiper(palabrasQueCoinciden):
             queryResultadoHiper = WeiSpa30Variant.objects.filter(offset=listaOffsetsTargetFinal[i])
 
             for indiceLista2 in queryResultadoHiper.values():
-                resultadoHiperonimo.add(indiceLista2['word'])
+                if palabrasQueCoinciden[0].word != indiceLista2['word']:
+                    resultadoHiperonimo.add(indiceLista2['word'])
 
-            insertar = resultadoHiperonimo.copy()
-            listaResultadoHiperonimo.insert(contadorHiper, insertar)
-            contadorHiper = contadorHiper + 1
-            resultadoHiperonimo.clear()
+            #insertar = resultadoHiperonimo.copy()
+            #listaResultadoHiperonimo.insert(contadorHiper, insertar)
+            #contadorHiper = contadorHiper + 1
+            #resultadoHiperonimo.clear()
 
 
-        return listaResultadoHiponimo, listaResultadoHiperonimo
+        return resultadoHiponimo, resultadoHiperonimo
+    else:
+        hiponimosVacios = set()
+        hiperonimosVacios = set()
+        return hiponimosVacios, hiperonimosVacios
 
 
 def busquedaSinonimosEnLaRAE(resultadoSinonimos):
 
     archivo, csvarchivo = aperturaYlecturaCSV()
-    listaPalabras = list()
-
-
-    for fila in range(len(resultadoSinonimos)):
-        for palabra in resultadoSinonimos[fila]:
-            listaPalabras.append(palabra)
-            #print(palabra)
 
 
     resultadoListaSinonimosRAE = set()
 
 
-    for i in range(len(listaPalabras)):
+    for sinonimo in resultadoSinonimos:
+
         csvarchivo.seek(0)
         for j in archivo:
 
-            if listaPalabras[i] == j['PALABRA']:
+            if sinonimo == j['PALABRA']:
                 resultadoListaSinonimosRAE.add(j['PALABRA'])
 
 
@@ -232,22 +253,18 @@ def busquedaSinonimosEnLaRAE(resultadoSinonimos):
 
 def busquedaHiponimosEnLaRAE(resultadoHiponimo):
     archivo, csvarchivo = aperturaYlecturaCSV()
-    listaPalabras = list()
-
-    for fila in range(len(resultadoHiponimo)):
-        for palabra in resultadoHiponimo[fila]:
-            listaPalabras.append(palabra)
-            #print(palabra)
 
 
     resultadoListaHiponimosRAE = set()
 
 
-    for i in range(len(listaPalabras)):
+
+
+    for hiponimo in resultadoHiponimo:
         csvarchivo.seek(0)
         for j in archivo:
 
-            if listaPalabras[i] == j['PALABRA']:
+            if hiponimo == j['PALABRA']:
                 resultadoListaHiponimosRAE.add(j['PALABRA'])
 
 
@@ -257,20 +274,15 @@ def busquedaHiponimosEnLaRAE(resultadoHiponimo):
 
 def busquedaHiperonimosEnLaRAE(resultadoHiperonimo):
     archivo, csvarchivo = aperturaYlecturaCSV()
-    listaPalabras = list()
 
-    for fila in range(len(resultadoHiperonimo)):
-        for palabra in resultadoHiperonimo[fila]:
-            listaPalabras.append(palabra)
-            # print(palabra)
 
     resultadoListaHiperonimosRAE = set()
 
-    for i in range(len(listaPalabras)):
+    for hiperonimo in resultadoHiperonimo:
         csvarchivo.seek(0)
         for j in archivo:
 
-            if listaPalabras[i] == j['PALABRA']:
+            if hiperonimo == j['PALABRA']:
                 resultadoListaHiperonimosRAE.add(j['PALABRA'])
 
     return resultadoListaHiperonimosRAE
@@ -285,3 +297,5 @@ def aperturaYlecturaCSV():
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
     return archivo, csvarchivo
+
+
