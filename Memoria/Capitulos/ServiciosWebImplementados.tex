@@ -3,14 +3,20 @@
 
 
 %-------------------------------------------------------------------
-\section{Servicio Web Para ConcepNet}
+\section{Servicio Web Para ConceptNet}
 %-------------------------------------------------------------------
+\label{cap:sec:servicioConceptnet}
 
+Se ha implementado un Servicio Web que obtiene los resultados de ConceptNet, una red semántica que al introducir una palabra se obtienen sinónimos y términos relacionados de la misma(dicha red semántica ha sido descrita detalladamente en el apartado \ref{cap:subsec:concepnet}).
 
+El Servicio Web implementado consta de tres servicios. El primero cuando se introduce en el campo de texto una palabra en castellano, se realiza una consulta a la API de ConceptNet y se muestran todos los sinónimos obtenidos para dicha palabra. El segundo, al introducir una palabra se sigue el mismo proceso que en el anterior, pero esta vez en lugar de obtener los sinónimos, se obtienen los términos relacionados.
+
+Por último, el tercer servicio utiliza los servicios 1 y 2 para obtener los sinónimos y términos relacionados de la palabra que se desee introducir, y buscar los resultados obtenidos, en la lista de las 1000 palabras más utilizadas del castellano según la RAE y en caso de encontrar alguna coincidencia, mostrarla. Este servicio, además de la entrada de texto, consta de un selector numérico en el que se le debe de indicar la profundidad de la búsqueda. Con el valor 1, se realizará el proceso descrito anteriormente y si no encuentra ninguna coincidencia se mostrará el mensaje: ``No hay coincidencias''. Sin embargo, si se introduce una profundidad mayor, por ejemplo 2, se repetirá el proceso con los resultados obtenidos en la profundidad anterior en caso de que no se encuentre ninguna palabra, es decir, si no hay coincidencias entre los resultados y la lista de las 1000 palabras más utilizadas del castellano, se vuelve a llamar a los servicios 1 y 2 y se buscan los sinónimos y los términos relacionados de los de los sinónimos y términos relacionados obtenidos en el proceso anterior, y con esos nuevos resultados, se vuelve a hacer la búsqueda en la lista para buscar coincidencias.
 
 
 %-------------------------------------------------------------------
 \section{Servicio Web para WordNet}
 %-------------------------------------------------------------------
+\label{cap:sec:servicioWordnet}
 
-Para la implementación y desarrollo del servicio web, se ha hecho uso de MCR (\textit{Multilingual Central Repositoy}), el cuál es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugues. 
+Para la implementación y desarrollo del servicio web, se ha hecho uso de MCR (\textit{Multilingual Central Repository}), el cuál es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués. 
