@@ -44,30 +44,18 @@ def index(request):
                 form_final.save()
                 resultado = form_final['PalabraABuscar'].value()
                 profundidad = form_final['Profundidad'].value()
-                #salida_final, contadorProfundidad, tipo = consultaSinonimosYterminos(resultado, int(profundidad))
-                salida_final, contadorProfundidad, tipo = prueba()
+                salida_final, contadorProfundidad, tipo = consultaSinonimosYterminos(resultado, int(profundidad))
 
-                #if contadorProfundidad == -1:
-                    #encontrado = False
-                #else:
-                    #encontrado = True
-                #profundidad = contadorProfundidad
+
+                if contadorProfundidad == -1:
+                    encontrado = False
+                else:
+                    encontrado = True
+                profundidad = contadorProfundidad
                 return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'resultadosFinal': salida_final, 'form_final': form_final, 'encontrado': encontrado, 'profundidad': profundidad,'palabraInicial':resultado, 'tipo':tipo})
 
     return render(request, 'prototipo/formulario.html', {'form': form_sinonimos, 'form_term': form_terminos, 'form_final': form_final, })
 
-
-
-def prueba():
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/prueba.csv', encoding="utf8", errors='ignore')
-    entrada = csv.reader(csvarchivo, delimiter=";")
-
-    for i in entrada:
-        resultadosActualesValidos, contadorProfundidad, tipo = consultaSinonimosYterminos(str(i), 1)
-        print(resultadosActualesValidos.values())
-
-    return resultadosActualesValidos, contadorProfundidad, tipo
 
 
 
