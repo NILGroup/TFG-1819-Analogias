@@ -22,20 +22,20 @@ Algunas de las razones por las que se ha elegido este \textit{framework}han sido
 	
 \end{itemize}
 
-Además, es muy popular por lo que para resolver cualquier problema que surja, se puede encontrar la solución consultando la documentación o preguntando en algún foro.
+Además, es muy popular por lo que para resolver cualquier problema que surja, como se ha explicado anteriormente, hay mucha documentación disponible y muchos hilos en foros de programación en donde encontrar posibles soluciones.
 
 \section{SpaCy}
 \label{cap:sec:spacy}
-SpaCy es una biblioteca de código abierto para el Procesamiento del Lenguaje Natural en Python, soporta más de 34 idiomas entre ellos el español. Se requería una herramienta que clasificara según su categoría gramatical las 1000 palabras más utilizadas del castellano, ya que solo se necesitaban los verbos, pronombres sustantivos y adverbios. Se pensó inicialmente en la biblioteca NLTK de Python, pero tras una prueba inicial se vio que la clasificación no era una fiable por lo que se descartó su uso y se buscaron otras opciones, se probó con SpaCy y el resultado fue muy satisfactorio, por lo se decidió utilizar en el proyecto para el fin anteriormente descrito.
+SpaCy es una biblioteca de código abierto para el Procesamiento del Lenguaje Natural en Python, soporta más de 34 idiomas entre ellos el español. Se ha elegido ya que ha sido el que mejor resultado ha dado, inicialmente se utilizó el POS-tagger(clasificador sintáctico de palabras) de NLTK, pero su índice de acierto no era muy bueno por lo que se descartó su uso, a continuación se probó con SpaCy y además de ser más rápido, su índice de acierto ha sido prácticamente del 100\% por lo que fue lo finalmente utilizado.
 
 
 
-\figura{Bitmap/Capitulo3/spacy}{width=.4\textwidth}{fig:spacy}{Ejemplo de clasificación de palabras}
+\figura{Bitmap/Capitulo3/spacy}{width=.8\textwidth}{fig:spacy}{Ejemplo de clasificación de palabras}
 
-SpaCy según su página web \footnote{https://spacy.io/}, tiene el mejor índice de acierto como analizador sintáctico, para su utilización hay que importar la biblioteca de idioma correspondiente (en este caso español: ``es\_core\_news\_sm'') y pasar como parámetro las palabras que se deseen clasificar, el resultado será una serie de etiquetas tal y como se pueden apreciar en la tabla \ref{fig:spacy}, que es un ejemplo de las etiquetas generadas para una frase en lengua inglesa y que se explica a continuación:
+El analizador sintáctico, según su página web, tiene el mejor índice de acierto\footnote{https://spacy.io/}, para su utilización hay que importar la biblioteca de idioma correspondiente (en este caso español: ``es\_core\_news\_sm'') y pasar como parámetro las palabras que se deseen clasificar, el resultado será una serie de etiquetas tal y como se pueden apreciar en la tabla \ref{fig:spacy}, que es un ejemplo de las etiquetas generadas para una frase en lengua inglesa y que se explica a continuación:
 \begin{itemize}
 	\item La columna \textit{text} indica cual es la palabra que se ha procesado. En el caso de la primera fila es la palabra \textit{Apple}.
-	\item La columna \textit{lemma} indica la forma base de la palabra procesada. En la primera fila es la palabra \textit{apple} en minúsculas.
+	\item La columna \textit{lemma} indica la forma base de la palabra procesada. En la segunda fila, \textit{be} indica el verbo en infinitivo que se ha analizado.
 	\item La columna \textit{pos} es la etiqueta asignada a dicha palabra. Indicando lo siguiente:
 		\begin{itemize}
 			\item PROPN: Nombre propio. Por ejemplo \textit{Apple}
