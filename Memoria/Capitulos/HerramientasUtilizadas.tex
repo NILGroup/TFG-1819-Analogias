@@ -9,15 +9,20 @@ En este capítulo se van a explicar las herramientas utilizadas para el desarrol
 %-------------------------------------------------------------------
 \label{cap:sec:django}
 Django es un \textit{framework} de alto nivel que permite el desarrollo rápido de sitios web seguros y mantenibles y se basa en el patrón MVC\footnote{https://docs.djangoproject.com/en/2.0/}. Fue desarrollado entre los años 2003 y 2005 por un grupo de programadores que se encargaban de crear y mantener sitios web de periódicos. 
-Es gratuito y de código abierto y dispone de una gran documentación actualizada así como muchas opciones de soporte gratuito y de pago. Gracias a la utilización de Django se puede crear un software\footnote{https://developer.mozilla.org/es/docs/Learn/Server-side/Django/Introducción}:
+Es gratuito y de código abierto y dispone de una gran documentación actualizada así como muchas opciones de soporte gratuito y de pago. 
+
+Algunas de las razones por las que se ha elegido este \textit{framework}han sido las siguientes:
+\footnote{https://openwebinars.net/blog/que-es-django-y-por-que-usarlo/}
 \begin{itemize}
-	\item Completo: provee de casi todo lo que los desarrolladores esperan utilizar, sigue principios de diseño consistentes y dispone de una amplia y actualizada documentación.
-	\item Versátil: puede funcionar con cualquier \textit{framework} en el lado del cliente, y puede devolver contenido en casi cualquier formato incluyendo HTML, RSS feeds, JSON y XML. Internamente, ofrece opciones para casi cualquier funcionalidad, como por ejemplo: distintos motores de base de datos , motores de plantillas, etc...
-	\item Seguro: Django proporciona una manera segura de administrar cuentas de usuario y contraseñas, por lo que las \textit{cookies} solo contienen una clave y los datos se almacenan en la base de datos, o se almacenan directamente las contraseñas en un hash de contraseñas.
-	\item Escalable: usa un componente basado en la arquitectura \textit{shared-nothing}, es decir, cada parte de la arquitectura es independiente de las otras, y por lo tanto puede ser reemplazado o cambiado si es necesario.
-	\item Mantenible: el código de Django está escrito usando principios y patrones de diseño para fomentar la creación de código mantenible y reutilizable, como por ejemplo el patrón MVC \textit{(Model View Controller)}, el cuál agrupa código relacionado en módulos.  Por otro lado, utiliza el principio No te repitas \textit{Don't Repeat Yourself} (DRY) para que no exista una duplicación innecesaria, reduciendo la cantidad de código. 
-	\item Portable: Django está escrito en Python, el cual se ejecuta en muchas plataformas. Lo que significa que no está sujeto a ninguna plataforma en particular, y puede ejecutar sus aplicaciones en muchas distribuciones de Linux, Windows y Mac OS X.
+	\item Seguridad: Implementa por defecto algunas medidas de seguridad para evitar SQL Injection, Cross site request forgery (CSRF) o Clickjacking por JavaScript.
+	
+	\item Escalabilidad: Se puede pasar de una aplicación sencilla a otra más compleja rápidamente, ya que es muy fácil añadir nuevos módulos al \textit{framework}.
+	
+	\item Fácil acceso a bases de datos: Mediante ORM, que es su interfaz para el acceso a bases de datos, se pueden hacer consultas de manera muy intuitiva.
+	
 \end{itemize}
+
+Además, es muy popular por lo que para resolver cualquier problema que surja, se puede encontrar la solución consultando la documentación o preguntando en algún foro.
 
 \section{SpaCy}
 \label{cap:sec:spacy}
