@@ -38,6 +38,7 @@ h3 {
 
 
 .formulario{
+
     display:flex;
 
 
@@ -48,4 +49,8 @@ h3 {
 
 
     height: 35px;
+}
+
+.errorList{
+    display:none;
 }

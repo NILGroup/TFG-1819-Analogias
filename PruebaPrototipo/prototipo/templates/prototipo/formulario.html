@@ -4,11 +4,11 @@
 
 
 
-    <div class="border">
+    <div class="border pl-4">
 
-        <div class="panel-introducir-palabra ">
+        <div class="panel-introducir-palabra pt-3">
             <h3>A continuación, introduzca la palabra para obtener la palabra fácil:</h3>
-            <form method="POST" class="formulario" >
+            <form method="POST" class="formulario mt-4" >
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="save btn btn-default ml-3" name="boton-final">Enviar</button>
