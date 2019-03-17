@@ -4,6 +4,8 @@ import requests
 import csv
 import nltk
 import os
+import json
+
 from nltk.corpus import wordnet as wn
 
 
@@ -16,7 +18,6 @@ from .forms import PostFormWordSearch
 def index(request):
     form = PostFormWordSearch()
 
-
     if request.method == "POST":
         form = PostFormWordSearch(request.POST)
 
@@ -25,13 +26,22 @@ def index(request):
             word = form['word'].value()
             resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo = busquedaDePalabras(word)
 
-            resultadoSinonimosEnLaRAE = busquedaSinonimosEnLaRAE(resultadoSinonimos)
-            resultadoHiponimosEnLaRAE = busquedaHiponimosEnLaRAE(resultadoHiponimo)
-            resultadoHiperonimosEnLaRAE = busquedaHiperonimosEnLaRAE(resultadoHiperonimo)
+            dict_resultados = dict(sinonimos="", hiponimos="", hiperonimos="")
 
-            return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'resultadoSinonimosRAE': resultadoSinonimosEnLaRAE, 'resultadoHiponimosRAE': resultadoHiponimosEnLaRAE, 'resultadoHiperonimosRAE': resultadoHiperonimosEnLaRAE})
+            dict_resultados["sinonimos"] = list(busquedaSinonimosEnLaRAE(resultadoSinonimos))
+            dict_resultados["hiponimos"] = list(busquedaHiponimosEnLaRAE(resultadoHiponimo))
+            dict_resultados["hiperonimos"] = list(busquedaHiperonimosEnLaRAE(resultadoHiperonimo))
+
+
+
+
+
+
+            #print('JSON' + str(json.dumps(dict_resultados)))
+            return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'dict' : dict_resultados})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
+
 
 
 
@@ -51,12 +61,12 @@ def busquedaDePalabras(word):
     #for indice in palabrasQueCoinciden.values():
         #print(indice.values())
 
-    resultadoSinonimos = busquedadSinonimos(palabrasQueCoinciden)
+    listaResultadoSinonimos = busquedadSinonimos(palabrasQueCoinciden)
 
     resultadoHiponimo, resultadoHiperonimo = busquedadHipoHiper(palabrasQueCoinciden)
 
 
-    return resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo
+    return listaResultadoSinonimos, resultadoHiponimo, resultadoHiperonimo
 
 
 
@@ -74,6 +84,7 @@ def busquedadSinonimos(palabrasQueCoinciden):
     listaResultadoNombres = []
     contador = 0
 
+
     for indiceListaPalabras in range(len(palabrasQueCoinciden)):
         sinonimos = WeiSpa30Variant.objects.filter(offset=palabrasQueCoinciden[indiceListaPalabras].offset)
 
@@ -85,6 +96,7 @@ def busquedadSinonimos(palabrasQueCoinciden):
         listaResultadoNombres.insert(contador, insertar)
         contador = contador + 1
         sinonimosPorCadaSynset.clear()
+
 
     return listaResultadoNombres
 

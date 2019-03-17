@@ -16,11 +16,13 @@
         <h3>Resultados para la palabra {{ word }}:</h3>
 
             <h3>SINÓNIMOS QUE COINCIDEN CON LAS MIL PALABRAS RAE:</h3>
-            {% for results in resultadoSinonimosRAE %}
-                <div class="panel-results">
+                {% for results in dict.sinonimos %}
+                 <div class="panel-results">
+
                   <p>{{ word }} es {{ results }}</p>
+
                 </div>
-            {% endfor %}
+                {% endfor %}
 
 
 
@@ -38,7 +40,7 @@
         <hr>
         <hr>
             <h3>HIPÓNIMOS QUE COINCIDEN CON LAS MIL PALABRAS RAE:</h3>
-            {% for results in resultadoHiponimosRAE %}
+            {% for results in dict.hiponimos %}
                 <div class="panel-results">
                   <p>{{ word }} es {{ results }}</p>
                 </div>
@@ -60,7 +62,7 @@
         <hr>
 
         <h3>HIPERÓNIMOS QUE COINCIDEN CON LAS MIL PALABRAS RAE:</h3>
-            {% for results in resultadoHiperonimosRAE %}
+            {% for results in dict.hiperonimos %}
                 <div class="panel-results">
                   <p>{{ word }} es {{ results }}</p>
                 </div>
