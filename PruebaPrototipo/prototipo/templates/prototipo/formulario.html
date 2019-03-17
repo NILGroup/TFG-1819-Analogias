@@ -5,14 +5,28 @@
 
 
     <div class="border">
-        <h3>A continuación, introduzca la palabra para obtener la palabra fácil:</h3>
-        <form method="POST" class="post-form" >{% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="save btn btn-default" name="boton-final">Enviar</button>
 
-        </form>
+        <div class="panel-introducir-palabra ">
+            <h3>A continuación, introduzca la palabra para obtener la palabra fácil:</h3>
+            <form method="POST" class="formulario" >
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-default ml-3" name="boton-final">Enviar</button>
 
+            </form>
+        </div>
         {% if word != empty %}
+
+        <div class="dropdown mb-5">
+          <button class="btn btn-secondary dropdown-toggle mb-4" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Ver resultados en formato JSON
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div>{{ json }}</div>
+          </div>
+        </div>
+
+
         <h3>Resultados para la palabra {{ word }}:</h3>
 
             <h3>SINÓNIMOS QUE COINCIDEN CON LAS MIL PALABRAS RAE:</h3>

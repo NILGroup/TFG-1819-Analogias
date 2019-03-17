@@ -5,6 +5,7 @@ import csv
 import nltk
 import os
 import json
+from django.http import HttpResponse
 
 from nltk.corpus import wordnet as wn
 
@@ -17,6 +18,7 @@ from .forms import PostFormWordSearch
 
 def index(request):
     form = PostFormWordSearch()
+
 
     if request.method == "POST":
         form = PostFormWordSearch(request.POST)
@@ -33,12 +35,8 @@ def index(request):
             dict_resultados["hiperonimos"] = list(busquedaHiperonimosEnLaRAE(resultadoHiperonimo))
 
 
+            return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'dict' : dict_resultados, 'json': json.dumps(dict_resultados, ensure_ascii=False)})
 
-
-
-
-            #print('JSON' + str(json.dumps(dict_resultados)))
-            return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'dict' : dict_resultados})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
 

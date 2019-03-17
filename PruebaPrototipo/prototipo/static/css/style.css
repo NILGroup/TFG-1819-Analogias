@@ -34,3 +34,18 @@ h3 {
 .panel-results > p {
     margin-right: 20px;
 }
+
+
+
+.formulario{
+    display:flex;
+
+
+}
+
+
+.btn {
+
+
+    height: 35px;
+}
