@@ -11,7 +11,7 @@
 
 body{
   background-image: url("fondo_a_z.png");
-  
+  background-size: 100% ;
   background-position-y: 60%;
   height: 1000px;
 }
@@ -68,7 +68,7 @@ body{
   padding-top: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid rgb(76, 84, 94);
-  
+
 }
 
 h3  p , .results  a{

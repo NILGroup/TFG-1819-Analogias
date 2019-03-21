@@ -11,7 +11,7 @@
 
 body{
   background-image: url("fondo_a_z.png");
-  
+  background-size: 100% ;
   background-position-y: 60%;
   height: 1000px;
 }
