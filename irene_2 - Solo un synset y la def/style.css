@@ -67,7 +67,24 @@ body{
   margin-bottom: 15px;
 }
 
-h3  p , .results  a{
+
+
+
+.btn-def{
+  background:rgb(212, 183, 19);;
+  border-radius: 40px;
+  color: white !important;
+}
+
+
+.dropdown-menu{
+  width: 500px;
+  border-radius: 20px;
+  border:2px solid rgb(212, 183, 19);
+  padding: 15px;
+}
+
+h3  p , .results > li > a, u{
   color:rgb(212, 183, 19);
 }
 nav {
