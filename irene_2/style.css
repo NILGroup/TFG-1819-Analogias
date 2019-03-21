@@ -1,0 +1,210 @@
+@import url(https://fonts.googleapis.com/css?family=Sniglet);
+
+*{
+    font-family: 'Sniglet';
+}
+
+/*body {
+  background: linear-gradient(to bottom right, rgb(255, 255, 255) , rgb(186, 209, 243));
+  height: 1000px;
+}*/
+
+body{
+  background-image: url("fondo_a_z.png");
+  background-size: 1400px;
+  background-position-y: 60%;
+  height: 1000px;
+}
+/*********    PANELS   ********* */
+.panel-search-word{
+    
+   margin-top:40px;
+    
+}
+
+
+.panel-results  h3{
+  display: flex;
+  justify-content:  center;
+  color: rgb(76, 84, 94);
+}
+
+.panel-words{
+  margin-left: 150px;
+  display: flex;
+ 
+  align-items: center;
+  border-radius: 40px;
+  box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.5);
+  border: 1px solid;
+  
+}
+
+.panel-words:hover{
+  transform: scale(1.1);
+}
+
+.panel-words li {
+  list-style:none;
+}
+
+.number-panel {
+   
+  font-size: 80px;
+  color:rgb(212, 183, 19);
+}
+
+
+
+.results{
+  display: flex;
+  flex-direction: column;
+   margin-left:100px;
+}
+
+
+.results li{
+  margin-bottom: 15px;
+}
+
+h3  p , .results  a{
+  color:rgb(212, 183, 19);
+}
+nav {
+  background: rgb(212, 183, 19);
+  border-bottom-left-radius: 400px;
+  border-bottom-right-radius: 400px;
+}
+
+nav a{
+  color:white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+nav a:hover{
+  color: white;
+}
+
+.nav-link{
+  font-size: 40px;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.input-word{
+
+   width: 300px;
+   border-radius:40px;
+   
+   border: 1px solid rgb(92, 92, 94); 
+
+}
+
+
+.heading label{
+  color: rgb(76, 84, 94);;
+  
+}
+
+
+.material-icons {
+  color:white;
+}
+
+
+/* BOTON ENVIAR */
+
+button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  
+  
+}
+
+button.learn-more {
+  width: 140px;
+}
+
+button.learn-more .circle {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: relative;
+  margin: 0;
+  width: 3rem;
+  height: 30px;
+  /*background: linear-gradient(to right, rgb(94, 92, 92) , rgb(247, 186, 226));*/
+  /*background: rgb(94, 92, 92);*/
+  background: rgb(212, 183, 19);
+  
+ 
+
+  
+  border-radius: 1.625rem;
+}
+
+button.learn-more .circle .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  /*background: #fff;*/
+  background: white;
+}
+button.learn-more .circle .icon.arrow {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+button.learn-more .circle .icon.arrow::before {
+  /*position: absolute;
+  content: '';
+  top: -0.25rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;*/
+  /*border-top: 0.125rem solid #2980b9;*/
+  /*border-top: 0.125rem solid white;
+  border-right: 0.125rem solid white;*/
+ 
+          transform: rotate(45deg);
+}
+button.learn-more .button-text {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+ 
+  color: transparent;
+  /*color: #282936;*/
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+ 
+}
+button:hover .circle {
+  width: 100%;
+}
+
+button:hover .button-text {
+  color: #fff;
+ 
+}
+
+
