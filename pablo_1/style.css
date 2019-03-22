@@ -1,0 +1,58 @@
+
+@font-face{
+    font-family: Scholar;
+    src: url(massallera.TTF);
+}
+
+
+body {
+    background-image: url(images/141198-OSX8PG-177.jpg);
+    background-size: center;
+}
+
+.letra{
+    font-family: 'Scholar';
+    font-size: 24px;
+    color:darkblue;
+}
+
+h1, h2{
+    font-family: 'Scholar';
+    font-weight:bold;
+    color:darkblue;
+}
+
+input[type="text"]
+{
+    font-size:24px;
+    color:green !important;
+    font-weight:bold;
+   
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: green !important;
+    font-weight:bold;
+}
+
+.fondo{
+    background-color: lightblue;
+    
+}
+
+/*********      BUSCADOR    *********/
+
+.boton-buscar{      
+      background: lightblue;
+      border-radius:20px;
+      text-decoration: none;
+      text-align: center;
+      
+     
+}
+
+.boton-buscar:hover{
+    background-color: blue;
+    cursor:pointer;
+}

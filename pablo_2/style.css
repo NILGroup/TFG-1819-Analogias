@@ -1,0 +1,79 @@
+
+@font-face{
+    font-family: Scholar;
+    src: url(massallera.TTF);
+}
+
+
+body {
+    background-image: url(images/574053-PLOOIL-857.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.letra{
+    font-family: 'Scholar';
+    font-size: 24px;
+    color:darkblue;
+}
+
+h1, h2{
+    font-family: 'Scholar';
+    font-weight:bold;
+    color:darkblue;
+}
+
+input[type="text"]
+{
+    font-size:24px;
+    color:green !important;
+    font-weight:bold;
+   
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: green !important;
+    font-weight:bold;
+}
+
+.fondo{
+    background-color: lightblue;
+    
+}
+.fondo-ejemplo{
+    background-color: lightblue;
+    color: green !important;
+}
+
+.fondo-ejemplo h3{
+    font-weight:bold;
+}
+
+/*********      BUSCADOR    *********/
+
+.boton-buscar{      
+      background: lightblue;
+      border-radius:20px;
+      text-decoration: none;
+      text-align: center;
+      
+     
+}
+
+.boton-buscar:hover{
+    background-color: blue;
+    cursor:pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
