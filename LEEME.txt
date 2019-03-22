@@ -1,0 +1,17 @@
+Una vez realizados los mockups, al reunirnos y ver cada uno lo que ha hecho, hemos visto que aunque los diseños de cada uno son muy distintos, la distribución de la página es muy similar.
+Por lo que hemos elegido ciertos detalles que nos llaman más la atención de cada diseño, por ejemplo:
+- De los mockups de Irene, a Pablo le ha resultado interesante que los resultados sean "interactivos", es decir, que cuando pasas el ratón por encima de los pictos o de la ficha de los resultados, estos se agranden.
+- De los mockups de Pablo, a Irene le ha resultado interesante que aparezca un ejemplo en vez de una definición, y los títulos para separar los distintos resultados.
+
+
+
+Por otro lado, os dejamos aquí explicado como poder verlos:
+Se han creado dos carpetas llamadas "mockups_Irene" y "mockups_Pablo", dentro están 4 html, cada uno con el siguiente nombre: 
+- X_mockup1_synsetMasComun.html
+- X_mockup2_synsetMasDef.html
+- X_mockup3_todosSynsetSinDef.html
+- X_mockup4_todosSynsetSinDefMasPictos.html
+
+Donde X es el nombre de cada integrante.
+
+Por lo que solamente tenéis que abrirlo, eso sí, preferiblemente con Chrome.
