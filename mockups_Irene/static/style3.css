@@ -54,7 +54,9 @@ body{
   color:rgb(212, 183, 19);
 }
 
-
+.panel-analogies{
+  padding-left: 100px;
+}
 
 .results{
   display: flex;
@@ -64,7 +66,8 @@ body{
 
 
 .results li{
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 h3  p , .results  a{

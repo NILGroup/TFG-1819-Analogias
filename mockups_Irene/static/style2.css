@@ -48,26 +48,42 @@ body{
   list-style:none;
 }
 
+
+.panel-buttons{
+  display: flex;
+}
+
+
 .number-panel {
    
   font-size: 80px;
   color:rgb(212, 183, 19);
 }
 
-
+.panel-analogies{
+  padding-left: 100px;
+}
 
 .results{
   display: flex;
   flex-direction: column;
-   margin-left:100px;
+   margin-left:170px;
 }
 
 
 .results li{
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
+.panel-def-example{
+  padding-top: 10px;
+  border-top: 1px solid rgb(92, 92, 94);
+}
 
+.panel-def-example b{
+  color:rgb(212, 183, 19);
+}
 
 
 .btn-def{
@@ -77,6 +93,11 @@ body{
 }
 
 
+.btn-def:hover{
+  background: white;
+  color:rgb(92, 92, 94) !important;
+}
+
 .dropdown-menu{
   width: 500px;
   border-radius: 20px;
@@ -84,7 +105,7 @@ body{
   padding: 15px;
 }
 
-h3  p , .results > li > a, u{
+h3  p , .results a{
   color:rgb(212, 183, 19);
 }
 nav {

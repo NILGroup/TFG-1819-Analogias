@@ -32,7 +32,6 @@ body{
 .panel-words{
   margin-left: 150px;
   display: flex;
- 
   align-items: center;
   border-radius: 40px;
   box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.5);
@@ -46,6 +45,7 @@ body{
 
 .panel-words li {
   list-style:none;
+
 }
 
 .number-panel {
@@ -54,22 +54,33 @@ body{
   color:rgb(212, 183, 19);
 }
 
+.panel-analogies{
+  padding-left: 70px;
+}
 
 
 .results{
   display: flex;
   flex-direction: column;
-   margin-left:100px;
+   margin-left:70px;
 }
 
-
+/*
 .results li{
   padding-left:15px;
   padding-top: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid rgb(76, 84, 94);
 
+}*/
+.results li{
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgb(76, 84, 94);
 }
+
 
 h3  p , .results  a{
   color:rgb(212, 183, 19);
