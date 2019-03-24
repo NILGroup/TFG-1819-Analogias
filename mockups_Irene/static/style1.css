@@ -61,7 +61,8 @@ body{
 .results{
   display: flex;
   flex-direction: column;
-  margin-left:170px;
+  /*margin-left:170px;*/
+   margin-left:50px;
  
 
 }

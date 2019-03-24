@@ -67,7 +67,8 @@ body{
 .results{
   display: flex;
   flex-direction: column;
-   margin-left:170px;
+   /*margin-left:170px;*/
+   margin-left:50px;
 }
 
 
@@ -81,7 +82,11 @@ body{
   border-top: 1px solid rgb(92, 92, 94);
 }
 
-.panel-def-example b{
+
+.panel-def-example-only-button{
+  padding-top: 10px;
+}
+.panel-def-example b, .panel-def-example-only-button b{
   color:rgb(212, 183, 19);
 }
 
