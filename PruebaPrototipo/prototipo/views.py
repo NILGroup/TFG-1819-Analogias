@@ -28,10 +28,10 @@ def index(request):
         if 'boton-final' in request.POST:
 
 
-            contadorSinonimos,contadorTerminos, totales = prueba()
+            contadorSinonimos,contadorTerminos, contadorNoEncontrado,totales = prueba()
 
 
-            return render(request, 'prototipo/formulario.html', {'contadorSinonimos': contadorSinonimos, 'contadorTerminos': contadorTerminos,'palabrasTotales': totales})
+            return render(request, 'prototipo/formulario.html', {'contadorSinonimos': contadorSinonimos, 'contadorTerminos': contadorTerminos, 'contadorNoEncontrado': contadorNoEncontrado,'palabrasTotales': totales})
 
     return render(request, 'prototipo/formulario.html',)
 
@@ -39,21 +39,32 @@ def index(request):
 
 def prueba():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/prueba.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/pruebaFiltrada.csv', encoding="utf8", errors='ignore')
     entrada = csv.reader(csvarchivo, delimiter=";")
     contadorSinonimos = 0
     contadorTerminos = 0
+    contadorNoEncontrado = 0
     totales = 0
     for i in entrada:
-        arraySinonimos, arrayTeminos = busquedaPorNivel(str(i[0]))
-        contadorSinonimos = contadorSinonimos + len(arraySinonimos)
-        contadorTerminos = contadorTerminos + len(arrayTeminos)
+        encontradoSinonimos = False
+        encontradoTerminos = False
+        arraySinonimos, arrayTerminos = busquedaPorNivel(str(i[1]))
+        if(len(arraySinonimos) > 0):
+            contadorSinonimos = contadorSinonimos + 1
+            encontradoSinonimos = True
+        if(len(arrayTerminos) > 0):
+            contadorTerminos = contadorTerminos + 1
+            encontradoTerminos = True
+
+        if encontradoSinonimos == False and encontradoTerminos == False:
+            contadorNoEncontrado += 1
+
         totales = totales + 1
         print("Sinonimos encontrados: " + str(contadorSinonimos) + " de " + str(totales))
         print("Terminos encontrados: " + str(contadorTerminos) + " de " + str(totales))
 
 
-    return contadorSinonimos, contadorTerminos, totales
+    return contadorSinonimos, contadorTerminos, contadorNoEncontrado, totales - 1
 
 
 
