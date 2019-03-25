@@ -12,10 +12,10 @@ nlp = spacy.load('es_core_news_sm')
 
 data = []
 cont = 1
-'''
-csvarchivo = open('salida-definitiva.csv', encoding="utf8", errors='ignore')
+
+csvarchivo = open('prueba.csv', encoding="utf8", errors='ignore')
 entrada = csv.DictReader(csvarchivo, delimiter=";")
-csvsalida = open('entrada1000palabrasAPI.csv', 'w', encoding="utf8")
+csvsalida = open('pruebaFiltrada.csv', 'w', encoding="utf8")
 salida = csv.writer(csvsalida, delimiter=";")
 
 salida.writerow(("NUMERO", "PALABRA", "TAG"))
@@ -36,7 +36,7 @@ for i in range(len(data)):
 
 csvarchivo.close()
 csvsalida.close()
-'''
+
 '''
 csvarchivo = open('entrada1000palabrasAPI.csv',encoding="utf8",errors='ignore')
 entrada = csv.DictReader(csvarchivo,delimiter=";")
