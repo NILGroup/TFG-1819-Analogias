@@ -10,33 +10,34 @@ import requests
 
 nlp = spacy.load('es_core_news_sm')
 
-data = []
+data = set()
 cont = 1
 
 csvarchivo = open('prueba.csv', encoding="utf8", errors='ignore')
-entrada = csv.DictReader(csvarchivo, delimiter=";")
-csvsalida = open('pruebaFiltrada.csv', 'w', encoding="utf8")
+entrada = csv.reader(csvarchivo, delimiter=";")
+csvsalida = open('pruebaFiltrada.csv', 'w', encoding="utf8", newline="")
 salida = csv.writer(csvsalida, delimiter=";")
 
 salida.writerow(("NUMERO", "PALABRA", "TAG"))
 
 for i in entrada:
-    data.append(i['PALABRA'])
+    #print(i)
+    data.add(i[0])
+
 cont = 1
-for i in range(len(data)):
-    doc = nlp(data[i])
+for i in data:
+    doc = nlp(i)
 
     for token in doc:
         if token.pos_ == "ADV" or token.pos_ == "NOUN" or token.pos_ == "AUX" or token.pos_ == "VERB" or token.pos_ == "ADJ":
 
-            salida.writerow((cont, token.text, token.pos_))
+            salida.writerow((cont, token.text))
             cont += 1
 
 
 
 csvarchivo.close()
 csvsalida.close()
-
 '''
 csvarchivo = open('entrada1000palabrasAPI.csv',encoding="utf8",errors='ignore')
 entrada = csv.DictReader(csvarchivo,delimiter=";")

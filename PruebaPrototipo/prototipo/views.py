@@ -32,9 +32,9 @@ def index(request):
             #resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo = #busquedaDePalabras(word)
             #print('resultado' + str(resultadoHiponimo))
 
-            contadorSinonimos, contadorHiponimos, contadorHiperonimos, totales = prueba()
+            contadorSinonimos, contadorHiponimos, contadorHiperonimos, contadorNoEncontrados,totales = prueba()
 
-            return render(request, 'prototipo/formulario.html', {'form': form, 'contadorSinonimos': contadorSinonimos, 'contadorHiponimos': contadorHiponimos, 'contadorHiperonimos': contadorHiperonimos,'totales': totales})
+            return render(request, 'prototipo/formulario.html', {'form': form, 'contadorSinonimos': contadorSinonimos, 'contadorHiponimos': contadorHiponimos, 'contadorHiperonimos': contadorHiperonimos, 'contadorNoEncontrados': contadorNoEncontrados,'totales': totales})
 
     return render(request, 'prototipo/formulario.html', {'form': form })
 
@@ -43,19 +43,24 @@ def index(request):
 
 def prueba():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/prueba.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/pruebaFiltrada.csv', encoding="utf8", errors='ignore')
     entrada = csv.reader(csvarchivo, delimiter=";")
     contadorSinonimos = 0
     contadorHiponimos = 0
     contadorHiperonimos = 0
     totales = 0
+    contadorNoEncontrados = 0
 
     for i in entrada:
 
-        listaResultadoSinonimo, listaResultadoHipo, listaResultadoHiper = busquedaDePalabras(str(i[0]))
+        listaResultadoSinonimo, listaResultadoHipo, listaResultadoHiper = busquedaDePalabras(str(i[1]))
+
+        encontradoSinonimos = False
+        encontradoHiponimos = False
+        encontradoHiperonimos = False
 
         if len(listaResultadoSinonimo) > 0:
-            #print(i[0])
+            #print(i)
             #print("SINONIMOS:")
             #print(listaResultadoSinonimo)
             #print("HIPONIMOS:")
@@ -65,29 +70,39 @@ def prueba():
             sinonimosRAE = busquedaSinonimosEnLaRAE(listaResultadoSinonimo)
             #print(sinonimosRAE)
 
-            contadorSinonimos = contadorSinonimos + len(sinonimosRAE)
+            if(len(sinonimosRAE) > 0):
+                encontradoSinonimos = True
+                contadorSinonimos = contadorSinonimos + 1
             #print("HIPONIMOS:")
             hiponimosRAE = busquedaHiponimosEnLaRAE(listaResultadoHipo)
+
+            if (len(hiponimosRAE) > 0):
+                encontradoHiponimos = True
+                contadorHiponimos = contadorHiponimos + 1
             #print(hiponimosRAE)
 
-            contadorHiponimos = contadorHiponimos + len(hiponimosRAE)
             #print("HIPERONIMOS:")
             hiperonimosRAE = busquedaHiperonimosEnLaRAE(listaResultadoHiper)
             #print(hiperonimosRAE)
 
-            contadorHiperonimos = contadorHiperonimos + len(hiperonimosRAE)
+            if (len(hiperonimosRAE) > 0):
+                encontradoHiperonimos = True
+                contadorHiperonimos = contadorHiperonimos + 1
 
         totales = totales + 1
 
+        if(encontradoSinonimos == False and encontradoHiponimos == False and encontradoHiperonimos == False):
+            contadorNoEncontrados += 1
 
 
         print("Sinonimos encontrados: " + str(contadorSinonimos) + " de " + str(totales))
         print("Hiponimos encontrados: " + str(contadorHiponimos) + " de " + str(totales))
         print("Hiperonimos encontrados: " + str(contadorHiperonimos) + " de " + str(totales))
+        print("No se han encontrado: " + str(contadorNoEncontrados) + " de " + str(totales))
 
         #print("totales: " + str(totales))
 
-    return contadorSinonimos, contadorHiponimos, contadorHiperonimos,totales
+    return contadorSinonimos, contadorHiponimos, contadorHiperonimos,contadorNoEncontrados,totales - 1
 
 
 def busquedaDePalabras(word):
@@ -108,6 +123,7 @@ def busquedaDePalabras(word):
 
      # DEVUELVE DOS SET UNO CON LOS SINONIMOS OBTENIDOS Y OTRO CON LOS HIPERONIMOS
     resultadoHiponimo, resultadoHiperonimo = busquedadHipoHiper(palabrasQueCoinciden)
+
 
 
     #EL METODO DIFFERENCE ELIMINA LOS ELEMENTOS QUE ESTEN REPETIDOS EN DOS SET Y DEVOLVIENDOLO SIN REPETIDOS
