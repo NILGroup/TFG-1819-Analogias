@@ -10,19 +10,19 @@ import requests
 
 nlp = spacy.load('es_core_news_sm')
 
-data = set()
+data = list()
 cont = 1
 
-csvarchivo = open('prueba.csv', encoding="utf8", errors='ignore')
+csvarchivo = open('10000PALABRAS.csv', encoding="utf8", errors='ignore')
 entrada = csv.reader(csvarchivo, delimiter=";")
-csvsalida = open('pruebaFiltrada.csv', 'w', encoding="utf8", newline="")
+csvsalida = open('10000PalabrasFiltradas.csv', 'w', encoding="utf8", newline="")
 salida = csv.writer(csvsalida, delimiter=";")
 
 salida.writerow(("NUMERO", "PALABRA", "TAG"))
 
 for i in entrada:
     #print(i)
-    data.add(i[0])
+    data.append(i[1])
 
 cont = 1
 for i in data:
@@ -31,7 +31,7 @@ for i in data:
     for token in doc:
         if token.pos_ == "ADV" or token.pos_ == "NOUN" or token.pos_ == "AUX" or token.pos_ == "VERB" or token.pos_ == "ADJ":
 
-            salida.writerow((cont, token.text))
+            salida.writerow((cont, token.text,token.pos_))
             cont += 1
 
 
@@ -110,8 +110,8 @@ for i in range(len(arraySinonimosFinal)):
         csvarchivo.close()
         return arraySalida
     '''
-palabra = "gato"
-obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
-for i in range (len(obj['edges'])):
-    if obj['edges'][i]['rel']['label'] == 'Synonym':
-        print(obj['edges'][i])
+#palabra = "gato"
+#obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
+#for i in range (len(obj['edges'])):
+    #if obj['edges'][i]['rel']['label'] == 'Synonym':
+        #print(obj['edges'][i])

@@ -246,7 +246,7 @@ def busquedadHipoHiper(palabrasQueCoinciden):
 
 def busquedaSinonimosEnLaRAE(resultadoSinonimos):
 
-    archivo, csvarchivo = aperturaYlecturaCSV()
+    archivo, csvarchivo = aperturaYlecturaCSV10000()
 
 
     resultadoListaSinonimosRAE = set()
@@ -268,7 +268,7 @@ def busquedaSinonimosEnLaRAE(resultadoSinonimos):
 
 
 def busquedaHiponimosEnLaRAE(resultadoHiponimo):
-    archivo, csvarchivo = aperturaYlecturaCSV()
+    archivo, csvarchivo = aperturaYlecturaCSV10000()
 
 
     resultadoListaHiponimosRAE = set()
@@ -289,7 +289,7 @@ def busquedaHiponimosEnLaRAE(resultadoHiponimo):
 
 
 def busquedaHiperonimosEnLaRAE(resultadoHiperonimo):
-    archivo, csvarchivo = aperturaYlecturaCSV()
+    archivo, csvarchivo = aperturaYlecturaCSV10000()
 
 
     resultadoListaHiperonimosRAE = set()
@@ -314,4 +314,18 @@ def aperturaYlecturaCSV():
 
     return archivo, csvarchivo
 
+def aperturaYlecturaCSV5000():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
 
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    return archivo, csvarchivo
+
+def aperturaYlecturaCSV10000():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/10000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
+
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    return archivo, csvarchivo
