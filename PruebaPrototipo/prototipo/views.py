@@ -28,11 +28,20 @@ def index(request):
             word = form['word'].value()
             resultadoSinonimos, resultadoHiponimo, resultadoHiperonimo = busquedaDePalabras(word)
 
+            profundidad = 1
+            encontrado = False
+
             dict_resultados = dict(sinonimos="", hiponimos="", hiperonimos="")
 
-            dict_resultados["sinonimos"] = list(busquedaSinonimosEnLaRAE(resultadoSinonimos))
-            dict_resultados["hiponimos"] = list(busquedaHiponimosEnLaRAE(resultadoHiponimo))
-            dict_resultados["hiperonimos"] = list(busquedaHiperonimosEnLaRAE(resultadoHiperonimo))
+            while profundidad <= 3 and encontrado == False:
+                dict_resultados["sinonimos"] = list(busquedaSinonimosEnLaRAE(resultadoSinonimos, profundidad))
+                dict_resultados["hiponimos"] = list(busquedaHiponimosEnLaRAE(resultadoHiponimo, profundidad))
+                dict_resultados["hiperonimos"] = list(busquedaHiperonimosEnLaRAE(resultadoHiperonimo, profundidad))
+
+                if len(dict_resultados["sinonimos"]) > 0 or len(dict_resultados["hiponimos"]) > 0 or len(dict_resultados["hiperonimos"]) > 0:
+                    encontrado = True
+
+                profundidad += 1
 
 
             return render(request, 'prototipo/formulario.html', {'form': form,'resultadoSinonimos' : resultadoSinonimos, 'resultadoHiponimo' : resultadoHiponimo, 'resultadoHiperonimo' : resultadoHiperonimo, 'word' : word, 'dict' : dict_resultados, 'json': json.dumps(dict_resultados, ensure_ascii=False)})
@@ -210,9 +219,14 @@ def busquedaPalabrasQueSonHiperonimos(palabrasQueCoinciden, listaOffsetsTargetFi
 
 ########################################################################################################################################################
 
-def busquedaSinonimosEnLaRAE(resultadoSinonimos):
+def busquedaSinonimosEnLaRAE(resultadoSinonimos, profundidad):
 
-    archivo, csvarchivo = aperturaYlecturaCSV()
+    if profundidad == 1:
+        archivo, csvarchivo = aperturaYlecturaCSV()
+    elif profundidad == 2:
+        archivo, csvarchivo = aperturaYlecturaCSV5000()
+    else:
+        archivo, csvarchivo = aperturaYlecturaCSV10000()
     listaPalabras = list()
 
     for fila in range(len(resultadoSinonimos)):
@@ -241,8 +255,14 @@ def busquedaSinonimosEnLaRAE(resultadoSinonimos):
 
 ########################################################################################################################################################
 
-def busquedaHiponimosEnLaRAE(resultadoHiponimo):
-    archivo, csvarchivo = aperturaYlecturaCSV()
+def busquedaHiponimosEnLaRAE(resultadoHiponimo, profundidad):
+
+    if profundidad == 1:
+        archivo, csvarchivo = aperturaYlecturaCSV()
+    elif profundidad == 2:
+        archivo, csvarchivo = aperturaYlecturaCSV5000()
+    else:
+        archivo, csvarchivo = aperturaYlecturaCSV10000()
     listaPalabras = list()
 
     for fila in range(len(resultadoHiponimo)):
@@ -273,8 +293,16 @@ def busquedaHiponimosEnLaRAE(resultadoHiponimo):
 
 ########################################################################################################################################################
 
-def busquedaHiperonimosEnLaRAE(resultadoHiperonimo):
-    archivo, csvarchivo = aperturaYlecturaCSV()
+def busquedaHiperonimosEnLaRAE(resultadoHiperonimo, profundidad):
+
+
+    if profundidad == 1:
+        archivo, csvarchivo = aperturaYlecturaCSV()
+    elif profundidad == 2:
+        archivo, csvarchivo = aperturaYlecturaCSV5000()
+    else:
+        archivo, csvarchivo = aperturaYlecturaCSV10000()
+
     listaPalabras = list()
 
     for fila in range(len(resultadoHiperonimo)):
@@ -299,6 +327,24 @@ def busquedaHiperonimosEnLaRAE(resultadoHiperonimo):
 def aperturaYlecturaCSV():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    return archivo, csvarchivo
+
+
+def aperturaYlecturaCSV5000():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
+
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    return archivo, csvarchivo
+
+
+def aperturaYlecturaCSV10000():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/10000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
