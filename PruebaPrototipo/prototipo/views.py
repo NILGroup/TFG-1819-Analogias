@@ -62,6 +62,7 @@ def prueba():
         totales = totales + 1
         print("Sinonimos encontrados: " + str(contadorSinonimos) + " de " + str(totales))
         print("Terminos encontrados: " + str(contadorTerminos) + " de " + str(totales))
+        print("No se han encontrado: " + str(contadorNoEncontrado) + " de " + str(totales))
 
 
     return contadorSinonimos, contadorTerminos, contadorNoEncontrado, totales - 1
@@ -72,7 +73,7 @@ def prueba():
 #Dada una palabra, devuelve si hay algún match entre sus terminos relacionados o sinonimos con el csv
 def busquedaPorNivel(palabra):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/10000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
     conjuntoSinonimos = consultaSinonimo(palabra, csvarchivo)
     conjuntoTerminos = consultaTerminos(palabra, csvarchivo)
 
