@@ -45,6 +45,23 @@ def prueba():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/pruebaFiltrada.csv', encoding="utf8", errors='ignore')
     entrada = csv.reader(csvarchivo, delimiter=";")
+
+    csvSinonimos = open('palabrasConSinonimos.csv', 'w', encoding="utf8", newline="")
+    sinonimos = csv.writer(csvSinonimos, delimiter=";")
+    sinonimos.writerow(("NUMERO","SINONIMOS"))
+
+    csvHiponimos = open('palabrasConHiponimos.csv', 'w', encoding="utf8", newline="")
+    hiponimos = csv.writer(csvHiponimos, delimiter=";")
+    hiponimos.writerow(("NUMERO","HIPONIMOS"))
+
+    csvHiperonimos = open('palabrasConHiperonimos.csv', 'w', encoding="utf8", newline="")
+    hiperonimos = csv.writer(csvHiperonimos, delimiter=";")
+    hiperonimos.writerow(("NUMERO","HIPERONIMOS"))
+
+    csvNoMatch = open('palabrasSinMatch.csv', 'w', encoding="utf8", newline="")
+    noMatch = csv.writer(csvNoMatch, delimiter=";")
+    noMatch.writerow(("NUMERO","NO ENCONTRADAS"))
+
     contadorSinonimos = 0
     contadorHiponimos = 0
     contadorHiperonimos = 0
@@ -73,12 +90,14 @@ def prueba():
             if(len(sinonimosRAE) > 0):
                 encontradoSinonimos = True
                 contadorSinonimos = contadorSinonimos + 1
+                sinonimos.writerow((contadorSinonimos, str(i[1])))
             #print("HIPONIMOS:")
             hiponimosRAE = busquedaHiponimosEnLaRAE(listaResultadoHipo)
 
             if (len(hiponimosRAE) > 0):
                 encontradoHiponimos = True
                 contadorHiponimos = contadorHiponimos + 1
+                hiponimos.writerow((contadorHiponimos, str(i[1])))
             #print(hiponimosRAE)
 
             #print("HIPERONIMOS:")
@@ -88,11 +107,13 @@ def prueba():
             if (len(hiperonimosRAE) > 0):
                 encontradoHiperonimos = True
                 contadorHiperonimos = contadorHiperonimos + 1
+                hiperonimos.writerow((contadorHiperonimos, str(i[1])))
 
         totales = totales + 1
 
         if(encontradoSinonimos == False and encontradoHiponimos == False and encontradoHiperonimos == False):
             contadorNoEncontrados += 1
+            noMatch.writerow((contadorNoEncontrados, str(i[1])))
 
 
         print("Sinonimos encontrados: " + str(contadorSinonimos) + " de " + str(totales))
@@ -101,6 +122,12 @@ def prueba():
         print("No se han encontrado: " + str(contadorNoEncontrados) + " de " + str(totales))
 
         #print("totales: " + str(totales))
+
+    csvarchivo.close()
+    csvSinonimos.close()
+    csvHiperonimos.close()
+    csvHiponimos.close()
+    csvNoMatch.close()
 
     return contadorSinonimos, contadorHiponimos, contadorHiperonimos,contadorNoEncontrados,totales - 1
 
