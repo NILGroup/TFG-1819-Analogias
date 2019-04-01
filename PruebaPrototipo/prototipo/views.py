@@ -41,6 +41,19 @@ def prueba():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/pruebaFiltrada.csv', encoding="utf8", errors='ignore')
     entrada = csv.reader(csvarchivo, delimiter=";")
+
+    csvSinonimos = open('palabrasConSinonimos.csv', 'w', encoding="utf8", newline="")
+    sinonimos = csv.writer(csvSinonimos, delimiter=";")
+    sinonimos.writerow(("NUMERO", "SINONIMOS"))
+
+    csvTerminos = open('palabrasConTerminos.csv', 'w', encoding="utf8", newline="")
+    terminos = csv.writer(csvTerminos, delimiter=";")
+    terminos.writerow(("NUMERO", "TERMINOS"))
+
+    csvNoMatch = open('palabrasSinMatch.csv', 'w', encoding="utf8", newline="")
+    sinMatch = csv.writer(csvNoMatch, delimiter=";")
+    sinMatch.writerow(("NUMERO", "PALABRA"))
+
     contadorSinonimos = 0
     contadorTerminos = 0
     contadorNoEncontrado = 0
@@ -52,19 +65,24 @@ def prueba():
         if(len(arraySinonimos) > 0):
             contadorSinonimos = contadorSinonimos + 1
             encontradoSinonimos = True
+            sinonimos.writerow((contadorSinonimos, str(i[1])))
         if(len(arrayTerminos) > 0):
             contadorTerminos = contadorTerminos + 1
             encontradoTerminos = True
+            terminos.writerow((contadorTerminos, str(i[1])))
 
         if encontradoSinonimos == False and encontradoTerminos == False:
             contadorNoEncontrado += 1
+            sinMatch.writerow((contadorNoEncontrado, str(i[1])))
 
         totales = totales + 1
         print("Sinonimos encontrados: " + str(contadorSinonimos) + " de " + str(totales))
         print("Terminos encontrados: " + str(contadorTerminos) + " de " + str(totales))
         print("No se han encontrado: " + str(contadorNoEncontrado) + " de " + str(totales))
 
-
+    csvSinonimos.close()
+    csvTerminos.close()
+    csvNoMatch.close()
     return contadorSinonimos, contadorTerminos, contadorNoEncontrado, totales - 1
 
 
