@@ -38,23 +38,43 @@ Los resultados se guardan en un diccionario cuyas claves son``sinónimos'',``hip
 Por último, el usuario dispone de un botón como el de la Figura \ref{fig:resultadoJSON} para ver los resultados que coinciden con las mil palabras de la RAE en formato JSON.
 \figura{Bitmap/Capitulo5/jsonWordnet}{width=1.2\textwidth}{fig:resultadoJSON}{Resultados en formato JSON para el Servicio Web de WordNet}
 \figura{Bitmap/Capitulo5/campoTextoWordnet}{width=1.0\textwidth}{fig:textoWordnet}{Campo de texto para introducir una palabra}
-\figura{Bitmap/Capitulo5/resultadoWordnet}{width=1.0\textwidth}{fig:resultadoWordnet}{Resultados obtenidos para el Servicio Web de WordNet}
+\figura{Bitmap/Capitulo5/WordNet}{width=1.0\textwidth}{fig:resultadoWordnet}{Resultados obtenidos para el Servicio Web de WordNet}
 
 
 %-------------------------------------------------------------------
 \section{Pruebas Estadísticas}
 %-------------------------------------------------------------------
+\label{cap:sec:pruebasEstadisticas}
 Una vez realizados los distintos servicios web, los integrantes del grupo deben elegir cuál de ellos devuelve más resultados y si estos son fiables y se pueden utilizar, ya que puede ser que los resultados obtenidos difieran mucho del concepto inicial a buscar.
-Es por ello que se han probado para cada servicio web un total de .......... palabras, a continuación se explicará los resultados obtenido para cada uno.
+Es por ello que se realizaron varias pruebas introduciendo palabras al servicio 3 para medir cuantos de los sinónimos y términos relacionados generados, coincidían con las listas de ``las 1000 palabras más utilizadas del castellano según la RAE'', ``las 5000 palabras más utilizadas del castellano según la RAE'' y ``las 10000 palabras más utilizadas del castellano según la RAE''. Se buscó un artículo periodístico que constaba de 2.542 palabras, que tras un filtrado en el que se eliminaron aquellas formas que no eran verbos, nombres, adverbios o adjetivos así como las repeticiones, el número final de palabras para la prueba fue de 717. A continuación, se introdujeron estas palabras en el prototipo de ConceptNet y de WordNet generando unos resultados que se describirán a continuación.
 
-\subsection{Estadística para ConcepNet}
+\subsection{Estadística para ConceptNet}
 \label{cap:subsec:pruebaConceptnet}
 
-Una vez finalizado el Servicio Web, se realizó una prueba introduciendo palabras al servicio 3 para medir cuantos de los sinónimos y términos relacionados generados, coincidían con la lista de ``las 1000 palabras más utilizadas del castellano según la RAE'', se probaron 2542 palabras correspondientes a un artículo periodístico. Los resultados fueron: 277 sinónimos y 826 términos relacionados coincidentes con la lista anteriormente mencionada como se puede observar en la Figura \ref{fig:resultadosConceptnet}.
+Para esta prueba se valoraron tres parámetros:
+\begin{itemize}
+	\item Cantidad de palabras con algún sinónimo.
+	\item Cantidad de palabras con algún término relacionado.
+	\item Cantidad de palabras de las que no se obtuvo ningún sinónimo ni término relacionado.
+\end{itemize}
 
-\figura{Bitmap/Capitulo5/resultadosConceptnet}{width=1.0\textwidth}{fig:resultadosConceptnet}{Resultados obtenidos para el Servicio Web de ConceptNet}
 
+Como se puede observar en la Figura \ref{fig:resultadosConceptnet}, contrastando los resultados con la lista de las 1.000 palabras, no se obtuvo ningún resultado para 565 palabras(78,8\%),  obteniendo un total de 173 coincidencias (51 sinónimos y 122 términos relacionados).
 
+\figura{Bitmap/Capitulo5/resultadosConceptnet}{width=1.0\textwidth}{fig:resultadosConceptnet}{Resultados obtenidos para el Servicio Web de ConceptNet con la lista de 1000 palabras}
+
+Aumentando la lista de palabras a 5.000, los resultados mejoran con respecto a la lista anterior, aumentando a 362 las coincidencias, como se puede comprobar en la Figura \ref{fig:resultadosConceptnet5000}, lo que supone un aumento del 109\%. Los sinónimos encontrados son 94 (aumento del 84\%) y los términos relacionados son 268(aumento del 120\%), por otra parte las palabras de las que no se obtuvo ninguna coincidencia pasaron a ser 428 (una reducción del 24\%).
+
+\figura{Bitmap/Capitulo5/resultadosConceptnet5000}{width=1.0\textwidth}{fig:resultadosConceptnet5000}{Resultados obtenidos para el Servicio Web de ConceptNet con la lista de 5000 palabras}
+
+Por último, se probó con la lista de 10.000 palabras obteniendo unos resultados de 423 coincidencias totales como se puede comprobar en la Figura \ref{fig:resultadosConceptnet10000} (aumento del 16\% con respecto a la lista de 5.000 palabras). 112 sinónimos(aumento del 19\%) y 311 términos relacionados (aumento del 16\%). La palabras que no obtuvieron ningún resultado fueron 387 (disminución del 10\%).
+
+\figura{Bitmap/Capitulo5/resultadosConceptnet10000}{width=1.0\textwidth}{fig:resultadosConceptnet10000}{Resultados obtenidos para el Servicio Web de ConceptNet con la lista de 10000 palabras}
 
 
 \subsection{Estadística para WordNet}
+\label{cap:subsec:pruebaWordnet}
+
+
+\subsection{Conclusiones}
+\label{cap:subsec:conclusionesPruebas}
