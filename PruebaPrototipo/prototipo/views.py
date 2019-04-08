@@ -12,7 +12,7 @@ def index(request):
 
 
 
-    return render(request, 'prototipo/formulario.html')
+    return render(request, 'prototipo/index.html')
 
 
 

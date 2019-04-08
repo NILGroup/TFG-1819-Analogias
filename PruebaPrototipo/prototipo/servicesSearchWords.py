@@ -12,8 +12,10 @@ def findOffsetsToTheSynsets(word):
         results = dict(sinonimos="", hiponimos="", hiperonimos="")
         listSynonyms = searchWord(offset['offset'])
         listHyponyms = searchHyponyms(offset['offset'])
+        listHyperonyms = searchHyperonyms(offset['offset'])
         results["sinonimos"] = listSynonyms
         results["hiponimos"] = listHyponyms
+        results["hiperonimos"] = listHyperonyms
         listDictSynset.append(results)
 
     print(listDictSynset)
@@ -23,6 +25,16 @@ def findOffsetsToTheSynsets(word):
 
 
 
+
+def searchWord(offset):
+
+   listaWords = WeiSpa30Variant.objects.filter(offset=offset)
+   wordsReturned = list()
+
+   for value in listaWords:
+       wordsReturned.append(value.word)
+
+   return wordsReturned
 
 
 
@@ -38,14 +50,13 @@ def searchHyponyms(offset):
     return words
 
 
+def searchHyperonyms(offset):
 
-
-def searchWord(offset):
-
-   listaWords = WeiSpa30Variant.objects.filter(offset=offset)
-   wordsReturned = list()
-
-   for value in listaWords:
-       wordsReturned.append(value.word)
-
-   return wordsReturned
+    offsetMatchTargetSynset = (WeiSpa30Relation.objects.filter(targetsynset=offset) & (
+        WeiSpa30Relation.objects.filter(relation=12)))
+    listaSourceSynset = list()
+    words = list()
+    for value in offsetMatchTargetSynset:
+        listaSourceSynset.append(value.sourcesynset)
+        words.append(searchWord(value.sourcesynset))
+    return words
