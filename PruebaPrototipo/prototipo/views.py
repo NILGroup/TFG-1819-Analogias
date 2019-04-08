@@ -17,13 +17,12 @@ def index(request):
         if 'button-search' in request.POST:
 
             word = form['word'].value()
-            print(word)
-            results = services.findOffsetsToTheSynsets(word)
-            print(results)
-            profundidad = 1
-            encontrado = False
 
-            return render(request, 'prototipo/index.html', {'form': form, 'results': results})
+            results = services.findOffsetsToTheSynsets(word)
+            #print(results)
+
+
+            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'results': results})
 
 
 

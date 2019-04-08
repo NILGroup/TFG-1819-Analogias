@@ -43,10 +43,17 @@ def searchHyponyms(offset):
     offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset) & (
         WeiSpa30Relation.objects.filter(relation=12)))
     listaTargetSynset = list()
+
     words = list()
     for value in offsetMatchSourceSynset:
-        listaTargetSynset.append(value.targetsynset)
+
+        #listaTargetSynset.append(value.targetsynset)
         words.append(searchWord(value.targetsynset))
+        print(words)
+
+   # for i in words:
+    #    for a in i:
+     #       print("PRUEBA RESULTADO" + str(a))
     return words
 
 
@@ -57,6 +64,6 @@ def searchHyperonyms(offset):
     listaSourceSynset = list()
     words = list()
     for value in offsetMatchTargetSynset:
-        listaSourceSynset.append(value.sourcesynset)
+        #listaSourceSynset.append(value.sourcesynset)
         words.append(searchWord(value.sourcesynset))
     return words

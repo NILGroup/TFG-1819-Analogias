@@ -23,31 +23,58 @@
           <div class="container">           
 
               <div class="heading center-content">
-                  <div class="panel-search-word  mb-4">
+
                     <label><b>Introduzca una palabra: </b></label>
-                    <input type="text"  class="pl-3  ml-3 mr-3 input-word">
-                      <form method="POST">
+                    <!--<input type="text"  class="pl-3  ml-3 mr-3 input-word">-->
+                      <form method="POST" class="panel-search-word ml-2 " >
                           {% csrf_token %}
-                          {{ form.as_p }}
-                            <button type="submit" class="learn-more " name="button-search">
-                            <div class="circle "><i class="material-icons icon arrow pb-4">search</i>
+
+                            {{ form.as_p }}
+                            <button type="submit" class="learn-more  mb-4 ml-2" name="button-search">
+                                <div class="circle "><i class="material-icons icon arrow pb-4">search</i>
                                 <!--<span class="icon arrow"></span>-->
-                            </div>
-                            <p class="button-text pt-1">Buscar</p>
+                                </div>
+                                <p class="button-text pt-1">Buscar</p>
                             </button>
                       </form>
-                    </div>
+
                 </div>
 
 
                 <hr>
                 <div class="panel-results mt-5">
-                  <h3>Resultados para la palabra <p class="ml-2"> Portero:</p></h3>
+                  <h3>Resultados para la palabra <p class="ml-2"> {{ word }}</p></h3>
                   <ul>                   
 
-                    {% for result in results %}
-                      <p>{{ result.hiponimos }}</p>
-                    {% endfor %}
+                         {% for result in results %}
+                            <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
+                                <div class="number-panel pt-3"><p value="2"></p></div>
+                                <div class="results">
+
+                                    {% for res in result.sinonimos %}
+                                         <p>Un {{ word }} es <a href="#">{{ res }}</a></p>
+                                    {% endfor %}
+
+                                    {% for res in result.hiperonimos %}
+                                        {% for index in res %}
+                                            <p>Un {{ word }} es <a href="#">{{ index }}</a></p>
+                                        {%  endfor %}
+                                    {% endfor %}
+
+                                    {% for res in result.hiponimos %}
+                                        {% for index in res %}
+                                            <p>Un {{ word }} es como <a href="#">{{ index }}</a></p>
+                                        {%  endfor %}
+                                    {% endfor %}
+
+
+
+
+                                </div>
+
+                            </div>
+
+                         {% endfor %}
 
                     <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
                       <div class="number-panel pt-3"><p>1.</p></div>

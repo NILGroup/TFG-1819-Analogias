@@ -1,8 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Sniglet);
 
 *{
-    font-family: 'Sniglet';
+    /*font-family: 'Sniglet';*/
+    font-family: 'Arial';
 }
+
+
 
 /*body {
   background: linear-gradient(to bottom right, rgb(255, 255, 255) , rgb(186, 209, 243));
@@ -19,6 +22,7 @@ body{
 .panel-search-word{
     
    margin-top:40px;
+   display:flex;
     
 }
 
@@ -105,18 +109,24 @@ nav a:hover{
   font-size: 40px;
 }
 
+form.panel-search-word > p > label {
+    display:none
+}
+
 .center-content {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+.errorList{
+    display:none;
+}
 
-
-.input-word{
+#id_word{
 
    width: 300px;
    border-radius:40px;
-   
+   padding-left:5%;
    border: 1px solid rgb(92, 92, 94); 
 
 }
@@ -229,7 +239,7 @@ button.learn-more .button-text {
  
   color: transparent;
   /*color: #282936;*/
-  font-weight: 700;
+  /*font-weight: 700;*/
   line-height: 1.6;
   text-align: center;
  
@@ -242,5 +252,7 @@ button:hover .button-text {
   color: #fff;
  
 }
+
+
 
 
