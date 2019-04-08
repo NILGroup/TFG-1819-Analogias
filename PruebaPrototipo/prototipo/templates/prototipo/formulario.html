@@ -1,9 +1,12 @@
 {% extends 'prototipo/base.html' %}
 
-{% block content %}
+{% block headPrueba %}
+{% load static %}
+ <link rel="stylesheet" href=".{% static 'css/style.css' %}">
 
-
-
+<div class="page-header">
+        <h1>Sinónimos y Términos Relacionados</h1>
+    </div>
     <div class="border pl-4">
 
         <div class="panel-introducir-palabra pt-3">

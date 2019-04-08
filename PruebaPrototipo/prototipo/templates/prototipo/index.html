@@ -1,0 +1,94 @@
+{% extends 'prototipo/base.html' %}
+
+{% block extrahead %}
+{% load static %}
+  <link rel="stylesheet" href=".{% static 'css/style_index.css' %}">
+
+
+
+        <nav class="navbar navbar-expand-lg">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+      
+            <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Aprende Fácil <span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        
+          <div class="container">           
+
+              <div class="heading center-content">
+                  <div class="panel-search-word  mb-4">
+                    <label><b>Introduzca una palabra: </b></label>
+                    <input type="text" placeholder="Portero" class="pl-3  ml-3 mr-3 input-word">
+                    <button class="learn-more ">
+                            <div class="circle "><i class="material-icons icon arrow pb-4">search</i>
+                                <!--<span class="icon arrow"></span>-->
+                            </div>
+                            <p class="button-text pt-1">Buscar</p>
+                            </button>
+                    </div>
+                </div> 
+                <hr>
+                <div class="panel-results mt-5">
+                  <h3>Resultados para la palabra <p class="ml-2"> Portero:</p></h3>
+                  <ul>                   
+
+
+                    
+                    <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
+                      <div class="number-panel pt-3"><p>1.</p></div>
+                       <img class="image-picto ml-3" src="./static/img/portero.png"></img>
+                       <div class="results">
+                        
+                        <li> Un portero es un <a href="#">vigilante</a><img class="result-picto ml-3" src="./static/img/vigilante_de_seguridad.png"></img></li>
+                        <li> Un portero es como un <a href="#">guardia</a><img class="result-picto ml-3" src="./static/img/guardia.png"></img> </li>
+                        <li> Un portero es: 
+                            <div class="panel-analogies">
+                              <p><a href="#">fuerte</a><img class="result-picto ml-3 mr-2 " src="./static/img/fuerte.png"></img> como un <a href="#">gorila</a><img class="result-picto ml-3" src="./static/img/gorila.png"></img></p>
+                              <p><a href="#">grande</a><img class="result-picto ml-3 mr-2 " src="./static/img/grande.png"></img> como un <a href="#">oso</a><img class="result-picto ml-3" src="./static/img/oso.png"></img></p>
+                        
+                            </div>
+                          </li>
+                        
+                      </div> 
+                      
+                    </div>
+                    
+                    
+                    <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
+                        <div class="number-panel pt-3 "><p>2.</p></div>
+                         <img class="image-picto ml-3" src="./static/img/portero (1).png"></img>
+                         <div class="results">
+                          
+                          <li> Un portero es un <a href="#">jugador</a><img class="result-picto ml-3" src="./static/img/jugador_de_hockey_hielo.png"></img></li>
+                          <li> Un portero es como un <a href="#">futbolista</a><img class="result-picto ml-3" src="./static/img/futbolista.png"></img> </li>
+                          <li> Un portero es: 
+                              <div class="panel-analogies">
+                                <p><a href="#">rápido</a><img class="result-picto ml-3 mr-2 " src="./static/img/rapido.png"></img> como un <a href="#">caballo</a><img class="result-picto ml-3" src="./static/img/caballo.png"></img></p>
+                                <p><a href="#">delgado</a><img class="result-picto ml-3 mr-2 " src="./static/img/delgado.png"></img> como un <a href="Irene_mockup4_todosSynsetSinDefMasPictos_v2.html">flamenco</a><img class="result-picto ml-3" src="./static/img/flamenco.png"></img></p>
+                          
+                              </div>
+                            </li>
+                          
+                        </div> 
+                        
+                      </div>
+
+
+                    
+                  
+                                    
+                  </ul>
+                </div>
+          </div>
+      
+         
+         
+      
+{% endblock %}
