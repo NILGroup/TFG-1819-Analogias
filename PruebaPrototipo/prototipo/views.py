@@ -9,6 +9,21 @@ from .forms import PostFormWordSearch
 
 
 def index(request):
+    form = PostFormWordSearch()
+
+    if request.method == "POST":
+        form = PostFormWordSearch(request.POST)
+
+        if 'button-search' in request.POST:
+
+            word = form['word'].value()
+            print(word)
+            results = services.findOffsetsToTheSynsets(word)
+            print(results)
+            profundidad = 1
+            encontrado = False
+
+            return render(request, 'prototipo/index.html', {'form': form, 'results': results})
 
 
 
@@ -27,13 +42,13 @@ def prueba(request):
         if 'boton-final' in request.POST:
 
             word = form['word'].value()
-            '''resultadoSinonimos , resultadoHiponimo, resultadoHiperonimo  = f.busquedaDePalabras(word)'''
-            resultadoSinonimos = services.findOffsetsToTheSynsets(word)
+            resultadoSinonimos , resultadoHiponimo, resultadoHiperonimo  = f.busquedaDePalabras(word)
+
             profundidad = 1
             encontrado = False
 
             dict_resultados = dict(sinonimos="", hiponimos="", hiperonimos="")
-            '''
+
             while profundidad <= 3 and encontrado == False:
                 dict_resultados["sinonimos"] = list(f.busquedaSinonimosEnLaRAE(resultadoSinonimos, profundidad))
                 dict_resultados["hiponimos"] = list(f.busquedaHiponimosEnLaRAE(resultadoHiponimo, profundidad))
@@ -51,8 +66,7 @@ def prueba(request):
                                                                  'word': word, 'dict': dict_resultados,
                                                                  'json': json.dumps(dict_resultados,
                                                                                 ensure_ascii=False)})
-            '''
-            return render(request, 'prototipo/formulario.html', {'form': form, 'resultadoSinonimos': resultadoSinonimos})
+
     return render(request, 'prototipo/formulario.html', {'form': form})
 
 

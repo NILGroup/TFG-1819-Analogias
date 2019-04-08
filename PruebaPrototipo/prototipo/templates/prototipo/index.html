@@ -21,28 +21,34 @@
           </nav>
         
           <div class="container">           
-<           <form method="POST">
+
               <div class="heading center-content">
                   <div class="panel-search-word  mb-4">
                     <label><b>Introduzca una palabra: </b></label>
                     <input type="text"  class="pl-3  ml-3 mr-3 input-word">
-                    <button type="submit" class="learn-more " name="boton-search">
+                      <form method="POST">
+                          {% csrf_token %}
+                          {{ form.as_p }}
+                            <button type="submit" class="learn-more " name="button-search">
                             <div class="circle "><i class="material-icons icon arrow pb-4">search</i>
                                 <!--<span class="icon arrow"></span>-->
                             </div>
                             <p class="button-text pt-1">Buscar</p>
                             </button>
+                      </form>
                     </div>
                 </div>
 
-              </form>
+
                 <hr>
                 <div class="panel-results mt-5">
                   <h3>Resultados para la palabra <p class="ml-2"> Portero:</p></h3>
                   <ul>                   
 
+                    {% for result in results %}
+                      <p>{{ result.hiponimos }}</p>
+                    {% endfor %}
 
-                    
                     <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
                       <div class="number-panel pt-3"><p>1.</p></div>
                        <img class="image-picto ml-3" src="./static/img/portero.png"></img>
