@@ -1,6 +1,7 @@
 import spacy
 import csv
 import requests
+import re
 
 
 
@@ -12,6 +13,18 @@ nlp = spacy.load('es_core_news_sm')
 
 data = []
 cont = 1
+
+doc = nlp("coche")
+for token in doc:
+    print(token.tag_, token.text)
+    result = re.match("NOUN__Gender=Masc", token.tag_)
+    print(result)
+    if result != None:
+        print("holaaaa")
+
+
+
+
 '''
 csvarchivo = open('salida-definitiva.csv', encoding="utf8", errors='ignore')
 entrada = csv.DictReader(csvarchivo, delimiter=";")
@@ -109,8 +122,12 @@ for i in range(len(arraySinonimosFinal)):
         csvarchivo.close()
         return arraySalida
     '''
+
+'''
 palabra = "gato"
 obj = requests.get('http://api.conceptnet.io/c/es/' + palabra + '?offset=0&limit=100').json()
 for i in range (len(obj['edges'])):
     if obj['edges'][i]['rel']['label'] == 'Synonym':
         print(obj['edges'][i])
+
+'''
