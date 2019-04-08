@@ -25,7 +25,7 @@ SECRET_KEY = 'ek98gfl0gt2bbt0*u-um%cd4_g(%+$smadko9c3v(_6w8!w@)j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -85,8 +85,8 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.mysql',
         'ENGINE': 'mysql_cymysql',
         'NAME': 'mcr30',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'pablo',
+        'PASSWORD': 'mariposa1',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
         'STORAGE_ENGINE': 'INNODB'
@@ -129,5 +129,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+STATIC_ROOT='/home/imart02/tfg-analogias/TFG-1819-Analogias/PruebaPrototipo/prototipo/static/'
+
+STATICFILES_DIRS = [
+            os.path.join(BASE_DIR, 'static'),
+            ]
 
 STATIC_URL = '/static/'
