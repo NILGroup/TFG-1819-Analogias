@@ -89,13 +89,13 @@ def searchHyperonyms(offset):
 def findMatchInPalabrasRAE(listSynonyms):
     #print("SINONIMOS QUE ENTRAN EN FINDMATCH " + str(listSynonyms))
     archivo, csvarchivo = aperturaYlecturaCSV()
-    listEasyWords = set()
+    listEasyWords = list()
     for i in listSynonyms:
         csvarchivo.seek(0)
         for j in archivo:
             #print("PALABRA A BUSCAR FINDMATCH " + str(i))
             if i == j['PALABRA']:
-                listEasyWords.add(j['PALABRA'])
+                listEasyWords.append(j['PALABRA'])
 
     #print("SINONIMOS QUE DEVUELVE FINDMATCH " + str(listEasyWords))
     return listEasyWords
