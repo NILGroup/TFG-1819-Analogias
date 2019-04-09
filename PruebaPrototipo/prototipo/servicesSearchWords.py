@@ -23,18 +23,16 @@ def findOffsetsToTheSynsets(word):
 
         listDictSynset.append(results)
 
+    print(listDictSynset)
 
 
-    #print(listDictSynset)
     resultsAux = dict(synonyms="", hyponyms="", hyperonyms="")
     for index in listDictSynset:
-        resultsAux["synonyms"] = list(findMatchInPalabrasRAE(index["sinonimos"]))
+        resultsAux["synonyms"] = findMatchInPalabrasRAE(index["sinonimos"])
         resultsAux["hyponyms"] = findMatchInPalabrasRAE(index["hiponimos"])
         resultsAux["hyperonyms"] = findMatchInPalabrasRAE(index["hiperonimos"])
 
-
     #print("HOLIIII " + str(resultsAux))
-
     #print(listDictSynset)
     return resultsAux
 
@@ -58,45 +56,41 @@ def searchHyponyms(offset):
 
     offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset) & (
         WeiSpa30Relation.objects.filter(relation=12)))
-    listaTargetSynset = list()
 
     words = list()
     for value in offsetMatchSourceSynset:
-
-        #listaTargetSynset.append(value.targetsynset)
-        words.append(searchWord(value.targetsynset))
-        #print(words)
-
-   # for i in words:
-    #    for a in i:
-     #       print("PRUEBA RESULTADO" + str(a))
+        words_aux = searchWord(value.targetsynset)
+        for word in words_aux:
+            words.append(word)
     return words
+
 
 
 def searchHyperonyms(offset):
 
     offsetMatchTargetSynset = (WeiSpa30Relation.objects.filter(targetsynset=offset) & (
         WeiSpa30Relation.objects.filter(relation=12)))
-    listaSourceSynset = list()
     words = list()
     for value in offsetMatchTargetSynset:
-        #listaSourceSynset.append(value.sourcesynset)
-        words.append(searchWord(value.sourcesynset))
+        words_aux = searchWord(value.sourcesynset)
+        for word in words_aux:
+            words.append(word)
     return words
 
 
 
 def findMatchInPalabrasRAE(listSynonyms):
-    #print("SINONIMOSSSSSSSSSS " + str(listSynonyms))
+    print("SINONIMOS QUE ENTRAN EN FINDMATCH " + str(listSynonyms))
     archivo, csvarchivo = aperturaYlecturaCSV()
     listEasyWords = set()
     for i in listSynonyms:
+        print("PALABRA A BUSCAR FINDMATCH " + str(i))
         csvarchivo.seek(0)
         for j in archivo:
             if i == j['PALABRA']:
                 listEasyWords.add(j['PALABRA'])
 
-
+    print("SINONIMOS QUE DEVUELVE FINDMATCH " + str(listEasyWords))
     return listEasyWords
 
 
