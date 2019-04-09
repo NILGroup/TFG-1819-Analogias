@@ -16,20 +16,30 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="#">Aprende Fácil <span class="sr-only">(current)</span></a>
                 </li>
+                  <li class="nav-item dropdown dropwdown-nav">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">settings</i></a>
+                    <div class="dropdown-menu panel-dropdown" aria-labelledby="dropdown01">
+                        <div class="center-content"><input type="checkbox" class="ml-3"><a class="dropdown-item" href="#">Permitir mayúsculas</a></input></div>
+                        <div class="center-content"><input type="checkbox" class="ml-3"><a class="dropdown-item" href="#">Mostrar definición y ejemplo</a></input></div>
+                        <div class="center-content"><input type="checkbox" class="ml-3"><a class="dropdown-item" href="#">Mostrar pictos</a></input></div>
+
+                    </div>
+                  </li>
+
               </ul>
             </div>
           </nav>
         
-          <div class="container">           
-
+          
               <div class="heading center-content">
 
                     <label><b>Introduzca una palabra: </b></label>
                     <!--<input type="text"  class="pl-3  ml-3 mr-3 input-word">-->
+
                       <form method="POST" class="panel-search-word ml-2 " >
                           {% csrf_token %}
+                          {{ form.as_p }}
 
-                            {{ form.as_p }}
                             <button type="submit" class="learn-more  mb-4 ml-2" name="button-search">
                                 <div class="circle "><i class="material-icons icon arrow pb-4">search</i>
                                 <!--<span class="icon arrow"></span>-->
@@ -42,6 +52,7 @@
 
 
                 <hr>
+              {% if word != empty %}
                 <div class="panel-results mt-5">
                   <h3>Resultados para la palabra <p class="ml-2"> {{ word }}</p></h3>
                   <ul>                   
@@ -120,6 +131,8 @@
                                     
                   </ul>
                 </div>
+
+              {% endif %}
           </div>
       
          
