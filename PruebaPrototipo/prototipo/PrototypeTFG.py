@@ -17,10 +17,13 @@ cont = 1
 doc = nlp("coche")
 for token in doc:
     print(token.tag_, token.text)
-    result = re.match("NOUN__Gender=Masc", token.tag_)
-    print(result)
-    if result != None:
+    result_gender = re.match("NOUN__Gender=Masc", token.tag_)
+    result_number = re.match("|Number=Sing", token.tag_)
+    print(result_number)
+    if result_gender != None:
         print("holaaaa")
+    if result_number != None:
+        print("adiooos")
 
 
 
