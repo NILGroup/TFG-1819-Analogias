@@ -7,7 +7,7 @@ def findOffsetsToTheSynsets(word):
     # Primero busca que palabras son iguales a la palabra de entrada y nos quedamos con la columna offset
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).only('offset')
     listDictSynset = list()
-    listEasyWords = set()
+    listEasyWords = list()
 
 
     for offset in listOffsetToTheSynset.values():
@@ -23,18 +23,25 @@ def findOffsetsToTheSynsets(word):
 
         listDictSynset.append(results)
 
-    print(listDictSynset)
-
-
-    resultsAux = dict(synonyms="", hyponyms="", hyperonyms="")
-    for index in listDictSynset:
-        resultsAux["synonyms"] = findMatchInPalabrasRAE(index["sinonimos"])
-        resultsAux["hyponyms"] = findMatchInPalabrasRAE(index["hiponimos"])
-        resultsAux["hyperonyms"] = findMatchInPalabrasRAE(index["hiperonimos"])
-
-    #print("HOLIIII " + str(resultsAux))
     #print(listDictSynset)
-    return resultsAux
+
+
+
+
+    for index in listDictSynset:
+        resultsAux = dict(synonyms="", hyponyms="", hyperonyms="")
+        resultSynonymsInMatch = findMatchInPalabrasRAE(index["sinonimos"])
+        resultHyperonymsInMatch = findMatchInPalabrasRAE(index["hiperonimos"])
+        resultHyponymsInMatch = findMatchInPalabrasRAE(index["hiponimos"])
+
+        resultsAux["synonyms"] = resultSynonymsInMatch
+        resultsAux["hyperonyms"] = resultHyperonymsInMatch
+        resultsAux["hyponyms"] = resultHyponymsInMatch
+
+        listEasyWords.append(resultsAux)
+
+    #print(listEasyWords)
+    return listEasyWords
 
 
 
@@ -80,24 +87,24 @@ def searchHyperonyms(offset):
 
 
 def findMatchInPalabrasRAE(listSynonyms):
-    print("SINONIMOS QUE ENTRAN EN FINDMATCH " + str(listSynonyms))
+    #print("SINONIMOS QUE ENTRAN EN FINDMATCH " + str(listSynonyms))
     archivo, csvarchivo = aperturaYlecturaCSV()
     listEasyWords = set()
     for i in listSynonyms:
-        print("PALABRA A BUSCAR FINDMATCH " + str(i))
         csvarchivo.seek(0)
         for j in archivo:
+            #print("PALABRA A BUSCAR FINDMATCH " + str(i))
             if i == j['PALABRA']:
                 listEasyWords.add(j['PALABRA'])
 
-    print("SINONIMOS QUE DEVUELVE FINDMATCH " + str(listEasyWords))
+    #print("SINONIMOS QUE DEVUELVE FINDMATCH " + str(listEasyWords))
     return listEasyWords
 
 
 
 def aperturaYlecturaCSV():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 

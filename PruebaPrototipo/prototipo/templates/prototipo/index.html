@@ -48,23 +48,22 @@
 
                       {% for result in results %}
                             <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
-                                <div class="number-panel pt-3"><p value="2"></p></div>
+                                <div class="number-panel pt-3"><p></p></div>
                                 <div class="results">
+                                    {% for res in result.synonyms %}
+                                            <p>Un {{ word }} es <a href="#">{{ res }}</a></p>
 
-                                   {% for res in result.synonyms %}
-                                    <p>Un {{ word }} es <a href="#">{{ res }}</a></p>
-                                    {%  endfor %}
+                                    {% endfor %}
 
                                     {% for res in result.hyperonyms %}
-                                        {% for index in res %}
-                                            <p>Un {{ word }} es <a href="#">{{ index }}</a></p>
-                                        {%  endfor %}
+                                            <p>Un {{ word }} es <a href="#">{{ res }}</a></p>
+
                                     {% endfor %}
 
                                     {% for res in result.hyponyms %}
-                                        {% for index in res %}
-                                            <p>Un {{ word }} es como <a href="#">{{ index }}</a></p>
-                                        {%  endfor %}
+
+                                            <p>Un {{ word }} es como <a href="#">{{ res }}</a></p>
+
                                     {% endfor %}
 
 
