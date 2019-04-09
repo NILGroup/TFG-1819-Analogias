@@ -29,8 +29,10 @@
               </ul>
             </div>
           </nav>
-        
-          
+
+
+        <div class="container">
+
               <div class="heading center-content">
 
                     <label><b>Introduzca una palabra: </b></label>
@@ -52,7 +54,7 @@
 
 
                 <hr>
-              {% if word != empty %}
+                 {% if word != empty %}
                 <div class="panel-results mt-5">
                   <h3>Resultados para la palabra <p class="ml-2"> {{ word }}</p></h3>
                   <ul>                   
@@ -131,11 +133,11 @@
                                     
                   </ul>
                 </div>
+                {% endif %}
 
-              {% endif %}
           </div>
       
          
-         
+
       
 {% endblock %}
