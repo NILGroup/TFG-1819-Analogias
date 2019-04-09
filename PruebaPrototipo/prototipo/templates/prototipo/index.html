@@ -46,22 +46,22 @@
                   <h3>Resultados para la palabra <p class="ml-2"> {{ word }}</p></h3>
                   <ul>                   
 
-                         {% for result in results %}
+                      {% for result in results %}
                             <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
                                 <div class="number-panel pt-3"><p value="2"></p></div>
                                 <div class="results">
+                                     <p>Un {{ word }} es <a href="#">{{ result }}</a></p>
+                                   {% for res in result.synonyms %}
+                                    <p>Un {{ word }} es <a href="#">{{ res }}</a></p>
+                                    {%  endfor %}
 
-                                    {% for res in result.sinonimos %}
-                                         <p>Un {{ word }} es <a href="#">{{ res }}</a></p>
-                                    {% endfor %}
-
-                                    {% for res in result.hiperonimos %}
+                                    {% for res in result.hyperonyms %}
                                         {% for index in res %}
                                             <p>Un {{ word }} es <a href="#">{{ index }}</a></p>
                                         {%  endfor %}
                                     {% endfor %}
 
-                                    {% for res in result.hiponimos %}
+                                    {% for res in result.hyponyms %}
                                         {% for index in res %}
                                             <p>Un {{ word }} es como <a href="#">{{ index }}</a></p>
                                         {%  endfor %}

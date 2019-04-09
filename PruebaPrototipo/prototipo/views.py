@@ -19,10 +19,10 @@ def index(request):
             word = form['word'].value()
 
             results = services.findOffsetsToTheSynsets(word)
-            #print(results)
+            print(results)
 
 
-            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'results': results})
+            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'results': results["synonyms"]})
 
 
 
