@@ -3,7 +3,7 @@
 {% block extrahead %}
 {% load static %}
   <link rel="stylesheet" href=".{% static 'css/style_index.css' %}">
-
+  <script type="text/javascript" src="./static/js/index.js"></script>
 
 
         <nav class="navbar navbar-expand-lg">
@@ -18,10 +18,10 @@
                 </li>
                   <li class="nav-item dropdown dropwdown-nav">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">settings</i></a>
-                    <div class="dropdown-menu panel-dropdown" aria-labelledby="dropdown01">
-                        <div class="center-content"><input type="checkbox" class="ml-3"><a class="dropdown-item" href="#">Permitir mayúsculas</a></input></div>
-                        <div class="center-content"><input type="checkbox" class="ml-3"><a class="dropdown-item" href="#">Mostrar definición y ejemplo</a></input></div>
-                        <div class="center-content"><input type="checkbox" class="ml-3"><a class="dropdown-item" href="#">Mostrar pictos</a></input></div>
+                    <div class="dropdown-menu panel-dropdown" id="select-option" aria-labelledby="dropdown01">
+                        <div class="center-content"><input type="checkbox" id="mayusculas" class="ml-3"><a class="dropdown-item" href="#">Permitir mayúsculas</a></input></div>
+                        <div class="center-content"><input type="checkbox" id="defyejemplo" class="ml-3"><a class="dropdown-item" href="#">Mostrar definición y ejemplo</a></input></div>
+                        <div class="center-content"><input type="checkbox" id="pictos" class="ml-3"><a class="dropdown-item" href="#">Mostrar pictos</a></input></div>
 
                     </div>
                   </li>
@@ -42,7 +42,7 @@
                           {% csrf_token %}
                           {{ form.as_p }}
 
-                            <button type="submit" class="learn-more  mb-4 ml-2" name="button-search">
+                            <button id="button-send" type="submit" class="learn-more  mb-4 ml-2" name="button-search">
                                 <div class="circle "><i class="material-icons icon arrow pb-4">search</i>
                                 <!--<span class="icon arrow"></span>-->
                                 </div>
@@ -56,7 +56,11 @@
                 <hr>
                  {% if word != empty %}
                 <div class="panel-results mt-5">
+                    {% if results == None %}
+                    <h3>No hay resultados para <p class="ml-2"> {{ word }}</p></h3>
+                    {% else %}
                   <h3>Resultados para la palabra <p class="ml-2"> {{ word }}</p></h3>
+
                   <ul>                   
 
                       {% for result in results %}
@@ -132,6 +136,7 @@
                   
                                     
                   </ul>
+                    {% endif %}
                 </div>
                 {% endif %}
 

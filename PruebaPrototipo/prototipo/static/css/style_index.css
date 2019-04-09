@@ -129,6 +129,9 @@ nav a:hover{
 .panel-dropdown{
     left: -100px !important;
      width:800% ;
+     border-radius: 20px;
+     border: 1px solid rgb(149, 138, 216) !important;
+     box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.5);
     /*display:flex;*/
 }
 

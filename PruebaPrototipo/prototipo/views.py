@@ -15,9 +15,11 @@ def index(request):
         form = PostFormWordSearch(request.POST)
 
         if 'button-search' in request.POST:
-
+            words = request.POST.get('word')
+            print(words)
             word = form['word'].value()
-            results = services.findOffsetsToTheSynsets(word)
+            #print(word)
+            results = services.findOffsetsToTheSynsets(words)
             #print(results)
             return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'results': results})
 
