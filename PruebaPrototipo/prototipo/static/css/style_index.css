@@ -13,7 +13,7 @@
 }*/
 
 body{
-  background-image: url("/static/img/fondo_a_z.png");
+  background-image: url("/static/img/fondo_a_z_morado.png");
   background-size: 100% ;
   background-position-y: 60%;
   height: 1000px;
@@ -55,7 +55,8 @@ body{
 .number-panel {
    
   font-size: 80px;
-  color:rgb(212, 183, 19);
+  /*color:rgb(212, 183, 19);*/
+  color: rgb(77, 67, 139);
 }
 
 .panel-analogies{
@@ -87,10 +88,12 @@ body{
 
 
 h3  p , .results  a{
-  color:rgb(212, 183, 19);
+  /*color:rgb(212, 183, 19);*/
+  color: rgb(149, 138, 216);
 }
 nav {
-  background: rgb(212, 183, 19);
+  background: rgb(77, 67, 139);
+  /*background: rgb(212, 183, 19);*/
   border-bottom-left-radius: 400px;
   border-bottom-right-radius: 400px;
 }
@@ -144,7 +147,7 @@ form.panel-search-word > p > label {
 
 .image-picto{
   border-radius:30px;
-  border: 2px solid rgb(212, 183, 19);
+  border: 2px solid rgb(77, 67, 139);
   width: 100px;
   height:100px;
   
@@ -152,7 +155,7 @@ form.panel-search-word > p > label {
 
 .result-picto{
   border-radius:15px;
-  border: 2px solid rgb(212, 183, 19);
+  border: 2px solid rgb(77, 67, 139);
   width: 50px;
   height:50px;
  
@@ -192,11 +195,8 @@ button.learn-more .circle {
   height: 30px;
   /*background: linear-gradient(to right, rgb(94, 92, 92) , rgb(247, 186, 226));*/
   /*background: rgb(94, 92, 92);*/
-  background: rgb(212, 183, 19);
-  
- 
+  background: rgb(77, 67, 139);
 
-  
   border-radius: 1.625rem;
 }
 
