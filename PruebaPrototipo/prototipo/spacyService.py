@@ -1,7 +1,8 @@
 import spacy
 import re
 import requests
-
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 nlp = spacy.load('es_core_news_sm')
 
 
