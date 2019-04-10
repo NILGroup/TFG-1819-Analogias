@@ -1,6 +1,7 @@
 from .models import WeiSpa30Variant, WeiSpa30Relation
 import os
 import csv
+import json
 
 def findOffsetsToTheSynsets(word):
 
@@ -8,18 +9,19 @@ def findOffsetsToTheSynsets(word):
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).only('offset')
     listDictSynset = list()
     listEasyWords = list()
-
+    #print(listOffsetToTheSynset)
 
     for offset in listOffsetToTheSynset.values():
+        #print(offset['offset'])
         results= dict(sinonimos="", hiponimos="", hiperonimos="")
 
         listSynonyms = searchWord(offset['offset'])
-        listHyponyms = searchHyponyms(offset['offset'])
-        listHyperonyms = searchHyperonyms(offset['offset'])
+        #listHyponyms = searchHyponyms(offset['offset'])
+        #listHyperonyms = searchHyperonyms(offset['offset'])
 
         results["sinonimos"] = listSynonyms
-        results["hiponimos"] = listHyponyms
-        results["hiperonimos"] = listHyperonyms
+        #results["hiponimos"] = listHyponyms
+        #results["hiperonimos"] = listHyperonyms
 
         listDictSynset.append(results)
 
@@ -47,14 +49,29 @@ def findOffsetsToTheSynsets(word):
 
 
 
-
+#SERVICIO QUE DADO UN OFFSET DEVUELVE TODOS SUS SINONIMOS
 def searchWord(offset):
 
-   listaWords = WeiSpa30Variant.objects.filter(offset=offset)
+   listaWords = WeiSpa30Variant.objects.filter(offset=offset).values('word').distinct()
+   listaOffset = WeiSpa30Variant.objects.filter(offset=offset).values('offset').distinct()
+   #print("LISTA OFFSET")
+   #print(listaOffset)
+   #print("LISTA WORDS")
+   #print(listaOffset)
    wordsReturned = list()
-   for value in listaWords:
-       wordsReturned.append(value.word)
+   json = []
+   index = 0
+   for i in listaOffset:
+       json.insert(index, {'offset': "", 'synonyms': []})
+       json[index]["offset"] = i
+       for value in listaWords:
 
+           json[index]["synonyms"] = value
+           wordsReturned.append(value)
+       index += 1
+
+   print("DATA")
+   print(repr(json))
    return wordsReturned
 
 
