@@ -30,7 +30,7 @@ def index(request):
 
 
 
-    return render(request, 'prototipo/index.html')
+    return render(request, 'prototipo/index.html', {'form': form, 'word': "", 'results': ""})
 
 
 

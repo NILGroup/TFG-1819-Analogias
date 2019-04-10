@@ -14,11 +14,15 @@ nlp = spacy.load('es_core_news_sm')
 data = []
 cont = 1
 
+
+obj = requests.get('https://holstein.fdi.ucm.es/nlp-api/analisis/coche',  verify=False).json()
+print(obj['morfologico']['genero'])
+print(obj['morfologico']['numero'])
+'''
 doc = nlp("coche")
 
 print(doc[0].pos_)
 print(doc[0].tag_)
-'''
 for token in doc:
     print(token.tag_, token.text)
     result_gender = re.match("NOUN__Gender=Masc", token.tag_)

@@ -1,5 +1,6 @@
 import spacy
 import re
+import requests
 
 nlp = spacy.load('es_core_news_sm')
 
@@ -30,7 +31,7 @@ def phraseMaker(synset):
     for syn in synset["synonyms"]:
         doc = nlp(syn)
         if doc[0].pos_ == "NOUN" or doc[0].pos_ == "ADJ" or doc[0].pos_ == "VERB":
-            gender, number = genderAndNumber(doc[0].tag_)
+            gender, number = genderAndNumberAPI(syn)
             wordList.append(syn)
             if gender == "masculino" and number == "singular":
 
@@ -48,7 +49,7 @@ def phraseMaker(synset):
 
         doc = nlp(syn)
         if doc[0].pos_ == "NOUN" or doc[0].pos_ == "ADJ" or doc[0].pos_ == "VERB":
-            gender, number = genderAndNumber(doc[0].tag_)
+            gender, number = genderAndNumberAPI(syn)
             wordList.append(syn)
             if gender == "masculino" and number == "singular":
 
@@ -65,7 +66,7 @@ def phraseMaker(synset):
     for syn in synset["hyponyms"]:
         doc = nlp(syn)
         if doc[0].pos_ == "NOUN" or doc[0].pos_ == "ADJ" or doc[0].pos_ == "VERB":
-            gender, number = genderAndNumber(doc[0].tag_)
+            gender, number = genderAndNumberAPI(syn)
             wordList.append(syn)
             if gender == "masculino" and number == "singular":
 
@@ -84,3 +85,9 @@ def phraseMaker(synset):
     return phrases
 
 
+def genderAndNumberAPI(word):
+    obj = requests.get('https://holstein.fdi.ucm.es/nlp-api/analisis/'+word, verify=False).json()
+    #print(obj['morfologico']['genero'])
+    #print(obj['morfologico']['numero'])
+    print(obj['morfologico']['parte'])
+    return obj['morfologico']['genero'], obj['morfologico']['numero']
