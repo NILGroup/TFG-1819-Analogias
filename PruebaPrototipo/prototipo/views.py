@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import prototipo.functions as f
 import prototipo.servicesSearchWords as services
+import prototipo.spacyService as sp
 import json
 
 
@@ -20,8 +21,12 @@ def index(request):
             word = form['word'].value()
             #print(word)
             results = services.findOffsetsToTheSynsets(words)
+            resutsView = list()
+            for result in results:
+                resutsView.append(sp.phraseMaker(result))
+            print(resutsView)
             #print(results)
-            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'results': results})
+            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'results': resutsView})
 
 
 

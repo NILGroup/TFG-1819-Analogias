@@ -15,6 +15,10 @@ data = []
 cont = 1
 
 doc = nlp("coche")
+
+print(doc[0].pos_)
+print(doc[0].tag_)
+'''
 for token in doc:
     print(token.tag_, token.text)
     result_gender = re.match("NOUN__Gender=Masc", token.tag_)
@@ -26,7 +30,7 @@ for token in doc:
         print("adiooos")
 
 
-
+'''
 
 '''
 csvarchivo = open('salida-definitiva.csv', encoding="utf8", errors='ignore')
