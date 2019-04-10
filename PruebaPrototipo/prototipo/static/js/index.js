@@ -1,14 +1,16 @@
 $(function() {
 
-    $("#button-send").on("click", selectOptionHandler);
+    $("#button-accept").on("click", selectOptionHandler);
 
 });
 
 function selectOptionHandler(){
 
     if($("#mayusculas").is(':checked')){
-        console.log(word)
-        $("#id_word").val(word).toLowerCase();
+        $("body").css("text-transform" ,"uppercase");
+
+    }else{
+        $("body").css("text-transform" ,"");
 
     }
 }

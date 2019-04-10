@@ -22,7 +22,7 @@
                         <div class="center-content"><input type="checkbox" id="mayusculas" class="ml-3"><a class="dropdown-item" href="#">Permitir mayúsculas</a></input></div>
                         <div class="center-content"><input type="checkbox" id="defyejemplo" class="ml-3"><a class="dropdown-item" href="#">Mostrar definición y ejemplo</a></input></div>
                         <div class="center-content"><input type="checkbox" id="pictos" class="ml-3"><a class="dropdown-item" href="#">Mostrar pictos</a></input></div>
-
+                        <div class="center-content mt-3"><button type="button"id="button-accept" class="btn btn-primary">Aceptar</button><button type="button" class="btn btn-secondary ml-3">Cancelar</button></div>
                     </div>
                   </li>
 
@@ -67,18 +67,14 @@
                             <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
                                 <div class="number-panel pt-3"><p></p></div>
                                 <div class="results">
-                                    {% for phrase, word in result %}
+                                    {% for res in result.synonyms %}
 
-                                            <p>Un {{ word }} {{ phrase }} <a href="#">{{ word }}</a> </p>
-
-
-
-
+                                            <p>Un {{ word }} es un <a href="#">{{ res }}</a> </p>
 
                                     {% endfor %}
 
 
-                                   <!-- {% for res in result.hyperonyms %}
+                                    {% for res in result.hyperonyms %}
                                             <p>Un {{ word }}  <a href="#">{{ res }}</a></p>
 
                                     {% endfor %}
@@ -88,7 +84,7 @@
                                             <p>Un {{ word }} es como <a href="#">{{ res }}</a></p>
 
                                     {% endfor %}
--->
+
 
 
 

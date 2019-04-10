@@ -21,12 +21,12 @@ def index(request):
             word = form['word'].value()
             #print(word)
             results = services.findOffsetsToTheSynsets(words)
-            resutsView = list()
-            for result in results:
-                resutsView.append(sp.phraseMaker(result))
-            print(resutsView)
+            #resutsView = list()
+            #for result in results:
+             #   resutsView.append(sp.phraseMaker(result))
+            #print(resutsView)
             #print(results)
-            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'results': resutsView})
+            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'results': results})
 
 
 
