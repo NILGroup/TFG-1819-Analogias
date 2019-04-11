@@ -50,29 +50,58 @@ def findOffsetsToTheSynsets(word):
 
 
 #SERVICIO QUE DADO UN OFFSET DEVUELVE TODOS SUS SINONIMOS
-def searchWord(offset):
+def searchWord(word):
+    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+    dataJson = []
+    #print(listOffsetToTheSynset)
+    for offset in listOffsetToTheSynset.values():
 
-   listaWords = WeiSpa30Variant.objects.filter(offset=offset).values('word').distinct()
-   listaOffset = WeiSpa30Variant.objects.filter(offset=offset).values('offset').distinct()
-   #print("LISTA OFFSET")
-   #print(listaOffset)
-   #print("LISTA WORDS")
-   #print(listaOffset)
-   wordsReturned = list()
-   json = []
-   index = 0
-   for i in listaOffset:
-       json.insert(index, {'offset': "", 'synonyms': []})
-       json[index]["offset"] = i
-       for value in listaWords:
+        listaWords = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('word').distinct()
+        listaOffset = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('offset').distinct()
+        #print("LISTA OFFSET")
+        #print(listaOffset)
+        #print("LISTA WORDS")
+        #print(listaWords)
+        #wordsReturned = list()
 
-           json[index]["synonyms"] = value
-           wordsReturned.append(value)
-       index += 1
+        index = 0
+        for i in listaOffset:
+           dataJson.insert(index, {'offset': "", 'synonyms': []})
+           dataJson[index]["offset"] = i["offset"]
+           for value in listaWords:
+               dataJson[index]["synonyms"].append(value["word"])
+               #wordsReturned.append(value)
+           index += 1
 
-   print("DATA")
-   print(repr(json))
-   return wordsReturned
+    #print("DATA")
+    #print(repr(json))
+    #print(json.dumps(dataJson ,ensure_ascii=False))
+    return dataJson
+
+
+def findMatchInPalabrasRAE(listSynonyms):
+    #print("SINONIMOS QUE ENTRAN EN FINDMATCH " + str(listSynonyms))
+    archivo, csvarchivo = aperturaYlecturaCSV()
+    listEasyWords = list()
+    for i in listSynonyms:
+        csvarchivo.seek(0)
+        for j in archivo:
+            #print("PALABRA A BUSCAR FINDMATCH " + str(i))
+            if i == j['PALABRA']:
+                listEasyWords.append(j['PALABRA'])
+
+    #print("SINONIMOS QUE DEVUELVE FINDMATCH " + str(listEasyWords))
+    return listEasyWords
+
+
+
+def aperturaYlecturaCSV():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
+
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    return archivo, csvarchivo
 
 
 
@@ -102,27 +131,3 @@ def searchHyperonyms(offset):
     return words
 
 
-
-def findMatchInPalabrasRAE(listSynonyms):
-    #print("SINONIMOS QUE ENTRAN EN FINDMATCH " + str(listSynonyms))
-    archivo, csvarchivo = aperturaYlecturaCSV()
-    listEasyWords = list()
-    for i in listSynonyms:
-        csvarchivo.seek(0)
-        for j in archivo:
-            #print("PALABRA A BUSCAR FINDMATCH " + str(i))
-            if i == j['PALABRA']:
-                listEasyWords.append(j['PALABRA'])
-
-    #print("SINONIMOS QUE DEVUELVE FINDMATCH " + str(listEasyWords))
-    return listEasyWords
-
-
-
-def aperturaYlecturaCSV():
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
-
-    archivo = csv.DictReader(csvarchivo, delimiter=";")
-
-    return archivo, csvarchivo

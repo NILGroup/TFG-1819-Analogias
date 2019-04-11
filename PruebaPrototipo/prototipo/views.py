@@ -16,11 +16,12 @@ def index(request):
         form = PostFormWordSearch(request.POST)
 
         if 'button-search' in request.POST:
-            words = request.POST.get('word')
-            print(words)
+           # words = request.POST.get('word')
+            #print(words)
             word = form['word'].value()
             #print(word)
-            results = services.findOffsetsToTheSynsets(words)
+            results = services.searchWord(word)
+            #results = services.findOffsetsToTheSynsets(words)
             #resutsView = list()
             #for result in results:
              #   resutsView.append(sp.phraseMaker(result))
