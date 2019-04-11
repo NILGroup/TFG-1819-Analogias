@@ -6,6 +6,6 @@ class SpacyIMP:
     @staticmethod
     def __getModel__():
         if not  SpacyIMP.NLP:
-            SpacyIMP.NLP = spacy.load('es_core_news_md')
+            SpacyIMP.NLP = spacy.load('es_core_news_sm')
 
         return SpacyIMP.NLP;

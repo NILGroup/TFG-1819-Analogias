@@ -52,8 +52,8 @@ def findOffsetsToTheSynsets(word):
 
 
 
-#SERVICIO QUE DADO UN OFFSET DEVUELVE TODOS SUS SINONIMOS
-def searchWord(word):
+### SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS SINONIMOS  ###
+def searchAllSynonyms(word):
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
     dataJson = []
     for offset in listOffsetToTheSynset.values():
@@ -74,10 +74,12 @@ def searchWord(word):
     return dataJson
 
 
+
+###   SERVICIO WEB QUE DADA UNA PALABRA DEVUELVE LOS SINONIMOS FACILES  ###
 def findEasySynonyms(word):
     archivo, csvarchivo = aperturaYlecturaCSV()
     dataJson = []
-    listSynonyms = searchWord(word)
+    listSynonyms = searchAllSynonyms(word)
     #print(listSynonyms)
 
     index = 0
@@ -104,6 +106,7 @@ def findEasySynonyms(word):
 
 
 
+###   SERVICIO WEB QUE DADA UNA PALABRA DEVUELVE LA FRASE FORMADA CON EL SINONIMO  ###
 def phraseSynonym(word):
     dataJson = []
     listEasySynonym = findEasySynonyms(word)
@@ -113,31 +116,53 @@ def phraseSynonym(word):
     for obj in listEasySynonym:
         listPhrase = list()
         for synonym in obj["easySynonyms"]:
-            listPhrase.append(spacy.phraseMakerSynonym(synonym))
+            listPhrase.insert(index, spacy.phraseMakerSynonym(synonym))
 
         dataJson.insert(index, {'offset': "", 'phraseSynonyms': ""})
         dataJson[index]["phraseSynonyms"] = listPhrase
         dataJson[index]["offset"] = obj["offset"]
         index += 1
-
-    print("DATA")
-    print(repr(dataJson))
-   # print(json.dumps(dataJson, ensure_ascii=False))
+    #print(listPhrase)
+    #print("DATA")
+    #print(repr(dataJson))
+    #print(json.dumps(dataJson, ensure_ascii=False))
     return dataJson
 
 
 
 
+def searchAllHyponyms(word):
+    listOffsetToTheSynset = searchAllSynonyms(word)
+    dataJson = []
+    index = 0
+    for offset in listOffsetToTheSynset:
+        offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset["offset"], relation=12)).values('targetsynset').distinct()
 
 
+        if len(offsetMatchSourceSynset) > 0:
 
-def aperturaYlecturaCSV():
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+            listFinal = list()
+            for targetSynset in offsetMatchSourceSynset:
+                dataJson.insert(index, {'offsetPather': "", 'offset': "", 'hyponyms': []})
+                dataJson[index]["offsetPather"] = offset["offset"]
+                listFinal.insert(index, targetSynset["targetsynset"])
+                dataJson[index]["offset"] = targetSynset["targetsynset"]
 
-    archivo = csv.DictReader(csvarchivo, delimiter=";")
+                listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values('word').distinct()
 
-    return archivo, csvarchivo
+                listaAux = list()
+                for hyponym in listaWordsHyponyms:
+                    listaAux.append(hyponym["word"])
+
+                dataJson[index]["hyponyms"] = listaAux
+
+
+            index += 1
+
+    print("DATA")
+    #print(repr(dataJson))
+    print(json.dumps(dataJson ,ensure_ascii=False))
+    return dataJson
 
 
 
@@ -148,10 +173,21 @@ def searchHyponyms(offset):
 
     words = list()
     for value in offsetMatchSourceSynset:
-        words_aux = searchWord(value.targetsynset)
+        words_aux = searchAllSynonyms(value.targetsynset)
         for word in words_aux:
             words.append(word)
     return words
+
+
+def aperturaYlecturaCSV():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
+
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    return archivo, csvarchivo
+
+
 
 
 
@@ -161,7 +197,7 @@ def searchHyperonyms(offset):
         WeiSpa30Relation.objects.filter(relation=12)))
     words = list()
     for value in offsetMatchTargetSynset:
-        words_aux = searchWord(value.sourcesynset)
+        words_aux = searchAllSynonyms(value.sourcesynset)
         for word in words_aux:
             words.append(word)
     return words
