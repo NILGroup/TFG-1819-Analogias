@@ -3,7 +3,7 @@ import re
 import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-nlp = spacy.load('es_core_news_sm')
+nlp = spacy.load('es_core_news_md')
 
 
 def genderAndNumber(info):
@@ -95,11 +95,39 @@ def genderAndNumberAPI(word):
     print(obj['morfologico']['parte'])
     return obj['morfologico']['genero'], obj['morfologico']['numero']
 
+def genderAndNumberSpacy(word):
+    doc = nlp(word)
+    #print(doc[0].tag_)
+    result_gender = re.match("NOUN__Gender=Masc", doc[0].tag_)
+    #result_number = re.match("|Number=Sing", doc[0].tag_)
+    result_number = re.match("Number=Plur", doc[0].tag_)
+
+    #print(result_number)
+    if result_gender != None:
+        gender = "masculino"
+        y = doc[0].tag_.replace('NOUN__Gender=Masc|', '')
+        if re.match('Number=Plur', y) != None:
+            number = "plural"
+        else:
+            number = "singular"
+    else:
+        gender = "femenino"
+        y = doc[0].tag_.replace('NOUN__Gender=Fem|', '')
+        if re.match('Number=Plur', y) != None:
+            number = "plural"
+        else:
+            number = "singular"
+
+
+
+    return gender, number
+
+
 
 
 def phraseMakerSynonym(word):
-    print(word)
-    gender, number = genderAndNumberAPI(word)
+    #print(word)
+    gender, number = genderAndNumberSpacy(word)
 
     if gender == "masculino" and number == "singular":
         return "es un " + word
