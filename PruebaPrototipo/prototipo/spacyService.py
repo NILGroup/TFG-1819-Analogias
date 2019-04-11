@@ -3,7 +3,8 @@ import re
 import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-nlp = spacy.load('es_core_news_md')
+import prototipo.spacyModel as spacyInstance
+
 
 
 def genderAndNumber(info):
@@ -23,7 +24,7 @@ def genderAndNumber(info):
 
     return gender, number
 
-
+'''
 def phraseMaker(synset):
 
     phrases = dict(phrase="", word="")
@@ -84,7 +85,7 @@ def phraseMaker(synset):
     phrases["word"] = wordList
    # print(phrases)
     return phrases
-
+'''
 
 def genderAndNumberAPI(word):
     print("ENTRO A GENDER")
@@ -96,6 +97,7 @@ def genderAndNumberAPI(word):
     return obj['morfologico']['genero'], obj['morfologico']['numero']
 
 def genderAndNumberSpacy(word):
+    nlp = spacyInstance.SpacyIMP.__getModel__()
     doc = nlp(word)
     #print(doc[0].tag_)
     result_gender = re.match("NOUN__Gender=Masc", doc[0].tag_)
