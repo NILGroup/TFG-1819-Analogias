@@ -77,4 +77,16 @@ class WeiSpa30Synset(models.Model):
     class Meta:
         managed = False
         db_table = 'wei_spa-30_synset'
-        unique_together = (('offset', 'pos'),)
+        unique_together = (('offset', 'pos', 'gloss'),)
+
+class WeiSpa30Examples(models.Model):
+    offset = models.CharField(primary_key=True, max_length=17)
+    pos = models.CharField(max_length=1)
+    sense = models.IntegerField()
+    word = models.CharField(max_length=100)
+    examples = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'wei_spa-30_examples'
+        unique_together = (('offset', 'pos', 'sense', 'word', 'examples'),)

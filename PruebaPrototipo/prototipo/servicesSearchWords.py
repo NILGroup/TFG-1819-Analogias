@@ -1,4 +1,4 @@
-from .models import WeiSpa30Variant, WeiSpa30Relation
+from .models import *
 import os
 import csv
 import json
@@ -54,15 +54,36 @@ def findOffsetsToTheSynsets(word):
 
 ### SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS SINONIMOS  ###
 def searchAllSynonyms(word):
+    #LISTA DE OFFSETS DE CADA UNA DE LAS ACEPCIONES DE LA PALABRA BUSCADA
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+
     dataJson = []
     for offset in listOffsetToTheSynset.values():
+        #LISTA PALABRAS QUE CONTIENE EL OFFSET
         listaWords = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('word').distinct()
+
+        #LISTA DE OFFSET PERTENECIENTES A CADA UNA DE LAS PALABRAS QUE CONTIENE EL OFFSET
         listaOffset = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('offset').distinct()
+
+        definition = WeiSpa30Synset.objects.filter(offset=offset['offset']).values('gloss')
+        example = WeiSpa30Examples.objects.filter(offset=offset['offset']).values('examples')
+        #print(definition[0]['gloss'])
+        #if len(example) > 0:
+            #print(example[0]['examples'])
+
         index = 0
         for i in listaOffset:
            dataJson.insert(index, {'offset': "", 'synonyms': [], 'definition' : "", 'example' : ""})
            dataJson[index]["offset"] = i["offset"]
+
+           #METE LA DEFINICION, SI NO HAY METE UN NONE PORQUE VIENE ASI EN LAS TABLAS
+           dataJson[index]["definition"] = definition[0]['gloss']
+
+           #EN ESTE CASO, SI NO HAY EJEMPLO, ESA ENTRADA DE LA TABLA ESTA VACIA POR ESO HAY QUE COMPROBAR SI HAY EJEMPLO O NO
+           #CON EL LEN > 0 PORQUE SI NO HAY Y LO INTENTAS METER CASCA
+           if len(example) > 0:
+               dataJson[index]["example"] = example[0]['examples']
+
            for value in listaWords:
                dataJson[index]["synonyms"].append(value["word"])
                #wordsReturned.append(value)
@@ -159,9 +180,9 @@ def searchAllHyponyms(word):
 
             index += 1
 
-    print("DATA")
+    #print("DATA")
     #print(repr(dataJson))
-    print(json.dumps(dataJson ,ensure_ascii=False))
+    #print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
 
 

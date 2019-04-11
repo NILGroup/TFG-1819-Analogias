@@ -20,7 +20,8 @@ def index(request):
             #print(words)
             word = form['word'].value()
             #print(word)
-            results = services.searchAllHyponyms(word)
+            #results = services.searchAllHyponyms(word)
+            results = services.searchAllSynonyms(word)
             #results = services.findOffsetsToTheSynsets(words)
             #resutsView = list()
             #for result in results:
