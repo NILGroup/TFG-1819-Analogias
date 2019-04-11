@@ -2,9 +2,11 @@ from .models import WeiSpa30Variant, WeiSpa30Relation
 import os
 import csv
 import json
+from prototipo import spacyService as spacy
 
 def findOffsetsToTheSynsets(word):
-
+    listEasyWords = list()
+    '''
     # Primero busca que palabras son iguales a la palabra de entrada y nos quedamos con la columna offset
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).only('offset')
     listDictSynset = list()
@@ -43,6 +45,7 @@ def findOffsetsToTheSynsets(word):
         listEasyWords.append(resultsAux)
 
     #print(listEasyWords)
+    '''
     return listEasyWords
 
 
@@ -53,17 +56,9 @@ def findOffsetsToTheSynsets(word):
 def searchWord(word):
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
     dataJson = []
-    #print(listOffsetToTheSynset)
     for offset in listOffsetToTheSynset.values():
-
         listaWords = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('word').distinct()
         listaOffset = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('offset').distinct()
-        #print("LISTA OFFSET")
-        #print(listaOffset)
-        #print("LISTA WORDS")
-        #print(listaWords)
-        #wordsReturned = list()
-
         index = 0
         for i in listaOffset:
            dataJson.insert(index, {'offset': "", 'synonyms': []})
@@ -79,25 +74,66 @@ def searchWord(word):
     return dataJson
 
 
-def findMatchInPalabrasRAE(listSynonyms):
-    #print("SINONIMOS QUE ENTRAN EN FINDMATCH " + str(listSynonyms))
+def findEasySynonyms(word):
     archivo, csvarchivo = aperturaYlecturaCSV()
-    listEasyWords = list()
-    for i in listSynonyms:
-        csvarchivo.seek(0)
-        for j in archivo:
-            #print("PALABRA A BUSCAR FINDMATCH " + str(i))
-            if i == j['PALABRA']:
-                listEasyWords.append(j['PALABRA'])
+    dataJson = []
+    listSynonyms = searchWord(word)
+    #print(listSynonyms)
 
-    #print("SINONIMOS QUE DEVUELVE FINDMATCH " + str(listEasyWords))
-    return listEasyWords
+    index = 0
+
+    for i in listSynonyms:
+        listEasyWords = list()
+        for x in i["synonyms"]:
+            csvarchivo.seek(0)
+            for j in archivo:
+                if x == j['PALABRA'] and x != word:
+                    listEasyWords.append(j['PALABRA'])
+
+        if len(listEasyWords) > 0:
+            dataJson.insert(index, {'offset': "", 'easySynonyms': ""})
+            dataJson[index]["easySynonyms"] = listEasyWords
+            dataJson[index]["offset"] = i["offset"]
+            index += 1
+
+    #print("DATA")
+    #print(repr(dataJson))
+    #print(json.dumps(dataJson, ensure_ascii=False))
+
+    return dataJson
+
+
+
+def phraseSynonym(word):
+    dataJson = []
+    listEasySynonym = findEasySynonyms(word)
+    #print("LISTA")
+    #print(listEasySynonym)
+    index = 0
+    for obj in listEasySynonym:
+        listPhrase = list()
+        for synonym in obj["easySynonyms"]:
+            listPhrase.append(spacy.phraseMakerSynonym(synonym))
+
+        dataJson.insert(index, {'offset': "", 'phraseSynonyms': ""})
+        dataJson[index]["phraseSynonyms"] = listPhrase
+        dataJson[index]["offset"] = obj["offset"]
+        index += 1
+
+    print("DATA")
+    print(repr(dataJson))
+   # print(json.dumps(dataJson, ensure_ascii=False))
+    return dataJson
+
+
+
+
 
 
 
 def aperturaYlecturaCSV():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 

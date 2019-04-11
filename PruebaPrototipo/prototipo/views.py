@@ -20,7 +20,7 @@ def index(request):
             #print(words)
             word = form['word'].value()
             #print(word)
-            results = services.searchWord(word)
+            results = services.phraseSynonym(word)
             #results = services.findOffsetsToTheSynsets(words)
             #resutsView = list()
             #for result in results:

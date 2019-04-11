@@ -87,8 +87,25 @@ def phraseMaker(synset):
 
 
 def genderAndNumberAPI(word):
+    print("ENTRO A GENDER")
     obj = requests.get('https://holstein.fdi.ucm.es/nlp-api/analisis/'+word, verify=False).json()
+    print("PASADO PETICION")
     #print(obj['morfologico']['genero'])
     #print(obj['morfologico']['numero'])
     print(obj['morfologico']['parte'])
     return obj['morfologico']['genero'], obj['morfologico']['numero']
+
+
+
+def phraseMakerSynonym(word):
+    print(word)
+    gender, number = genderAndNumberAPI(word)
+
+    if gender == "masculino" and number == "singular":
+        return "es un " + word
+    elif gender == "masculino" and number == "plural":
+        return "son unos " + word
+    elif gender == "femenino" and number == "singular":
+        return "es una " + word
+    else:
+        return "son unas " + word
