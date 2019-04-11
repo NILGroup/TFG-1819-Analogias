@@ -61,7 +61,7 @@ def searchAllSynonyms(word):
         listaOffset = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('offset').distinct()
         index = 0
         for i in listaOffset:
-           dataJson.insert(index, {'offset': "", 'synonyms': []})
+           dataJson.insert(index, {'offset': "", 'synonyms': [], 'definition' : "", 'example' : ""})
            dataJson[index]["offset"] = i["offset"]
            for value in listaWords:
                dataJson[index]["synonyms"].append(value["word"])
@@ -93,7 +93,7 @@ def findEasySynonyms(word):
                     listEasyWords.append(j['PALABRA'])
 
         if len(listEasyWords) > 0:
-            dataJson.insert(index, {'offset': "", 'easySynonyms': ""})
+            dataJson.insert(index, {'offset': "", 'easySynonyms': "", 'definition' : "", 'example' : ""})
             dataJson[index]["easySynonyms"] = listEasyWords
             dataJson[index]["offset"] = i["offset"]
             index += 1
@@ -118,7 +118,7 @@ def phraseSynonym(word):
         for synonym in obj["easySynonyms"]:
             listPhrase.insert(index, spacy.phraseMakerSynonym(synonym))
 
-        dataJson.insert(index, {'offset': "", 'phraseSynonyms': ""})
+        dataJson.insert(index, {'offset': "", 'phraseSynonyms': "", 'definition' : "", 'example' : ""})
         dataJson[index]["phraseSynonyms"] = listPhrase
         dataJson[index]["offset"] = obj["offset"]
         index += 1
@@ -143,7 +143,7 @@ def searchAllHyponyms(word):
 
             listFinal = list()
             for targetSynset in offsetMatchSourceSynset:
-                dataJson.insert(index, {'offsetPather': "", 'offset': "", 'hyponyms': []})
+                dataJson.insert(index, {'offsetPather': "", 'offset': "", 'hyponyms': [], 'definition' : "", 'example' : ""})
                 dataJson[index]["offsetPather"] = offset["offset"]
                 listFinal.insert(index, targetSynset["targetsynset"])
                 dataJson[index]["offset"] = targetSynset["targetsynset"]
