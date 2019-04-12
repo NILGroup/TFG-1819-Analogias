@@ -76,8 +76,9 @@ def searchAllSynonyms(word):
            dataJson.insert(index, {'offset': "", 'synonyms': [], 'definition' : "", 'example' : ""})
            dataJson[index]["offset"] = i["offset"]
 
-           #METE LA DEFINICION, SI NO HAY METE UN NONE PORQUE VIENE ASI EN LAS TABLAS
-           dataJson[index]["definition"] = definition[0]['gloss']
+           #METE LA DEFINICION, SI NO HAY DEF NO METE NADA
+           if dataJson[index]["definition"] != 'None':
+            dataJson[index]["definition"] = definition[0]['gloss']
 
            #EN ESTE CASO, SI NO HAY EJEMPLO, ESA ENTRADA DE LA TABLA ESTA VACIA POR ESO HAY QUE COMPROBAR SI HAY EJEMPLO O NO
            #CON EL LEN > 0 PORQUE SI NO HAY Y LO INTENTAS METER CASCA
@@ -90,7 +91,7 @@ def searchAllSynonyms(word):
            index += 1
 
     #print("DATA")
-    #print(repr(json))
+    #print(repr(dataJson))
     #print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
 
@@ -117,6 +118,9 @@ def findEasySynonyms(word):
             dataJson.insert(index, {'offset': "", 'easySynonyms': "", 'definition' : "", 'example' : ""})
             dataJson[index]["easySynonyms"] = listEasyWords
             dataJson[index]["offset"] = i["offset"]
+            if dataJson[index]["definition"] != None:
+                dataJson[index]["definition"] = i["definition"]
+            dataJson[index]["example"] = i["example"]
             index += 1
 
     #print("DATA")
@@ -142,11 +146,13 @@ def phraseSynonym(word):
         dataJson.insert(index, {'offset': "", 'phraseSynonyms': "", 'definition' : "", 'example' : ""})
         dataJson[index]["phraseSynonyms"] = listPhrase
         dataJson[index]["offset"] = obj["offset"]
+        dataJson[index]["definition"] = obj["definition"]
+        dataJson[index]["example"] = obj["example"]
         index += 1
     #print(listPhrase)
-    #print("DATA")
+    print("DATA")
     #print(repr(dataJson))
-    #print(json.dumps(dataJson, ensure_ascii=False))
+    print(json.dumps(dataJson, ensure_ascii=False))
     return dataJson
 
 

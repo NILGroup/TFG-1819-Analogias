@@ -21,7 +21,7 @@ def index(request):
             word = form['word'].value()
             #print(word)
             #results = services.searchAllHyponyms(word)
-            results = services.searchAllSynonyms(word)
+            results = services.phraseSynonym(word)
             #results = services.findOffsetsToTheSynsets(words)
             #resutsView = list()
             #for result in results:

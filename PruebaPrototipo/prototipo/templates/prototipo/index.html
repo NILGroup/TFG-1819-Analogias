@@ -72,8 +72,20 @@
                                             <p>Un {{ word }} <a href="#">{{ res }}</a> </p>
 
                                     {% endfor %}
+                                    <p><a href="#">{{ result.definition }}</a> </p>
+                                    <p><a href="#">{{ result.example }}</a> </p>
+ <!--                                   {% for res in result.definition %}
 
-<!--
+                                            <p>Un {{ word }} <a href="#">{{ res }}</a> </p>
+
+                                    {% endfor %}
+                                    {% for res in result.example %}
+
+                                            <p>Un {{ word }} <a href="#">{{ res }}</a> </p>
+
+                                    {% endfor %}
+
+
                                     {% for res in result.hyperonyms %}
                                             <p>Un {{ word }}  <a href="#">{{ res }}</a></p>
 
