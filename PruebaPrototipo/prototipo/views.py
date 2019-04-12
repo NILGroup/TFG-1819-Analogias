@@ -25,7 +25,7 @@ def index(request):
             results = list()
             index = 0
             for offset in allOffsets:
-                results += services.allSynonyms(offset['offset'])
+                results += services.makerPhrase(word, offset['offset'])
                 index += 1
             print(results)
             #results = services.

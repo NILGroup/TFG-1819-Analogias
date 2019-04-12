@@ -73,7 +73,7 @@ def allOffsets(word):
 
 
 
-### SERVICIO QUE DADO UN OFFSET DEVUELVE TODOS LOS SINONIMOS
+#### SERVICIO QUE DADO UN OFFSET DEVUELVE TODOS LOS SINONIMOS   ####
 def allSynonyms(offset):
     dataJson = []
 
@@ -97,10 +97,83 @@ def allSynonyms(offset):
         dataJson[0]["example"] = example[0]['examples']
 
     #print("DATA ALL SYNONYMS")
-    print(json.dumps(dataJson ,ensure_ascii=False))
+    #print(json.dumps(dataJson ,ensure_ascii=False))
     #print(repr(dataJson))
 
     return dataJson
+
+
+#### SERVICIO WEB QUE DADO UN OFFSET DEVUELVE SUS SINONIMOS FACILES     ####
+
+def easySynonyms(word, offset):
+
+    dataJson = []
+    archivo, csvarchivo = aperturaYlecturaCSV()
+    listAllSynonyms = allSynonyms(offset)
+
+    for obj in listAllSynonyms:
+        listEasyWords = list()
+        for synonym in obj["synonyms"]:
+            csvarchivo.seek(0)
+            for j in archivo:
+                if synonym == j['PALABRA'] and synonym != word:
+                    listEasyWords.append(j['PALABRA'])
+
+        if len(listEasyWords) > 0:
+           dataJson.insert(0, {'offset': "", 'easySynonyms': "", 'definition': "", 'example': ""})
+           dataJson[0]["easySynonyms"] = listEasyWords
+           dataJson[0]["offset"] = obj["offset"]
+           if dataJson[0]["definition"] != "None":
+               dataJson[0]["definition"] = obj["definition"]
+           dataJson[0]["example"] = obj["example"]
+
+    #print("DATA EASY SYNONYMS")
+    #print(json.dumps(dataJson, ensure_ascii=False))
+
+    return dataJson
+
+
+
+
+def makerPhrase(word, offset):
+    dataJson = []
+    listEasySynonym = easySynonyms(word, offset)
+    # print("LISTA")
+    # print(listEasySynonym)
+    index = 0
+    for obj in listEasySynonym:
+        listPhrase = list()
+        for synonym in obj["easySynonyms"]:
+            listPhrase.insert(index, spacy.phraseMaker(synonym))
+
+        dataJson.insert(index, {'offset': "", 'phraseSynonyms': "", 'definition': "", 'example': ""})
+        dataJson[index]["phraseSynonyms"] = listPhrase
+        dataJson[index]["offset"] = obj["offset"]
+        dataJson[index]["definition"] = obj["definition"]
+        dataJson[index]["example"] = obj["example"]
+        index += 1
+    # print(listPhrase)
+    # print("DATA PHRASE SYNONYM")
+    # print(repr(dataJson))
+    # print(json.dumps(dataJson, ensure_ascii=False))
+    return dataJson
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -203,9 +276,9 @@ def phraseSynonym(word):
         dataJson[index]["example"] = obj["example"]
         index += 1
     #print(listPhrase)
-    print("DATA PHRASE SYNONYM")
+    #print("DATA PHRASE SYNONYM")
     #print(repr(dataJson))
-    print(json.dumps(dataJson, ensure_ascii=False))
+    #print(json.dumps(dataJson, ensure_ascii=False))
     return dataJson
 
 
