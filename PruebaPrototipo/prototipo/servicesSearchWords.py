@@ -52,6 +52,59 @@ def findOffsetsToTheSynsets(word):
 
 
 
+
+
+####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
+
+def allOffsets(word):
+
+    dataJson = []
+    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+
+    index = 0
+    for offset in listOffsetToTheSynset:
+        dataJson.insert(index, {'offset': ""})
+        dataJson[index]["offset"] = offset['offset']
+        index += 1
+    #print("DATA ALL OFFSETS")
+    #print(repr(dataJson))
+    #print(json.dumps(dataJson ,ensure_ascii=False))
+    return dataJson
+
+
+
+### SERVICIO QUE DADO UN OFFSET DEVUELVE TODOS LOS SINONIMOS
+def allSynonyms(offset):
+    dataJson = []
+
+    listaSynonyms = WeiSpa30Variant.objects.filter(offset=offset).values('word').distinct()
+    definition = WeiSpa30Synset.objects.filter(offset=offset).values('gloss')
+    example = WeiSpa30Examples.objects.filter(offset=offset).values('examples')
+
+
+    dataJson.append({'offset': "", 'synonyms': [], 'definition' : "", 'example': ""})
+    dataJson[0]['offset'] = offset
+
+    for synonym in listaSynonyms:
+        dataJson[0]['synonyms'].append(synonym['word'])
+
+
+    if definition[0]["gloss"] != "None":
+        dataJson[0]["definition"] = definition[0]['gloss']
+
+
+    if len(example) > 0:
+        dataJson[0]["example"] = example[0]['examples']
+
+    #print("DATA ALL SYNONYMS")
+    print(json.dumps(dataJson ,ensure_ascii=False))
+    #print(repr(dataJson))
+
+    return dataJson
+
+
+
+
 ### SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS SINONIMOS  ###
 def searchAllSynonyms(word):
     #LISTA DE OFFSETS DE CADA UNA DE LAS ACEPCIONES DE LA PALABRA BUSCADA
