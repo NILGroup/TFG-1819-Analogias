@@ -123,7 +123,7 @@ def findEasySynonyms(word):
             dataJson[index]["example"] = i["example"]
             index += 1
 
-    #print("DATA")
+    #print("DATA EASY SYNONYMS")
     #print(repr(dataJson))
     #print(json.dumps(dataJson, ensure_ascii=False))
 
@@ -141,7 +141,7 @@ def phraseSynonym(word):
     for obj in listEasySynonym:
         listPhrase = list()
         for synonym in obj["easySynonyms"]:
-            listPhrase.insert(index, spacy.phraseMakerSynonym(synonym))
+            listPhrase.insert(index, spacy.phraseMaker(synonym))
 
         dataJson.insert(index, {'offset': "", 'phraseSynonyms': "", 'definition' : "", 'example' : ""})
         dataJson[index]["phraseSynonyms"] = listPhrase
@@ -150,9 +150,9 @@ def phraseSynonym(word):
         dataJson[index]["example"] = obj["example"]
         index += 1
     #print(listPhrase)
-    #print("DATA")
+    print("DATA PHRASE SYNONYM")
     #print(repr(dataJson))
-    #print(json.dumps(dataJson, ensure_ascii=False))
+    print(json.dumps(dataJson, ensure_ascii=False))
     return dataJson
 
 
@@ -169,8 +169,8 @@ def searchAllHyponyms(word):
             listFinal = list()
             for targetSynset in offsetMatchSourceSynset:
 
-                dataJson.insert(index, {'offsetPather': "", 'offset': "", 'hyponyms': [], 'definition' : "", 'example' : ""})
-                dataJson[index]["offsetPather"] = synset["offset"]
+                dataJson.insert(index, {'offsetFather': "", 'offset': "", 'hyponyms': [], 'definition' : "", 'example' : ""})
+                dataJson[index]["offsetFather"] = synset["offset"]
                 listFinal.insert(index, targetSynset["targetsynset"])
                 dataJson[index]["offset"] = targetSynset["targetsynset"]
                 definition = WeiSpa30Synset.objects.filter(offset=targetSynset["targetsynset"]).values('gloss')
@@ -193,10 +193,103 @@ def searchAllHyponyms(word):
 
             index += 1
 
-    #print("DATA")
+    #print("DATA HYPONYMS")
     #print(repr(dataJson))
     #print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
+
+
+
+
+###   SERVICIO WEB QUE DADA UNA PALABRA DEVUELVE LOS HIPONIMOS FACILES  ###
+def findEasyHyponyms(word):
+    archivo, csvarchivo = aperturaYlecturaCSV()
+    dataJson = []
+    listHyponyms = searchAllHyponyms(word)
+
+
+    index = 0
+
+    for i in listHyponyms:
+        listEasyWords = list()
+        for x in i["hyponyms"]:
+            csvarchivo.seek(0)
+            for j in archivo:
+                if x == j['PALABRA'] and x != word:
+                    listEasyWords.append(j['PALABRA'])
+
+        if len(listEasyWords) > 0:
+            dataJson.insert(index, {'offsetFather': "", 'offset': "", 'easyHyponyms': "", 'definition' : "", 'example' : ""})
+            dataJson[index]["easyHyponyms"] = listEasyWords
+            dataJson[index]["offsetFather"] = i["offsetFather"]
+            dataJson[index]["offset"] = i["offset"]
+
+            if dataJson[index]["definition"] != None:
+                dataJson[index]["definition"] = i["definition"]
+            dataJson[index]["example"] = i["example"]
+            index += 1
+
+    #print("DATA EASY HYPONYMS")
+    #print(repr(dataJson))
+    #print(json.dumps(dataJson, ensure_ascii=False))
+
+    return dataJson
+
+
+
+
+
+###   SERVICIO WEB QUE DADA UNA PALABRA DEVUELVE LA FRASE FORMADA CON EL SINONIMO  ###
+def phraseHyponym(word):
+    dataJson = []
+    listEasyHyponym = findEasyHyponyms(word)
+    #print("LISTA")
+    #print(listEasySynonym)
+    index = 0
+    for obj in listEasyHyponym:
+        listPhrase = list()
+        for hyponym in obj["easyHyponyms"]:
+            listPhrase.insert(index, spacy.phraseMaker(hyponym))
+
+        dataJson.insert(index, {'offsetFather' : "", 'offset': "", 'phraseHyponyms': "", 'definition' : "", 'example' : ""})
+        dataJson[index]["phraseHyponyms"] = listPhrase
+        dataJson[index]["offset"] = obj["offset"]
+        dataJson[index]["offsetFather"] = obj["offsetFather"]
+        dataJson[index]["definition"] = obj["definition"]
+        dataJson[index]["example"] = obj["example"]
+        index += 1
+    #print(listPhrase)
+    print("DATA PHRASE HYPONYMS")
+    #print(repr(dataJson))
+    print(json.dumps(dataJson, ensure_ascii=False))
+    return dataJson
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def aperturaYlecturaCSV():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
+
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    return archivo, csvarchivo
+
+
+
+
+
 
 
 
@@ -213,13 +306,6 @@ def searchHyponyms(offset):
     return words
 
 
-def aperturaYlecturaCSV():
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
-
-    archivo = csv.DictReader(csvarchivo, delimiter=";")
-
-    return archivo, csvarchivo
 
 
 

@@ -127,7 +127,7 @@ def genderAndNumberSpacy(word):
 
 
 
-def phraseMakerSynonym(word):
+def phraseMaker(word):
     #print(word)
     gender, number = genderAndNumberSpacy(word)
 

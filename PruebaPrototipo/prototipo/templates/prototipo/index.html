@@ -63,15 +63,22 @@
 
                   <ul>                   
 
-                      {% for result in results %}
+                      {% for result in resultSynonym %}
                             <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
                                 <div class="number-panel pt-3"><p></p></div>
                                 <div class="results">
-                                    {% for res in result.hyponyms %}
+                                    {% for res in result.phraseSynonyms %}
 
-                                            <p>Un {{ word }} <a href="#">{{ res }}</a> </p>
+                                            <p>Un {{ word }} sinonimoooo <a href="#">{{ res }}</a> </p>
+                                            {% for hypo in results %}
+                                                {% for res in hypo.phraseHyponyms %}
 
+                                                    <p>Un {{ word }} hyponimooooo <a href="#">{{ res }}</a> </p>
+
+                                                    {% endfor %}
+                                            {%  endfor %}
                                     {% endfor %}
+
                                     <p><a href="#">{{ result.definition }}</a> </p>
                                     <p><a href="#">{{ result.example }}</a> </p>
 
