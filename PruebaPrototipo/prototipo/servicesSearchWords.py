@@ -77,8 +77,8 @@ def searchAllSynonyms(word):
            dataJson[index]["offset"] = i["offset"]
 
            #METE LA DEFINICION, SI NO HAY DEF NO METE NADA
-           if dataJson[index]["definition"] != 'None':
-            dataJson[index]["definition"] = definition[0]['gloss']
+           if definition[0]["gloss"] != "None":
+              dataJson[index]["definition"] = definition[0]['gloss']
 
            #EN ESTE CASO, SI NO HAY EJEMPLO, ESA ENTRADA DE LA TABLA ESTA VACIA POR ESO HAY QUE COMPROBAR SI HAY EJEMPLO O NO
            #CON EL LEN > 0 PORQUE SI NO HAY Y LO INTENTAS METER CASCA
@@ -150,30 +150,38 @@ def phraseSynonym(word):
         dataJson[index]["example"] = obj["example"]
         index += 1
     #print(listPhrase)
-    print("DATA")
+    #print("DATA")
     #print(repr(dataJson))
-    print(json.dumps(dataJson, ensure_ascii=False))
+    #print(json.dumps(dataJson, ensure_ascii=False))
     return dataJson
 
 
 
-
+####    SERVICIO WEB QUE DADA UNA PALABRA DEVUELVE TODOS LOS HYPERONIMOS DE WORDNET     ####
 def searchAllHyponyms(word):
     listOffsetToTheSynset = searchAllSynonyms(word)
     dataJson = []
     index = 0
-    for offset in listOffsetToTheSynset:
-        offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset["offset"], relation=12)).values('targetsynset').distinct()
-
+    for synset in listOffsetToTheSynset:
+        offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=synset["offset"], relation=12)).values('targetsynset').distinct()
 
         if len(offsetMatchSourceSynset) > 0:
-
             listFinal = list()
             for targetSynset in offsetMatchSourceSynset:
+
                 dataJson.insert(index, {'offsetPather': "", 'offset': "", 'hyponyms': [], 'definition' : "", 'example' : ""})
-                dataJson[index]["offsetPather"] = offset["offset"]
+                dataJson[index]["offsetPather"] = synset["offset"]
                 listFinal.insert(index, targetSynset["targetsynset"])
                 dataJson[index]["offset"] = targetSynset["targetsynset"]
+                definition = WeiSpa30Synset.objects.filter(offset=targetSynset["targetsynset"]).values('gloss')
+                example = WeiSpa30Examples.objects.filter(offset=targetSynset["targetsynset"]).values('examples')
+
+                if definition[0]["gloss"] != "None":
+                    dataJson[index]["definition"] = definition[0]['gloss']
+
+                if len(example) > 0:
+                    dataJson[index]["example"] = example[0]['examples']
+
 
                 listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values('word').distinct()
 
@@ -182,7 +190,6 @@ def searchAllHyponyms(word):
                     listaAux.append(hyponym["word"])
 
                 dataJson[index]["hyponyms"] = listaAux
-
 
             index += 1
 

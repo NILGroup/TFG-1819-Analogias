@@ -67,13 +67,17 @@
                             <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
                                 <div class="number-panel pt-3"><p></p></div>
                                 <div class="results">
-                                    {% for res in result.phraseSynonyms %}
+                                    {% for res in result.hyponyms %}
 
                                             <p>Un {{ word }} <a href="#">{{ res }}</a> </p>
 
                                     {% endfor %}
                                     <p><a href="#">{{ result.definition }}</a> </p>
                                     <p><a href="#">{{ result.example }}</a> </p>
+
+
+
+
  <!--                                   {% for res in result.definition %}
 
                                             <p>Un {{ word }} <a href="#">{{ res }}</a> </p>
