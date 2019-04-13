@@ -52,6 +52,30 @@ def findOffsetsToTheSynsets(word):
 
 
 
+def makerSynonymsPhrase(word, offset):
+    dataJson = []
+    listEasySynonym = easySynonyms(word, offset)
+    # print("LISTA")
+    # print(listEasySynonym)
+    index = 0
+    for obj in listEasySynonym:
+        listPhrase = list()
+        for synonym in obj["easySynonyms"]:
+            listPhrase.insert(index, spacy.phraseMaker(synonym))
+
+        dataJson.insert(index, {'offset': "", 'phraseSynonyms': "", 'definition': "", 'example': ""})
+        dataJson[index]["phraseSynonyms"] = listPhrase
+        dataJson[index]["offset"] = obj["offset"]
+        dataJson[index]["definition"] = obj["definition"]
+        dataJson[index]["example"] = obj["example"]
+        index += 1
+    # print(listPhrase)
+    # print("DATA PHRASE SYNONYM")
+    # print(repr(dataJson))
+    # print(json.dumps(dataJson, ensure_ascii=False))
+    return dataJson
+
+
 
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
@@ -103,6 +127,7 @@ def allSynonyms(offset):
     return dataJson
 
 
+
 #### SERVICIO WEB QUE DADO UN OFFSET DEVUELVE SUS SINONIMOS FACILES     ####
 
 def easySynonyms(word, offset):
@@ -134,28 +159,47 @@ def easySynonyms(word, offset):
 
 
 
+#---------------------------------------------------------------------------------------------#
 
-def makerPhrase(word, offset):
+def allHyponyms(offset):
     dataJson = []
-    listEasySynonym = easySynonyms(word, offset)
-    # print("LISTA")
-    # print(listEasySynonym)
-    index = 0
-    for obj in listEasySynonym:
-        listPhrase = list()
-        for synonym in obj["easySynonyms"]:
-            listPhrase.insert(index, spacy.phraseMaker(synonym))
 
-        dataJson.insert(index, {'offset': "", 'phraseSynonyms': "", 'definition': "", 'example': ""})
-        dataJson[index]["phraseSynonyms"] = listPhrase
-        dataJson[index]["offset"] = obj["offset"]
-        dataJson[index]["definition"] = obj["definition"]
-        dataJson[index]["example"] = obj["example"]
-        index += 1
-    # print(listPhrase)
-    # print("DATA PHRASE SYNONYM")
-    # print(repr(dataJson))
-    # print(json.dumps(dataJson, ensure_ascii=False))
+    offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset, relation=12)).values(
+        'targetsynset').distinct()
+    #print(offsetMatchSourceSynset)
+    if len(offsetMatchSourceSynset) > 0:
+        index = 0
+        for targetSynset in offsetMatchSourceSynset:
+
+            dataJson.append({'offsetFather': "", 'offset': "", 'hyponyms': [], 'definition': "", 'example': ""})
+            dataJson[index]["offsetFather"] = offset
+            dataJson[index]["offset"] = targetSynset["targetsynset"]
+
+            listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values(
+                'word').distinct()
+
+
+            listaAux = list()
+            for hyponym in listaWordsHyponyms:
+                listaAux.append(hyponym["word"])
+
+            dataJson[index]["hyponyms"] = listaAux
+
+
+            definition = WeiSpa30Synset.objects.filter(offset=targetSynset["targetsynset"]).values('gloss')
+            example = WeiSpa30Examples.objects.filter(offset=targetSynset["targetsynset"]).values('examples')
+            if definition[0]["gloss"] != "None":
+                dataJson[index]["definition"] = definition[0]['gloss']
+
+            if len(example) > 0:
+                dataJson[index]["example"] = example[0]['examples']
+            index += 1
+
+
+
+
+    #print("DATA ALL SYNONYMS")
+    #print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
 
 
@@ -177,6 +221,7 @@ def makerPhrase(word, offset):
 
 
 
+'''
 
 ### SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS SINONIMOS  ###
 def searchAllSynonyms(word):
@@ -389,7 +434,7 @@ def phraseHyponym(word):
     #print(repr(dataJson))
     print(json.dumps(dataJson, ensure_ascii=False))
     return dataJson
-
+'''
 
 
 
@@ -418,7 +463,7 @@ def aperturaYlecturaCSV():
 
 
 
-
+'''
 def searchHyponyms(offset):
 
     offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset) & (
@@ -448,4 +493,4 @@ def searchHyperonyms(offset):
             words.append(word)
     return words
 
-
+'''
