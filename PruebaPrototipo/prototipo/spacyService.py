@@ -139,3 +139,18 @@ def phraseMaker(word):
         return "es una " + word
     else:
         return "son unas " + word
+
+
+
+def phraseMakerForHyponyms(word):
+    #print(word)
+    gender, number = genderAndNumberSpacy(word)
+
+    if gender == "masculino" and number == "singular":
+        return "es como un " + word
+    elif gender == "masculino" and number == "plural":
+        return "son como unos " + word
+    elif gender == "femenino" and number == "singular":
+        return "es como una " + word
+    else:
+        return "son como unas " + word

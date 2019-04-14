@@ -52,55 +52,12 @@ def findOffsetsToTheSynsets(word):
 
 
 
-def makerSynonymsPhrase(word, offset):
-    dataJson = []
-    listEasySynonym = easySynonyms(word, offset)
-    # print("LISTA")
-    # print(listEasySynonym)
-    index = 0
-    for obj in listEasySynonym:
-        listPhrase = list()
-        for synonym in obj["easySynonyms"]:
-            listPhrase.insert(index, spacy.phraseMaker(synonym))
-
-        dataJson.insert(index, {'offset': "", 'phraseSynonyms': "", 'definition': "", 'example': ""})
-        dataJson[index]["phraseSynonyms"] = listPhrase
-        dataJson[index]["offset"] = obj["offset"]
-        dataJson[index]["definition"] = obj["definition"]
-        dataJson[index]["example"] = obj["example"]
-        index += 1
-    # print(listPhrase)
-    # print("DATA PHRASE SYNONYM")
-    # print(repr(dataJson))
-    # print(json.dumps(dataJson, ensure_ascii=False))
-    return dataJson
 
 
 
 
-def makerHyponymsPhrase(word, offset):
-    dataJson = []
-    listEasyHyponym = easyHyponyms(word, offset)
-    # print("LISTA")
-    # print(listEasySynonym)
-    index = 0
-    for obj in listEasyHyponym:
-        listPhrase = list()
-        for hyponym in obj["easyHyponyms"]:
-            listPhrase.insert(index, spacy.phraseMaker(hyponym))
 
-        dataJson.insert(index, {'offsetFather' : "", 'offset': "", 'phraseHyponyms': "", 'definition': "", 'example': ""})
-        dataJson[index]["phraseHyponyms"] = listPhrase
-        dataJson[index]["offset"] = obj["offset"]
-        dataJson[index]["offsetFather"] = obj["offsetFather"]
-        dataJson[index]["definition"] = obj["definition"]
-        dataJson[index]["example"] = obj["example"]
-        index += 1
-    # print(listPhrase)
-    # print("DATA PHRASE SYNONYM")
-    # print(repr(dataJson))
-    # print(json.dumps(dataJson, ensure_ascii=False))
-    return dataJson
+
 
 
 
@@ -121,6 +78,7 @@ def allOffsets(word):
     #print(repr(dataJson))
     #print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
+
 
 
 
@@ -186,6 +144,29 @@ def easySynonyms(word, offset):
 
 
 
+def makerSynonymsPhrase(word, offset):
+    dataJson = []
+    listEasySynonym = easySynonyms(word, offset)
+    # print("LISTA")
+    # print(listEasySynonym)
+    index = 0
+    for obj in listEasySynonym:
+        listPhrase = list()
+        for synonym in obj["easySynonyms"]:
+            listPhrase.insert(index, spacy.phraseMaker(synonym))
+
+        dataJson.insert(index, {'offset': "", 'phraseSynonyms': "", 'definition': "", 'example': ""})
+        dataJson[index]["phraseSynonyms"] = listPhrase
+        dataJson[index]["offset"] = obj["offset"]
+        dataJson[index]["definition"] = obj["definition"]
+        dataJson[index]["example"] = obj["example"]
+        index += 1
+    # print(listPhrase)
+    # print("DATA PHRASE SYNONYM")
+    # print(repr(dataJson))
+    # print(json.dumps(dataJson, ensure_ascii=False))
+    return dataJson
+
 #---------------------------------------------------------------------------------------------#
 
 def allHyponyms(offset):
@@ -221,9 +202,6 @@ def allHyponyms(offset):
             if len(example) > 0:
                 dataJson[index]["example"] = example[0]['examples']
             index += 1
-
-
-
 
     #print("DATA ALL SYNONYMS")
     #print(json.dumps(dataJson ,ensure_ascii=False))
@@ -261,15 +239,124 @@ def easyHyponyms(word, offset):
 
 
 
+def makerHyponymsPhrase(word, offset):
+    dataJson = []
+    listEasyHyponym = easyHyponyms(word, offset)
+    # print("LISTA")
+    # print(listEasySynonym)
+    index = 0
+    for obj in listEasyHyponym:
+        listPhrase = list()
+        for hyponym in obj["easyHyponyms"]:
+            listPhrase.insert(index, spacy.phraseMakerForHyponyms(hyponym))
+
+        dataJson.insert(index, {'offsetFather' : "", 'offset': "", 'phraseHyponyms': "", 'definition': "", 'example': ""})
+        dataJson[index]["phraseHyponyms"] = listPhrase
+        dataJson[index]["offset"] = obj["offset"]
+        dataJson[index]["offsetFather"] = obj["offsetFather"]
+        dataJson[index]["definition"] = obj["definition"]
+        dataJson[index]["example"] = obj["example"]
+        index += 1
+    # print(listPhrase)
+    # print("DATA PHRASE SYNONYM")
+    # print(repr(dataJson))
+    # print(json.dumps(dataJson, ensure_ascii=False))
+    return dataJson
 
 
 
 
+#---------------------------------------------------------------------------------------------#
+
+def allHyperonyms(offset):
+    dataJson = []
+
+    offsetMatchTargetSynset = (WeiSpa30Relation.objects.filter(targetsynset=offset, relation=12)).values(
+        'sourcesynset').distinct()
+    # print(offsetMatchSourceSynset)
+    if len(offsetMatchTargetSynset) > 0:
+        index = 0
+        for sourceSynset in offsetMatchTargetSynset:
+
+            dataJson.append({'offsetFather': "", 'offset': "", 'hyperonyms': [], 'definition': "", 'example': ""})
+            dataJson[index]["offsetFather"] = offset
+            dataJson[index]["offset"] = sourceSynset["sourcesynset"]
+
+            listaWordsHyperonyms = WeiSpa30Variant.objects.filter(offset=sourceSynset['sourcesynset']).values(
+                'word').distinct()
+
+            listaAux = list()
+            for hyperonym in listaWordsHyperonyms:
+                listaAux.append(hyperonym["word"])
+
+            dataJson[index]["hyperonyms"] = listaAux
+
+            definition = WeiSpa30Synset.objects.filter(offset=sourceSynset["sourcesynset"]).values('gloss')
+            example = WeiSpa30Examples.objects.filter(offset=sourceSynset["sourcesynset"]).values('examples')
+            if definition[0]["gloss"] != "None":
+                dataJson[index]["definition"] = definition[0]['gloss']
+
+            if len(example) > 0:
+                dataJson[index]["example"] = example[0]['examples']
+            index += 1
+
+    print("DATA ALL HYPERONYMS")
+    print(json.dumps(dataJson ,ensure_ascii=False))
+    return dataJson
 
 
+def easyHyperonyms(word, offset):
+    dataJson = []
+
+    archivo, csvarchivo = aperturaYlecturaCSV()
+    listAllHyperonyms = allHyperonyms(offset)
+
+    for obj in listAllHyperonyms:
+        listEasyWords = list()
+        for hyperonym in obj["hyperonyms"]:
+            csvarchivo.seek(0)
+            for j in archivo:
+                if hyperonym == j['PALABRA'] and hyperonym != word:
+                    listEasyWords.append(j['PALABRA'])
+
+        if len(listEasyWords) > 0:
+            dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyperonyms': "", 'definition': "", 'example': ""})
+            dataJson[0]["easyHyperonyms"] = listEasyWords
+            dataJson[0]["offsetFather"] = obj["offsetFather"]
+            dataJson[0]["offset"] = obj["offset"]
+
+            if dataJson[0]["definition"] != "None":
+                dataJson[0]["definition"] = obj["definition"]
+            dataJson[0]["example"] = obj["example"]
+
+    #print("DATA EASY HYPONYMS")
+    #print(json.dumps(dataJson ,ensure_ascii=False))
+    return dataJson
 
 
+def makerHyperonymsPhrase(word, offset):
+    dataJson = []
+    listEasyHyperonym = easyHyperonyms(word, offset)
+    # print("LISTA")
+    # print(listEasySynonym)
+    index = 0
+    for obj in listEasyHyperonym:
+        listPhrase = list()
+        for hyperonym in obj["easyHyperonyms"]:
+            listPhrase.insert(index, spacy.phraseMaker(hyperonym))
 
+        dataJson.insert(index, {'offsetFather' : "", 'offset': "", 'phraseHyperonyms': "", 'definition': "", 'example': ""})
+        dataJson[index]["phraseHyperonyms"] = listPhrase
+        dataJson[index]["offset"] = obj["offset"]
+        dataJson[index]["offsetFather"] = obj["offsetFather"]
+        dataJson[index]["definition"] = obj["definition"]
+        dataJson[index]["example"] = obj["example"]
+        index += 1
+    # print(listPhrase)
+    # print("DATA PHRASE SYNONYM")
+    # print(repr(dataJson))
+    # print(json.dumps(dataJson, ensure_ascii=False))
+    return dataJson
 
 
 

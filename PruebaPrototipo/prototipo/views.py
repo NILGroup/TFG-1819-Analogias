@@ -22,29 +22,16 @@ def index(request):
             #print(word)
             #results = services.searchAllHyponyms(word)
             allOffsets = services.allOffsets(word)
-            resultsPruebas = list()
+            resultsHyperonyms = list()
             resultsSynonyms = list()
             resultsHyponyms = list()
-            index = 0
+
             for offset in allOffsets:
                 resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
-                resultsPruebas += services.allHyponyms(offset['offset'])
                 resultsHyponyms += services.makerHyponymsPhrase(word, offset['offset'])
-                index += 1
+                resultsHyperonyms += services.makerHyperonymsPhrase(word, offset['offset'])
 
-
-            print("HIPONIMOS")
-            print(resultsHyponyms)
-            #results = services.
-            #results =
-            #results = services.findOffsetsToTheSynsets(words)
-            #resutsView = list()
-            #for result in results:
-             #   resutsView.append(sp.phraseMaker(result))
-            #print(resutsView)
-            #print(results)
-            contador = 1
-            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'offsetInicial' : allOffsets, 'resultsSynonyms' : resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'results' : resultsPruebas})
+            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'offsetInicial' : allOffsets, 'resultsSynonyms' : resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms})
 
 
 
