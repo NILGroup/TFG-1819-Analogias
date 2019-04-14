@@ -78,6 +78,33 @@ def makerSynonymsPhrase(word, offset):
 
 
 
+def makerHyponymsPhrase(word, offset):
+    dataJson = []
+    listEasyHyponym = easyHyponyms(word, offset)
+    # print("LISTA")
+    # print(listEasySynonym)
+    index = 0
+    for obj in listEasyHyponym:
+        listPhrase = list()
+        for hyponym in obj["easyHyponyms"]:
+            listPhrase.insert(index, spacy.phraseMaker(hyponym))
+
+        dataJson.insert(index, {'offsetFather' : "", 'offset': "", 'phraseHyponyms': "", 'definition': "", 'example': ""})
+        dataJson[index]["phraseHyponyms"] = listPhrase
+        dataJson[index]["offset"] = obj["offset"]
+        dataJson[index]["offsetFather"] = obj["offsetFather"]
+        dataJson[index]["definition"] = obj["definition"]
+        dataJson[index]["example"] = obj["example"]
+        index += 1
+    # print(listPhrase)
+    # print("DATA PHRASE SYNONYM")
+    # print(repr(dataJson))
+    # print(json.dumps(dataJson, ensure_ascii=False))
+    return dataJson
+
+
+
+
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
 
 def allOffsets(word):
@@ -204,7 +231,33 @@ def allHyponyms(offset):
 
 
 
+def easyHyponyms(word, offset):
+    dataJson = []
 
+    archivo, csvarchivo = aperturaYlecturaCSV()
+    listAllHyponyms = allHyponyms(offset)
+
+    for obj in listAllHyponyms:
+        listEasyWords = list()
+        for hyponym in obj["hyponyms"]:
+            csvarchivo.seek(0)
+            for j in archivo:
+                if hyponym == j['PALABRA'] and hyponym != word:
+                    listEasyWords.append(j['PALABRA'])
+
+        if len(listEasyWords) > 0:
+            dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyponyms': "", 'definition': "", 'example': ""})
+            dataJson[0]["easyHyponyms"] = listEasyWords
+            dataJson[0]["offsetFather"] = obj["offsetFather"]
+            dataJson[0]["offset"] = obj["offset"]
+
+            if dataJson[0]["definition"] != "None":
+                dataJson[0]["definition"] = obj["definition"]
+            dataJson[0]["example"] = obj["example"]
+
+    #print("DATA EASY HYPONYMS")
+    #print(json.dumps(dataJson ,ensure_ascii=False))
+    return dataJson
 
 
 

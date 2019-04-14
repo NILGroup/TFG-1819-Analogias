@@ -76,14 +76,23 @@
                                         {% endif %}
                                   {% endfor %}
 
-                                  {% for hypo in results %}
+                                  {% for hyponym in resultsHyponyms %}
+                                    {% if offset.offset == hyponym.offsetFather %}
+                                        <p>OFFSET PADRE {{ hyponym.offsetFather }} ==> OFFSET HIPONIMO FACIL {{ hyponym.offset }}</p>
+                                        {% for phrase in hyponym.phraseHyponyms %}
+                                             <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+                                        {% endfor %}
+                                   {% endif %}
+                                  {% endfor %}
+
+                                 <!-- {% for hypo in results %}
                                         {% if offset.offset == hypo.offsetFather %}
                                              <p>OFFSET PADRE {{ hypo.offsetFather }} ==> OFFSET HIPONIMO {{ hypo.offset }}</p>
                                              {% for hyponym in hypo.hyponyms %}
                                                 <p>Un {{ word }}  <a href="#">{{ hyponym }}</a> </p>
                                              {% endfor %}
                                         {% endif %}
-                                  {% endfor %}
+                                  {% endfor %}-->
                                </div>
                           </div>
                       {% endfor %}
