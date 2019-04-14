@@ -2,6 +2,7 @@ from django.shortcuts import render
 import prototipo.functions as f
 import prototipo.servicesSearchWords as services
 import prototipo.spacyService as sp
+import prototipo.pictosServices as pictos
 import json
 
 
@@ -26,10 +27,13 @@ def index(request):
             resultsSynonyms = list()
             resultsHyponyms = list()
 
+            resultPictos = list()
+
             for offset in allOffsets:
                 resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
                 resultsHyponyms += services.makerHyponymsPhrase(word, offset['offset'])
                 resultsHyperonyms += services.makerHyperonymsPhrase(word, offset['offset'])
+                resultPictos += pictos.getSynsetsAPI(word, offset['offset'])
 
             return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'offsetInicial' : allOffsets, 'resultsSynonyms' : resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms})
 
