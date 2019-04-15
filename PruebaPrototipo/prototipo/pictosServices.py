@@ -25,9 +25,25 @@ def getImage(offset, json):
             #print('LA OTRA')
             #print(offset)
             if (offset == 'spa-30-'+jsonWrdnet[0]['old_keys']['pwn30'][0]):
-                print('ENTRO')
-                print(offset)
+               # print('ENTRO')
+                #print(offset)
                 #return requests.get('https://api.arasaac.org/api/pictograms/'+str(synsets["idPictogram"]) +'?download=false' , verify=False)
                 return 'https://api.arasaac.org/api/pictograms/'+str(synsets["idPictogram"]) +'?download=false'
                 #print(image)
 
+    return "None"
+
+
+def getOneImage(offset, synsets):
+    for synset in synsets:
+        jsonWrdnet = requests.get('https://wordnet-rdf.princeton.edu/json/id/' + synset, verify=False).json()
+        # print('UNA COSA')
+        # print('spa-30-'+jsonWrdnet[0]['old_keys']['pwn30'][0])
+        # print('LA OTRA')
+        # print(offset)
+        if (offset == 'spa-30-' + jsonWrdnet[0]['old_keys']['pwn30'][0]):
+            #print('ENTRO')
+            #print(offset)
+            # return requests.get('https://api.arasaac.org/api/pictograms/'+str(synsets["idPictogram"]) +'?download=false' , verify=False)
+            return 'https://api.arasaac.org/api/pictograms/' + str(synsets["idPictogram"]) + '?download=false'
+    return "None"

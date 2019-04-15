@@ -30,19 +30,34 @@ def index(request):
             resultsHyponyms = list()
 
             #resultPictos = list()
-            resultPictos = pictos.getSynsetsAPI(word)
+            jsonPictos = pictos.getSynsetsAPI(word)
+
             for offset in allOffsets:
                 resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
                 resultsHyponyms += services.makerHyponymsPhrase(word, offset['offset'])
                 resultsHyperonyms += services.makerHyperonymsPhrase(word, offset['offset'])
-                #pictos.getImage(offset['offset'], resultPictos)
+                '''
+                for synsets in resultPictos:
+                    print(offset['offset'])
+                    print(synsets["synsets"])
+                    #url = pictos.getImage(offset['offset'], synsets)
+                    #print(url)
+                    '''
 
-            #print("HYPERONYMS")
-            #print(resultsHyperonyms)
-            #print("HYPONYMS")
-            #print(resultsHyponyms)
-            #print("SYNONYMS")
+            print("HYPERONYMS")
             print(resultsHyperonyms)
+            print("HYPONYMS")
+            print(resultsHyponyms)
+            print("SYNONYMS")
+            print(resultsSynonyms)
+            '''
+            if len(resultsHyperonyms) > 0:
+                for elem in resultsHyperonyms:
+                    #print(elem['offsetFather'])
+                    url = pictos.getImage(str(elem['offsetFather']), jsonPictos)
+                    if url != "None":
+                        elem['picto'] = url
+            '''
 
             return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'offsetInicial' : allOffsets, 'resultsSynonyms' : resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms, 'counter' :functools.partial(next, itertools.count(1))})
 

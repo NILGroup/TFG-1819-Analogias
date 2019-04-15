@@ -70,7 +70,9 @@
                                   <p style="color:red">OFFSET INICIAL  {{ offset.offset }} </p>
                                   {% for synonym in resultsSynonyms %}
                                         {% if offset.offset == synonym.offset %}
-
+                                            {% if synonym.picto != "" %}
+                                            <img class="image-picto ml-3" src="{{ synonym.picto }}"></img>
+                                         {% endif %}
                                             <p>OFFSET SINONIMO FACIL  {{ synonym.offset }} </p>
                                             {% for phrase in synonym.phraseSynonyms %}
                                                 <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
@@ -81,6 +83,9 @@
 
                                   {% for hyponym in resultsHyponyms %}
                                     {% if offset.offset == hyponym.offsetFather %}
+                                        {% if hyponym.picto != "" %}
+                                            <img class="image-picto ml-3" src="{{ hyponym.picto }}"></img>
+                                         {% endif %}
                                         <p>OFFSET PADRE {{ hyponym.offsetFather }} ==> OFFSET HIPONIMO FACIL {{ hyponym.offset }}</p>
                                         {% for phrase in hyponym.phraseHyponyms %}
                                              <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
@@ -90,8 +95,10 @@
 
                                   {% for hyperonym in resultsHyperonyms %}
                                     {% if offset.offset == hyperonym.offsetFather %}
+                                         {% if hyperonym.picto != "" %}
+                                            <img class="image-picto ml-3" src="{{ hyperonym.picto }}"></img>
+                                         {% endif %}
 
-                                        <img class="image-picto ml-3" src="{{ hyperonym.picto }}"></img>
                                         <p>OFFSET PADRE {{ hyperonym.offsetFather }} ==> OFFSET HIPERONIMO FACIL {{ hyperonym.offset }}</p>
                                         {% for phrase in hyperonym.phraseHyperonyms %}
                                              <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
