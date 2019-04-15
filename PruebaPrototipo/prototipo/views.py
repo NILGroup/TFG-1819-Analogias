@@ -34,7 +34,12 @@ def index(request):
                 resultsHyponyms += services.makerHyponymsPhrase(word, offset['offset'])
                 resultsHyperonyms += services.makerHyperonymsPhrase(word, offset['offset'])
                 resultPictos += pictos.getSynsetsAPI(word, offset['offset'])
-
+            print("HYPERONYMS")
+            print(resultsHyperonyms)
+            print("HYPONYMS")
+            print(resultsHyponyms)
+            print("SYNONYMS")
+            print(resultsSynonyms)
             return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'offsetInicial' : allOffsets, 'resultsSynonyms' : resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms})
 
 

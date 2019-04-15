@@ -97,10 +97,10 @@
 
                                    {% for syn in resultsSynonyms %}
                                        {% if offset.offset == syn.offset %}
-                                             {% if syn.definition != "" %}
+                                             {% if syn.definition !=  "" %}
                                                  <p> Definición: {{ syn.definition }} </p>
                                              {% endif %}
-                                             {% if syn.example != ' ' %}
+                                             {% if syn.example != "" %}
                                                  <p> Ejemplo: {{ syn.example }} </p>
                                              {% endif %}
                                        {% endif %}
@@ -108,20 +108,20 @@
 
                                    {% for hyp in resultsHyponyms %}
                                        {% if offset.offset == hyp.offsetFather %}
-                                             {% if hyp.definition != '' %}
+                                             {% if hyp.definition !=  "" %}
                                                  <p> Definición: {{ hyp.definition }} </p>
                                              {% endif %}
-                                             {% if hyp.example != ' ' %}
+                                             {% if hyp.example != "" %}
                                                  <p> Ejemplo: {{ hyp.example }} </p>
                                              {% endif %}
                                        {% endif %}
                                    {% endfor %}
                                    {% for hyper in resultsHyperonyms %}
                                        {% if offset.offset == hyp.offsetFather %}
-                                             {% if hyper.definition != '' %}
+                                             {% if hyper.definition != "" %}
                                                  <p> Definición: {{ hyper.definition }} </p>
                                              {% endif %}
-                                             {% if hyper.example != ' ' %}
+                                             {% if hyper.example != "" %}
                                                  <p> Ejemplo: {{ hyper.example }} </p>
                                              {% endif %}
                                        {% endif %}
