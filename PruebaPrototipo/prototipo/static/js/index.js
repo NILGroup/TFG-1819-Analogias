@@ -2,6 +2,7 @@ $(function() {
 
     $("#button-accept").on("click", selectOptionHandler);
 
+
 });
 
 function selectOptionHandler(){
@@ -12,5 +13,12 @@ function selectOptionHandler(){
     }else{
         $("body").css("text-transform" ,"");
 
+    }
+
+
+    if($("#defyejemplo").is(':checked')){
+       $("#panel-button").css("display" ,"block");
+    }else{
+      $("#panel-button").css("display", "none");
     }
 }

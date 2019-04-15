@@ -64,7 +64,7 @@
                       {% for offset in offsetInicial %}
 
                           <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
-                              <div class="number-panel pt-3"><p>{{ counter }}.</p></div>
+                              <div class="number-panel pt-3 ml-3"><p>{{ counter }}.</p></div>
                                <div class="results">
                                   <p style="color:red">OFFSET INICIAL  {{ offset.offset }} </p>
                                   {% for synonym in resultsSynonyms %}
@@ -94,14 +94,20 @@
                                    {% endif %}
                                   {% endfor %}
 
-                            <div class="panel-buttons">
+
+
+                                 
+
+                            <div  id="panel-button" class="panel-buttons border border-dark">
                                 <div class="dropdown show">
                                     <a class="btn btn-def dropdown-toggle" href="#" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                       Definición y Ejemplo
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-menu panel-dropdown-def" aria-labelledby="dropdownMenuLink">
                                         <div class="panel-def-example-only-button">
+
                                             {% for syn in resultsSynonyms %}
+
                                                {% if offset.offset == syn.offset %}
                                                      {% if syn.definition !=  "" %}
                                                          <p><b> Definición:</b><i>{{ syn.definition }} </i></p>
@@ -124,16 +130,18 @@
                                            {% endfor %}
                                            {% for hyper in resultsHyperonyms %}
                                                {% if offset.offset == hyp.offsetFather %}
+
                                                      {% if hyper.definition != "" %}
                                                          <p><b> Definición:</b><i> {{ hyper.definition }} </i></p>
                                                      {% endif %}
+
                                                      {% if hyper.example != "" %}
                                                          <p><b> Ejemplo:</b><i> {{ hyper.example }} </i></p>
                                                      {% endif %}
+
                                                {% endif %}
                                            {% endfor %}
-                                            <p><b>Definición:</b> <i> Un portero es alguien que protege una entrada.</i></p>
-                                            <p><b>Ejemplo: </b><i> Mi tío trabaja de portero en una discoteca.</i></p>
+
                                          </div>
 
                                     </div>

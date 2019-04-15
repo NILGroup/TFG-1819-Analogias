@@ -43,9 +43,9 @@ body{
   
 }
 
-.panel-words:hover{
+/*.panel-words:hover{
   transform: scale(1.1);
-}
+}*/
 
 .panel-words li {
   list-style:none;
@@ -68,8 +68,21 @@ body{
   display: flex;
   flex-direction: column;
    margin-left:70px;
+
 }
 
+
+
+.panel-dropdown-def{
+  width: 500px;
+  border-radius: 20px;
+  border:2px solid rgb(149, 138, 216);
+  padding: 15px;
+}
+
+.panel-def-example-only-button > p > b{
+    color:rgb(149, 138, 216);
+}
 /*
 .results li{
   padding-left:15px;
@@ -78,6 +91,10 @@ body{
   border-bottom: 1px solid rgb(76, 84, 94);
 
 }*/
+
+#panel-button {
+    /*display:none;*/
+}
 .results li{
   margin-bottom: 5px;
   margin-top: 5px;
