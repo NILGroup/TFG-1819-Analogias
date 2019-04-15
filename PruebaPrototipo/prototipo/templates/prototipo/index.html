@@ -65,14 +65,17 @@
 
                           <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
                               <div class="number-panel pt-3 ml-3"><p>{{ counter }}.</p></div>
+
                                <div class="results">
                                   <p style="color:red">OFFSET INICIAL  {{ offset.offset }} </p>
                                   {% for synonym in resultsSynonyms %}
                                         {% if offset.offset == synonym.offset %}
+
                                             <p>OFFSET SINONIMO FACIL  {{ synonym.offset }} </p>
                                             {% for phrase in synonym.phraseSynonyms %}
                                                 <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
                                             {% endfor %}
+
                                         {% endif %}
                                   {% endfor %}
 
@@ -87,6 +90,8 @@
 
                                   {% for hyperonym in resultsHyperonyms %}
                                     {% if offset.offset == hyperonym.offsetFather %}
+
+                                        <img class="image-picto ml-3" src={{ hyperonym.picto }}></img>
                                         <p>OFFSET PADRE {{ hyperonym.offsetFather }} ==> OFFSET HIPERONIMO FACIL {{ hyperonym.offset }}</p>
                                         {% for phrase in hyperonym.phraseHyperonyms %}
                                              <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>

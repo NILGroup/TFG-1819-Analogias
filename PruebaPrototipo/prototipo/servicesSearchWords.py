@@ -3,6 +3,7 @@ import os
 import csv
 import json
 from prototipo import spacyService as spacy
+import prototipo.pictosServices as pictos
 
 
 
@@ -65,6 +66,7 @@ def easySynonyms(word, offset):
     dataJson = []
     archivo, csvarchivo = aperturaYlecturaCSV()
     listAllSynonyms = allSynonyms(offset)
+    jsonImage = pictos.getSynsetsAPI(word)
 
     for obj in listAllSynonyms:
         listEasyWords = list()
@@ -75,12 +77,13 @@ def easySynonyms(word, offset):
                     listEasyWords.append(j['PALABRA'])
 
         if len(listEasyWords) > 0:
-           dataJson.insert(0, {'offset': "", 'easySynonyms': "", 'definition': "", 'example': ""})
+           dataJson.insert(0, {'offset': "", 'easySynonyms': "", 'definition': "", 'example': "", 'picto': ""})
            dataJson[0]["easySynonyms"] = listEasyWords
            dataJson[0]["offset"] = obj["offset"]
            if dataJson[0]["definition"] != "None":
                dataJson[0]["definition"] = obj["definition"]
            dataJson[0]["example"] = obj["example"]
+           dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
 
     #print("DATA EASY SYNONYMS")
     #print(json.dumps(dataJson, ensure_ascii=False))
@@ -223,7 +226,7 @@ def allHyperonyms(offset):
         index = 0
         for sourceSynset in offsetMatchTargetSynset:
 
-            dataJson.append({'offsetFather': "", 'offset': "", 'hyperonyms': [], 'definition': "", 'example': ""})
+            dataJson.append({'offsetFather': "", 'offset': "", 'hyperonyms': [], 'definition': "", 'example': "", 'picto': ""})
             dataJson[index]["offsetFather"] = offset
             dataJson[index]["offset"] = sourceSynset["sourcesynset"]
 
@@ -243,6 +246,7 @@ def allHyperonyms(offset):
 
             if len(example) > 0:
                 dataJson[index]["example"] = example[0]['examples']
+
             index += 1
 
     #print("DATA ALL HYPERONYMS")
@@ -255,6 +259,7 @@ def easyHyperonyms(word, offset):
 
     archivo, csvarchivo = aperturaYlecturaCSV()
     listAllHyperonyms = allHyperonyms(offset)
+    jsonImage = pictos.getSynsetsAPI(word)
 
     for obj in listAllHyperonyms:
         listEasyWords = list()
@@ -265,7 +270,7 @@ def easyHyperonyms(word, offset):
                     listEasyWords.append(j['PALABRA'])
 
         if len(listEasyWords) > 0:
-            dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyperonyms': "", 'definition': "", 'example': ""})
+            dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyperonyms': "", 'definition': "", 'example': "", 'picto': ""})
             dataJson[0]["easyHyperonyms"] = listEasyWords
             dataJson[0]["offsetFather"] = obj["offsetFather"]
             dataJson[0]["offset"] = obj["offset"]
@@ -273,6 +278,7 @@ def easyHyperonyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
+            dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
 
     #print("DATA EASY HYPONYMS")
     #print(json.dumps(dataJson ,ensure_ascii=False))
@@ -290,12 +296,13 @@ def makerHyperonymsPhrase(word, offset):
         for hyperonym in obj["easyHyperonyms"]:
             listPhrase.insert(index, spacy.phraseMaker(hyperonym))
 
-        dataJson.insert(index, {'offsetFather' : "", 'offset': "", 'phraseHyperonyms': "", 'definition': "", 'example': ""})
+        dataJson.insert(index, {'offsetFather' : "", 'offset': "", 'phraseHyperonyms': "", 'definition': "", 'example': "", 'picto': ""})
         dataJson[index]["phraseHyperonyms"] = listPhrase
         dataJson[index]["offset"] = obj["offset"]
         dataJson[index]["offsetFather"] = obj["offsetFather"]
         dataJson[index]["definition"] = obj["definition"]
         dataJson[index]["example"] = obj["example"]
+        dataJson[index]["picto"] = obj["picto"]
         index += 1
     # print(listPhrase)
     # print("DATA PHRASE SYNONYM")
