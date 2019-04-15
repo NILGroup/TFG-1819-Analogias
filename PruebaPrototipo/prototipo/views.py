@@ -4,6 +4,8 @@ import prototipo.servicesSearchWords as services
 import prototipo.spacyService as sp
 import prototipo.pictosServices as pictos
 import json
+import itertools
+import functools
 
 
 
@@ -40,7 +42,8 @@ def index(request):
             print(resultsHyponyms)
             print("SYNONYMS")
             print(resultsSynonyms)
-            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'offsetInicial' : allOffsets, 'resultsSynonyms' : resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms})
+
+            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'offsetInicial' : allOffsets, 'resultsSynonyms' : resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms, 'counter' :functools.partial(next, itertools.count(1))})
 
 
 
