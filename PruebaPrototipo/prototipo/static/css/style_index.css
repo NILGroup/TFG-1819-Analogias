@@ -118,7 +118,7 @@ nav a:hover{
     left:75%;
     top:25%;
 }
-.dropdown-toggle::after {
+#dropdown01::after  {
     display:none;
 }
 .dropwdown-nav > a > .material-icons{
@@ -187,6 +187,19 @@ form.panel-search-word > p > label {
 
 .result-picto:hover{
   transform: scale(1.8);
+}
+
+
+.btn-def{
+  background:rgb(149, 138, 216);
+  border-radius: 40px;
+  color: white !important;
+}
+
+
+.btn-def:hover{
+  background: white;
+  color:rgb(92, 92, 94) !important;
 }
 
 
