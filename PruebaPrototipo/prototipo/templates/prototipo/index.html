@@ -95,7 +95,7 @@
                                   {% endfor %}
 
 
-                                  <!-- {% for syn in resultsSynonyms %}
+                                   {% for syn in resultsSynonyms %}
                                        {% if offset.offset == syn.offset %}
                                              {% if syn.definition != "" %}
                                                  <p> Definición: {{ syn.definition }} </p>
@@ -115,7 +115,17 @@
                                                  <p> Ejemplo: {{ hyp.example }} </p>
                                              {% endif %}
                                        {% endif %}
-                                   {% endfor %}-->
+                                   {% endfor %}
+                                   {% for hyper in resultsHyperonyms %}
+                                       {% if offset.offset == hyp.offsetFather %}
+                                             {% if hyper.definition != '' %}
+                                                 <p> Definición: {{ hyper.definition }} </p>
+                                             {% endif %}
+                                             {% if hyper.example != ' ' %}
+                                                 <p> Ejemplo: {{ hyper.example }} </p>
+                                             {% endif %}
+                                       {% endif %}
+                                   {% endfor %}
 
 
 
