@@ -30,16 +30,16 @@ def index(request):
             #resultsHyponyms = list()
 
             #resultPictos = list()
-            #jsonPictos = pictos.getSynsetsAPI(word)
+            jsonImage = pictos.getSynsetsAPI(word)
             fichas = list()
 
             for offset in allOffsets:
                 ficha = list()
 
                 #resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
-                resultsSynonyms = services.customSynonyms(word, offset['offset'])
-                resultsHyponyms = services.customHyponyms(word, offset['offset'])
-                resultsHyperonyms = services.customHyperonyms(word, offset['offset'])
+                resultsSynonyms = services.customSynonyms(word, offset['offset'], jsonImage)
+                resultsHyponyms = services.customHyponyms(word, offset['offset'], jsonImage)
+                resultsHyperonyms = services.customHyperonyms(word, offset['offset'], jsonImage)
                 if len(resultsSynonyms) > 0:
                     elem = []
                     elem.append({'tipo': "", 'datos': ""})
