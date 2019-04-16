@@ -120,7 +120,8 @@ def customSynonyms(word, offset, jsonImage):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            url = pictos.getImage(offset, jsonImage)
+            #url = pictos.getImage(offset, jsonImage)
+            url = "None"
             if url != "None":
                 dataJson[0]["picto"] = url
             dataJson[0]["phraseSynonyms"] = listPhrase
@@ -152,7 +153,8 @@ def customHyponyms(word, offset, jsonImage):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            url = pictos.getImage(offset, jsonImage)
+            #url = pictos.getImage(offset, jsonImage)
+            url = "None"
             if url != "None":
                 dataJson[0]["picto"] = url
             dataJson[0]["phraseHyponyms"] = listPhrase
@@ -187,7 +189,8 @@ def customHyperonyms(word, offset, jsonImage):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            url = pictos.getImage(offset, jsonImage)
+            #url = pictos.getImage(offset, jsonImage)
+            url = "None"
             if url != "None":
                 dataJson[0]["picto"] = url
             dataJson[0]["phraseHyperonyms"] = listPhrase

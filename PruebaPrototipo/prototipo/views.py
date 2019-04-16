@@ -34,8 +34,8 @@ def index(request):
             fichas = list()
 
             for offset in allOffsets:
-                ficha = list()
-
+                ficha = []
+                ficha.append({'picto': "", 'data': []})
                 #resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
                 resultsSynonyms = services.customSynonyms(word, offset['offset'], jsonImage)
                 resultsHyponyms = services.customHyponyms(word, offset['offset'], jsonImage)
@@ -45,20 +45,23 @@ def index(request):
                     elem.append({'tipo': "", 'datos': ""})
                     elem[0]['tipo'] = 'synonyms'
                     elem[0]['datos'] = resultsSynonyms
-                    ficha.append(elem)
+                    ficha[0]['data'].append(elem)
                 if len(resultsHyponyms) > 0:
                     elem = []
                     elem.append({'tipo': "", 'datos': ""})
                     elem[0]['tipo'] = 'hyponyms'
                     elem[0]['datos'] = resultsHyponyms
-                    ficha.append(elem)
+                    ficha[0]['data'].append(elem)
                 if len(resultsHyperonyms) > 0:
                     elem = []
                     elem.append({'tipo': "", 'datos': ""})
                     elem[0]['tipo'] = 'hyperonyms'
                     elem[0]['datos'] = resultsHyperonyms
-                    ficha.append(elem)
-                if len(ficha) > 0:
+                    ficha[0]['data'].append(elem)
+                if len(resultsSynonyms) > 0 or len(resultsHyponyms) > 0 or len(resultsHyperonyms) > 0:
+                    url = pictos.getImage(offset['offset'], jsonImage)
+                    if url != "None":
+                        ficha[0]['picto'] = url
                     fichas.append(ficha)
                 '''
                 for synsets in resultPictos:
@@ -74,7 +77,7 @@ def index(request):
             #print(resultsHyponyms)
             #print("SYNONYMS")
             #print(resultsSynonyms)
-            print(len(fichas))
+            print(fichas)
             '''
             if len(resultsHyperonyms) > 0:
                 for elem in resultsHyperonyms:
