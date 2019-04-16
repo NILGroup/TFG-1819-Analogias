@@ -92,7 +92,103 @@ def easySynonyms(word, offset):
 
     return dataJson
 
+def customSynonyms(word, offset):
+    dataJson = []
+    archivo, csvarchivo = aperturaYlecturaCSV()
+    listAllSynonyms = allSynonyms(offset)
+    jsonImage = pictos.getSynsetsAPI(word)
+    #print(listAllSynonyms)
+    for obj in listAllSynonyms:
+        if obj['offset'] == offset:
+            listEasyWords = list()
+            listPhrase = list()
+            for synonym in obj["synonyms"]:
+                csvarchivo.seek(0)
 
+                for j in archivo:
+                    if synonym == j['PALABRA'] and synonym != word:
+                        listEasyWords.append(j['PALABRA'])
+                        listPhrase.append(spacy.phraseMaker(synonym))
+            #print(listPhrase)
+            if len(listEasyWords) > 0:
+                dataJson.insert(0, {'offset': "", 'easySynonyms': "", 'definition': "", 'example': "", 'picto': "", 'phraseSynonyms': ""})
+                dataJson[0]["easySynonyms"] = listEasyWords
+                dataJson[0]["offset"] = obj["offset"]
+                if dataJson[0]["definition"] != "None":
+                    dataJson[0]["definition"] = obj["definition"]
+                dataJson[0]["example"] = obj["example"]
+                if pictos.getImage(offset, jsonImage) != "None":
+                    dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
+                dataJson[0]["phraseSynonyms"] = listPhrase
+    return dataJson
+
+def customHyponyms(word, offset):
+    dataJson = []
+
+    archivo, csvarchivo = aperturaYlecturaCSV()
+    listAllHyponyms = allHyponyms(offset)
+    jsonImage = pictos.getSynsetsAPI(word)
+
+    for obj in listAllHyponyms:
+        listEasyWords = list()
+        listPhrase = list()
+        for hyponym in obj["hyponyms"]:
+            csvarchivo.seek(0)
+            for j in archivo:
+                if hyponym == j['PALABRA'] and hyponym != word:
+                    listEasyWords.append(j['PALABRA'])
+                    listPhrase.append(spacy.phraseMaker(hyponym))
+
+        if len(listEasyWords) > 0:
+            dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyponyms': "", 'definition': "", 'example': "", 'picto': "", 'phraseHyponyms': ""})
+            dataJson[0]["easyHyponyms"] = listEasyWords
+            dataJson[0]["offsetFather"] = obj["offsetFather"]
+            dataJson[0]["offset"] = obj["offset"]
+
+            if dataJson[0]["definition"] != "None":
+                dataJson[0]["definition"] = obj["definition"]
+            dataJson[0]["example"] = obj["example"]
+            if pictos.getImage(offset, jsonImage) != "None":
+                dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
+            dataJson[0]["phraseHyponyms"] = listPhrase
+
+    #print("DATA EASY HYPONYMS")
+    #print(json.dumps(dataJson ,ensure_ascii=False))
+    return dataJson
+
+def customHyperonyms(word, offset):
+    dataJson = []
+
+    archivo, csvarchivo = aperturaYlecturaCSV()
+    listAllHyperonyms = allHyperonyms(offset)
+    jsonImage = pictos.getSynsetsAPI(word)
+
+    for obj in listAllHyperonyms:
+        listEasyWords = list()
+        listPhrase = list()
+        for hyperonym in obj["hyperonyms"]:
+            csvarchivo.seek(0)
+            for j in archivo:
+                if hyperonym == j['PALABRA'] and hyperonym != word:
+                    listEasyWords.append(j['PALABRA'])
+                    listPhrase.append(spacy.phraseMaker(hyperonym))
+
+        if len(listEasyWords) > 0:
+            dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyperonyms': "", 'definition': "", 'example': "", 'picto': "", 'phraseHyperonyms': ""})
+            dataJson[0]["easyHyperonyms"] = listEasyWords
+            dataJson[0]["offsetFather"] = obj["offsetFather"]
+            dataJson[0]["offset"] = obj["offset"]
+
+            if dataJson[0]["definition"] != "None":
+                dataJson[0]["definition"] = obj["definition"]
+            dataJson[0]["example"] = obj["example"]
+            if pictos.getImage(offset, jsonImage) != "None":
+                dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
+            dataJson[0]["phraseHyperonyms"] = listPhrase
+
+    #print("DATA EASY HYPONYMS")
+    #print(json.dumps(dataJson ,ensure_ascii=False))
+    return dataJson
 
 def makerSynonymsPhrase(word, offset):
     dataJson = []

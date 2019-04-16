@@ -60,10 +60,49 @@
                   <h3>Resultados para la palabra <p class="ml-2"> {{ word }}</p></h3>
 
                   <ul id="list-results">
+                      {% for ficha in fichas %}
+                        <div id ="card{{ counterId }}"class="panel-words mt-4 pt-3 pb-3 col-8 ">
+                            <div class="number-panel pt-3 ml-3"><p>{{ counter }}.</p></div>
 
+                               <div class="results">
+                                  <p style="color:red">OFFSET INICIAL  {{ offset.offset }} </p>
+                        {% for elem in ficha %}
+
+                            {% if elem.0.tipo == 'synonyms' %}
+                                   {% if elem.0.datos.0.picto != "" %}
+                                            <img class="image-picto ml-3" src="{{ elem.0.datos.0.picto }}"></img>
+                                   {% endif %}
+                                    <p>OFFSET SINONIMO FACIL  {{ elem.0.datos.0.offset }} </p>
+                                    {% for phrase in elem.0.datos.0.phraseSynonyms %}
+                                        <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+                                    {% endfor %}
+                            {% elif elem.0.tipo == 'hyponyms' %}
+                                   {% if elem.0.datos.0.picto != "" %}
+                                        <img class="image-picto ml-3" src="{{ elem.0.datos.0.picto }}"></img>
+                                   {% endif %}
+                                    <p>OFFSET PADRE {{ elem.0.datos.0.offsetFather }} ==> OFFSET HIPONIMO FACIL {{ elem.0.datos.0.offset }}</p>
+                                    {% for phrase in elem.0.datos.0.phraseHyponyms %}
+                                         <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+                                    {% endfor %}
+                            {% else %}
+                                   {% if elem.0.datos.0.picto != "" %}
+                                        <img class="image-picto ml-3" src="{{ elem.0.datos.0.picto }}"></img>
+                                   {% endif %}
+                                    <p>OFFSET PADRE {{ elem.0.datos.0.offsetFather }} ==> OFFSET HIPONIMO FACIL {{ elem.0.datos.0.offset }}</p>
+                                    {% for phrase in elem.0.datos.0.phraseHyperonyms %}
+                                         <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+                                    {% endfor %}
+                            {% endif %}
+
+                        {% endfor %}
+                           </div>
+                            </div>
+                      {% endfor %}
+<!--
                       {% for offset in offsetInicial %}
 
-                          <div id="card{{counter}}" class="panel-words mt-4 pt-3 pb-3 col-8 ">
+
+                          <div class="panel-words mt-4 pt-3 pb-3 col-8 ">
                               <div class="number-panel pt-3 ml-3"><p>{{ counter }}.</p></div>
 
                                <div class="results">
@@ -167,7 +206,7 @@
 
                                </div>
                           </div>
-                      {% endfor %}
+                      {% endfor %} -->
 
 
 
@@ -219,7 +258,6 @@
                   
                                     
                   </ul>
-
                 </div>
 
 
