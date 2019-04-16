@@ -30,7 +30,7 @@ def index(request):
             #resultsHyponyms = list()
 
             #resultPictos = list()
-            jsonPictos = pictos.getSynsetsAPI(word)
+            #jsonPictos = pictos.getSynsetsAPI(word)
             fichas = list()
 
             for offset in allOffsets:
