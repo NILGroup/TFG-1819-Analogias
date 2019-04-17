@@ -71,28 +71,26 @@
                                     {% for elem in ficha.data %}
 
                                         {% if elem.tipo == 'synonyms' %}
-                                               {% if elem.datos.picto != "" %}
 
-                                               {% endif %}
                                                 <p>OFFSET SINONIMO FACIL  {{ elem.datos.offset }} </p>
                                                 {% for phrase in elem.datos.phraseSynonyms %}
                                                     <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
                                                 {% endfor %}
                                         {% elif elem.tipo == 'hyponyms' %}
-                                               {% if elem.datos.picto != "" %}
-                                                    <img class="image-picto ml-3" src="{{ elem.datos.picto }}"></img>
-                                               {% endif %}
-                                                <p>OFFSET PADRE {{ elem.datos.offsetFather }} ==> OFFSET HIPONIMO FACIL {{ elem.datos.offset }}</p>
-                                                {% for phrase in elem.datos.phraseHyponyms %}
-                                                     <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+
+                                                {% for text in elem.datos %}
+                                                    <p>OFFSET PADRE {{ text.offsetFather }} ==> OFFSET HIPONIMO FACIL {{ text.offset }}</p>
+                                                    {% for phrase in text.phraseHyponyms %}
+                                                        <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+                                                    {% endfor %}
                                                 {% endfor %}
                                         {% else %}
-                                               {% if elem.datos.picto != "" %}
-                                                    <img class="image-picto ml-3" src="{{ elem.datos.picto }}"></img>
-                                               {% endif %}
-                                                <p>OFFSET PADRE {{ elem.datos.offsetFather }} ==> OFFSET HIPERONIMO FACIL {{ elem.datos.offset }}</p>
-                                                {% for phrase in elem.datos.phraseHyperonyms %}
-                                                     <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+
+                                                {% for text in elem.datos %}
+                                                    <p>OFFSET PADRE {{ text.offsetFather }} ==> OFFSET HIPERONIMO FACIL {{ text.offset }}</p>
+                                                    {% for phrase in text.phraseHyperonyms %}
+                                                        <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+                                                    {% endfor %}
                                                 {% endfor %}
                                         {% endif %}
 
@@ -111,14 +109,23 @@
 
                                             <!--{% for elem in ficha.data %} -->
 
-
+                                            {% if elem.tipo == 'synonyms' %}
                                                  {% if elem.datos.definition !=  "" %}
                                                      <p><b> Definición:</b><i>{{ elem.datos.definition  }} </i></p>
                                                  {% endif %}
                                                  {% if elem.datos.example != "" %}
                                                      <p><b> Ejemplo: </b><i> {{ elem.datos.example }} </i></p>
                                                  {% endif %}
-
+                                            {% else %}
+                                                {% for text in elem.datos %}
+                                                    {% if text.definition !=  "" %}
+                                                        <p><b> Definición:</b><i>{{ text.definition  }} </i></p>
+                                                    {% endif %}
+                                                    {% if text.example != "" %}
+                                                        <p><b> Ejemplo: </b><i> {{ text.example }} </i></p>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
                                            <!-- {% endfor %} -->
 
 

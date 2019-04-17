@@ -51,13 +51,14 @@ def index(request):
                     elem = ({'tipo': "", 'datos': ""})
                     #elem.append({'tipo': "", 'datos': ""})
                     elem['tipo'] = 'hyponyms'
-                    elem['datos'] = resultsHyponyms[0]
+                    elem['datos'] = resultsHyponyms
+                    #print(resultsHyponyms)
                     ficha['data'].append(elem)
                 if len(resultsHyperonyms) > 0:
                     elem = ({'tipo': "", 'datos': ""})
                    # elem.append({'tipo': "", 'datos': ""})
                     elem['tipo'] = 'hyperonyms'
-                    elem['datos'] = resultsHyperonyms[0]
+                    elem['datos'] = resultsHyperonyms
                     ficha['data'].append(elem)
                 if len(resultsSynonyms) > 0 or len(resultsHyponyms) > 0 or len(resultsHyperonyms) > 0:
                     url = pictos.getImage(offset['offset'], jsonImage)
