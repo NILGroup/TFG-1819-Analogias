@@ -34,35 +34,36 @@ def index(request):
             fichas = list()
 
             for offset in allOffsets:
-                ficha = []
-                ficha.append({'picto': "", 'data': []})
+                ficha = ({'picto': "", 'data': []})
+                #ficha.append({'picto': "", 'data': []})
                 #resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
                 resultsSynonyms = services.customSynonyms(word, offset['offset'], jsonImage)
                 resultsHyponyms = services.customHyponyms(word, offset['offset'], jsonImage)
                 resultsHyperonyms = services.customHyperonyms(word, offset['offset'], jsonImage)
 
                 if len(resultsSynonyms) > 0:
-                    elem = []
-                    elem.append({'tipo': "", 'datos': ""})
-                    elem[0]['tipo'] = 'synonyms'
-                    elem[0]['datos'] = resultsSynonyms
-                    ficha[0]['data'].append(elem)
+                    elem = ({'tipo': "", 'datos': ""})
+                    #elem.append({'tipo': "", 'datos': ""})
+                    elem['tipo'] = 'synonyms'
+                    elem['datos'] = resultsSynonyms[0]
+                    ficha['data'].append(elem)
                 if len(resultsHyponyms) > 0:
-                    elem = []
-                    elem.append({'tipo': "", 'datos': ""})
-                    elem[0]['tipo'] = 'hyponyms'
-                    elem[0]['datos'] = resultsHyponyms
-                    ficha[0]['data'].append(elem)
+                    elem = ({'tipo': "", 'datos': ""})
+                    #elem.append({'tipo': "", 'datos': ""})
+                    elem['tipo'] = 'hyponyms'
+                    elem['datos'] = resultsHyponyms[0]
+                    ficha['data'].append(elem)
                 if len(resultsHyperonyms) > 0:
-                    elem = []
-                    elem.append({'tipo': "", 'datos': ""})
-                    elem[0]['tipo'] = 'hyperonyms'
-                    elem[0]['datos'] = resultsHyperonyms
-                    ficha[0]['data'].append(elem)
+                    elem = ({'tipo': "", 'datos': ""})
+                   # elem.append({'tipo': "", 'datos': ""})
+                    elem['tipo'] = 'hyperonyms'
+                    elem['datos'] = resultsHyperonyms[0]
+                    ficha['data'].append(elem)
                 if len(resultsSynonyms) > 0 or len(resultsHyponyms) > 0 or len(resultsHyperonyms) > 0:
                     url = pictos.getImage(offset['offset'], jsonImage)
                     if url != "None":
-                        ficha[0]['picto'] = url
+                        ficha['picto'] = url
+                    print(ficha)
                     fichas.append(ficha)
                 '''
                 for synsets in resultPictos:
@@ -78,7 +79,7 @@ def index(request):
             #print(resultsHyponyms)
             #print("SYNONYMS")
             #print(resultsSynonyms)
-            print(fichas)
+            #print(fichas)
             '''
             if len(resultsHyperonyms) > 0:
                 for elem in resultsHyperonyms:
