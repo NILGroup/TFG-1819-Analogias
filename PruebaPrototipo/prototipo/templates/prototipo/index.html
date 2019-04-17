@@ -68,37 +68,68 @@
                             {% endif %}
                                <div class="results">
                                   <p style="color:red">OFFSET INICIAL  {{ offset.offset }} </p>
-                        {% for elem in ficha.0.data %}
+                                    {% for elem in ficha.0.data %}
 
-                            {% if elem.0.tipo == 'synonyms' %}
-                                   {% if elem.0.datos.0.picto != "" %}
+                                        {% if elem.0.tipo == 'synonyms' %}
+                                               {% if elem.0.datos.0.picto != "" %}
 
-                                   {% endif %}
-                                    <p>OFFSET SINONIMO FACIL  {{ elem.0.datos.0.offset }} </p>
-                                    {% for phrase in elem.0.datos.0.phraseSynonyms %}
-                                        <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
-                                    {% endfor %}
-                            {% elif elem.0.tipo == 'hyponyms' %}
-                                   {% if elem.0.datos.0.picto != "" %}
-                                        <img class="image-picto ml-3" src="{{ elem.0.datos.0.picto }}"></img>
-                                   {% endif %}
-                                    <p>OFFSET PADRE {{ elem.0.datos.0.offsetFather }} ==> OFFSET HIPONIMO FACIL {{ elem.0.datos.0.offset }}</p>
-                                    {% for phrase in elem.0.datos.0.phraseHyponyms %}
-                                         <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
-                                    {% endfor %}
-                            {% else %}
-                                   {% if elem.0.datos.0.picto != "" %}
-                                        <img class="image-picto ml-3" src="{{ elem.0.datos.0.picto }}"></img>
-                                   {% endif %}
-                                    <p>OFFSET PADRE {{ elem.0.datos.0.offsetFather }} ==> OFFSET HIPERONIMO FACIL {{ elem.0.datos.0.offset }}</p>
-                                    {% for phrase in elem.0.datos.0.phraseHyperonyms %}
-                                         <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
-                                    {% endfor %}
-                            {% endif %}
+                                               {% endif %}
+                                                <p>OFFSET SINONIMO FACIL  {{ elem.0.datos.0.offset }} </p>
+                                                {% for phrase in elem.0.datos.0.phraseSynonyms %}
+                                                    <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+                                                {% endfor %}
+                                        {% elif elem.0.tipo == 'hyponyms' %}
+                                               {% if elem.0.datos.0.picto != "" %}
+                                                    <img class="image-picto ml-3" src="{{ elem.0.datos.0.picto }}"></img>
+                                               {% endif %}
+                                                <p>OFFSET PADRE {{ elem.0.datos.0.offsetFather }} ==> OFFSET HIPONIMO FACIL {{ elem.0.datos.0.offset }}</p>
+                                                {% for phrase in elem.0.datos.0.phraseHyponyms %}
+                                                     <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+                                                {% endfor %}
+                                        {% else %}
+                                               {% if elem.0.datos.0.picto != "" %}
+                                                    <img class="image-picto ml-3" src="{{ elem.0.datos.0.picto }}"></img>
+                                               {% endif %}
+                                                <p>OFFSET PADRE {{ elem.0.datos.0.offsetFather }} ==> OFFSET HIPERONIMO FACIL {{ elem.0.datos.0.offset }}</p>
+                                                {% for phrase in elem.0.datos.0.phraseHyperonyms %}
+                                                     <p>Un {{ word }}  <a href="#">{{ phrase }}</a> </p>
+                                                {% endfor %}
+                                        {% endif %}
 
-                        {% endfor %}
-                           </div>
+                                    {% endfor %}
+
+
+
+
+                            <div  id="panel-button" class="panel-buttons border border-dark">
+                                <div class="dropdown show">
+                                    <a class="btn btn-def dropdown-toggle" href="#" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Definición y Ejemplo
+                                    </a>
+                                    <div class="dropdown-menu panel-dropdown-def" aria-labelledby="dropdownMenuLink">
+                                        <div class="panel-def-example-only-button">
+
+                                            {% for elem in ficha.0.data %}
+
+                                                <p></p>
+                                                 {% if elem.0.datos.0.definition !=  "" %}
+                                                     <p><b> Definición:</b><i>{{ elem.0.datos.0.definition  }} </i></p>
+                                                 {% endif %}
+                                                 {% if elem.0.datos.0.example != "" %}
+                                                     <p><b> Ejemplo: </b><i> {{ elem.0.datos.0.example }} </i></p>
+                                                 {% endif %}
+
+                                            {% endfor %}
+
+
+                                         </div>
+
+                                    </div>
+                                </div>
+
                             </div>
+                          </div> <!-- cierre div results -->
+                        </div> <!--cierre div card -->
                       {% endfor %}
 <!--
                       {% for offset in offsetInicial %}

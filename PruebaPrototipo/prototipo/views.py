@@ -40,6 +40,7 @@ def index(request):
                 resultsSynonyms = services.customSynonyms(word, offset['offset'], jsonImage)
                 resultsHyponyms = services.customHyponyms(word, offset['offset'], jsonImage)
                 resultsHyperonyms = services.customHyperonyms(word, offset['offset'], jsonImage)
+
                 if len(resultsSynonyms) > 0:
                     elem = []
                     elem.append({'tipo': "", 'datos': ""})

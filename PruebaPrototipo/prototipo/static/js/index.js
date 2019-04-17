@@ -16,11 +16,11 @@ function selectOptionHandler(){
     }
 
 
-    if($("#defyejemplo").is(':checked')){
+    /*if($("#defyejemplo").is(':checked')){
        $("#panel-button").css("display" ,"block");
     }else{
       $("#panel-button").css("display", "none");
-    }
+    }*/
 }
 
 
