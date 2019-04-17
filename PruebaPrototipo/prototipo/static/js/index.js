@@ -26,7 +26,7 @@ function selectOptionHandler(){
 
 
 function showCardHandler(){
-    alert($("#fichasss").attr("value"));
+
 
      /*let fichas = "hola";
      $.ajax({
@@ -44,7 +44,7 @@ function showCardHandler(){
         }
      });*/
 
-    /*let card = "<div id='card' class='panel-words mt-4 pt-3 pb-3 col-8'><div class='results'>hola</div></div>"
-    console.log("CARD")
-    $("#list-results").append(card)*/
+    let card = "<div id='card' class='panel-words mt-4 pt-3 pb-3 col-8'><div class='results'>" + $("#fichas").attr("value") + "</div></div>"
+
+    $("#list-results").append(card)
 }
