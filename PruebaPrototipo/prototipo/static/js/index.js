@@ -1,7 +1,8 @@
 $(function() {
 
     $("#button-accept").on("click", selectOptionHandler);
-    $("#button-send").on("click", showCardHandler)
+    $("#button-send").on("click", showCardHandler);
+
 
 });
 
@@ -25,9 +26,24 @@ function selectOptionHandler(){
 
 
 function showCardHandler(){
+    alert($("#fichasss").attr("value"));
 
-    let data = JSON.parse("resultsSynonyms")
-    console.log(data)
+     /*let fichas = "hola";
+     $.ajax({
+        type:'POST',
+        url: '',
+        data: { 'fichas' : fichas, csrfmiddlewaretoken:"{{ csrf_token }}" },
+        success: function (data){
+            console.log(data);
+            alert(data.fichas)
+
+        },
+        error: function(data, jqXHR, textStatus, errorThrown){
+            console.log(data);
+
+        }
+     });*/
+
     /*let card = "<div id='card' class='panel-words mt-4 pt-3 pb-3 col-8'><div class='results'>hola</div></div>"
     console.log("CARD")
     $("#list-results").append(card)*/
