@@ -6,7 +6,7 @@ import prototipo.pictosServices as pictos
 import json
 import itertools
 import functools
-
+import prototipo.customService as custom
 
 
 from .forms import PostFormWordSearch
@@ -64,7 +64,7 @@ def index(request):
                     url = pictos.getImage(offset['offset'], jsonImage)
                     if url != "None":
                         ficha['picto'] = url
-                    print(ficha)
+
                     fichas.append(ficha)
                 '''
                 for synsets in resultPictos:
@@ -95,6 +95,140 @@ def index(request):
 
 
     return render(request, 'prototipo/index.html', {'form': form, 'word': "", 'results': ""})
+
+
+
+def version1(request):
+
+    form = PostFormWordSearch()
+
+    if request.method == "POST":
+        form = PostFormWordSearch(request.POST)
+
+        if 'button-search' in request.POST:
+            # words = request.POST.get('word')
+            # print(words)
+            word = form['word'].value()
+            # print(word)
+            # results = services.searchAllHyponyms(word)
+            allOffsets = services.allOffsets(word)
+            resultsHyperonyms = list()
+            resultsSynonyms = list()
+            resultsHyponyms = list()
+
+            # resultPictos = list()
+            jsonImage = pictos.getSynsetsAPI(word)
+            fichas = list()
+
+            for offset in allOffsets:
+
+                resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
+                resultsHyponyms += services.makerHyponymsPhrase(word, offset['offset'])
+                resultsHyperonyms += services.makerHyperonymsPhrase(word, offset['offset'])
+
+
+
+            return render(request, 'prototipo/version1.html',
+                          {'form': form, 'word': word, 'counter': functools.partial(next, itertools.count(1)),
+                           'counterId': functools.partial(next, itertools.count(1)), 'offsetInicial' : allOffsets, 'resultsSynonyms': resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms})
+
+    return render(request, 'prototipo/version1.html', {'form': form, 'word': "", 'results': ""})
+
+
+
+
+
+
+
+
+
+
+
+def version2(request):
+    form = PostFormWordSearch()
+
+    if request.method == "POST":
+        form = PostFormWordSearch(request.POST)
+
+        if 'button-search' in request.POST:
+            # words = request.POST.get('word')
+            # print(words)
+            word = form['word'].value()
+            # print(word)
+            # results = services.searchAllHyponyms(word)
+            allOffsets = services.allOffsets(word)
+            # resultsHyperonyms = list()
+            # resultsSynonyms = list()
+            # resultsHyponyms = list()
+
+            # resultPictos = list()
+            jsonImage = pictos.getSynsetsAPI(word)
+            fichas = list()
+
+            for offset in allOffsets:
+                ficha = ({'picto': "", 'data': []})
+                # ficha.append({'picto': "", 'data': []})
+                # resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
+                resultsSynonyms = custom.customSynonyms(word, offset['offset'], jsonImage)
+                resultsHyponyms = custom.customHyponyms(word, offset['offset'], jsonImage)
+                resultsHyperonyms = custom.customHyperonyms(word, offset['offset'], jsonImage)
+
+                if len(resultsSynonyms) > 0:
+                    elem = ({'tipo': "", 'datos': ""})
+                    # elem.append({'tipo': "", 'datos': ""})
+                    elem['tipo'] = 'synonyms'
+                    elem['datos'] = resultsSynonyms[0]
+                    ficha['data'].append(elem)
+                if len(resultsHyponyms) > 0:
+                    elem = ({'tipo': "", 'datos': ""})
+                    # elem.append({'tipo': "", 'datos': ""})
+                    elem['tipo'] = 'hyponyms'
+                    elem['datos'] = resultsHyponyms
+                    # print(resultsHyponyms)
+                    ficha['data'].append(elem)
+                if len(resultsHyperonyms) > 0:
+                    elem = ({'tipo': "", 'datos': ""})
+                    # elem.append({'tipo': "", 'datos': ""})
+                    elem['tipo'] = 'hyperonyms'
+                    elem['datos'] = resultsHyperonyms
+                    ficha['data'].append(elem)
+                if len(resultsSynonyms) > 0 or len(resultsHyponyms) > 0 or len(resultsHyperonyms) > 0:
+                    url = pictos.getImage(offset['offset'], jsonImage)
+                    if url != "None":
+                        ficha['picto'] = url
+
+                    fichas.append(ficha)
+                '''
+                for synsets in resultPictos:
+                    print(offset['offset'])
+                    print(synsets["synsets"])
+                    #url = pictos.getImage(offset['offset'], synsets)
+                    #print(url)
+                    '''
+
+            # print("HYPERONYMS")
+            # print(resultsHyperonyms)
+            # print("HYPONYMS")
+            # print(resultsHyponyms)
+            # print("SYNONYMS")
+            # print(resultsSynonyms)
+            # print(fichas)
+            '''
+            if len(resultsHyperonyms) > 0:
+                for elem in resultsHyperonyms:
+                    #print(elem['offsetFather'])
+                    url = pictos.getImage(str(elem['offsetFather']), jsonPictos)
+                    if url != "None":
+                        elem['picto'] = url
+            '''
+
+            return render(request, 'prototipo/version2.html',
+                          {'form': form, 'word': word, 'counter': functools.partial(next, itertools.count(1)),
+                           'counterId': functools.partial(next, itertools.count(1)), 'fichas': fichas})
+
+    return render(request, 'prototipo/version2.html', {'form': form, 'word': "", 'results': ""})
+
+
 
 
 

@@ -1,8 +1,8 @@
 import spacy
 import csv
 import requests
+import pandas as pd
 import re
-
 
 
 
@@ -15,9 +15,58 @@ data = []
 cont = 1
 
 
+
+
+### FILTRO PARA BUSCAR CON REGEX    ###
+
+csvarchivo = open('5000PalabrasFiltradasYordenadas.csv', encoding="utf8", errors='ignore')
+entrada = csv.DictReader(csvarchivo, delimiter=";")
+
+df = pd.DataFrame(list(entrada))
+print(df)
+filtro = df[df['PALABRA'] == 'abajo']
+#filtro = df[df['PALABRA'].str.contains(r"^abajo/", regex=True)]
+
+print(filtro)
+
+
+### ABRE EL ARCHIVO Y VUELVE A ESCRIBIR UNO NUEVO CON LAS PALABRAS ORDENADAS ALFABETICAMENTE ###
+'''
+with open('5000PalabrasFiltradas.csv',newline='') as csvfile:
+    entrada = csv.DictReader(csvfile, delimiter=";")
+    sortedlist = sorted(entrada, key=lambda row:(row['PALABRA']), reverse=False)
+
+
+
+csvsalida = open('5000PalabrasFiltradasYordenadas.csv', 'w', encoding="utf8")
+salida = csv.writer(csvsalida, delimiter=";")
+
+salida.writerow(("NUMERO", "PALABRA"))
+contador = 1
+for i in sortedlist:
+    salida.writerow((contador, i["PALABRA"]))
+    contador += 1
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
 obj = requests.get('https://holstein.fdi.ucm.es/nlp-api/analisis/coche',  verify=False).json()
 print(obj['morfologico']['genero'])
 print(obj['morfologico']['numero'])
+'''
 '''
 doc = nlp("coche")
 
