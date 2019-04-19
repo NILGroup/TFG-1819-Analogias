@@ -232,3 +232,16 @@ def aperturaYlecturaCSV():
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
     return archivo, csvarchivo
+
+def loadIndex():
+    index = dict()
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/index.csv', encoding="utf8", errors='ignore')
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    for i in archivo:
+        #print(i)
+        index.update({i['LETRA']:i['INICIO']})
+
+    #print(csvarchivo.seek())
+

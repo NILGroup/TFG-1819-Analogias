@@ -146,7 +146,7 @@ def version1(request):
 
 def version2(request):
     form = PostFormWordSearch()
-
+    custom.loadIndex()
     if request.method == "POST":
         form = PostFormWordSearch(request.POST)
 

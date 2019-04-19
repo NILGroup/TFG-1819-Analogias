@@ -4,19 +4,25 @@ import requests
 import pandas as pd
 import re
 
+#PARA QUE AL COMPARAR PALABRAS NO TENGA EN CUENTA LOS ACENTOS
+from unidecode import unidecode
 
 
 
 
-
-nlp = spacy.load('es_core_news_sm')
+#nlp = spacy.load('es_core_news_sm')
 
 data = []
 cont = 1
+'''
+#CLASIFICADOR DE PALABRAS SEGUN LETRA INICIAL
 
-
-
-
+csvarchivo = open('5000PalabrasFiltradasYordenadas.csv', encoding="utf8", errors='ignore')
+entrada = csv.DictReader(csvarchivo, delimiter=";")
+for i in entrada:
+    print(i['PALABRA'][0])
+'''
+'''
 ### FILTRO PARA BUSCAR CON REGEX    ###
 
 csvarchivo = open('5000PalabrasFiltradasYordenadas.csv', encoding="utf8", errors='ignore')
@@ -29,24 +35,37 @@ filtro = df[df['PALABRA'] == 'abajo']
 
 print(filtro)
 
-
-### ABRE EL ARCHIVO Y VUELVE A ESCRIBIR UNO NUEVO CON LAS PALABRAS ORDENADAS ALFABETICAMENTE ###
 '''
-with open('5000PalabrasFiltradas.csv',newline='') as csvfile:
+### ABRE EL ARCHIVO Y VUELVE A ESCRIBIR UNO NUEVO CON LAS PALABRAS ORDENADAS ALFABETICAMENTE ###
+
+with open('5000PalabrasFiltradas.csv',newline='', encoding='utf-8') as csvfile:
     entrada = csv.DictReader(csvfile, delimiter=";")
     sortedlist = sorted(entrada, key=lambda row:(row['PALABRA']), reverse=False)
 
 
 
-csvsalida = open('5000PalabrasFiltradasYordenadas.csv', 'w', encoding="utf8")
+csvsalida = open('5000PalabrasFiltradasYordenadas_V2.csv', 'w', encoding="utf8", newline='')
 salida = csv.writer(csvsalida, delimiter=";")
+salida.writerow(("NUMERO", "PALABRA", "ORDEN"))
 
-salida.writerow(("NUMERO", "PALABRA"))
+csvindex = open('index.csv', 'w', encoding="utf8", newline='')
+index = csv.writer(csvindex, delimiter=";")
+index.writerow(("LETRA", "INICIO"))
+
+
 contador = 1
+inicial = ''
 for i in sortedlist:
-    salida.writerow((contador, i["PALABRA"]))
+    #print(csvsalida.seek())
+    if inicial != i["PALABRA"][0]:
+        salida.writerow((contador, i["PALABRA"], 'INICIO'))
+        index.writerow((i["PALABRA"][0], contador))
+        inicial = i["PALABRA"][0]
+    else:
+        salida.writerow((contador, i["PALABRA"], 'NORMAL'))
     contador += 1
-'''
+
+
 
 
 
