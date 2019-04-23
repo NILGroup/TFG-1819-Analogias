@@ -5,6 +5,7 @@ import json
 from prototipo import spacyService as spacy
 import prototipo.pictosServices as pictos
 import pandas as pd
+import time
 
 #### SERVICIO QUE DADO UN OFFSET DEVUELVE TODOS LOS SINONIMOS   ####
 def allSynonyms(offset):
@@ -114,7 +115,7 @@ def allHyperonyms(offset):
 
 def customSynonyms(word, offset, jsonImage):
     dataJson = []
-    archivo, csvarchivo = aperturaYlecturaCSV()
+    #archivo, csvarchivo = aperturaYlecturaCSV()
     listAllSynonyms = allSynonyms(offset)
     #jsonImage = pictos.getSynsetsAPI(word)
     #print(listAllSynonyms)
@@ -130,14 +131,19 @@ def customSynonyms(word, offset, jsonImage):
         listEasyWords = list()
         listPhrase = list()
         for synonym in obj["synonyms"]:
-            csvarchivo.seek(0)
-
+            #csvarchivo.seek(0)
+            archivo, csvarchivo = aperturaYlecturaCSVIndice(synonym[0])
+            start_time = time.time()
             for j in archivo:
                 if synonym == j['PALABRA'] and synonym != word:
                     listEasyWords.append(j['PALABRA'])
                     listPhrase.append(spacy.phraseMaker(synonym))
+            csvarchivo.close()
+            print('T VUELTA')
+            print(time.time() - start_time)
         #print(listPhrase)
         if len(listEasyWords) > 0:
+            start2 = time.time()
             dataJson.insert(0, {'offset': "", 'easySynonyms': "", 'definition': "", 'example': "", 'picto': "", 'phraseSynonyms': ""})
             dataJson[0]["easySynonyms"] = listEasyWords
             dataJson[0]["offset"] = obj["offset"]
@@ -149,12 +155,14 @@ def customSynonyms(word, offset, jsonImage):
             if url != "None":
                 dataJson[0]["picto"] = url
             dataJson[0]["phraseSynonyms"] = listPhrase
+            print('T JSON')
+            print(time.time() - start2)
     return dataJson
 
 def customHyponyms(word, offset, jsonImage):
     dataJson = []
 
-    archivo, csvarchivo = aperturaYlecturaCSV()
+    #archivo, csvarchivo = aperturaYlecturaCSV()
     listAllHyponyms = allHyponyms(offset)
     #jsonImage = pictos.getSynsetsAPI(word)
 
@@ -162,11 +170,13 @@ def customHyponyms(word, offset, jsonImage):
         listEasyWords = list()
         listPhrase = list()
         for hyponym in obj["hyponyms"]:
-            csvarchivo.seek(0)
+            #csvarchivo.seek(0)
+            archivo, csvarchivo = aperturaYlecturaCSVIndice(hyponym[0])
             for j in archivo:
                 if hyponym == j['PALABRA'] and hyponym != word:
                     listEasyWords.append(j['PALABRA'])
                     listPhrase.append(spacy.phraseMaker(hyponym))
+            csvarchivo.close()
 
         if len(listEasyWords) > 0:
             dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyponyms': "", 'definition': "", 'example': "", 'picto': "", 'phraseHyponyms': ""})
@@ -190,7 +200,7 @@ def customHyponyms(word, offset, jsonImage):
 def customHyperonyms(word, offset, jsonImage):
     dataJson = []
 
-    archivo, csvarchivo = aperturaYlecturaCSV()
+    #archivo, csvarchivo = aperturaYlecturaCSV()
     listAllHyperonyms = allHyperonyms(offset)
     #jsonImage = pictos.getSynsetsAPI(word)
 
@@ -198,11 +208,13 @@ def customHyperonyms(word, offset, jsonImage):
         listEasyWords = list()
         listPhrase = list()
         for hyperonym in obj["hyperonyms"]:
-            csvarchivo.seek(0)
+            #csvarchivo.seek(0)
+            archivo, csvarchivo = aperturaYlecturaCSVIndice(hyperonym[0])
             for j in archivo:
                 if hyperonym == j['PALABRA'] and hyperonym != word:
                     listEasyWords.append(j['PALABRA'])
                     listPhrase.append(spacy.phraseMaker(hyperonym))
+            csvarchivo.close()
 
         if len(listEasyWords) > 0:
             dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyperonyms': "", 'definition': "", 'example': "", 'picto': "", 'phraseHyperonyms': ""})
@@ -228,6 +240,14 @@ def customHyperonyms(word, offset, jsonImage):
 def aperturaYlecturaCSV():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradasYordenadas.csv', encoding="utf8", errors='ignore')
+
+    archivo = csv.DictReader(csvarchivo, delimiter=";")
+
+    return archivo, csvarchivo
+
+def aperturaYlecturaCSVIndice(letra):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csvarchivo = open(BASE_DIR + '/prototipo/indices/5000PalabrasFiltradasYordenadas_'+letra+'.csv', encoding="utf8", errors='ignore')
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 

@@ -37,7 +37,7 @@ print(filtro)
 
 '''
 ### ABRE EL ARCHIVO Y VUELVE A ESCRIBIR UNO NUEVO CON LAS PALABRAS ORDENADAS ALFABETICAMENTE ###
-
+'''
 with open('5000PalabrasFiltradas.csv',newline='', encoding='utf-8') as csvfile:
     entrada = csv.DictReader(csvfile, delimiter=";")
     sortedlist = sorted(entrada, key=lambda row:(row['PALABRA']), reverse=False)
@@ -47,25 +47,30 @@ with open('5000PalabrasFiltradas.csv',newline='', encoding='utf-8') as csvfile:
 csvsalida = open('5000PalabrasFiltradasYordenadas_V2.csv', 'w', encoding="utf8", newline='')
 salida = csv.writer(csvsalida, delimiter=";")
 salida.writerow(("NUMERO", "PALABRA", "ORDEN"))
-
-csvindex = open('index.csv', 'w', encoding="utf8", newline='')
-index = csv.writer(csvindex, delimiter=";")
-index.writerow(("LETRA", "INICIO"))
+###########################################################
+'''
+#CREA UN CSV POR CADA INICIO DE PALABRA ORDENADA
+csvarchivo = open('5000PalabrasFiltradasYordenadas.csv', encoding="utf8", errors='ignore')
+entrada = csv.DictReader(csvarchivo, delimiter=";")
 
 
 contador = 1
 inicial = ''
-for i in sortedlist:
+for i in entrada:
+
     #print(csvsalida.seek())
     if inicial != i["PALABRA"][0]:
-        salida.writerow((contador, i["PALABRA"], 'INICIO'))
-        index.writerow((i["PALABRA"][0], contador))
+        csvsalida = open('indices/5000PalabrasFiltradasYordenadas_'+i["PALABRA"][0]+'.csv', 'w', encoding="utf8", newline='')
+        salida = csv.writer(csvsalida, delimiter=";")
+        print(i['PALABRA'])
+        salida.writerow(('NUMERO',"PALABRA"))
+        salida.writerow((contador,i['PALABRA']))
         inicial = i["PALABRA"][0]
     else:
-        salida.writerow((contador, i["PALABRA"], 'NORMAL'))
+        salida.writerow((contador, i['PALABRA']))
     contador += 1
 
-
+#######
 
 
 

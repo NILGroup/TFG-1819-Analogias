@@ -7,6 +7,7 @@ import json
 import itertools
 import functools
 import prototipo.customService as custom
+import time
 
 
 from .forms import PostFormWordSearch
@@ -146,7 +147,7 @@ def version1(request):
 
 def version2(request):
     form = PostFormWordSearch()
-    custom.loadIndex()
+    #custom.loadIndex()
     if request.method == "POST":
         form = PostFormWordSearch(request.POST)
 
@@ -162,6 +163,7 @@ def version2(request):
             # resultsHyponyms = list()
 
             # resultPictos = list()
+
             jsonImage = pictos.getSynsetsAPI(word)
             fichas = list()
 
@@ -193,7 +195,10 @@ def version2(request):
                     elem['datos'] = resultsHyperonyms
                     ficha['data'].append(elem)
                 if len(resultsSynonyms) > 0 or len(resultsHyponyms) > 0 or len(resultsHyperonyms) > 0:
+                    start_time = time.time()
                     url = pictos.getImage(offset['offset'], jsonImage)
+                    print('T PICTO')
+                    print(time.time() - start_time)
                     if url != "None":
                         ficha['picto'] = url
 
