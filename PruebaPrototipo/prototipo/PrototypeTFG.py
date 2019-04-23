@@ -10,10 +10,7 @@ from unidecode import unidecode
 
 
 
-#nlp = spacy.load('es_core_news_sm')
 
-data = []
-cont = 1
 '''
 #CLASIFICADOR DE PALABRAS SEGUN LETRA INICIAL
 
@@ -49,6 +46,7 @@ salida = csv.writer(csvsalida, delimiter=";")
 salida.writerow(("NUMERO", "PALABRA", "ORDEN"))
 ###########################################################
 '''
+'''
 #CREA UN CSV POR CADA INICIO DE PALABRA ORDENADA
 csvarchivo = open('5000PalabrasFiltradasYordenadas.csv', encoding="utf8", errors='ignore')
 entrada = csv.DictReader(csvarchivo, delimiter=";")
@@ -71,7 +69,7 @@ for i in entrada:
     contador += 1
 
 #######
-
+'''
 
 
 
@@ -87,6 +85,7 @@ for i in entrada:
 
 
 '''
+#OBTIENE GENERO Y NUMERO DE PALABRAS
 obj = requests.get('https://holstein.fdi.ucm.es/nlp-api/analisis/coche',  verify=False).json()
 print(obj['morfologico']['genero'])
 print(obj['morfologico']['numero'])
@@ -109,7 +108,12 @@ for token in doc:
 
 '''
 
-'''
+
+#CLASIFICADOR SEMANTICO DE PALABRAS
+nlp = spacy.load('es_core_news_md')
+
+data = set()
+cont = 1
 csvarchivo = open('salida-definitiva.csv', encoding="utf8", errors='ignore')
 entrada = csv.DictReader(csvarchivo, delimiter=";")
 csvsalida = open('entrada1000palabrasAPI.csv', 'w', encoding="utf8")
@@ -118,7 +122,7 @@ salida = csv.writer(csvsalida, delimiter=";")
 salida.writerow(("NUMERO", "PALABRA", "TAG"))
 
 for i in entrada:
-    data.append(i['PALABRA'])
+    data.add(i['PALABRA'])
 cont = 1
 for i in range(len(data)):
     doc = nlp(data[i])
@@ -133,7 +137,6 @@ for i in range(len(data)):
 
 csvarchivo.close()
 csvsalida.close()
-'''
 '''
 csvarchivo = open('entrada1000palabrasAPI.csv',encoding="utf8",errors='ignore')
 entrada = csv.DictReader(csvarchivo,delimiter=";")
