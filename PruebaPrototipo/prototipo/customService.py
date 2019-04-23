@@ -175,7 +175,7 @@ def customHyponyms(word, offset, jsonImage):
             for j in archivo:
                 if hyponym == j['PALABRA'] and hyponym != word:
                     listEasyWords.append(j['PALABRA'])
-                    listPhrase.append(spacy.phraseMaker(hyponym))
+                    listPhrase.append(spacy.phraseMakerForHyponyms(hyponym))
             csvarchivo.close()
 
         if len(listEasyWords) > 0:

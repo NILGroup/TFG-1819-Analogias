@@ -110,6 +110,8 @@ def version1(request):
             # words = request.POST.get('word')
             # print(words)
             word = form['word'].value()
+            if word.isupper():
+                word = word.lower()
             # print(word)
             # results = services.searchAllHyponyms(word)
             allOffsets = services.allOffsets(word)
@@ -155,6 +157,8 @@ def version2(request):
             # words = request.POST.get('word')
             # print(words)
             word = form['word'].value()
+            if word.isupper():
+                word = word.lower()
             # print(word)
             # results = services.searchAllHyponyms(word)
             allOffsets = services.allOffsets(word)
