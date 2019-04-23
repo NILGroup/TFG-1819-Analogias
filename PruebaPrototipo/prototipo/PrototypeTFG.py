@@ -8,21 +8,21 @@ import requests
 
 
 
-nlp = spacy.load('es_core_news_sm')
+nlp = spacy.load('es_core_news_md')
 
-data = list()
+data = set()
 cont = 1
 
-csvarchivo = open('10000PALABRAS.csv', encoding="utf8", errors='ignore')
+csvarchivo = open('pruebaTecnologico.csv', encoding="utf8", errors='ignore')
 entrada = csv.reader(csvarchivo, delimiter=";")
-csvsalida = open('10000PalabrasFiltradas.csv', 'w', encoding="utf8", newline="")
+csvsalida = open('pruebaTecnologicoFiltrada.csv', 'w', encoding="utf8", newline="")
 salida = csv.writer(csvsalida, delimiter=";")
 
 salida.writerow(("NUMERO", "PALABRA", "TAG"))
 
 for i in entrada:
-    #print(i)
-    data.append(i[1])
+    #print(i[0])
+    data.add(i[0])
 
 cont = 1
 for i in data:
