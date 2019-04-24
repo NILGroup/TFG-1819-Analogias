@@ -7,7 +7,7 @@ from prototipo.models import *
 import csv
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-import prototipo.servicesSearchWords as services
+#import prototipo.servicesSearchWords as services
 
 def main():
     csvsalida = open('pictos.csv', 'w', encoding="utf8", newline='')
@@ -17,18 +17,22 @@ def main():
     data = f.readlines()
     for line in data:
         #print(line.rstrip('\n'))
-        execute(str(line.rstrip('\n')), salida)
+        word = str(line.rstrip('\n').strip().lower())
+        print(word)
+        execute(word, salida)
+        #execute('coche', salida)
 
 
     csvsalida.close()
 
 
 
-'''
+
 def allOffsets(word):
-    #print(word)
+    print(type(word))
     dataJson = []
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+    print(listOffsetToTheSynset)
 
     index = 0
     for offset in listOffsetToTheSynset:
@@ -39,7 +43,7 @@ def allOffsets(word):
     #print(repr(dataJson))
     #print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
-'''
+
 def getSynsetsAPI(word):
 
     jsonAPI = requests.get('https://api.arasaac.org/api/pictograms/es/search/' + word,  verify=False).json()
@@ -75,15 +79,17 @@ def getImage(offset, json, word):
 
 
 def execute(word, salida):
-    print(word)
-    offsets = services.allOffsets(word)
-    print(offsets)
+    #print(word)
+    #print(len(word))
+    offsets = allOffsets(word)
+    #print(offsets)
     jsonImage = getSynsetsAPI(word)
     for offset in offsets:
         word, synset, offset, id = getImage(offset['offset'], jsonImage, word)
         #print(word, synset, offset, id)
         if word != "None":
-
+            print("BIEEEEEEEN")
+            print(word, synset, offset, id)
             salida.writerow((word, synset, offset, id))
 
 main()
