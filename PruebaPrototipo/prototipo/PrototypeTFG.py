@@ -2,11 +2,32 @@ import spacy
 import csv
 import requests
 
+#TAGGEADOR DE PALABRAS FACILES
+nlp = spacy.load('es_core_news_md')
+
+csvarchivo = open('10000PALABRAS.csv', encoding="utf8", errors='ignore')
+entrada = csv.reader(csvarchivo, delimiter=";")
+csvsalida = open('10000PALABRASFILTRADAS.csv', 'w', encoding="utf8", newline="")
+salida = csv.writer(csvsalida, delimiter=";")
+
+salida.writerow(("NUMERO", "PALABRA", "TAG"))
+cont = 1
+for i in entrada:
+    #print(i[1])
+    doc = nlp(i[1])
+    for token in doc:
+        if token.pos_ == "ADV" or token.pos_ == "NOUN" or token.pos_ == "AUX" or token.pos_ == "VERB" or token.pos_ == "ADJ":
+
+            salida.writerow((cont, token.text,token.pos_))
+            cont += 1
 
 
 
+csvarchivo.close()
+csvsalida.close()
 
-
+'''
+#ELIMINA PALABRAS REPETIDAS Y TAGGEA
 
 nlp = spacy.load('es_core_news_md')
 
@@ -38,6 +59,7 @@ for i in data:
 
 csvarchivo.close()
 csvsalida.close()
+'''
 '''
 csvarchivo = open('entrada1000palabrasAPI.csv',encoding="utf8",errors='ignore')
 entrada = csv.DictReader(csvarchivo,delimiter=";")
