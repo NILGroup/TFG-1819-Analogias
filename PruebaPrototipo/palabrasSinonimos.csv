@@ -1,0 +1,156 @@
+NUMERO;PALABRA;SINONIMOS
+1;usado;{'utilizado', 'empleado'}
+2;Estados;{'américa'}
+3;antigüedad;{'jerarquía', 'superioridad', 'categoría'}
+4;probable;{'futuro', 'posible', 'previsto'}
+5;quemazón;{'quema'}
+6;equivalente;{'correspondiente', 'semejante', 'pareja', 'coincidencia', 'par', 'igual'}
+7;mundo;{'universo', 'realidad', 'globo', 'tierra', 'creación', 'público'}
+8;indiscutible;{'obvio', 'aceptado', 'notable', 'claro', 'evidente', 'absoluto', 'patente', 'indudable', 'total'}
+9;argentina;{'argentino'}
+10;tratamiento;{'procesamiento', 'terapia', 'manejo', 'procesado'}
+11;único;{'solitario', 'única', 'solos', 'encargo', 'individual', 'singular'}
+12;sitio;{'cerco', 'sede'}
+13;grupo;{'puñado', 'banda', 'círculo', 'radical'}
+14;antiguo;{'viejo', 'antigua'}
+15;suerte;{'azar', 'peligro', 'destino', 'ventura', 'fortuna', 'circunstancias'}
+16;orgánica;{'orgánico'}
+17;hombre;{'marido'}
+18;escena;{'perspectiva', 'vista', 'cuadro', 'aspecto', 'visión', 'panorama'}
+19;evocar;{'traer', 'llamar', 'exponer', 'despertar', 'recordar'}
+20;nombre;{'persona', 'figura'}
+21;autor;{'responsable', 'culpable'}
+22;animales;{'animal', 'fauna', 'bestia'}
+23;conducta;{'proceder', 'comportamiento', 'actuación'}
+24;atrás;{'detrás', 'hace'}
+25;especies;{'especie'}
+26;evidencia;{'fundamento', 'base', 'hecho', 'prueba'}
+27;lidia;{'corrida', 'toreo'}
+28;menos;{'resta', 'poco'}
+29;datación;{'cita'}
+30;solo;{'exclusivamente', 'solitario', 'apenas', 'solamente', 'meramente', 'sólo', 'únicamente', 'simplemente'}
+31;frío;{'seco', 'distante', 'indiferente', 'helado', 'hostil'}
+32;pasado;{'último', 'viejo'}
+33;llegar;{'avanzar', 'resultar'}
+34;científico;{'científica'}
+35;investigación;{'pregunta', 'cuestión', 'demanda', 'consulta'}
+36;hecho;{'prueba', 'acontecimiento', 'evidencia'}
+37;materia;{'cosa', 'cosas'}
+38;cuenta;{'contabilidad', 'carrera'}
+39;inmenso;{'tremenda', 'enorme', 'gigantesco', 'tremendo'}
+40;hueso;{'huesos'}
+41;bien;{'virtud', 'vale', 'totalmente', 'sano', 'correcto', 'activo', 'bueno', 'interés', 'utilidad', 'profundamente'}
+42;proceso;{'demanda', 'acto', 'querella'}
+43;abrigo;{'amparo'}
+44;ya;{'peor', 'aún', 'todavía'}
+45;figura;{'papel', 'físico', 'nombre', 'estatua', 'carne', 'proyecto', 'parte', 'patrón', 'diseño', 'monstruo'}
+46;haber;{'patrimonio', 'hacienda', 'estar', 'ser', 'ocurrir', 'crédito', 'fortuna', 'suceder', 'existir', 'riqueza'}
+47;tierra;{'país', 'nación', 'globo', 'estado', 'terreno', 'mundo', 'dominio', 'masa'}
+48;conjunto;{'unidad', 'círculo', 'unido', 'banda'}
+49;acá;{'aquí'}
+50;método;{'manera'}
+51;ambiente;{'alrededores'}
+52;campo;{'horizonte', 'estudio', 'plana', 'sector', 'campaña', 'área', 'cuerpo', 'dominio', 'disciplina', 'ramo', 'órbita'}
+53;poco;{'poquito', 'pequeño', 'menos', 'ligeramente', 'chico', 'escaso'}
+54;actualidad;{'presente'}
+55;caminata;{'travesía', 'vuelta'}
+56;problema;{'pena', 'peligro', 'dolor', 'enfermedad', 'inquietud', 'lata'}
+57;falta;{'fallo', 'defecto', 'violación', 'déficit'}
+58;estatura;{'talla'}
+59;clave;{'fundamental', 'llave', 'decisivo', 'crítico', 'combinación'}
+60;trayectoria;{'carrera', 'transcurso', 'vida', 'vía', 'dirección'}
+61;son;{'sonido', 'estás', 'área'}
+62;paso;{'marcha', 'seno', 'seco', 'enfoque', 'medidas', 'medida', 'transición', 'pasaje'}
+63;huesos;{'hueso'}
+64;advertencia;{'consejo'}
+65;presupuesto;{'estimación', 'aproximación', 'idea', 'dado'}
+66;principios;{'fundamentos'}
+67;también;{'además', 'asimismo'}
+68;especie;{'especies'}
+69;desaparición;{'muerte', 'extinción'}
+70;segundo;{'rato'}
+71;muestra;{'marca', 'sección', 'ejemplar', 'gala', 'parte', 'signo', 'despliegue'}
+72;estudio;{'atención', 'pensar', 'ramo', 'informe', 'área', 'terreno', 'interés', 'campo', 'exploración', 'ámbito', 'tema', 'disciplina', 'memoria'}
+73;hoy;{'ahora', 'actualmente'}
+74;última;{'último'}
+75;contundente;{'poderoso', 'impresionante', 'potente'}
+76;más;{'cerca', 'aproximadamente', 'casi', 'prácticamente', 'además'}
+77;director;{'gerente', 'conductor', 'presidenta', 'técnico', 'directivo', 'inspector', 'presidente'}
+78;imagen;{'vista', 'cuadro', 'lienzo', 'personaje', 'reflejo', 'foto', 'ilustración', 'doble', 'paradigma', 'pintado', 'vídeo', 'pintura', 'fotografía', 'exposición', 'dibujo'}
+79;causa;{'cometido', 'misión', 'cruzada', 'campaña', 'querella', 'fundamento', 'demanda', 'movimiento', 'empeño', 'acción'}
+80;corte;{'supresión'}
+81;edad;{'años'}
+82;recorrer;{'caminar', 'andar'}
+83;fascinación;{'entusiasmo', 'maravilla'}
+84;introducción;{'inserción', 'lanzamiento', 'presentación', 'creación', 'fundación', 'institución', 'inauguración', 'entrada', 'debut'}
+85;acción;{'demanda', 'causa', 'caso', 'querella'}
+86;resto;{'diferencia', 'sobra', 'restante', 'ruinas'}
+87;gente;{'multitud', 'ciudadanía', 'masas', 'ciudadanos', 'masa'}
+88;nuevas;{'noticias', 'noticia'}
+89;grotesco;{'absurdo', 'ridículo', 'fantástico'}
+90;sólo;{'exclusivamente', 'solamente', 'apenas', 'meramente', 'únicamente', 'simplemente', 'solo'}
+91;indicio;{'exhibición', 'índice', 'sombra'}
+92;área;{'son', 'estás', 'estudio', 'meta', 'sector', 'campo', 'gol', 'dominio', 'ámbito', 'zona', 'disciplina', 'esfera', 'ramo', 'órbita'}
+93;condiciones;{'daño', 'precio', 'importe', 'tiempo'}
+94;historia;{'narración', 'artículo', 'crónica', 'reportaje'}
+95;clima;{'humor'}
+96;oscuridad;{'ignorancia', 'penumbra', 'sombra'}
+97;trabajo;{'obra', 'ejercicio', 'cometido', 'redacción', 'informe', 'quehacer', 'tema', 'composición', 'mandado'}
+98;discusión;{'discurso'}
+99;local;{'servicio'}
+100;especial;{'extraordinario', 'limitado', 'excepcional', 'propio', 'particular', 'peculiar'}
+101;hacer;{'mover', 'tener', 'volverse', 'destruir', 'contar', 'formular'}
+102;batalla;{'empate'}
+103;no;{'independientemente'}
+104;conocer;{'encontrar', 'coger', 'reunirse', 'encontrarse', 'conocerse', 'tirar', 'saber'}
+105;fotografía;{'foto', 'ilustración', 'retrato', 'imagen'}
+106;perezoso;{'lento', 'manta', 'parado'}
+107;provincia;{'territorio', 'colonia', 'estado', 'poder', 'jurisdicción', 'competencia', 'provincias', 'país', 'función'}
+108;ahora;{'enseguida', 'hoy', 'actualmente', 'inmediatamente', 'directamente'}
+109;vera;{'orilla', 'margen'}
+110;después;{'posteriormente', 'luego'}
+111;gracias;{'gracia'}
+112;hacienda;{'patrimonio', 'haber', 'estancia', 'fortuna', 'riqueza'}
+113;deshielo;{'fusión'}
+114;animal;{'fauna', 'animales', 'bestia', 'salvaje', 'bruto'}
+115;fuego;{'llama'}
+116;alto;{'fuerte', 'elegante', 'superior', 'largo', 'elevado', 'alta', 'supremo', 'escala', 'sumo'}
+117;humana;{'humano', 'homo'}
+118;fértil;{'rico', 'productivo'}
+119;daño;{'mal', 'condiciones', 'precio', 'importe'}
+120;junto;{'juntos', 'unido', 'mutuamente'}
+121;ganar;{'adelantar', 'recibir', 'avanzar'}
+122;foto;{'imagen', 'ilustración', 'retrato', 'fotografía', 'exposición'}
+123;caza;{'persecución', 'presa', 'seguimiento'}
+124;contaminación;{'infección'}
+125;filo;{'hoja'}
+126;solamente;{'exclusivamente', 'apenas', 'meramente', 'sólo', 'únicamente', 'simplemente', 'solo'}
+127;mar;{'martes', 'océano', 'marzo', 'mares'}
+128;largo;{'extensión', 'alto', 'extenso', 'prolongación', 'longitud', 'elevado'}
+129;tecnología;{'ingeniería'}
+130;rol;{'papel', 'oficio', 'parte', 'función', 'ministerio', 'cargo'}
+131;hace;{'atrás'}
+132;muy;{'sustancialmente', 'considerablemente', 'significativamente'}
+133;doctor;{'doctora', 'médico', 'médica'}
+134;años;{'vejez', 'edad'}
+135;humano;{'humana', 'individuo', 'homo', 'mortal', 'alma'}
+136;saber;{'conocer', 'coger', 'admitir', 'conocimiento', 'tirar'}
+137;antes;{'delante', 'primero', 'anteriormente', 'previamente'}
+138;romper;{'comprobar', 'atravesar', 'morir'}
+139;asociación;{'conexión', 'cuerpo', 'comunidad', 'corporación'}
+140;argentino;{'argentina'}
+141;separar;{'ordenar', 'iniciar'}
+142;trata;{'preocuparse', 'cuidar'}
+143;dejar;{'guardar', 'mantener', 'alejarse', 'prestar', 'dejarse', 'olvidarse', 'quedar'}
+144;cosas;{'materia', 'efectos'}
+145;extinción;{'desaparición'}
+146;gigante;{'enorme', 'gigantesco'}
+147;oficina;{'posición', 'agencia', 'puesto', 'departamento', 'lugar', 'cargo'}
+148;precisión;{'verdad', 'rigor'}
+149;científica;{'científico'}
+150;piedra;{'rocas'}
+151;tiempo;{'condiciones', 'condena'}
+152;disponible;{'visible'}
+153;siempre;{'constantemente', 'continuamente'}
+154;fósil;{'fósiles'}
+155;difícil;{'dura', 'delicado', 'escaso', 'duro'}

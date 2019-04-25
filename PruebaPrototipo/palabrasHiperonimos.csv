@@ -1,0 +1,151 @@
+NUMERO;PALABRA;HIPERONIMOS
+1;fósiles;{'restos', 'resto'}
+2;antigüedad;{'posición', 'era', 'época', 'rango', 'estado', 'prestigio', 'distinción', 'lugar', 'status'}
+3;probable;{'candidato'}
+4;quemazón;{'rencor', 'amargura', 'dolor', 'deseo'}
+5;desarrollo;{'enmienda', 'mejoramiento', 'proceso', 'mejora', 'evolución'}
+6;reproducción;{'sexo', 'copia', 'réplica', 'relación'}
+7;equivalente;{'conocimiento', 'copia', 'saber'}
+8;explicar;{'aprender', 'anunciar', 'decir', 'ampliar', 'enseñar', 'advertir', 'comunicar', 'manifestar', 'aclarar', 'exponer', 'declarar', 'informar', 'justificar', 'afirmar', 'contar'}
+9;mundo;{'personas', 'grupo', 'humano', 'agrupación', 'gente', 'humana', 'hombre', 'humanidad', 'homo', 'experiencia', 'pueblo', 'colectivo'}
+10;argentina;{'peces'}
+11;tratamiento;{'administración', 'ayuda', 'gerente', 'atención', 'estilo', 'cura', 'cuidados', 'lenguaje', 'proceso', 'gestión', 'cuidado', 'dirección'}
+12;sitio;{'situación', 'escena', 'rol', 'ministerio', 'punto', 'cargo', 'ubicación', 'bloqueo', 'escenario', 'papel', 'vínculo', 'oficio', 'lugar', 'localización', 'colocación', 'saber', 'posición', 'conocimiento', 'relación', 'parte', 'función'}
+13;grupo;{'complejo', 'agrupación', 'abstracción', 'conjunto', 'unidad', 'colectivo'}
+14;suerte;{'fenómeno', 'objeto', 'cosa', 'estado', 'condición'}
+15;hombre;{'individuo', 'mayor', 'grupo', 'adulta', 'humano', 'ser', 'esposo', 'agrupación', 'persona', 'varón', 'adulto', 'masculino', 'esposa', 'humana', 'humanidad', 'macho', 'homo', 'mortal', 'alma', 'colectivo'}
+16;escena;{'situación', 'figura', 'escenario', 'foto', 'plataforma', 'estado', 'imagen', 'área', 'región', 'retrato', 'teatro', 'fotografía', 'exposición', 'incidente'}
+17;mezclar;{'transformar', 'añadir', 'construir', 'cambiar', 'sumar', 'montar', 'confundir', 'variar', 'alterar', 'agregar', 'unir', 'modificar'}
+18;costilla;{'hueso', 'estructura', 'corte'}
+19;evocar;{'mostrar', 'construir', 'revelar', 'expresar', 'realizar', 'producir', 'presentar', 'causar', 'manifestar', 'formar', 'provocar', 'hacer', 'crear'}
+20;nombre;{'personaje', 'denominación', 'interés', 'beneficio', 'bien', 'sanción', 'provecho', 'fama'}
+21;autor;{'productor', 'cineasta', 'creador', 'fabricante'}
+22;pedazo;{'fragmento', 'porción', 'cosa', 'parte', 'trozo', 'distancia'}
+23;animales;{'organismos', 'criatura', 'ser', 'organismo', 'orden'}
+24;licenciado;{'sabio', 'estudiante', 'especialista'}
+25;conducta;{'rasgo', 'actividad', 'característica', 'acción'}
+26;pantano;{'lagos', 'lago'}
+27;depredación;{'caza'}
+28;evidencia;{'indicación', 'índice', 'información'}
+29;mamíferos;{'familiar', 'familia', 'género', 'clase'}
+30;lidia;{'espectáculo'}
+31;menos;{'signo'}
+32;solo;{'obra', 'pieza', 'composición', 'actividad'}
+33;frío;{'temor', 'temperatura', 'terror'}
+34;pasado;{'período', 'integrar', 'etapa', 'tiempo', 'escribir', 'periodo', 'antaño'}
+35;llegar;{'lograr', 'ir', 'comunicar', 'suceder', 'pasar', 'venir', 'mover', 'ocurrir', 'tocar', 'provocar', 'viajar', 'transmitir', 'obtener', 'alcanzar', 'conseguir', 'ampliar', 'acudir', 'despertar', 'moverse', 'realizar', 'ganar', 'completar', 'dirigir'}
+36;científico;{'individuo', 'humano', 'ser', 'persona', 'mortal', 'investigador', 'alma'}
+37;investigación;{'preguntas', 'atención', 'estudio', 'trabajo', 'encuesta', 'interés', 'exploración'}
+38;reacción;{'pensamiento', 'sensibilidad', 'resistencia', 'idea', 'oposición'}
+39;hecho;{'suceso', 'información', 'evento', 'acto', 'acción'}
+40;investigador;{'científico', 'humano', 'ser', 'agente', 'persona', 'policía', 'guardia', 'científica', 'especialista', 'asesor', 'experto', 'consejero', 'paco', 'individuo', 'mortal', 'policial', 'alma', 'oficial'}
+41;materia;{'mensaje', 'asunto', 'objeto', 'contenido', 'sustancia', 'tema'}
+42;cuenta;{'joyas', 'investigación', 'relación', 'factura', 'deuda', 'trato', 'recibo', 'tanto', 'número', 'punto', 'deudas'}
+43;hueso;{'trabajo', 'faena', 'blanco', 'labor'}
+44;bien;{'consentimiento', 'superioridad', 'pertenencia', 'autorización', 'calidad', 'ventaja', 'garantía', 'beneficio', 'sanción', 'propiedad', 'provecho', 'aprobación', 'cualidad', 'posesión'}
+45;proceso;{'saber', 'trámite', 'conocimiento', 'causa', 'actividad', 'procedimiento', 'caso'}
+46;abrigo;{'saco', 'ropa', 'vestuario', 'construcción', 'vestido', 'protección', 'chaqueta', 'traje', 'estructura', 'prenda'}
+47;figura;{'plan', 'personaje', 'efecto', 'carta', 'programa', 'maniobra', 'creación', 'actuación', 'escultura', 'modelo', 'ilustración', 'cuerpo', 'representación', 'impresión', 'interpretación', 'forma', 'decoración'}
+48;haber;{'pertenencia', 'contabilidad', 'realización', 'consecución', 'bien', 'propiedad', 'logro', 'posesión'}
+49;tierra;{'grupo', 'objeto', 'humano', 'suelo', 'cosas', 'agrupación', 'colectivo', 'elemento', 'cosa', 'material', 'humana', 'humanidad', 'hombre', 'homo', 'materia', 'conexión', 'lugar', 'ubicación'}
+50;conjunto;{'complejo', 'grupo', 'objeto', 'prenda', 'agrupación', 'ropa', 'colección', 'abstracción', 'cosa', 'vestido', 'acumulación', 'traje', 'colectivo', 'totalidad'}
+51;acá;{'lugar', 'ubicación'}
+52;método;{'instrumento', 'instrumental', 'habilidad'}
+53;ambiente;{'clima', 'situación', 'inmediaciones', 'condición', 'estado', 'región', 'entorno', 'circunstancias', 'condiciones', 'tiempo'}
+54;campo;{'asunto', 'marco', 'entorno', 'ámbito', 'cuartel', 'esfera', 'extensión', 'set', 'local', 'tierra', 'terreno', 'servicio', 'suelo', 'conjunto', 'regiones', 'instalación', 'aspecto', 'tema', 'juego', 'cuestión', 'alcance', 'región', 'materia', 'país'}
+55;actualidad;{'tiempo'}
+56;caminata;{'viaje', 'circuito', 'tour', 'paseo', 'excursión', 'gira'}
+57;problema;{'dificultad', 'asunto', 'situación', 'dedicación', 'embarazo', 'estado', 'titular', 'preocupación', 'barrera', 'circunstancias', 'condición', 'suceso', 'hecho', 'aspecto', 'acontecimiento', 'obstáculo', 'afán', 'tema', 'trastorno', 'cuestión', 'angustia', 'esfuerzo', 'materia', 'ansiedad', 'desorden', 'gestación'}
+58;falta;{'servicio', 'crimen', 'deficiencia', 'delitos', 'servir', 'delito', 'deseo', 'insuficiencia', 'necesidades', 'necesidad', 'carencia', 'escasez', 'pobreza'}
+59;clave;{'secuencia', 'código', 'dispositivo', 'lista', 'sucesión', 'repertorio', 'mecanismo', 'aparato', 'explicación'}
+60;trayectoria;{'posición', 'línea', 'situación', 'sitio', 'serie', 'itinerario', 'ruta', 'curso', 'progreso', 'avance', 'colocación', 'recorrido', 'camino', 'localización', 'evolución', 'lugar', 'ubicación'}
+61;son;{'acontecimiento', 'suceso', 'hecho'}
+62;paso;{'estrecho', 'canal', 'ruido', 'ubicación', 'índice', 'determinación', 'puerto', 'decisión', 'son', 'respuesta', 'velocidad', 'lugar', 'viaje', 'sonido', 'maniobra', 'reacción', 'resolución', 'vía', 'camino', 'ritmo', 'trayectoria'}
+63;advertencia;{'información', 'propuesta', 'señal', 'proposición', 'signo', 'alarma', 'aviso'}
+64;presupuesto;{'plan', 'programa', 'declaración', 'cálculo', 'afirmación', 'capital', 'supuesto', 'fondo', 'asunción'}
+65;principios;{'hecho', 'evidencia'}
+66;equipo;{'sección', 'unidad', 'instrumental', 'instrumento', 'equipamiento'}
+67;especie;{'forma', 'categoría', 'género', 'clase', 'tipo'}
+68;es;{'cifra'}
+69;desaparición;{'salida', 'marcha', 'suceso', 'ida', 'hecho', 'variación', 'acontecimiento', 'cambio', 'partida', 'modificación', 'alteración', 'evolución'}
+70;segundo;{'período', 'posición', 'antigüedad', 'minuto', 'categoría', 'época', 'rango', 'tiempo', 'momento', 'oficial', 'jerarquía', 'instante', 'nivel'}
+71;muestra;{'demostración', 'figura', 'diversión', 'exhibición', 'ejemplo', 'entretenimiento', 'representación', 'pista', 'exposición', 'comunicación'}
+72;estudio;{'vivienda', 'papeles', 'inspección', 'aprendizaje', 'retrato', 'contemplación', 'departamento', 'consideración', 'análisis', 'cuarto', 'piso', 'figura', 'examen', 'documento', 'apartamento', 'obra', 'pensamiento', 'investigación', 'control', 'documentación', 'imagen', 'pieza', 'composición', 'dibujo', 'sala', 'trabajo', 'reflexión', 'habitación', 'concentración', 'meditación', 'adquisición', 'especulación'}
+73;hoy;{'barco', 'presente', 'actualidad', 'nave', 'día', 'barcos'}
+74;más;{'signo'}
+75;director;{'administrador', 'entrenador', 'directora', 'músico'}
+76;glaciación;{'período', 'periodo'}
+77;cazar;{'seguir', 'coger', 'explorar', 'registrar', 'buscar'}
+78;imagen;{'humano', 'cara', 'figura', 'persona', 'ejemplar', 'apariencia', 'ser', 'aspecto', 'modelo', 'ejemplo', 'presencia', 'muestra', 'representación', 'semejanza', 'individuo', 'descripción', 'mortal', 'alma'}
+79;era;{'extensión', 'período', 'época', 'terreno', 'etapa', 'área', 'zona', 'periodo'}
+80;causa;{'trámite', 'justificación', 'génesis', 'origen', 'aventura', 'comienzo', 'proceso', 'razón', 'procedimiento', 'caso'}
+81;corte;{'división', 'carne', 'feo', 'canal', 'juzgado', 'tocado', 'lesión', 'apertura', 'estilo', 'desprecio', 'mancha', 'moda', 'tribunal', 'asamblea', 'herida', 'defecto', 'redacción', 'junta', 'residencia', 'transición', 'marca'}
+82;edad;{'período', 'época', 'etapa', 'propiedad', 'periodo'}
+83;recorrer;{'mover', 'ir', 'explorar', 'registrar', 'acudir', 'viajar', 'buscar', 'moverse'}
+84;fascinación;{'simpatía', 'atractivo', 'atracción', 'encanto', 'afición', 'tentación', 'trance', 'admiración', 'sorpresa', 'gusto', 'asombro'}
+85;introducción;{'sección', 'iniciación', 'texto', 'propuesta', 'apartado', 'comienzo', 'proposición', 'inicio', 'parte', 'apertura', 'principio'}
+86;acción;{'batalla', 'asunto', 'trámite', 'suceso', 'dinamismo', 'pugna', 'estado', 'evento', 'capital', 'proceso', 'argumento', 'conflicto', 'lucha', 'acto', 'procedimiento', 'trama'}
+87;resto;{'objeto', 'porción', 'cosa', 'parte', 'componente', 'basura', 'número'}
+88;gente;{'personas', 'grupo', 'agrupación', 'pueblo', 'colectivo'}
+89;datar;{'facilitar', 'entregar', 'iniciar', 'resolver', 'aportar', 'concluir', 'determinar', 'empezar', 'proporcionar', 'comenzar'}
+90;nuevas;{'información'}
+91;grotesco;{'arte'}
+92;indicio;{'demostración', 'pedazo', 'trozo', 'evidencia', 'comunicación'}
+93;área;{'extensión', 'cuestión', 'asunto', 'regiones', 'alcance', 'construcción', 'terreno', 'región', 'parte', 'entorno', 'materia', 'tema', 'estructura'}
+94;erosión;{'disminución', 'reducción'}
+95;condiciones;{'coste', 'costo'}
+96;historia;{'noticias', 'artes', 'continuo', 'mentira', 'registro', 'antaño', 'ficción', 'informe', 'película', 'conocimiento', 'relación', 'pasado', 'constancia', 'referencia', 'bola', 'noticia', 'letras', 'saber', 'falsedad'}
+97;clima;{'situación', 'estado', 'condiciones', 'circunstancias', 'condición', 'tiempo'}
+98;oscuridad;{'ambiente', 'valor', 'escenario', 'atmósfera', 'escena', 'iluminación'}
+99;trabajo;{'empresa', 'obligación', 'ensayo', 'empleo', 'deber', 'estado', 'producción', 'producto', 'ocupación', 'compromiso', 'actividad', 'profesión', 'responsabilidad'}
+100;discusión;{'disputa', 'diferencia', 'debate', 'lenguaje', 'palabra', 'intercambio', 'desacuerdo', 'querella', 'habla', 'comunicación'}
+101;especial;{'plato', 'ser', 'humano', 'persona', 'individuo', 'mortal', 'alma'}
+102;tergiversar;{'representar'}
+103;hacer;{'construir', 'añadir', 'integrar', 'convertir', 'lograr', 'cometer', 'emitir', 'actuar', 'representar', 'cambiar', 'producir', 'adquirir', 'formar', 'variar', 'alterar', 'volver', 'provocar', 'fabricar', 'obtener', 'sacar', 'transformar', 'estar', 'ser', 'conseguir', 'sumar', 'causar', 'reunir', 'ejecutar', 'constituir', 'crear', 'marcar', 'realizar', 'reunirse', 'completar', 'dirigir', 'cumplir', 'tomar', 'agregar', 'elaborar', 'recoger'}
+104;batalla;{'intento', 'deber', 'pugna', 'esfuerzo', 'distancia', 'conflicto', 'lucha'}
+105;embargo;{'procedimiento', 'trámite'}
+106;no;{'negativa'}
+107;caballo;{'militares', 'carne', 'tropas', 'macho', 'efectivo', 'tropa', 'soldados'}
+108;conocer;{'recordar'}
+109;fotografía;{'empresa', 'empleo', 'figura', 'trabajo', 'ocupación', 'proceso', 'representación', 'profesión'}
+110;provincia;{'campo', 'región', 'área', 'dominio', 'terreno', 'ámbito', 'esfera', 'órbita'}
+111;ahora;{'presente', 'actualidad'}
+112;vera;{'inclinación', 'falda', 'cuesta', 'pendiente', 'subida'}
+113;gracias;{'ayuda', 'comunión', 'reconocimiento', 'socorro', 'agradecimiento', 'asistencia', 'petición', 'auxilio', 'oración'}
+114;hacienda;{'casa', 'ejecutivo', 'finca', 'agencia', 'pertenencia', 'tesoro', 'tierra', 'trabajo', 'terreno', 'bien', 'dominio', 'departamento', 'propiedad', 'oficina', 'posesión'}
+115;deshielo;{'clima', 'condiciones', 'tiempo'}
+116;animal;{'idiota', 'organismos', 'criatura', 'ser', 'organismo', 'tonto'}
+117;fuego;{'suceso', 'elemento', 'hogar', 'asalto', 'chimenea', 'hecho', 'acontecimiento', 'ataque'}
+118;alto;{'altura', 'pausa', 'estancia', 'conclusión', 'final', 'llegada', 'tono', 'permanencia', 'voz', 'cantante'}
+119;daño;{'perjuicio', 'variación', 'cambio', 'modificación', 'costo', 'deterioro', 'alteración', 'evolución', 'coste'}
+120;junto;{'peña'}
+121;ganar;{'girar', 'vencer', 'superar', 'lograr', 'conseguir', 'advertir', 'derrotar', 'adquirir', 'subir', 'cobrar', 'convertirse', 'tomar', 'hacer', 'obtener', 'sacar'}
+122;humus;{'tierra', 'pasta', 'suelo'}
+123;foto;{'figura', 'representación'}
+124;caza;{'faena', 'avión', 'criatura', 'búsqueda', 'fauna', 'trabajo', 'animal', 'animales', 'bestia', 'traslado', 'labor', 'desplazamiento', 'movimiento'}
+125;contaminación;{'materia', 'cosa', 'material', 'cosas'}
+126;filo;{'borde', 'lado', 'cara'}
+127;mar;{'agua'}
+128;largo;{'obra', 'dimensión', 'pieza', 'medida', 'pasaje', 'composición'}
+129;agricultor;{'campesino', 'campesina', 'obrero', 'creador'}
+130;tecnología;{'tema', 'estudio', 'aplicación', 'campo', 'terreno', 'área', 'ámbito', 'profesión', 'disciplina', 'ramo'}
+131;rol;{'obligación', 'deber', 'actividad'}
+132;doctor;{'sabio', 'estudiante', 'especialista'}
+133;años;{'período', 'etapa', 'época', 'periodo'}
+134;humano;{'organismos', 'criatura', 'ser', 'causa', 'organismo'}
+135;saber;{'comprender', 'entender', 'aceptar', 'experimentar', 'advertir', 'juicio', 'reconocer', 'sabiduría', 'sentir', 'recordar'}
+136;romper;{'iniciar', 'terminar', 'pasar', 'partir', 'cambiar', 'penetrar', 'abandonar', 'ceder', 'variar', 'alterar', 'destruir', 'cesar', 'caer', 'ponerse', 'transformar', 'profundizar', 'suspender', 'cortar', 'volverse', 'acabar', 'modificar', 'constituir', 'dejar', 'separar', 'parar', 'concluir', 'finalizar'}
+137;asociación;{'unión', 'organización', 'contrato', 'memoria', 'club'}
+138;separar;{'transformar', 'partir', 'cambiar', 'soltar', 'mover', 'ir', 'salir', 'cortar', 'moverse', 'distinguir', 'variar', 'alterar', 'trasladar', 'renunciar', 'liberar', 'irse', 'dejar'}
+139;trata;{'tráfico'}
+140;dejar;{'perder', 'convertir', 'terminar', 'pasar', 'marcharse', 'irse', 'entregar', 'partir', 'cambiar', 'producir', 'mover', 'abandonar', 'ceder', 'variar', 'alterar', 'cesar', 'escapar', 'volver', 'provocar', 'renunciar', 'transmitir', 'transformar', 'conservar', 'alcanzar', 'olvidar', 'suspender', 'cortar', 'causar', 'trasladar', 'volar', 'acabar', 'crear', 'moverse', 'aceptar', 'retirarse', 'presentar', 'romper', 'otorgar', 'acceder', 'parar', 'huir', 'dar', 'proporcionar'}
+141;cosas;{'objeto', 'pertenencia', 'cosa', 'sustancia', 'bien', 'propiedad', 'posesión'}
+142;extinción;{'conclusión', 'muerte', 'acción'}
+143;gigante;{'empresa', 'criatura', 'raro', 'fauna', 'animal', 'animales', 'bestia', 'extraño'}
+144;oficina;{'empresa', 'empleo', 'trabajo', 'ocupación', 'personal', 'profesión'}
+145;precisión;{'calidad', 'claridad', 'exactitud', 'lucidez', 'cualidad', 'transparencia'}
+146;científica;{'individuo', 'humano', 'ser', 'persona', 'mortal', 'alma'}
+147;piedra;{'cocaína', 'blanca', 'cosas', 'nieve', 'cosa', 'material', 'harina', 'polvo', 'roca', 'coca', 'materia'}
+148;tiempo;{'período', 'término', 'característica', 'época', 'rasgo', 'etapa', 'momento', 'medida', 'plazo', 'dimensión', 'periodo'}
+149;llanura;{'suelo', 'tierra', 'llano', 'plana', 'campaña', 'campo', 'terreno', 'prado'}
+150;fósil;{'restos', 'resto'}

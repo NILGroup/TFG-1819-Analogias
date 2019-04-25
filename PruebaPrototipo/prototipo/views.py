@@ -43,7 +43,7 @@ def index(request):
 
 def prueba():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/pruebaFiltrada.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/pruebaTecnologicoFiltrada.csv', encoding="utf8", errors='ignore')
     entrada = csv.reader(csvarchivo, delimiter=";")
 
     csvSinonimos = open('palabrasConSinonimos.csv', 'w', encoding="utf8", newline="")
@@ -57,7 +57,33 @@ def prueba():
     csvHiperonimos = open('palabrasConHiperonimos.csv', 'w', encoding="utf8", newline="")
     hiperonimos = csv.writer(csvHiperonimos, delimiter=";")
     hiperonimos.writerow(("NUMERO","HIPERONIMOS"))
+#########################################################################################
 
+    csvNoSinonimos = open('palabrasSinSinonimos.csv', 'w', encoding="utf8", newline="")
+    sinSinonimos = csv.writer(csvNoSinonimos, delimiter=";")
+    sinSinonimos.writerow(("NUMERO", "PALABRA"))
+
+    csvNoHiponimos = open('palabrasSinHiponimos.csv', 'w', encoding="utf8", newline="")
+    sinHiponimos = csv.writer(csvNoHiponimos, delimiter=";")
+    sinHiponimos.writerow(("NUMERO", "PALABRA"))
+
+    csvNoHiperonimos = open('palabrasSinHiperonimos.csv', 'w', encoding="utf8", newline="")
+    sinHiperonimos = csv.writer(csvNoHiperonimos, delimiter=";")
+    sinHiperonimos.writerow(("NUMERO", "PALABRA"))
+    #########################################################################################
+
+    csvEjemSinonimos = open('palabrasSinonimos.csv', 'w', encoding="utf8", newline="")
+    ejemSinonimos = csv.writer(csvEjemSinonimos, delimiter=";")
+    ejemSinonimos.writerow(("NUMERO","PALABRA", "SINONIMOS"))
+
+    csvEjemHiponimos = open('palabrasHiponimos.csv', 'w', encoding="utf8", newline="")
+    ejemHiponimos = csv.writer(csvEjemHiponimos, delimiter=";")
+    ejemHiponimos.writerow(("NUMERO","PALABRA", "HIPONIMOS"))
+
+    csvEjemHiperonimos = open('palabrasHiperonimos.csv', 'w', encoding="utf8", newline="")
+    ejemHiperonimos = csv.writer(csvEjemHiperonimos, delimiter=";")
+    ejemHiperonimos.writerow(("NUMERO","PALABRA", "HIPERONIMOS"))
+    #########################################################################################
     csvNoMatch = open('palabrasSinMatch.csv', 'w', encoding="utf8", newline="")
     noMatch = csv.writer(csvNoMatch, delimiter=";")
     noMatch.writerow(("NUMERO","NO ENCONTRADAS"))
@@ -65,6 +91,11 @@ def prueba():
     contadorSinonimos = 0
     contadorHiponimos = 0
     contadorHiperonimos = 0
+
+    contadorNoSinonimos = 0
+    contadorNoHiponimos = 0
+    contadorNoHiperonimos = 0
+
     totales = 0
     contadorNoEncontrados = 0
 
@@ -91,13 +122,23 @@ def prueba():
                 encontradoSinonimos = True
                 contadorSinonimos = contadorSinonimos + 1
                 sinonimos.writerow((contadorSinonimos, str(i[1])))
+                ejemSinonimos.writerow((contadorSinonimos, str(i[1]), sinonimosRAE))
             #print("HIPONIMOS:")
+            else:
+                contadorNoSinonimos += 1
+                sinSinonimos.writerow((contadorNoSinonimos, str(i[1])))
             hiponimosRAE = busquedaHiponimosEnLaRAE(listaResultadoHipo)
+
+
 
             if (len(hiponimosRAE) > 0):
                 encontradoHiponimos = True
                 contadorHiponimos = contadorHiponimos + 1
                 hiponimos.writerow((contadorHiponimos, str(i[1])))
+                ejemHiponimos.writerow((contadorHiponimos, str(i[1]), hiponimosRAE))
+            else:
+                contadorNoHiponimos += 1
+                sinHiponimos.writerow((contadorNoHiponimos, str(i[1])))
             #print(hiponimosRAE)
 
             #print("HIPERONIMOS:")
@@ -108,6 +149,10 @@ def prueba():
                 encontradoHiperonimos = True
                 contadorHiperonimos = contadorHiperonimos + 1
                 hiperonimos.writerow((contadorHiperonimos, str(i[1])))
+                ejemHiperonimos.writerow((contadorHiperonimos, str(i[1]), hiperonimosRAE))
+            else:
+                contadorNoHiperonimos += 1
+                sinHiperonimos.writerow((contadorNoHiperonimos, str(i[1])))
 
         totales = totales + 1
 
@@ -335,7 +380,7 @@ def busquedaHiperonimosEnLaRAE(resultadoHiperonimo):
 
 def aperturaYlecturaCSV():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/1000PALABRASFILTRADAS.csv', encoding="utf8", errors='ignore')
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
@@ -343,7 +388,7 @@ def aperturaYlecturaCSV():
 
 def aperturaYlecturaCSV5000():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/5000PALABRASFILTRADAS.csv', encoding="utf8", errors='ignore')
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
@@ -351,7 +396,7 @@ def aperturaYlecturaCSV5000():
 
 def aperturaYlecturaCSV10000():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/10000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/10000PALABRASFILTRADAS.csv', encoding="utf8", errors='ignore')
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 
