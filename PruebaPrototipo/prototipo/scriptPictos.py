@@ -6,6 +6,8 @@ django.setup()
 from prototipo.models import *
 import csv
 import urllib3
+import urllib
+from PIL import Image
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 #import prototipo.servicesSearchWords as services
 
@@ -15,6 +17,7 @@ def main():
     salida.writerow(("PALABRA", "OFFSET3.1", "OFFSET3.0","IDPICTO"))
     f = open('lista.txt','r' ,encoding="utf8", newline="")
     data = f.readlines()
+    os.makedirs('pictos',mode=0o777)
     for line in data:
         #print(line.rstrip('\n'))
         word = str(line.rstrip('\n').strip().lower())
@@ -98,5 +101,10 @@ def execute(word, salida):
             print("BIEEEEEEEN")
             print(word, synset, offset['offset'], id)
             salida.writerow((word, synset, offset['offset'], id))
+            url = 'https://api.arasaac.org/api/pictograms/' + str(id) + '?download=true'
+            response = urllib.request.urlretrieve(url)
+            contents = Image.open(response[0])
+            contents.save('pictos/'+str(id)+'.png','PNG')
+
 
 main()

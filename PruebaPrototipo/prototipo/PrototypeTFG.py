@@ -7,10 +7,17 @@ import re
 #PARA QUE AL COMPARAR PALABRAS NO TENGA EN CUENTA LOS ACENTOS
 from unidecode import unidecode
 
+#CREA FICHEROS CON SOLO LA PALABRA FACIL
+csvarchivo = open('10000PALABRASFILTRADAS.csv', encoding="utf8", errors='ignore')
+entrada = csv.DictReader(csvarchivo, delimiter=";")
+csvsalida = open('10000_palabras_faciles.csv', 'w', encoding="utf8", newline="")
+salida = csv.writer(csvsalida, delimiter=";")
+for i in entrada:
+    #print(i)
+    salida.writerow([i['PALABRA']])
 
-
-
-
+csvarchivo.close()
+csvsalida.close()
 '''
 #CLASIFICADOR DE PALABRAS SEGUN LETRA INICIAL
 
@@ -108,7 +115,7 @@ for token in doc:
 
 '''
 
-
+'''
 #CLASIFICADOR SEMANTICO DE PALABRAS
 nlp = spacy.load('es_core_news_md')
 
@@ -137,6 +144,7 @@ for i in range(len(data)):
 
 csvarchivo.close()
 csvsalida.close()
+'''
 '''
 csvarchivo = open('entrada1000palabrasAPI.csv',encoding="utf8",errors='ignore')
 entrada = csv.DictReader(csvarchivo,delimiter=";")
