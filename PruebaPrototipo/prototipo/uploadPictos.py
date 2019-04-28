@@ -33,6 +33,44 @@ def datos_picto():
         with connection.cursor() as cursor:
             cursor.execute('INSERT INTO datos_picto(palabra,offset31, offset30, id_picto) VALUES (%s, %s,%s, %s)', [palabra, offset31,offset30, id_picto])
 
+def pictos():
 
+    csventrada = open('pictos.csv', encoding="utf8", errors='ignore')
+    entrada = csv.DictReader(csventrada, delimiter=";")
 
-datos_picto()
+    for i in entrada:
+        palabra = i['PALABRA']
+        #offset31 = i['OFFSET3.1']
+        offset30 = i['OFFSET3.0']
+        id_picto = i['IDPICTO']
+        with connection.cursor() as cursor:
+            cursor.execute('INSERT INTO pictos(offset30, palabra, id_picto) VALUES (%s, %s,%s)', [offset30, palabra, id_picto])
+
+def prueba_cursor():
+    '''
+    offset30 = '5000'
+    palabra = 'prueba'
+    id_picto = '20'
+    offset302 = '5001'
+    with connection.cursor() as cursor:
+        cursor.execute('INSERT INTO pictos(offset30, palabra, id_picto) VALUES (%s, %s,%s)', [offset30, palabra, id_picto])
+        cursor.execute('INSERT INTO pictos(offset30, palabra, id_picto) VALUES (%s, %s,%s)', [offset302, palabra, id_picto])
+        '''
+    img = 'x091'
+    with connection.cursor() as cursor:
+        cursor.execute('UPDATE pictos SET imagen = %s WHERE id_picto=20',[img])
+
+def inserta_pictos():
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM datos_picto')
+        rows = cursor.fetchall()
+        #print(rows[0])
+        for row in rows:
+            cursor.execute('SELECT imagen FROM pictogramas WHERE id_picto = %s',[row[3]])
+            img = cursor.fetchall()
+            cursor.execute('UPDATE pictos SET imagen = %s WHERE id_picto= %s',[img, row[3]])
+        cursor.execute('ALTER TABLE `pictos` CHANGE `imagen` `imagen` BLOB NOT NULL')
+#datos_picto()
+#pictos()
+#prueba_cursor()
+inserta_pictos()
