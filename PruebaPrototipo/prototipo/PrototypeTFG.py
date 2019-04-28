@@ -3,9 +3,19 @@ import csv
 import requests
 import pandas as pd
 import re
+import os
 
 #PARA QUE AL COMPARAR PALABRAS NO TENGA EN CUENTA LOS ACENTOS
 from unidecode import unidecode
+
+
+
+
+
+
+
+#os.makedirs('pictos',mode=0o777)
+'''
 
 #CREA FICHEROS CON SOLO LA PALABRA FACIL
 csvarchivo = open('10000PALABRASFILTRADAS.csv', encoding="utf8", errors='ignore')
@@ -18,6 +28,7 @@ for i in entrada:
 
 csvarchivo.close()
 csvsalida.close()
+'''
 '''
 #CLASIFICADOR DE PALABRAS SEGUN LETRA INICIAL
 
