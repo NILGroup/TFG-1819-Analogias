@@ -38,7 +38,7 @@
                     <label><b>Introduzca una palabra: </b></label>
                     <!--<input type="text"  class="pl-3  ml-3 mr-3 input-word">-->
 
-                      <form method="POST" class="panel-search-word ml-2 " >
+                      <form method="POST" class="panel-search-word ml-2 " id="formulario">
                           {% csrf_token %}
                           {{ form.as_p }}
 

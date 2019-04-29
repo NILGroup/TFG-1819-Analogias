@@ -1,7 +1,7 @@
 $(function() {
 
     $("#button-accept").on("click", selectOptionHandler);
-    $("#button-send").on("click", showCardHandler);
+    $("#formulario").on("submit", showCardHandler);
 
 
 });
@@ -25,26 +25,24 @@ function selectOptionHandler(){
 }
 
 
-function showCardHandler(){
+function showCardHandler(event){
+
+    event.preventDefault();
+    let word = $("#formulario").find("p").find("input").val();
 
 
-     /*let fichas = "hola";
      $.ajax({
         type:'POST',
-        url: '',
-        data: { 'fichas' : fichas, csrfmiddlewaretoken:"{{ csrf_token }}" },
-        success: function (data){
-            console.log(data);
-            alert(data.fichas)
-
+        url: 'version1',
+        data: {'button-search' : true, 'word' : word},
+        success: function (json){
+            console.log(json);
         },
         error: function(data, jqXHR, textStatus, errorThrown){
             console.log(data);
 
         }
-     });*/
+     });
 
-    let card = "<div id='card' class='panel-words mt-4 pt-3 pb-3 col-8'><div class='results'>" + $("#fichas").attr("value") + "</div></div>"
 
-    $("#list-results").append(card)
 }
