@@ -107,11 +107,14 @@ def version1(request):
 
     if request.method == "POST":
         form = PostFormWordSearch(request.POST)
-        print("HOLA")
+        print("BODYYYYYYYYY")
+        print(request.body)
         if 'button-search' in request.POST:
-            # words = request.POST.get('word')
-            # print(words)
-            word = form['word'].value()
+            word = request.POST.get('word')
+            print("HE LLEGADO Y VA BIEN LA COSA")
+            print(word)
+
+            #word = form['word'].value()
             if word.isupper():
                 word = word.lower()
             print(word)
@@ -132,7 +135,8 @@ def version1(request):
 
             print('llego')
             print(resultsSynonyms)
-            return render(request, 'prototipo/version1.html', {'form' : form, 'word': word, 'counter': functools.partial(next, itertools.count(1)), 'counterId': functools.partial(next, itertools.count(1)), 'resultsSynonyms': resultsSynonyms, 'offsetInicial' : allOffsets})
+            return JsonResponse({'resultsSynonyms' : resultsSynonyms, 'fuybfuhf' : 'dfiufiun'})
+            #render(request, 'prototipo/version1.html', {'form' : form, 'word': word, 'counter': functools.partial(next, itertools.count(1)), 'counterId': functools.partial(next, itertools.count(1)), 'resultsSynonyms': resultsSynonyms, 'offsetInicial' : allOffsets})
             #(request, 'prototipo/version1.html',
                     #      {'form': form, 'word': word, 'counter': functools.partial(next, itertools.count(1)),
                      #     'counterId': functools.partial(next, itertools.count(1)), 'offsetInicial' : allOffsets, 'resultsSynonyms': resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms})
