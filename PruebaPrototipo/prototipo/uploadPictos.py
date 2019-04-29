@@ -88,9 +88,12 @@ def inserta_pictos():
             cursor.execute('UPDATE pictos SET imagen = %s WHERE id_picto= %s',[img, row[3]])
 
         cursor.execute('ALTER TABLE pictos CHANGE imagen imagen BLOB NOT NULL')
-#datos_picto()
-#pictos()
-prueba_cursor()
-#inserta_pictos()
+
+
+#prueba_cursor()
 #binary('2239.png')
-#pictogramas()
+
+pictogramas()
+datos_picto()
+pictos()
+inserta_pictos()

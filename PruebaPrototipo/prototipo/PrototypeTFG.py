@@ -14,7 +14,7 @@ from unidecode import unidecode
 
 
 
-#os.makedirs('pictos',mode=0o777)
+os.makedirs('pictos',mode=0o777)
 '''
 
 #CREA FICHEROS CON SOLO LA PALABRA FACIL
