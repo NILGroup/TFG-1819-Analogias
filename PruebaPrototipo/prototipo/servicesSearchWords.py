@@ -4,6 +4,10 @@ import csv
 import json
 from prototipo import spacyService as spacy
 import prototipo.pictosServices as pictos
+import django
+django.setup()
+from django.db import connection
+import base64
 import pandas as pd
 
 
@@ -62,19 +66,33 @@ def allSynonyms(offset):
 #### SERVICIO WEB QUE DADO UN OFFSET DEVUELVE SUS SINONIMOS FACILES     ####
 
 def easySynonyms(word, offset):
-
+    #print(offset)
     dataJson = []
-    archivo, csvarchivo = aperturaYlecturaCSV()
+   # archivo, csvarchivo = aperturaYlecturaCSV()
     listAllSynonyms = allSynonyms(offset)
-    jsonImage = pictos.getSynsetsAPI(word)
+    #jsonImage = pictos.getSynsetsAPI(word)
 
     for obj in listAllSynonyms:
         listEasyWords = list()
         for synonym in obj["synonyms"]:
+            if synonym != word:
+                with connection.cursor() as cursor:
+                    print(synonym)
+                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',[synonym])
+                    result = cursor.fetchone()[0]
+                    print('RESULTADO')
+                    print(result)
+                    #print(result)
+                    if result > 0:
+                        listEasyWords.append(synonym)
+
+        '''
+        
             csvarchivo.seek(0)
             for j in archivo:
                 if synonym == j['PALABRA'] and synonym != word:
                     listEasyWords.append(j['PALABRA'])
+        '''
 
         if len(listEasyWords) > 0:
            dataJson.insert(0, {'offset': "", 'easySynonyms': "", 'definition': "", 'example': "", 'picto': ""})
@@ -83,13 +101,15 @@ def easySynonyms(word, offset):
            if dataJson[0]["definition"] != "None":
                dataJson[0]["definition"] = obj["definition"]
            dataJson[0]["example"] = obj["example"]
-           dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
-           if pictos.getImage(offset, jsonImage) != "None":
-               dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
+           #dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
+           with connection.cursor() as cursor:
+               cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s',[offset])
+               if cursor.rowcount > 0:
+                   dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/'+str(cursor.fetchone()) +'?download=false'
 
     #print("DATA EASY SYNONYMS")
     #print(json.dumps(dataJson, ensure_ascii=False))
-
+    print(dataJson)
     return dataJson
 
 
@@ -116,6 +136,8 @@ def makerSynonymsPhrase(word, offset):
     # print("DATA PHRASE SYNONYM")
     # print(repr(dataJson))
     # print(json.dumps(dataJson, ensure_ascii=False))
+    #print('LLEGO')
+    #print(dataJson)
     return dataJson
 
 #---------------------------------------------------------------------------------------------#

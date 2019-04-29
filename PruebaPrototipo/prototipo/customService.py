@@ -132,7 +132,7 @@ def customSynonyms(word, offset, jsonImage):
         listPhrase = list()
         for synonym in obj["synonyms"]:
             #csvarchivo.seek(0)
-            archivo, csvarchivo = aperturaYlecturaCSVIndice(synonym[0])
+            archivo, csvarchivo = aperturaYlecturaCSV()
             start_time = time.time()
             for j in archivo:
                 if synonym == j['PALABRA'] and synonym != word:
@@ -239,7 +239,7 @@ def customHyperonyms(word, offset, jsonImage):
 
 def aperturaYlecturaCSV():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradasYordenadas.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/5000PALABRASFILTRADAS.csv', encoding="utf8", errors='ignore')
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 

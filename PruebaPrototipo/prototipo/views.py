@@ -122,16 +122,17 @@ def version1(request):
             resultsHyponyms = list()
 
             # resultPictos = list()
-            jsonImage = pictos.getSynsetsAPI(word)
+            #jsonImage = pictos.getSynsetsAPI(word)
             fichas = list()
 
             for offset in allOffsets:
                 resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
-                resultsHyponyms += services.makerHyponymsPhrase(word, offset['offset'])
-                resultsHyperonyms += services.makerHyperonymsPhrase(word, offset['offset'])
+                #resultsHyponyms += services.makerHyponymsPhrase(word, offset['offset'])
+                #resultsHyperonyms += services.makerHyperonymsPhrase(word, offset['offset'])
 
-
-            return (request, 'prototipo/version1.html', {'form' : form, 'word': word, 'counter': functools.partial(next, itertools.count(1)), 'counterId': functools.partial(next, itertools.count(1)), 'resultsHyperonyms': resultsHyperonyms})
+            print('llego')
+            print(resultsSynonyms)
+            return render(request, 'prototipo/version1.html', {'form' : form, 'word': word, 'counter': functools.partial(next, itertools.count(1)), 'counterId': functools.partial(next, itertools.count(1)), 'resultsSynonyms': resultsSynonyms, 'offsetInicial' : allOffsets})
             #(request, 'prototipo/version1.html',
                     #      {'form': form, 'word': word, 'counter': functools.partial(next, itertools.count(1)),
                      #     'counterId': functools.partial(next, itertools.count(1)), 'offsetInicial' : allOffsets, 'resultsSynonyms': resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms})
@@ -177,8 +178,10 @@ def version2(request):
                 # ficha.append({'picto': "", 'data': []})
                 # resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
                 resultsSynonyms = custom.customSynonyms(word, offset['offset'], jsonImage)
-                resultsHyponyms = custom.customHyponyms(word, offset['offset'], jsonImage)
-                resultsHyperonyms = custom.customHyperonyms(word, offset['offset'], jsonImage)
+                resultsHyponyms = list()
+                resultsHyperonyms = list()
+                #resultsHyponyms = custom.customHyponyms(word, offset['offset'], jsonImage)
+                #resultsHyperonyms = custom.customHyperonyms(word, offset['offset'], jsonImage)
 
                 if len(resultsSynonyms) > 0:
                     elem = ({'tipo': "", 'datos': ""})
