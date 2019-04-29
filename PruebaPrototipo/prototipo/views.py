@@ -8,7 +8,9 @@ import itertools
 import functools
 import prototipo.customService as custom
 import time
-
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.http import HttpResponse
 
 from .forms import PostFormWordSearch
 
@@ -98,21 +100,21 @@ def index(request):
     return render(request, 'prototipo/index.html', {'form': form, 'word': "", 'results': ""})
 
 
-
+@csrf_exempt
 def version1(request):
 
     form = PostFormWordSearch()
 
     if request.method == "POST":
         form = PostFormWordSearch(request.POST)
-
+        print("HOLA")
         if 'button-search' in request.POST:
             # words = request.POST.get('word')
             # print(words)
             word = form['word'].value()
             if word.isupper():
                 word = word.lower()
-            # print(word)
+            print(word)
             # results = services.searchAllHyponyms(word)
             allOffsets = services.allOffsets(word)
             resultsHyperonyms = list()
@@ -124,20 +126,19 @@ def version1(request):
             fichas = list()
 
             for offset in allOffsets:
-
                 resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
                 resultsHyponyms += services.makerHyponymsPhrase(word, offset['offset'])
                 resultsHyperonyms += services.makerHyperonymsPhrase(word, offset['offset'])
 
 
+            return (request, 'prototipo/version1.html', {'form' : form, 'word': word, 'counter': functools.partial(next, itertools.count(1)), 'counterId': functools.partial(next, itertools.count(1)), 'resultsHyperonyms': resultsHyperonyms})
+            #(request, 'prototipo/version1.html',
+                    #      {'form': form, 'word': word, 'counter': functools.partial(next, itertools.count(1)),
+                     #     'counterId': functools.partial(next, itertools.count(1)), 'offsetInicial' : allOffsets, 'resultsSynonyms': resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms})
 
-            return render(request, 'prototipo/version1.html',
-                          {'form': form, 'word': word, 'counter': functools.partial(next, itertools.count(1)),
-                           'counterId': functools.partial(next, itertools.count(1)), 'offsetInicial' : allOffsets, 'resultsSynonyms': resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms})
+
 
     return render(request, 'prototipo/version1.html', {'form': form, 'word': "", 'results': ""})
-
-
 
 
 
