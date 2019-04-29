@@ -299,4 +299,10 @@ def prueba(request):
     return render(request, 'prototipo/formulario.html', {'form': form})
 
 
+def getImagen(request, offset, palabra , id):
+    print(offset)
+    print(palabra)
+    print(id)
+    imagen = 1
+    return HttpResponse(imagen, content_type="image/png")
 
