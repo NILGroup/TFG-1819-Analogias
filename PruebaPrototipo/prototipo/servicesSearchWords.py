@@ -7,6 +7,7 @@ import prototipo.pictosServices as pictos
 import django
 django.setup()
 from django.db import connection
+import urllib
 import base64
 import pandas as pd
 
@@ -101,7 +102,11 @@ def easySynonyms(word, offset):
            if dataJson[0]["definition"] != "None":
                dataJson[0]["definition"] = obj["definition"]
            dataJson[0]["example"] = obj["example"]
-           dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/'+word
+           img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
+           if img.info()['Content-Type'] != 'application/json':
+               dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
+           else:
+               dataJson[0]["picto"] = ""
 
            '''
            with connection.cursor() as cursor:
@@ -224,7 +229,11 @@ def easyHyponyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
+            img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
+            if img.info()['Content-Type'] != 'application/json':
+                dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
+            else:
+                dataJson[0]["picto"] = ""
 
             '''
                         with connection.cursor() as cursor:
@@ -343,7 +352,14 @@ def easyHyperonyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
+            img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
+            if img.info()['Content-Type'] != 'application/json':
+                dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
+            else:
+                dataJson[0]["picto"] = ""
+
+            #print(img.info()['Content-Type'])
+            #dataJson[0]["picto"] =
             '''
             with connection.cursor() as cursor:
                 cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s', [offset])

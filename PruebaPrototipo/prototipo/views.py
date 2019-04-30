@@ -316,7 +316,8 @@ def getImagen(request, offset):
 
             return HttpResponse(imagen, content_type="image/png")
 
-    return render(request,'prototipo/formulario.html')
+    notFound = ['pictograma no encontrado']
+    return JsonResponse(notFound, safe=False)
 
 
 def getImagenPalabra(request, palabra):
@@ -335,5 +336,5 @@ def getImagenPalabra(request, palabra):
             imagen = open('prototipo/pictogramas/'+palabra+'.png', 'rb').read()
 
             return HttpResponse(imagen, content_type="image/png")
-
-    return render(request,'prototipo/formulario.html')
+    notFound = ['pictograma no encontrado']
+    return JsonResponse(notFound, safe=False)
