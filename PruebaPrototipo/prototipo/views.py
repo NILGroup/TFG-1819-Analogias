@@ -137,7 +137,7 @@ def version1(request):
 
             print('llego')
             print(resultsSynonyms)
-            return JsonResponse({'resultsSynonyms' : resultsSynonyms, 'fuybfuhf' : 'dfiufiun'})
+            return JsonResponse({'word' : word, 'allOffsets' : allOffsets, 'resultsSynonyms' : resultsSynonyms})
             #render(request, 'prototipo/version1.html', {'form' : form, 'word': word, 'counter': functools.partial(next, itertools.count(1)), 'counterId': functools.partial(next, itertools.count(1)), 'resultsSynonyms': resultsSynonyms, 'offsetInicial' : allOffsets})
             #(request, 'prototipo/version1.html',
                     #      {'form': form, 'word': word, 'counter': functools.partial(next, itertools.count(1)),
