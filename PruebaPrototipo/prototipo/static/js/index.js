@@ -93,7 +93,9 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
            
             let enlace = phrase.split(" ").pop();
             phrase = phrase.replace(enlace, "");
-            elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagen/" + resultadoSinonimos.offset + "'></img></li><br>";
+            console.log("PALABRAS");
+            console.log(enlace);
+            elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
         });
     }
     
