@@ -47,14 +47,25 @@ function showCardHandler(event){
 
 function mostrarJson(json){
     let contador = 1;
+    console.log(json);
      /*let elemento = "<h3>" +  Resultados para la palabra + "<p class='ml-2'>" + word + "</p></h3><ul id='list-results'>";
     $(".panel-results").append(elemento); */
     json.allOffsets.forEach(offset => {
-        let resultado = json.resultsSynonyms.find(resultSynonym =>{
+        let arrayHiponimos = [];
+        let resultadoSinonimos = json.resultsSynonyms.find(resultSynonym =>{
             return resultSynonym.offset == offset.offset;
         });
-        if(resultado != undefined){
-            formarFicha(resultado, contador, json.word);
+        let resultadoHiponimos = json.resultsHyponyms.forEach(resultHyponym =>{
+            
+            if (resultHyponym.offsetFather == offset.offset){
+                arrayHiponimos.push(resultHyponym);
+            };
+        });
+       
+
+        if(resultadoSinonimos != undefined || arrayHiponimos.size > 0){
+            formarFicha(resultadoSinonimos, arrayHiponimos, contador, json.word);
+            
             ++contador;
         }
 
@@ -64,15 +75,34 @@ function mostrarJson(json){
 }
 
 
-function formarFicha(resultado, numTarjeta, palabra){
+function formarFicha(resultadoSinonimos, resultadoHiponimos, numTarjeta, palabra){
     let elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><div class='results'><p>";
+    console.log("RESULTADO SINONIMOS");
+    console.log(resultadoSinonimos);
+    console.log("RESULTADO HIPONIMOS");
+    console.log(resultadoHiponimos);
+    if(resultadoSinonimos != undefined){
+        resultadoSinonimos.phraseSynonyms.forEach(phrase =>{
+        
+            let enlace = phrase.split(" ").pop();
+            phrase = phrase.replace(enlace, "");
+            elemento += palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><br>";
+        });
+    }
     
-    resultado.phraseSynonyms.forEach(phrase =>{
-        let enlace = phrase.split(" ").pop();
-        phrase = phrase.replace(enlace, "");
-        elemento += palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><br>";
-    });
-    console.log(elemento);
+    if(resultadoHiponimos != undefined){
+        resultadoHiponimos.forEach(phrase =>{
+            phrase.phraseHyponyms.forEach(p =>{
+                let enlace = p.split(" ").pop();
+                phrase = p.replace(enlace, "");
+                elemento += palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><br>";
+            });
+            
+           
+        });
+    }
+   
+    
     $("#list-results").append(elemento);
     
 }

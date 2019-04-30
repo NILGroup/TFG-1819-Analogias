@@ -132,12 +132,12 @@ def version1(request):
 
             for offset in allOffsets:
                 resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
-                #resultsHyponyms += services.makerHyponymsPhrase(word, offset['offset'])
-                #resultsHyperonyms += services.makerHyperonymsPhrase(word, offset['offset'])
+                resultsHyponyms += services.makerHyponymsPhrase(word, offset['offset'])
+                resultsHyperonyms += services.makerHyperonymsPhrase(word, offset['offset'])
 
             print('llego')
             print(resultsSynonyms)
-            return JsonResponse({'word' : word, 'allOffsets' : allOffsets, 'resultsSynonyms' : resultsSynonyms})
+            return JsonResponse({'word' : word, 'allOffsets' : allOffsets, 'resultsSynonyms' : resultsSynonyms, 'resultsHyponyms' : resultsHyponyms, 'resultsHyperonyms' : resultsHyperonyms})
             #render(request, 'prototipo/version1.html', {'form' : form, 'word': word, 'counter': functools.partial(next, itertools.count(1)), 'counterId': functools.partial(next, itertools.count(1)), 'resultsSynonyms': resultsSynonyms, 'offsetInicial' : allOffsets})
             #(request, 'prototipo/version1.html',
                     #      {'form': form, 'word': word, 'counter': functools.partial(next, itertools.count(1)),
