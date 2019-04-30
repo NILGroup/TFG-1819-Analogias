@@ -77,11 +77,11 @@ def easySynonyms(word, offset):
         for synonym in obj["synonyms"]:
             if synonym != word:
                 with connection.cursor() as cursor:
-                    print(synonym)
+                    #print(synonym)
                     cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',[synonym])
                     result = cursor.fetchone()[0]
-                    print('RESULTADO')
-                    print(result)
+                    #print('RESULTADO')
+                    #print(result)
                     #print(result)
                     if result > 0:
                         listEasyWords.append(synonym)
@@ -102,14 +102,24 @@ def easySynonyms(word, offset):
                dataJson[0]["definition"] = obj["definition"]
            dataJson[0]["example"] = obj["example"]
            #dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
+
            with connection.cursor() as cursor:
                cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s',[offset])
+               rows = cursor.fetchall()
+               if len(rows) > 0:
+                   dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/'+str(rows[0][0]) +'?download=false'
+               '''
                if cursor.rowcount > 0:
-                   dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/'+str(cursor.fetchone()) +'?download=false'
+                   image_64_decode = base64.decodebytes(cursor.fetchone()[0])
+                   image_result = open('pictogramas/'+offset+'.png', 'wb')
+                   image_result.write(image_64_decode)
+                   image_result.close()
+                   dataJson[0]["picto"] = 'pictogramas/'+offset+'.png'
+                   '''
 
     #print("DATA EASY SYNONYMS")
     #print(json.dumps(dataJson, ensure_ascii=False))
-    print(dataJson)
+    #print(dataJson)
     return dataJson
 
 
@@ -192,11 +202,18 @@ def easyHyponyms(word, offset):
     for obj in listAllHyponyms:
         listEasyWords = list()
         for hyponym in obj["hyponyms"]:
+            '''
             csvarchivo.seek(0)
             for j in archivo:
                 if hyponym == j['PALABRA'] and hyponym != word:
                     listEasyWords.append(j['PALABRA'])
-
+'''
+            if hyponym != word:
+                with connection.cursor() as cursor:
+                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',[hyponym])
+                    result = cursor.fetchone()[0]
+                    if result > 0:
+                        listEasyWords.append(hyponym)
         if len(listEasyWords) > 0:
             dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyponyms': "", 'definition': "", 'example': "", 'picto': ""})
             dataJson[0]["easyHyponyms"] = listEasyWords
@@ -206,8 +223,17 @@ def easyHyponyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            if pictos.getImage(offset, jsonImage) != "None":
-                dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s', [offset])
+                rows = cursor.fetchall()
+                if len(rows) > 0:
+                    dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/' + str(rows[0][0]) + '?download=false'
+            '''
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s', [offset])
+                if cursor.rowcount > 0:
+                    dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/' + str(cursor.fetchone()) + '?download=false'
+'''
 
     #print("DATA EASY HYPONYMS")
     #print(json.dumps(dataJson ,ensure_ascii=False))
@@ -286,18 +312,25 @@ def allHyperonyms(offset):
 def easyHyperonyms(word, offset):
     dataJson = []
 
-    archivo, csvarchivo = aperturaYlecturaCSV()
+    #archivo, csvarchivo = aperturaYlecturaCSV()
     listAllHyperonyms = allHyperonyms(offset)
     jsonImage = pictos.getSynsetsAPI(word)
 
     for obj in listAllHyperonyms:
         listEasyWords = list()
         for hyperonym in obj["hyperonyms"]:
+            '''
             csvarchivo.seek(0)
             for j in archivo:
                 if hyperonym == j['PALABRA'] and hyperonym != word:
                     listEasyWords.append(j['PALABRA'])
-
+'''
+            if hyperonym != word:
+                with connection.cursor() as cursor:
+                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',[hyperonym])
+                    result = cursor.fetchone()[0]
+                    if result > 0:
+                        listEasyWords.append(hyperonym)
         if len(listEasyWords) > 0:
             dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyperonyms': "", 'definition': "", 'example': "", 'picto': ""})
             dataJson[0]["easyHyperonyms"] = listEasyWords
@@ -307,8 +340,13 @@ def easyHyperonyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            if pictos.getImage(offset, jsonImage) != "None":
-                dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s', [offset])
+                rows = cursor.fetchall()
+                if len(rows) > 0:
+                    dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/' + str(rows[0][0]) + '?download=false'
+           # if pictos.getImage(offset, jsonImage) != "None":
+               # dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
 
     #print("DATA EASY HYPONYMS")
     #print(json.dumps(dataJson ,ensure_ascii=False))

@@ -11,7 +11,9 @@ import time
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.http import HttpResponse
-
+import base64
+from django.db import connection
+import os
 from .forms import PostFormWordSearch
 
 
@@ -169,7 +171,7 @@ def version2(request):
             # results = services.searchAllHyponyms(word)
             allOffsets = services.allOffsets(word)
             # resultsHyperonyms = list()
-            # resultsSynonyms = list()
+            resultsSynonyms = list()
             # resultsHyponyms = list()
 
             # resultPictos = list()
@@ -180,10 +182,10 @@ def version2(request):
             for offset in allOffsets:
                 ficha = ({'picto': "", 'data': []})
                 # ficha.append({'picto': "", 'data': []})
-                # resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
-                resultsSynonyms = custom.customSynonyms(word, offset['offset'], jsonImage)
-                resultsHyponyms = list()
-                resultsHyperonyms = list()
+                resultsSynonyms = services.makerSynonymsPhrase(word, offset['offset'])
+                #resultsSynonyms = custom.customSynonyms(word, offset['offset'], jsonImage)
+                resultsHyponyms = services.makerHyponymsPhrase(word, offset['offset'])
+                resultsHyperonyms = services.makerHyperonymsPhrase(word, offset['offset'])
                 #resultsHyponyms = custom.customHyponyms(word, offset['offset'], jsonImage)
                 #resultsHyperonyms = custom.customHyperonyms(word, offset['offset'], jsonImage)
 
@@ -207,12 +209,21 @@ def version2(request):
                     elem['datos'] = resultsHyperonyms
                     ficha['data'].append(elem)
                 if len(resultsSynonyms) > 0 or len(resultsHyponyms) > 0 or len(resultsHyperonyms) > 0:
-                    start_time = time.time()
-                    url = pictos.getImage(offset['offset'], jsonImage)
-                    print('T PICTO')
-                    print(time.time() - start_time)
-                    if url != "None":
-                        ficha['picto'] = url
+
+                    #start_time = time.time()
+                    #url = pictos.getImage(offset['offset'], jsonImage)
+                    with connection.cursor() as cursor:
+
+                        cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s', [offset['offset']])
+                        rows = cursor.fetchall()
+                        #print(len(rows))
+                        if len(rows) > 0:
+
+
+                            url = 'https://api.arasaac.org/api/pictograms/'+str(rows[0][0]) +'?download=false'
+                    #print(time.time() - start_time)
+
+                            ficha['picto'] = url
 
                     fichas.append(ficha)
                 '''
@@ -228,8 +239,8 @@ def version2(request):
             # print("HYPONYMS")
             # print(resultsHyponyms)
             # print("SYNONYMS")
-            # print(resultsSynonyms)
-            # print(fichas)
+            #print(resultsSynonyms)
+            print(fichas)
             '''
             if len(resultsHyperonyms) > 0:
                 for elem in resultsHyperonyms:
@@ -288,4 +299,10 @@ def prueba(request):
     return render(request, 'prototipo/formulario.html', {'form': form})
 
 
+def getImagen(request, offset, palabra , id):
+    print(offset)
+    print(palabra)
+    print(id)
+    imagen = 1
+    return HttpResponse(imagen, content_type="image/png")
 
