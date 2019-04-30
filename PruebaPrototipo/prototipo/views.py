@@ -299,10 +299,21 @@ def prueba(request):
     return render(request, 'prototipo/formulario.html', {'form': form})
 
 
-def getImagen(request, offset, palabra , id):
-    print(offset)
-    print(palabra)
-    print(id)
-    imagen = 1
-    return HttpResponse(imagen, content_type="image/png")
+def getImagen(request, offset):
 
+    if not os.path.exists('prototipo/pictogramas'):
+        os.makedirs('prototipo/pictogramas', mode=0o777)
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT imagen FROM pictos WHERE offset30 = %s', [offset])
+        rows = cursor.fetchall()
+        #print(len(rows))
+        if len(rows) > 0:
+            image_64_decode = base64.decodebytes(rows[0][0])
+            image_result = open('prototipo/pictogramas/'+offset+'.png', 'wb')
+            image_result.write(image_64_decode)
+            image_result.close()
+            imagen = open('prototipo/pictogramas/'+offset+'.png', 'rb').read()
+
+            return HttpResponse(imagen, content_type="image/png")
+
+    return render(request,'prototipo/formulario.html')
