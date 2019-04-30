@@ -105,8 +105,7 @@ def easySynonyms(word, offset):
            img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
            if img.info()['Content-Type'] != 'application/json':
                dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
-           else:
-               dataJson[0]["picto"] = ""
+
 
            '''
            with connection.cursor() as cursor:
@@ -232,8 +231,7 @@ def easyHyponyms(word, offset):
             img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
             if img.info()['Content-Type'] != 'application/json':
                 dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
-            else:
-                dataJson[0]["picto"] = ""
+
 
             '''
                         with connection.cursor() as cursor:
@@ -355,8 +353,6 @@ def easyHyperonyms(word, offset):
             img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
             if img.info()['Content-Type'] != 'application/json':
                 dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
-            else:
-                dataJson[0]["picto"] = ""
 
             #print(img.info()['Content-Type'])
             #dataJson[0]["picto"] =

@@ -15,6 +15,7 @@ import base64
 from django.db import connection
 import os
 from .forms import PostFormWordSearch
+import shutil
 
 
 def index(request):
@@ -104,7 +105,9 @@ def index(request):
 
 @csrf_exempt
 def version1(request):
-
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if os.path.exists('prototipo/pictogramas'):
+        shutil.rmtree(BASE_DIR + '/prototipo/pictogramas')
     form = PostFormWordSearch()
 
     if request.method == "POST":
