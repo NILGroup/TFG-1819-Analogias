@@ -73,7 +73,7 @@ function mostrarJson(json){
        
 
         if(resultadoSinonimos != undefined || arrayHiponimos.length > 0 || arrayHiperonimos.length > 0){
-            formarFicha(resultadoSinonimos, arrayHiponimos, arrayHiperonimos, contador, json.word);
+            formarFicha(offset, resultadoSinonimos, arrayHiponimos, arrayHiperonimos, contador, json.word);
             
             ++contador;
         }
@@ -84,27 +84,27 @@ function mostrarJson(json){
 }
 
 
-function formarFicha(resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra){
-    let elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><div class='results'><p>";
-    console.log("RESULTADO SINONIMOS");
-    console.log(resultadoSinonimos);
-    console.log("RESULTADO HIPONIMOS");
-    console.log(resultadoHiponimos);
+function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra){
+
+    let elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagen/" +  offset.offset + "'></img><div class='results'><p>";
+   
     if(resultadoSinonimos != undefined){
         resultadoSinonimos.phraseSynonyms.forEach(phrase =>{
-        
+           
             let enlace = phrase.split(" ").pop();
             phrase = phrase.replace(enlace, "");
-            elemento += palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><br>";
+            elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagen/" + resultadoSinonimos.offset + "'></img></li><br>";
         });
     }
     
     if(resultadoHiponimos != undefined){
         resultadoHiponimos.forEach(phrase =>{
             phrase.phraseHyponyms.forEach(p =>{
+                console.log("SINONIMOS");
+                console.log(resultadoHiponimos);
                 let enlace = p.split(" ").pop();
                 phrase = p.replace(enlace, "");
-                elemento += palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><br>";
+                elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
             }); 
         });
     }
@@ -114,7 +114,7 @@ function formarFicha(resultadoSinonimos, resultadoHiponimos, resultadoHiperonimo
             phrase.phraseHyperonyms.forEach(p =>{
                 let enlace = p.split(" ").pop();
                 phrase = p.replace(enlace, "");
-                elemento += palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><br>";
+                elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
             }); 
         });
     }
