@@ -101,14 +101,15 @@ def easySynonyms(word, offset):
            if dataJson[0]["definition"] != "None":
                dataJson[0]["definition"] = obj["definition"]
            dataJson[0]["example"] = obj["example"]
-           #dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
+           dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagen/'+offset
 
+           '''
            with connection.cursor() as cursor:
                cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s',[offset])
                rows = cursor.fetchall()
                if len(rows) > 0:
                    dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/'+str(rows[0][0]) +'?download=false'
-               '''
+               
                if cursor.rowcount > 0:
                    image_64_decode = base64.decodebytes(cursor.fetchone()[0])
                    image_result = open('pictogramas/'+offset+'.png', 'wb')
@@ -223,12 +224,14 @@ def easyHyponyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            with connection.cursor() as cursor:
+            dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagen/' + offset
+
+            '''
+                        with connection.cursor() as cursor:
                 cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s', [offset])
                 rows = cursor.fetchall()
                 if len(rows) > 0:
                     dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/' + str(rows[0][0]) + '?download=false'
-            '''
             with connection.cursor() as cursor:
                 cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s', [offset])
                 if cursor.rowcount > 0:
@@ -340,11 +343,14 @@ def easyHyperonyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
+            dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagen/' + offset
+            '''
             with connection.cursor() as cursor:
                 cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s', [offset])
                 rows = cursor.fetchall()
                 if len(rows) > 0:
                     dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/' + str(rows[0][0]) + '?download=false'
+                    '''
            # if pictos.getImage(offset, jsonImage) != "None":
                # dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
 
