@@ -317,3 +317,23 @@ def getImagen(request, offset):
             return HttpResponse(imagen, content_type="image/png")
 
     return render(request,'prototipo/formulario.html')
+
+
+def getImagenPalabra(request, palabra):
+
+    if not os.path.exists('prototipo/pictogramas'):
+        os.makedirs('prototipo/pictogramas', mode=0o777)
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT imagen FROM pictos WHERE palabra = %s', [palabra])
+        rows = cursor.fetchall()
+        #print(len(rows))
+        if len(rows) > 0:
+            image_64_decode = base64.decodebytes(rows[0][0])
+            image_result = open('prototipo/pictogramas/'+palabra+'.png', 'wb')
+            image_result.write(image_64_decode)
+            image_result.close()
+            imagen = open('prototipo/pictogramas/'+palabra+'.png', 'rb').read()
+
+            return HttpResponse(imagen, content_type="image/png")
+
+    return render(request,'prototipo/formulario.html')

@@ -101,7 +101,7 @@ def easySynonyms(word, offset):
            if dataJson[0]["definition"] != "None":
                dataJson[0]["definition"] = obj["definition"]
            dataJson[0]["example"] = obj["example"]
-           dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagen/'+offset
+           dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/'+word
 
            '''
            with connection.cursor() as cursor:
@@ -224,7 +224,7 @@ def easyHyponyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagen/' + offset
+            dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
 
             '''
                         with connection.cursor() as cursor:
@@ -343,7 +343,7 @@ def easyHyperonyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagen/' + offset
+            dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
             '''
             with connection.cursor() as cursor:
                 cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s', [offset])
