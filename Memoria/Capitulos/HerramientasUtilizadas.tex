@@ -36,22 +36,12 @@ SpaCy\footnote{https://spacy.io/} es una biblioteca de código abierto para el P
 
 \figura{Bitmap/Capitulo3/spacy}{width=.8\textwidth}{fig:spacy}{Ejemplo de clasificación de palabras}
 
-El analizador sintáctico de Spacy, según un estudio realizado en 2015 por la universidad Emory\footnote{https://www.aclweb.org/anthology/P15-1038}, es el más rápido y según Medium Corporation tiene un índice de acierto mucho mayor que el analizador sintáctico de NLTK \footnote{https://medium.com/@pemagrg/private-nltk-vs-spacy-3926b3674ee4}. Para utilizar en analizador, hay que importar la biblioteca de idioma correspondiente (en este caso español: ``es\_core\_news\_sm'') y pasar como parámetro las palabras que se deseen clasificar. El resultado para cada palabra introducida en el analizador, serán una serie de etiquetas tal y como se pueden apreciar en la tabla \ref{fig:spacy}, que es un ejemplo de las etiquetas generadas para una frase en lengua inglesa y que se explica a continuación:
+El analizador semántico de SpaCy, según un estudio realizado en 2015 por la universidad Emory\footnote{https://www.aclweb.org/anthology/P15-1038}, es el más rápido y según Medium Corporation tiene un índice de acierto mucho mayor que el analizador sintáctico de NLTK \footnote{https://medium.com/@pemagrg/private-nltk-vs-spacy-3926b3674ee4}. Para utilizar en analizador, hay que importar la biblioteca de idioma correspondiente (en este caso español: ``es\_core\_news\_sm'') y pasar como parámetro las palabras que se deseen clasificar. El resultado para cada palabra introducida en el analizador, serán una serie de etiquetas, de todas ellas, la utilizada es la etiqueta ``pos'', que contiene el grupo semántico de la palabra analizada, como se puede ver en la Figura \ref{fig:spacy}, se ha introducido la frase: ``el coche es rojo'' y se han obtenido los siguientes resultados:
 \begin{itemize}
-	\item La columna \textit{text} indica cual es la palabra que se ha procesado. En el caso de la primera fila es la palabra \textit{Apple}.
-	\item La columna \textit{lemma} indica la forma base de la palabra procesada. En la segunda fila, \textit{be} indica el verbo en infinitivo que se ha analizado.
-	\item La columna \textit{pos} es la etiqueta asignada a dicha palabra. Indicando lo siguiente:
-		\begin{itemize}
-			\item PROPN: Nombre propio. Por ejemplo \textit{Apple}
-			\item VERB: Verbo. Como \textit{is} que es una forma del verbo \textit{to be}.
-			\item ADP: Preposicion. Por ejemplo \textit{at}.
-		\end{itemize}
-	
-	\item La columna \textit{tag} indica cual es la palabra que se ha procesado con más detalle.
-	\item La columna \textit{dep} indica la dependencia sintáctica de la palabra en la frase. Por ejemplo en la segunda frase \textit{is} es un verbo auxiliar.
-	\item La columna \textit{shape} indica la apariencia de la palabra procesada, es decir, si está en mayúsculas o si tiene algún signo de puntuación. Por ejemplo en la última columna, la palabra \textit{U.K.} tiene un \textit{shape} X.X. ya que está formado por dos letras mayúsculas y dos puntos.
-	\item La columna \textit{alpha} es un valor booleano que tendrá el valor \textit{True} si la palabra es un carácter alfanumérico y \textit{False} si no lo és. Por ejemplo: \textit{buying} tiene la etiqueta \textit{alpha} a \textit{True} ya que está formada por caracteres alfanuméricos y \textit{U.K.} la tiene a \textit{False} ya que los ``.'' no se consideran caracteres alfanuméricos.
-	\item La columna \textit{stop} es un valor booleano que tendrá el valor \textit{True} si la palabra forma parte de las palabras más comunes del lenguaje en el que se encuentra \textit{False} si no lo és. Por ejemplo: \textit{is} que es una forma del verbo \textit{to be} tiene esta etiqueta a \textit{True} ya que es muy utilizado en el lenguaje inglés.
+	\item el: ha obtenido la etiqueta DET, haciendo referencia a que es un determinante.
+	\item coche: ha obtenido la etiqueta NOUN, que significa nombre en inglés.
+	\item es: ha obtenido la etiqueta AUX, haciendo referencia a que es un verbo auxiliar.
+	\item rojo: ha obtenido la etiqueta ADJ, haciendo referencia a que es un adjetivo.
 \end{itemize}
 
 Se ha elegido ya que ha sido el que mejor resultado ha dado. Inicialmente se utilizó el POS-tagger (clasificador sintáctico de palabras) de NLTK, pero su índice de acierto no era muy bueno, por lo que se descartó su uso. A continuación se probó con SpaCy y ,además de ser más rápido, su índice de acierto ha sido prácticamente del 100\% ,por lo que fue lo finalmente utilizado.
