@@ -3,8 +3,13 @@ import csv
 import requests
 
 #TAGGEADOR DE PALABRAS FACILES
-nlp = spacy.load('es_core_news_md')
-
+nlp = spacy.load('es_core_news_sm')
+frase = 'el coche es rojo'
+frase = frase.split(" ")
+for i in frase:
+    doc = nlp(i)
+    print(doc[0].text, doc[0].pos_)
+'''
 csvarchivo = open('10000PALABRAS.csv', encoding="utf8", errors='ignore')
 entrada = csv.reader(csvarchivo, delimiter=";")
 csvsalida = open('10000PALABRASFILTRADAS.csv', 'w', encoding="utf8", newline="")
@@ -25,7 +30,7 @@ for i in entrada:
 
 csvarchivo.close()
 csvsalida.close()
-
+'''
 '''
 #ELIMINA PALABRAS REPETIDAS Y TAGGEA
 
