@@ -37,58 +37,67 @@ Cada integrante realizó cuatro prototipos distintos:
 	
 \end{itemize}
 
-En las Figuras ......, .........., ........... y ............. se muestran los prototipos creados por Pablo y en las Figuras .........., .........., ........... y ............ los prototipos creados por Irene.
+En las Figuras \ref{fig:mockup1pablo}, \ref{fig:mockup2pablo}, \ref{fig:mockup3pablo} y \ref{fig:mockup4pablo} se muestran los prototipos creados por Pablo y en las Figuras \ref{fig:mockup1irene_vInicial}, \ref{fig:mockup2irene_vInicial},  \ref{fig:mockup3irene_vInicial} y \ref{fig:mockup4irene_vInicial} los prototipos creados por Irene.
 Una vez que los prototipos estaban terminados, los integrantes de este trabajo se juntaron para hacer una puesta en común y analizar los resultados. A continuación, se explicarán los resultados de los análisis indicando las semejanzas y diferencias que se encontraron.
 Por lo general, los prototipos de los dos integrantes del grupo eran bastantes similares. Las principales diferencias han sido:
 
 \begin{itemize}
-	\item 
+	\item En cuanto al diseño de la interfaz, ambos prototipos integran los mismos elementos: un campo de texto para introducir la palabra, un botón de búsqueda y los resultados se muestran en forma de lista, agrupando los distintos resultados en rectángulos, que a partir de ahora denominaremos fichas.
+	Pablo ha optado por formas rectángulares, tanto para las fichas como para el campo de texto, mientras que Irene utiliza formas redondeadas en todos los elementos. 
+	Por otro lado, Pablo implementó un diseño orientado a niños por lo que para el color utilizó azules muy suaves y fondos juveniles con lápices de colores, gomas de borrar, etc... E Irene utilizó un color mostaza, siendo un diseño más simple pero intentando abarcar a un usuario de cualquier edad.	Por útlimo en los resultados mostrados en el prototipo de Irene, se muestran en color mostaza indicando de esta forma que pueden clickar sobre el, y se realizará la búsqueda del concepto.
+	\item El orden a la hora de mostrar los resultados es distinto, en los prototipos de Pablo se muestran primero varios sinónimos e hiperónimos (\textit{Un vehículo es una máquina} o \textit{Un vehículo es un transporte}), después los hipónimos (\textit{Un vehículo es como un taxi}) y finalmente los hipónimos pero añadiendo un adjetivo que representa una característica del resultado devuelto (\textit{Un vehículo es rápido como un caballo}). Sin embargo, en los prototipos de Irene se muestra únicamente un resultado para cada tipo y en el siguiente orden: Primero un hipónimo pero añadiendo un adjetivo que representa una característica del resultado devuelto (\textit{Un vehículo es tan rápido como un caballo}), después un sinónimo o hipéronimo (\textit{Un vehículo es una coche}) y por útlimo un hipónimo (\textit{Un vehículo es como una ambulancia}).
+	\item Los prototipos de Pablo además incluyen un ejemplo siempre visible y justo debajo de los resultados mostrados (``Él necesita un coche para ir a trabajar"), para facilitar al usuario su comprensión, mientras que en los prototipos de Irene muestra unicamente la definición (``Vehículo motorizado de cuatro ruedas por lo general impulsado por un motor de combustión interna"), y se encuentra dentro de un botón, dando a elegir al usuario la decisión de poder verla o no.
+	\item Pablo decidió mostrar la lista de los resultados comenzando con ``Un X es ..." englobando así los resultados para un mismo significado. En caso de existir varias acepciones del concepto, por cada uno de ellos añade ``O también puede ser....", dejando así claramente dividido los distintos significados que pudieran existir para el concepto buscado. En cambio Irene, añade un título al principio (``Resultados para la palabra X") donde queda claro que los resultados que se obtienen son para dicho concepto y además añade delante de cada resultado ``Un X es" seguido del sinónimo, hiperónimo o hipónimo.
+	\item Para la numeración de los resultados obtenidos, Pablo incluye dentro de cada ficha un listado númerico e Irene únicamente añade un número a la ficha.
+	\item En el prototipo donde se incluyen también los pictogramas, Pablo añade un pictograma que hace referencia al concepto según en que contexto se utilice. Por ejemplo, un vehículo puede hacer referencia a un coche o puede ser un medio para llegar o lograr un fin, e Irene además de incluir el mismo pictograma que Pablo, añade pictogramas a cada resultado. Por ejemplo, en la frase ``Un portero es un vigilante" Irene añadió el pictograma de vigilante.
 \end{itemize}
 
-
-
- como se puede ver en la Figura \ref{fig:mockup1pablo} los resultados para la palabra vehículo se muestran en el siguiente orden: primero varios sinónimos e hiperónimos (\textit{Un vehículo es una máquina} o \textit{Un vehículo es un transporte}), después los hipónimos (\textit{Un vehículo es como un taxi}) y finalmente los hipónimos pero añadiendo un adjetivo que representa una característica del resultado devuelto (\textit{Un vehículo es rápido como un caballo}). Por otro lado, en la Figura \ref{fig:mockup1irene_vInicial} los resultados para la palabra portero se devuelven en un orden distinto y no muestra varios sinónimos, si no que en primer lugar aparecen los hipónimos junto con el adjetivo que le caracteriza (\textit{Un portero es fuerte como un gorila}), después se muestran los sinónimos e hiperónimos (\textit{Un portero es un vigilante}) y por último aparecen los hipónimos sin el adjetivo (\textit{Un portero es como un guardia}). Otra diferencia que existen entre ellos, es el diseño de colores y formas, y en cuánto a las similitudes ambos disponen de un campo de texto para introducir una palabra, un botón de búsqueda y se muestran los resultados en forma de lista.
-
-En cuanto al segundo diseño, en la Figura \ref{fig:mockup2pablo} se puede ver que los resultados para la palabra vehículo aparecen de la misma forma que en el diseño anterior incluyendo un ejemplo (\textit{Él necesita un coche para ir a trabajar}) y en la Figura \ref{fig:mockup2irene} se muestra el resultado más común para la palabra portero pero añadiendo una definición (\textit{Un portero es alguien que protege una entrada}). Esta sería la gran diferencia entre ambos prototipos, proporcionando al usuario más opciones para elegir, el diseño de colores y formas también son distintos pero los elementos que disponen la vista son iguales, es decir, existe un buscador del concepto, un botón y los resultados se muestran en forma de lista.
-
-Respecto al tercer diseño, donde se muestran todos los resultados pero sin añadir definición ni ejemplo, se puede ver en la Figura \ref{fig:mockup3pablo} que se muestran en dos listas distintas añadiendo un título aclaratorio (\textit{Un vehículo es...} y \textit{O también puede ser...}) y en cambio como se puede ver en la Figura \ref{fig:mockup3irene} se muestran en listas identificando cada resultado con un número delante.
-
-Y por último, para el cuarto diseño, en la Figura \ref{fig:mockup4pablo} se muestra los resultados como en los anteriores diseños pero añadiendo un picto que hace referencia al concepto según en que contexto se utilice. Por ejemplo, un vehículo puede hacer referencia a un coche o puede ser un medio para llegar o lograr un fin, en cambio, en la Figura \ref{fig:mockup4irene} se han añadido los pictos del concepto portero según el contexto que se utilice (portero de discoteca o portero de jugador) y además se han añadido pictos a cada resultado. Por ejemplo, en el resultado \textit{Un portero es fuerte como un gorila}, se añade un picto a la palabra gorila. 
 Tanto en el prototipo diseñado por Pablo como en el de Irene se han utilizado los pictos de ARASAAC\footnote{http://www.arasaac.org/}.
 
-Finalmente, tras realizar dicho análisis, se decidió que para la evaluación con los expertos, que se explicará en el siguiente apartado, utilizaríamos el diseño de colores y formas de los prototipos de Irene pero modificando ciertos aspectos y añadiendo ideas de los prototipos de Pablo. Por ejemplo, se hicieron tres versiones del segundo diseño para añadir tanto la definición como el ejemplo, en la Figura \ref{fig:mockup2_v1_irene} podemos ver que al prototipo original se le añadió otro botón para poder ver el ejemplo, de esta forma el usuario puede elegir entre ver una cosa u otra, pero no ambas a la vez. En la Figura \ref{fig:mockup2_v2_irene} se quitarón los botones y tanto la definición como el ejemplo aparecen justo debajo de los resultados y por último en la Figura \ref{fig:mockup2_v3_irene} existe un único botón en el cuál si el usuario pincha aparecen la definición y el ejemplo.
-Otra modificación que se realizó fue que los resultados deben aparecer en el siguiente orden y que se puede ver en la Figura \ref{fig:mockup1irene}:
-
-\begin{itemize} 
-	\item Primero: los sinónimos e hiperónimos, como por ejemplo \textit{Un portero es un vigilante}.
-	\item Segundo: los hipónimos, como por ejemplo \textit{Un portero es como un guardia}.
-	\item Tercero: añadiendo un adjetivo que permita realizar una comparación con un hipónimo, por ejemplo \textit{Un portero es grande como un oso}.
-\end{itemize}
-
-Y por último, como se puede ver en la Figura \ref{fig:mockup4_vFinal_irene} se añadieron pictos también a los adjetivos que caracterizan a la palabra, por ejemplo en la frase \textit{Un portero es rápido como un caballo}, se han añadido pictos a rápido y a caballo.
+Una vez analizados los prototipos de ambos integrantes nos reunimos con los directores de dicho trabajo y se decidió crear un prototipo con las siguientes características:
 
 
+\begin{itemize}
+	\item Para el diseño de la interfaz se eligió el implementado por Irene.
+	\item Todos los prototipos deben tener el mismo ejemplo, por lo que se cambiaron para la palabra Portero.
+	\item El orden de las resultados se modificó, haciendo que primero aparezcan los sinónimos e hiperónimos (``Un portero es un vigilante"), después los hipónimos (``Un portero es como un guardia) y por último hipónimos que además tuviesen un adjetivo que permita realizar una comparación(``Un portero es tan ágil como un pájaro").
+	\item Eliminar la palabra \textit{tan} en las analogías.
+	\item Modificación del título de la aplicación por uno que estuviese en español, por lo que se cambió el nombre de \textit{``Easy Words"} por ``Aprende Fácil".
+	\item Añadir más de tres resultados por ficha.
+	\item Si solo aparece un resultado, eliminar el número de la ficha.
+	\item Añadir un pictograma a la característica que relaciona el concepto con el resultado. Por ejemplo, en la frase \textit{Un portero es tan fuerte como un gorila} añadir el pictograma correspondiente a fuerte.
+	\item Añadir el ejemplo del prototipo de Pablo junto con la definición, en este caso \textit{Mi tío trabaja de portero en una discoteca}.
+	\item Crear un nuevo prototipo donde la definición y el ejemplo se muestre a primera vista, y el usuario no tenga que estar pinchando en ningún botón.
+	\item Crear otro prototipo donde la definición y el ejemplo estén separados. Así el usuario puede elegir lo que quiere ver, si solo una cosa o ambas.
+\end{itemize} 
 
- 	\figura{Bitmap/Mockups/mockup1_pablo}{width=.9\textwidth}{fig:mockup1pablo}{Prototipo de Pablo mostrando resultado más común para la palabra vehículo}
- 	
- 	\figura{Bitmap/Mockups/mockup1_irene_inicial.png}{width=.9\textwidth}{fig:mockup1irene_vInicial}{Prototipo de Irene mostrando resultado más común para la palabra portero}
-	\figura{Bitmap/Mockups/mockup1_irene.png}{width=.9\textwidth}{fig:mockup1irene}{Prototipo de Irene mostrando resultado más común para la palabra portero pero cambiando el orden}
+Con todas estas decisiones, se crearon los prototipos que se muestran en las Figuras \ref{fig:mockup1irene_vFinal}, \ref{fig:mockup2irene_v1_vFinal}, \ref{fig:mockup2irene_v2_vFinal}, \ref{fig:mockup2irene_v3_vFinal}, \ref{fig:mockup3irene_vFinal}, \ref{fig:mockup4irene_vFinal} y que fueron los que se usaron para en la siguiente iteración donde nos reunimos con los expertos para que nos dieran su opinión sobre la aplicación, y nos ayudarán a decidir sobre los siguientes aspectos:
+\begin{itemize}
+	\item Mostrar únicamente el \textit{synset} más común o que en su lugar apareciesen todos los resultados.
+	\item Añadir definición y ejemplo o no. Y en caso de añadirlos, mostrarlos juntos en un mismo botón, en distintos botones o sin botón y que aparezcan debajo de los resultados.
+	\item Añadir pictogramas y en caso de añadirlos, solamente el pictograma global o también en cada resultado.
+	\item La forma de mostrar los resultados es correcta, o prefieren otra disposición.
 	
+\end{itemize} 
+
+
+ 	\figura{Bitmap/Mockups/mockup1_pablo}{width=1.0\textwidth}{fig:mockup1pablo}{Prototipo de Pablo mostrando resultado más común para la palabra vehículo}
 	\figura{Bitmap/Mockups/mockup2_pablo}{width=.9\textwidth}{fig:mockup2pablo}{Prototipo de Pablo mostrando resultado más común para la palabra vehículo y un ejemplo} 
-	\figura{Bitmap/Mockups/mockup2_irene}{width=.9\textwidth}{fig:mockup2irene}{Prototipo de Irene mostrando resultado más común para la palabra portero y una definición}
-	
 	\figura{Bitmap/Mockups/mockup3_pablo}{width=.9\textwidth}{fig:mockup3pablo}{Prototipo de Pablo mostrando todos los resultados para la palabra vehículo} 
-	\figura{Bitmap/Mockups/mockup3_irene}{width=.9\textwidth}{fig:mockup3irene}{Prototipo de Irene mostrando todos los resultados para la palabra portero} 
+ 	\figura{Bitmap/Mockups/mockup4_pablo}{width=.9\textwidth}{fig:mockup4pablo}{Prototipo de Pablo mostrando todos los resultados para la palabra vehículo junto con pictogramas} 
+ 	
+ 	\figura{Bitmap/Mockups/mockup1_irene_inicial.png}{width=1.2\textwidth}{fig:mockup1irene_vInicial}{Prototipo de Irene mostrando resultado más común para la palabra vehículo}
+ 	\figura{Bitmap/Mockups/mockup2_irene_inicial.png}{width=1.2\textwidth}{fig:mockup2irene_vInicial}{Prototipo de Irene mostrando resultado más común para la palabra vehículo y una definición}
+	\figura{Bitmap/Mockups/mockup3_irene_inicial.png}{width=1.2\textwidth}{fig:mockup3irene_vInicial}{Prototipo de Irene mostrando todos los resultados para la palabra portero} 
+	\figura{Bitmap/Mockups/mockup4_irene_inicial.png}{width=1.2\textwidth}{fig:mockup4irene_vInicial}{Prototipo de Irene mostrando todos los resultados para la palabra portero junto con pictogramas} 
 	
-	\figura{Bitmap/Mockups/mockup4_pablo}{width=.9\textwidth}{fig:mockup4pablo}{Prototipo de Pablo mostrando todos los resultados para la palabra vehículo junto con pictos} 
-	\figura{Bitmap/Mockups/mockup4_irene}{width=.9\textwidth}{fig:mockup4irene}{Prototipo de Irene mostrando todos los resultados para la palabra portero junto con pictos} 
-	
-	
-	\figura{Bitmap/Mockups/mockup2_v1_irene}{width=.9\textwidth}{fig:mockup2_v1_irene}{Prototipo Versión 1 mostrando resultado más común para la palabra portero junto con un ejemplo y una definición}
-	\figura{Bitmap/Mockups/mockup2_v2_irene}{width=.9\textwidth}{fig:mockup2_v2_irene}{Prototipo Versión 2 mostrando resultado más común para la palabra portero junto con un ejemplo y una definición}
-	\figura{Bitmap/Mockups/mockup2_v3_irene}{width=.9\textwidth}{fig:mockup2_v3_irene}{Prototipo Versión 3 mostrando resultado más común para la palabra portero junto con un ejemplo y una definición}
-	\figura{Bitmap/Mockups/mockup4_vFinal_irene}{width=.9\textwidth}{fig:mockup4_vFinal_irene}{Prototipo Final  mostrando todos los resultados para la palabra portero junto con pictos}
-	
+	\figura{Bitmap/Mockups/mockup1_irene_final.png}{width=1.2\textwidth}{fig:mockup1irene_vFinal}{Prototipo mostrando resultado más común para la palabra portero}
+	\figura{Bitmap/Mockups/mockup2_irene_final_v1.png}{width=1.2\textwidth}{fig:mockup2irene_v1_vFinal}{Prototipo Versión 1 mostrando resultado más común para la palabra portero junto con una definición y un ejemplo separados}
+	\figura{Bitmap/Mockups/mockup2_irene_final_v2.png}{width=1.2\textwidth}{fig:mockup2irene_v2_vFinal}{Prototipo Versión 2 mostrando resultado más común para la palabra portero junto con una definición y un ejemplo a simple vista}
+	\figura{Bitmap/Mockups/mockup2_irene_final_v3.png}{width=1.2\textwidth}{fig:mockup2irene_v3_vFinal}{Prototipo Versión 3 mostrando resultado más común para la palabra portero junto con una definición y un ejemplo en un mismo botón}
+	\figura{Bitmap/Mockups/mockup3_irene_final.png}{width=1.2\textwidth}{fig:mockup3irene_vFinal}{Prototipo mostrando todos los resultados para la palabra portero}
+	\figura{Bitmap/Mockups/mockup4_irene_final.png}{width=1.2\textwidth}{fig:mockup4irene_vFinal}{Prototipo mostrando todos los resultados para la palabra portero incluyendo los pictogramas}
+
 	
 	 
 %-------------------------------------------------------------------
@@ -96,20 +105,22 @@ Y por último, como se puede ver en la Figura \ref{fig:mockup4_vFinal_irene} se 
 %-------------------------------------------------------------------
 \label{cap:subsec:evaluacionExpertos}
 
-Una vez realizadas las pequeñas modificaciones de los prototipos que nuestros directores consideraron que serían mejoras, tuvimos una reunión con la directora y los profesores del colegio Estudio3 Afanias situado en la Comunidad de Madrid. Este colegio se basa en la educación especial para la discapacidad intelectual, trastornos generalizados del desarrollo, autismo, EBO Infantil y ayuda con la transición a la vida adulta.
-La reunión tuvo lugar el día 26 de Marzo de 2019 y acudimos los dos integrantes de este trabajo junto con los directores.
-Una vez expuestos los distintos diseños, la primera impresión que tuvieron fue bastante optimista y nos dieron su opinión de lo que ellos creían que se debería añadir, eliminar o modificar para que su funcionalidad sea lo más amplia y sencilla posible tanto para su uso al impartir clase, como para el uso propio de los alumnos. 
-Las conclusiones principales que obtuvimos de está evaluación han sido:
+El día 26 de Marzo de 2019 a las 09:00h nos reunimos con la directora y los profesores del colegio Estudio3 Afanias\footnote{https://afanias.org/que-hacemos/educacion/colegio-estudio-3/} situado en la Comunidad de Madrid. Este colegio atiende a niños y jóvenes con discapacidad intelectual entre los 3 y 21 años de edad.
+
+Una vez expuestos los distintos prototipos, nos dieron la enhorabuena y nos hicieron participes de la gran ayuda que supondría esta herramienta. A continuación nos dieron su opinión sobre distintos aspectos que se podrían modificar de los prototipos:
+
 \begin{itemize} 
-	\item Modificar el color amarillo-mostaza por un color más oscuro que contraste más con el fondo blanco.
+	\item Modificar el color amarillo-mostaza de los textos por un color más oscuro que contraste más con el fondo blanco.
 	\item El tipo de letra debe ser Arial o Script, ya que son las letras con las que los alumnos están familiarizados y las que mejor entienden.
-	\item Añadir un reproductor que lea la frase, haciendo así que en caso de no entender el resultado escrito, pueda ayudarles la voz.
-	\item Incluir la opción de poder ver un video por si los pictos no aclaran al usuario a entender el concepto.
-	\item Una parte configurable, donde se tenga en cuenta:
+	\item Añadir un reproductor que lea la frase, haciendo así que en caso de no poder leer los resultados, pueda ayudarles la voz.
+	\item Incluir la opción de poder ver un video por si los pictos no ayudan al usuario a entender el concepto.
+	\item Introducción de distintas personalizaciones:
 	\begin{itemize}
-		\item La búsqueda puede realizarse en tres niveles: sencillo, medio y amplio. El nivel sencillo sería realizando la búsqueda de las palabras fáciles con las 1000 palabras de la RAE, el medio con las 5000 palabras de la RAE y el amplio con las 10000 palabras de la RAE. 
-		\item Dar la opción de poder introducir mayúsculas para realizar la búsqueda.
+		\item Búsqueda en tres niveles: sencillo, medio y amplio. El nivel sencillo sería realizando la búsqueda de las palabras fáciles en las 1.000 palabras más usadas de la RAE, el medio con las 5.000 palabras más usadas de la RAE y el amplio con las 10.000 palabras más usadas de la RAE. 
+		\item Uso de mayúsculas en todos los textos para hacer la aplicación más accesible a aquellos alumnos que no entienden los textos en minúsculas.
 		\item Que el usuario elija si quiere que aparezca la definición y el ejemplo o no.
-		\item Poder elegir si deben aparecer los pictos o no. En caso de que el usuario decida que si deben aparecer, estos deben situarse debajo de la palabra y no al lado, ya que los expertos comentaron que esto puede llevar a confusión a los alumnos pensando que sería otra palabra más para leer. Y además, debería aparecer toda la frase traducida a pictos.
+		\item Poder elegir si aparecen los pictos o no. En caso de que el usuario decida que si deben aparecer, estos deben situarse debajo de la palabra y no al lado, ya que los expertos comentaron que esto puede llevar a confusión a los alumnos pensando que sería otra palabra más para leer. 
 	\end{itemize}
 \end{itemize}
+
+Teniendo en cuenta las observaciones de los expertos se creo el diseño final de la aplicación.
