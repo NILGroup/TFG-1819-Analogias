@@ -1,7 +1,29 @@
-\chapter{Servicios Web Implementados}
+\chapter{Servicios Web para la obtención de conceptos fáciles relacionados}
 \label{cap:serviciosWebImplementados}
 
-Como se ha comentado en anteriores capítulos existen varias aplicaciones web que son redes semánticas y facilitan sinónimos, términos relacionados, metáforas, hipéronimos, etc... de un concepto dado por el usuario. Para este trabajo, algunas de ellas son de gran utilidad ya que de esta forma podemos obtener las palabras fáciles para un concepto más complicado, pero hay que saber exactamente cuál es la que mejor conviene y la que mejores resultados ofrece. Hay que corroborar que los conceptos devueltos son correctos y que disponen de un significado claro y parecido respecto al concepto buscado. Para ello se han implementado dos servicios web, uno utilizando la aplicación de ConcepNet y el otro utilizando WordNet, en la sección 5.1 se explicará el servicio web para ConceptNet con los métodos creados y su explicación y en la sección 5.2 aparece lo mismo pero utilizando WordNet. Por último, una vez implementados dichos servicios, se han realizado una serie de pruebas para comprobar que aplicación era más necesaria para la aplicación final, en la sección 5.3 queda reflejado dichas pruebas, como se han realizado, con que cantidad de palabras se han hecho las pruebas y cuales han sido los resultados obtenidos.
+Como se ha comentado en anteriores capítulos existen varias aplicaciones web que son redes semánticas y facilitan sinónimos, términos relacionados, metáforas, hipéronimos, etc... de un concepto dado por el usuario. Para este trabajo, algunas de ellas son de gran utilidad ya que de esta forma podemos obtener las palabras fáciles para un concepto más complicado, pero hay que saber exactamente cuál es la que mejor conviene y la que mejores resultados ofrece. Hay que corroborar que los conceptos devueltos son correctos y que disponen de un significado claro y parecido respecto al concepto buscado. Para ello se han implementado dos servicios web, uno utilizando la aplicación de ConceptNet y el otro utilizando WordNet, en la sección 5.1 se explicará el servicio web para ConceptNet con los métodos creados y su explicación y en la sección 5.2 aparece lo mismo pero utilizando WordNet. Por último, una vez implementados dichos servicios, se han realizado una serie de pruebas para comprobar que aplicación era más necesaria para la aplicación final, en la sección 5.3 queda reflejado dichas pruebas, como se han realizado, con que cantidad de palabras se han hecho las pruebas y cuales han sido los resultados obtenidos.
+
+
+%-------------------------------------------------------------------
+\section{Diseño de la evaluación}
+%-------------------------------------------------------------------
+\label{cap:sec:disenoEval}
+
+Para decidir que red semántica se iba a usar se decidió hacer una prueba con palabras que fuesen lo más heterogéneas posible, para ello se eligieron una serie de artículos periodísticos de distintos temas: medioambiental, tecnológico, deportivo y político. Estos artículos se filtraron para utilizar únicamente los verbos, artículos, sustantivos y adverbios. Para cada una de estas palabras se obtuvieron en WordNet y ConceptNet sus sinónimos y términos relacionados (en WordNet se entiende como término relacionado a los hiperónimos e hipónimos) y se analizaron, tanto la cantidad de términos relacionados y sinónimos que generaban cada una de las redes semánticas que coincidían con alguna de las palabras fáciles de la RAE (prueba cuantitativa), como la calidad de los mismos, es decir, si las palabras que generaban tenían alguna relación aceptable con la palabra origen(prueba cualitativa).
+
+%-------------------------------------------------------------------
+\section{Resultados cuantitativos}
+%-------------------------------------------------------------------
+\label{cap:sec:pruebaCuantitativa}
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l}
+	
+	\multicolumn{2}{c} {1000 palabras} & \multicolumn{2}{c} {5000 palabras} \\ 
+	
+\end{tabular}
+\end{table}
 
 %-------------------------------------------------------------------
 \section{Servicio Web Para ConceptNet}
