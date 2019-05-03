@@ -1,3 +1,7 @@
+let idsFichasConDefinicionYejemplo = [];
+let clasePanelButtons = "panel-buttons-display-none";
+
+
 $(function() {
 
     $("#button-accept").on("click", selectOptionHandler);
@@ -18,11 +22,14 @@ function selectOptionHandler(){
 
 
     if($("#defyejemplo").is(':checked')){
-       $("#panel-button").css("display" ,"block");
-    }else{
-      $("#panel-button").css("display", "none");
+        clasePanelButtons = "panel-buttons-display-block";
+        $(".panel-buttons").removeClass("panel-buttons-display-none");
+        $(".panel-buttons").addClass("panel-buttons-display-block");
+
     }
 }
+
+
 
 
 function showCardHandler(event){
@@ -58,7 +65,6 @@ function mostrarJson(json){
         let resultadoSinonimos = json.resultsSynonyms.find(resultSynonym =>{
             return resultSynonym.offset == offset.offset;
         });
-        
 
         arrayHiponimos = getArrayResultado(offset, json.resultsHyponyms);
         arrayHiperonimos = getArrayResultado(offset, json.resultsHyperonyms);
@@ -69,11 +75,10 @@ function mostrarJson(json){
             
             ++contador;
         }
-
-       
     });
-
 }
+
+
 
 
 function getArrayResultado(offset, array){
@@ -91,15 +96,20 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
     
     let elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagen/" +  offset.offset + "'></img><div class='results'><p>";
     let definicion = [];
+    let tieneDef = false;
+    let tieneEjemplo = false;
     let ejemplo = [];
     if(resultadoSinonimos != undefined){
+
         resultadoSinonimos.phraseSynonyms.forEach(phrase =>{
 
             if(phrase.definition != undefined){
+                tieneDef = true;
                 definicion += "<p><b> Definición:</b><i>" + phrase.definition + "</i></p>";
            }    
 
            if(phrase.example != undefined){
+                tieneEjemplo = true;
                 ejemplo += "<p><b> Ejemplo:</b><i>" + phrase.example + "</i></p>";
            }
 
@@ -114,10 +124,12 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
        
         resultadoHiponimos.forEach(phrase =>{
             if(phrase.definition.length != 0){
+            tieneDef = true;
                 definicion += "<p><b> Definición:</b><i>" + phrase.definition + "</i></p>";
            }    
 
            if(phrase.example.length != 0){
+                tieneEjemplo = true;
                 ejemplo += "<p><b> Ejemplo:</b><i>" + phrase.example + "</i></p>";
            }
 
@@ -135,10 +147,12 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
 
     
             if(phrase.definition.length != 0){
+                tieneDef = true;
                 definicion += "<p><b> Definición:</b><i>" + phrase.definition + "</i></p>";
            }   
 
            if(phrase.example.length != 0){
+                tieneEjemplo = true;
                 ejemplo += "<p><b> Ejemplo:</b><i>" + phrase.example + "</i></p>";
            }
             phrase.phraseHyperonyms.forEach(p =>{
@@ -150,16 +164,22 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
 
        
     }
-    
-    elemento += "<div id='panel-button' class='panel-buttons'>" +
+
+
+    if(tieneDef || tieneEjemplo){
+        elemento += "<div id='panel-button' class='" + clasePanelButtons + "'>" +
         "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
            "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
-        
+
+        idsFichasConDefinicionYejemplo.push(numTarjeta);
+    }
+
         
             
 
     $("#list-results").append(elemento);
     
 }
-   
+
+
             

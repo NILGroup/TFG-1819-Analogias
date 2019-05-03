@@ -92,8 +92,12 @@ body{
 
 }*/
 
-#panel-button {
-   /*display:none;*/
+.panel-buttons-display-none {
+   display:none;
+}
+
+.panel-buttons-display-block{
+    display: block;
 }
 .results li{
   margin-bottom: 5px;
