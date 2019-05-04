@@ -54,9 +54,27 @@ def prueba():
     sinMatch = csv.writer(csvNoMatch, delimiter=";")
     sinMatch.writerow(("NUMERO", "PALABRA"))
 
+    csvSinSin = open('palabrasSinSin.csv', 'w', encoding="utf8", newline="")
+    sinSin = csv.writer(csvSinSin, delimiter=";")
+    sinSin.writerow(("NUMERO", "PALABRA"))
+
+    csvSinTerm = open('palabrasSinTerm.csv', 'w', encoding="utf8", newline="")
+    sinTerm = csv.writer(csvSinTerm, delimiter=";")
+    sinTerm.writerow(("NUMERO", "PALABRA"))
+
+    csvSin = open('palabrasSinonimos.csv', 'w', encoding="utf8", newline="")
+    sin = csv.writer(csvSin, delimiter=";")
+    sin.writerow(("NUMERO", "PALABRA", "SINONIMOS"))
+
+    csvTerm = open('palabrasTerminos.csv', 'w', encoding="utf8", newline="")
+    term = csv.writer(csvTerm, delimiter=";")
+    term.writerow(("NUMERO", "PALABRA", "TERMINOS"))
+
     contadorSinonimos = 0
     contadorTerminos = 0
     contadorNoEncontrado = 0
+    contadorSinSinonimos = 0
+    contadorSinTerm = 0
     totales = 0
     for i in entrada:
         encontradoSinonimos = False
@@ -66,10 +84,18 @@ def prueba():
             contadorSinonimos = contadorSinonimos + 1
             encontradoSinonimos = True
             sinonimos.writerow((contadorSinonimos, str(i[1])))
+            sin.writerow((contadorSinonimos, str(i[1]), arraySinonimos))
+        else:
+            sinSin.writerow((contadorSinSinonimos, str(i[1])))
+            contadorSinSinonimos += 1
         if(len(arrayTerminos) > 0):
             contadorTerminos = contadorTerminos + 1
             encontradoTerminos = True
             terminos.writerow((contadorTerminos, str(i[1])))
+            term.writerow((contadorTerminos, str(i[1]), arrayTerminos))
+        else:
+            sinTerm.writerow((contadorSinTerm,str(i[1])))
+            contadorSinTerm += 1
 
         if encontradoSinonimos == False and encontradoTerminos == False:
             contadorNoEncontrado += 1
