@@ -5,6 +5,7 @@ import json
 from prototipo import spacyService as spacy
 import prototipo.pictosServices as pictos
 import django
+
 django.setup()
 from django.db import connection
 import urllib
@@ -12,11 +13,75 @@ import base64
 import pandas as pd
 
 
+### SERVICIO QUE DADO UN OFFSET Y UN NIVEL DEVUELVE SUS SINONIMOS FACILES  ###
+
+def getEasySynonyms(word, level):
+    dataJson = []
+    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+    index = 1
+    dataJson.insert(0, {'word': ""})
+    dataJson[0]["word"] = word
+
+    for offset in listOffsetToTheSynset:
+        '''
+        dataJson.insert(index, {'offset': ""})
+        dataJson[index]["offset"] = offset['offset']
+        index += 1
+        '''
+        listaSynonyms = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('word').distinct()
+        definition = WeiSpa30Synset.objects.filter(offset=offset).values('gloss')
+        example = WeiSpa30Examples.objects.filter(offset=offset).values('examples')
+
+        listEasyWords = list()
+        for synonym in listaSynonyms:
+
+            if synonym['word'] != word:
+                with connection.cursor() as cursor:
+                    if level == "1":
+                        cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s', [synonym['word']])
+                    elif level == "2":
+                        cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s', [synonym['word']])
+                    else:
+                        cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s', [synonym['word']])
+
+                    result = cursor.fetchone()[0]
+                    print("PALABRA")
+                    print(synonym['word'])
+                    print('RESULTADO')
+                    print(result)
+                    if result > 0:
+                        listEasyWords.append(synonym['word'])
+
+        if len(listEasyWords) > 0:
+            print(listEasyWords)
+            dataJson.append({'offset': "", 'synonyms': []})  # , 'definition': "", 'example': "", 'picto': ""})
+            dataJson[index]['offset'] = offset['offset']
+            dataJson[index]['synonyms'] = listEasyWords
+            print(repr(dataJson))
+
+            index += 1
+        '''
+        for synonym in listaSynonyms:
+            dataJson[0]['synonyms'].append(synonym['word'])
+    
+        if definition[0]["gloss"] != "None":
+            dataJson[0]["definition"] = definition[0]['gloss']
+    
+        if len(example) > 0:
+            dataJson[0]["example"] = example[0]['examples']
+
+        '''
+
+
+
+    return dataJson
+
+
+
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
 
 def allOffsets(word):
-
     dataJson = []
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
 
@@ -26,12 +91,10 @@ def allOffsets(word):
         dataJson.insert(index, {'offset': ""})
         dataJson[index]["offset"] = offset['offset']
         index += 1
-    print("DATA ALL OFFSETS")
-    print(repr(dataJson))
-    #print(json.dumps(dataJson ,ensure_ascii=False))
+    # print("DATA ALL OFFSETS")
+    # print(repr(dataJson))
+    # print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
-
-
 
 
 #### SERVICIO QUE DADO UN OFFSET DEVUELVE TODOS LOS SINONIMOS   ####
@@ -42,55 +105,50 @@ def allSynonyms(offset):
     definition = WeiSpa30Synset.objects.filter(offset=offset).values('gloss')
     example = WeiSpa30Examples.objects.filter(offset=offset).values('examples')
 
-    print("RESULTADOS")
-    print(listaSynonyms)
-    dataJson.append({'offset': "", 'synonyms': [], 'definition' : "", 'example': "", 'picto': ""})
+    dataJson.append({'offset': "", 'synonyms': [], 'definition': "", 'example': "", 'picto': ""})
     dataJson[0]['offset'] = offset
 
     for synonym in listaSynonyms:
         dataJson[0]['synonyms'].append(synonym['word'])
 
-
     if definition[0]["gloss"] != "None":
         dataJson[0]["definition"] = definition[0]['gloss']
-
 
     if len(example) > 0:
         dataJson[0]["example"] = example[0]['examples']
 
-    #print("DATA ALL SYNONYMS")
-    #print(json.dumps(dataJson ,ensure_ascii=False))
-    #print(repr(dataJson))
+    # print("DATA ALL SYNONYMS")
+    # print(json.dumps(dataJson ,ensure_ascii=False))
+    # print(repr(dataJson))
 
     return dataJson
-
 
 
 #### SERVICIO WEB QUE DADO UN OFFSET DEVUELVE SUS SINONIMOS FACILES     ####
 
 def easySynonyms(word, offset):
-    #print(offset)
+    # print(offset)
     dataJson = []
-   # archivo, csvarchivo = aperturaYlecturaCSV()
+    # archivo, csvarchivo = aperturaYlecturaCSV()
     listAllSynonyms = allSynonyms(offset)
-    #jsonImage = pictos.getSynsetsAPI(word)
+    # jsonImage = pictos.getSynsetsAPI(word)
 
     for obj in listAllSynonyms:
         listEasyWords = list()
         for synonym in obj["synonyms"]:
             if synonym != word:
                 with connection.cursor() as cursor:
-                    #print(synonym)
-                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',[synonym])
+                    # print(synonym)
+                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s', [synonym])
                     result = cursor.fetchone()[0]
-                    #print('RESULTADO')
-                    #print(result)
-                    #print(result)
+                    # print('RESULTADO')
+                    # print(result)
+                    # print(result)
                     if result > 0:
                         listEasyWords.append(synonym)
 
         '''
-        
+
             csvarchivo.seek(0)
             for j in archivo:
                 if synonym == j['PALABRA'] and synonym != word:
@@ -98,37 +156,35 @@ def easySynonyms(word, offset):
         '''
 
         if len(listEasyWords) > 0:
-           dataJson.insert(0, {'offset': "", 'easySynonyms': "", 'definition': "", 'example': "", 'picto': ""})
-           dataJson[0]["easySynonyms"] = listEasyWords
-           dataJson[0]["offset"] = obj["offset"]
-           if dataJson[0]["definition"] != "None":
-               dataJson[0]["definition"] = obj["definition"]
-           dataJson[0]["example"] = obj["example"]
-           img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
-           if img.info()['Content-Type'] != 'application/json':
-               dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
+            dataJson.insert(0, {'offset': "", 'easySynonyms': "", 'definition': "", 'example': "", 'picto': ""})
+            dataJson[0]["easySynonyms"] = listEasyWords
+            dataJson[0]["offset"] = obj["offset"]
+            if dataJson[0]["definition"] != "None":
+                dataJson[0]["definition"] = obj["definition"]
+            dataJson[0]["example"] = obj["example"]
+            img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
+            if img.info()['Content-Type'] != 'application/json':
+                dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
 
+            '''
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s',[offset])
+                rows = cursor.fetchall()
+                if len(rows) > 0:
+                    dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/'+str(rows[0][0]) +'?download=false'
+ 
+                if cursor.rowcount > 0:
+                    image_64_decode = base64.decodebytes(cursor.fetchone()[0])
+                    image_result = open('pictogramas/'+offset+'.png', 'wb')
+                    image_result.write(image_64_decode)
+                    image_result.close()
+                    dataJson[0]["picto"] = 'pictogramas/'+offset+'.png'
+                    '''
 
-           '''
-           with connection.cursor() as cursor:
-               cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s',[offset])
-               rows = cursor.fetchall()
-               if len(rows) > 0:
-                   dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/'+str(rows[0][0]) +'?download=false'
-               
-               if cursor.rowcount > 0:
-                   image_64_decode = base64.decodebytes(cursor.fetchone()[0])
-                   image_result = open('pictogramas/'+offset+'.png', 'wb')
-                   image_result.write(image_64_decode)
-                   image_result.close()
-                   dataJson[0]["picto"] = 'pictogramas/'+offset+'.png'
-                   '''
-
-    #print("DATA EASY SYNONYMS")
-    #print(json.dumps(dataJson, ensure_ascii=False))
-    #print(dataJson)
+    # print("DATA EASY SYNONYMS")
+    # print(json.dumps(dataJson, ensure_ascii=False))
+    # print(dataJson)
     return dataJson
-
 
 
 def makerSynonymsPhrase(word, offset):
@@ -153,36 +209,36 @@ def makerSynonymsPhrase(word, offset):
     # print("DATA PHRASE SYNONYM")
     # print(repr(dataJson))
     # print(json.dumps(dataJson, ensure_ascii=False))
-    #print('LLEGO')
-    #print(dataJson)
+    # print('LLEGO')
+    # print(dataJson)
     return dataJson
 
-#---------------------------------------------------------------------------------------------#
+
+# ---------------------------------------------------------------------------------------------#
 
 def allHyponyms(offset):
     dataJson = []
 
     offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset, relation=12)).values(
         'targetsynset').distinct()
-    #print(offsetMatchSourceSynset)
+    # print(offsetMatchSourceSynset)
     if len(offsetMatchSourceSynset) > 0:
         index = 0
         for targetSynset in offsetMatchSourceSynset:
 
-            dataJson.append({'offsetFather': "", 'offset': "", 'hyponyms': [], 'definition': "", 'example': "", 'picto': ""})
+            dataJson.append(
+                {'offsetFather': "", 'offset': "", 'hyponyms': [], 'definition': "", 'example': "", 'picto': ""})
             dataJson[index]["offsetFather"] = offset
             dataJson[index]["offset"] = targetSynset["targetsynset"]
 
             listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values(
                 'word').distinct()
 
-
             listaAux = list()
             for hyponym in listaWordsHyponyms:
                 listaAux.append(hyponym["word"])
 
             dataJson[index]["hyponyms"] = listaAux
-
 
             definition = WeiSpa30Synset.objects.filter(offset=targetSynset["targetsynset"]).values('gloss')
             example = WeiSpa30Examples.objects.filter(offset=targetSynset["targetsynset"]).values('examples')
@@ -193,10 +249,9 @@ def allHyponyms(offset):
                 dataJson[index]["example"] = example[0]['examples']
             index += 1
 
-    #print("DATA ALL SYNONYMS")
-    #print(json.dumps(dataJson ,ensure_ascii=False))
+    # print("DATA ALL SYNONYMS")
+    # print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
-
 
 
 def easyHyponyms(word, offset):
@@ -217,12 +272,13 @@ def easyHyponyms(word, offset):
 '''
             if hyponym != word:
                 with connection.cursor() as cursor:
-                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',[hyponym])
+                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s', [hyponym])
                     result = cursor.fetchone()[0]
                     if result > 0:
                         listEasyWords.append(hyponym)
         if len(listEasyWords) > 0:
-            dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyponyms': "", 'definition': "", 'example': "", 'picto': ""})
+            dataJson.insert(0, {'offsetFather': "", 'offset': "", 'easyHyponyms': "", 'definition': "", 'example': "",
+                                'picto': ""})
             dataJson[0]["easyHyponyms"] = listEasyWords
             dataJson[0]["offsetFather"] = obj["offsetFather"]
             dataJson[0]["offset"] = obj["offset"]
@@ -233,7 +289,6 @@ def easyHyponyms(word, offset):
             img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
             if img.info()['Content-Type'] != 'application/json':
                 dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
-
 
             '''
                         with connection.cursor() as cursor:
@@ -247,10 +302,9 @@ def easyHyponyms(word, offset):
                     dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/' + str(cursor.fetchone()) + '?download=false'
 '''
 
-    #print("DATA EASY HYPONYMS")
-    #print(json.dumps(dataJson ,ensure_ascii=False))
+    # print("DATA EASY HYPONYMS")
+    # print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
-
 
 
 def makerHyponymsPhrase(word, offset):
@@ -264,7 +318,8 @@ def makerHyponymsPhrase(word, offset):
         for hyponym in obj["easyHyponyms"]:
             listPhrase.insert(index, spacy.phraseMakerForHyponyms(hyponym))
 
-        dataJson.insert(index, {'offsetFather' : "", 'offset': "", 'phraseHyponyms': "", 'definition': "", 'example': "", 'picto': ""})
+        dataJson.insert(index, {'offsetFather': "", 'offset': "", 'phraseHyponyms': "", 'definition': "", 'example': "",
+                                'picto': ""})
         dataJson[index]["phraseHyponyms"] = listPhrase
         dataJson[index]["offset"] = obj["offset"]
         dataJson[index]["offsetFather"] = obj["offsetFather"]
@@ -279,9 +334,7 @@ def makerHyponymsPhrase(word, offset):
     return dataJson
 
 
-
-
-#---------------------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------------------------#
 
 def allHyperonyms(offset):
     dataJson = []
@@ -293,7 +346,8 @@ def allHyperonyms(offset):
         index = 0
         for sourceSynset in offsetMatchTargetSynset:
 
-            dataJson.append({'offsetFather': "", 'offset': "", 'hyperonyms': [], 'definition': "", 'example': "", 'picto': ""})
+            dataJson.append(
+                {'offsetFather': "", 'offset': "", 'hyperonyms': [], 'definition': "", 'example': "", 'picto': ""})
             dataJson[index]["offsetFather"] = offset
             dataJson[index]["offset"] = sourceSynset["sourcesynset"]
 
@@ -316,15 +370,15 @@ def allHyperonyms(offset):
 
             index += 1
 
-    #print("DATA ALL HYPERONYMS")
-    #print(json.dumps(dataJson ,ensure_ascii=False))
+    # print("DATA ALL HYPERONYMS")
+    # print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
 
 
 def easyHyperonyms(word, offset):
     dataJson = []
 
-    #archivo, csvarchivo = aperturaYlecturaCSV()
+    # archivo, csvarchivo = aperturaYlecturaCSV()
     listAllHyperonyms = allHyperonyms(offset)
     jsonImage = pictos.getSynsetsAPI(word)
 
@@ -339,12 +393,13 @@ def easyHyperonyms(word, offset):
 '''
             if hyperonym != word:
                 with connection.cursor() as cursor:
-                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',[hyperonym])
+                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s', [hyperonym])
                     result = cursor.fetchone()[0]
                     if result > 0:
                         listEasyWords.append(hyperonym)
         if len(listEasyWords) > 0:
-            dataJson.insert(0, {'offsetFather' : "",'offset': "", 'easyHyperonyms': "", 'definition': "", 'example': "", 'picto': ""})
+            dataJson.insert(0, {'offsetFather': "", 'offset': "", 'easyHyperonyms': "", 'definition': "", 'example': "",
+                                'picto': ""})
             dataJson[0]["easyHyperonyms"] = listEasyWords
             dataJson[0]["offsetFather"] = obj["offsetFather"]
             dataJson[0]["offset"] = obj["offset"]
@@ -356,8 +411,8 @@ def easyHyperonyms(word, offset):
             if img.info()['Content-Type'] != 'application/json':
                 dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
 
-            #print(img.info()['Content-Type'])
-            #dataJson[0]["picto"] =
+            # print(img.info()['Content-Type'])
+            # dataJson[0]["picto"] =
             '''
             with connection.cursor() as cursor:
                 cursor.execute('SELECT id_picto FROM pictos WHERE offset30 = %s', [offset])
@@ -365,11 +420,11 @@ def easyHyperonyms(word, offset):
                 if len(rows) > 0:
                     dataJson[0]["picto"] = 'https://api.arasaac.org/api/pictograms/' + str(rows[0][0]) + '?download=false'
                     '''
-           # if pictos.getImage(offset, jsonImage) != "None":
-               # dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
+        # if pictos.getImage(offset, jsonImage) != "None":
+        # dataJson[0]["picto"] = pictos.getImage(offset, jsonImage)
 
-    #print("DATA EASY HYPONYMS")
-    #print(json.dumps(dataJson ,ensure_ascii=False))
+    # print("DATA EASY HYPONYMS")
+    # print(json.dumps(dataJson ,ensure_ascii=False))
     return dataJson
 
 
@@ -384,7 +439,9 @@ def makerHyperonymsPhrase(word, offset):
         for hyperonym in obj["easyHyperonyms"]:
             listPhrase.insert(index, spacy.phraseMaker(hyperonym))
 
-        dataJson.insert(index, {'offsetFather' : "", 'offset': "", 'phraseHyperonyms': "", 'definition': "", 'example': "", 'picto': ""})
+        dataJson.insert(index,
+                        {'offsetFather': "", 'offset': "", 'phraseHyperonyms': "", 'definition': "", 'example': "",
+                         'picto': ""})
         dataJson[index]["phraseHyperonyms"] = listPhrase
         dataJson[index]["offset"] = obj["offset"]
         dataJson[index]["offsetFather"] = obj["offsetFather"]
@@ -397,8 +454,6 @@ def makerHyperonymsPhrase(word, offset):
     # print(repr(dataJson))
     # print(json.dumps(dataJson, ensure_ascii=False))
     return dataJson
-
-
 
 
 def aperturaYlecturaCSV():

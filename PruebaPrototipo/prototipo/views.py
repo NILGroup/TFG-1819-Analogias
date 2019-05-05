@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import prototipo.functions as f
 import prototipo.servicesSearchWords as services
+import prototipo.resultsServices as result
 import prototipo.spacyService as sp
 import prototipo.pictosServices as pictos
 import json
@@ -16,6 +17,7 @@ from django.db import connection
 import os
 from .forms import PostFormWordSearch
 import shutil
+
 
 
 def index(request):
@@ -341,3 +343,10 @@ def getImagenPalabra(request, palabra):
             return HttpResponse(imagen, content_type="image/png")
     notFound = ['pictograma no encontrado']
     return JsonResponse(notFound, safe=False)
+
+
+def getJsonResults(request, word, level):
+
+    easySynonym = result.getEasySynonyms(word, level)
+    return HttpResponse(json.dumps(easySynonym, ensure_ascii=False),
+                 content_type="application/json")
