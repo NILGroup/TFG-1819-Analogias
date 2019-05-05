@@ -48,14 +48,28 @@ Para decidir que red semántica se iba a usar se decidió hacer una prueba con p
 %-------------------------------------------------------------------
 Para este proyecto, se ha utilizado una base de datos para la persistencia de los datos. El sistema encargado de la gestión de la base de datos corresponde con MariaDB y esta constituida por varias tablas:
 \begin{itemize}
-	\item Se ha hecho uso de MCR (\textit{Multilingual Central Repository}), utilizando la versión 3.0. MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués. 
-	\item Tres tablas que guardan tanto las 1.000, 5.000 y 10.000 palabras más usadas de la RAE.
-	\item Otra tabla que almacena los pictogramas de ARASAAC. 
-	
-	
-	
-	TERMINAR!!! 
+	\item Se ha hecho uso de MCR (\textit{Multilingual Central Repository}), utilizando la versión 3.0. 
+	MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués. Nosotros hemos utilizado principalmente la tabla llamada \textbf{wei\_spa-30\_variant} y \textbf{wei\_spa-30\_relation}. De la tabla \textit{Variant} las columnas con las que hemos trabajado han sido:
+	\begin{itemize}
+		\item \textit{Word}: Contiene la palabra. De esta forma podemos realizar búsquedas cuando el usuario introduce el concepto para de esta forma saber si dicha palabra se encuentra en la base de datos.
+		\item \textit{Offset}: Es el identificador de la palabra, aunque una misma palabra puede tener distintos \textit{offsets}. Con dicha columna podemos obtener los sinónimos, así como el identificador para posteriormente obtener los hipónimos e hiperónimos.
+	\end{itemize}
+	\item Tres tablas llamadas \textbf{1000\_palabras\_faciles}, \textbf{5000\_palabras\_faciles} y \textbf{10000\_palabras\_faciles} que guardan tanto las 1.000, 5.000 y 10.000 palabras más usadas de la RAE. Las tres se componen únicamente de una columna llamada \textit{word} y que almacena la palabra.
+	\item Una tabla llamada \textbf{datos\_picto}, que está formada por las siguientes columnas:
+	\begin{itemize}
+		\item Palabra: Contiene la palabra en cuestión. 
+		\item Offset31: Es el identificador del \textit{synset} pero en la versión 3.1 de WordNet.
+		\item Offset30: Es el identificador del \textit{synset} pero en la versión 3.0 de WordNet.
+		\item id\_picto: Es el identificador del pictograma.
+	\end{itemize}
+	\item Una última tabla llamada \textbf{pictogramas} que almacena los pictogramas de ARASAAC y que contienen dos columnas: 
+	\begin{itemize}
+		\item id\_picto: Es el identificador del pictograma.
+		\item imagen: Contiene el pictograma.
+	\end{itemize}
+ 
 \end{itemize}
+
 
 
 %-------------------------------------------------------------------
