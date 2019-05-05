@@ -9,7 +9,11 @@ urlpatterns = [
     path ('prueba', views.prueba, name='prueba'),
     path('imagen/<str:offset>', views.getImagen, name='getImagen'),
     path('imagenByPalabra/<str:palabra>', views.getImagenPalabra, name='getImagenPalabra'),
-    path('json/word=<str:word>&level=<str:level>', views.getJsonResults, name='getJsonResults')
+    path('easySynonym/json/word=<str:word>&level=<str:level>', views.getSynonymsJsonResults, name='getSynonymsJsonResults'),
+    path('easyHyponym/json/word=<str:word>&level=<str:level>', views.getHyponymsJsonResults, name='getHyponymsJsonResults'),
+    path('easyHyperonym/json/word=<str:word>&level=<str:level>', views.getHyperonymsJsonResults, name='getHyperonymsJsonResults'),
+    path('metaphor/json/word=<str:word>&level=<str:level>', views.getMetaphor, name='getMetaphor')
+
 
    # path('resultadoSinonimosRAE', views.sinonimosPalabrasRAE, name='sinonimosPalabrasRAE'),
 ]

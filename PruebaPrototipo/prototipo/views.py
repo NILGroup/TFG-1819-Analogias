@@ -345,9 +345,37 @@ def getImagenPalabra(request, palabra):
     return JsonResponse(notFound, safe=False)
 
 
-def getJsonResults(request, word, level):
 
-    #easySynonym = result.getEasySynonyms(word, level)
-    easyHyponym = result.getEasyHyperonyms(word, level)
-    return HttpResponse(json.dumps(easyHyponym, ensure_ascii=False),
+
+##### -------   SERVICIOS PARA PETICIONES GET  -------######
+
+
+
+def getSynonymsJsonResults(request, word, level):
+
+    easySynonym = result.getEasySynonyms(word, level)
+
+    return HttpResponse(json.dumps(easySynonym, ensure_ascii=False),
                  content_type="application/json")
+
+
+
+def getHyponymsJsonResults(request, word, level):
+    easyHyponym = result.getEasyHyponyms(word, level)
+
+    return HttpResponse(json.dumps(easyHyponym, ensure_ascii=False),
+                        content_type="application/json")
+
+
+def getHyperonymsJsonResults(request, word, level):
+    easyHyperonym = result.getEasyHyperonyms(word, level)
+
+    return HttpResponse(json.dumps(easyHyperonym, ensure_ascii=False),
+                        content_type="application/json")
+
+def getMetaphor(request, word, level):
+
+    methapor = result.getMetaphor(word, level)
+
+    return HttpResponse(json.dumps(methapor, ensure_ascii=False),
+                        content_type="application/json")
