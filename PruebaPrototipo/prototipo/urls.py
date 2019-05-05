@@ -12,7 +12,8 @@ urlpatterns = [
     path('easySynonym/json/word=<str:word>&level=<str:level>', views.getSynonymsJsonResults, name='getSynonymsJsonResults'),
     path('easyHyponym/json/word=<str:word>&level=<str:level>', views.getHyponymsJsonResults, name='getHyponymsJsonResults'),
     path('easyHyperonym/json/word=<str:word>&level=<str:level>', views.getHyperonymsJsonResults, name='getHyperonymsJsonResults'),
-    path('metaphor/json/word=<str:word>&level=<str:level>', views.getMetaphor, name='getMetaphor')
+    path('metaphor/json/word=<str:word>&level=<str:level>', views.getMetaphor, name='getMetaphor'),
+    path('simil/json/word=<str:word>&level=<str:level>', views.getSimil, name='getSimil')
 
 
    # path('resultadoSinonimosRAE', views.sinonimosPalabrasRAE, name='sinonimosPalabrasRAE'),

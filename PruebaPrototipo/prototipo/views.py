@@ -379,3 +379,11 @@ def getMetaphor(request, word, level):
 
     return HttpResponse(json.dumps(methapor, ensure_ascii=False),
                         content_type="application/json")
+
+
+def getSimil(request, word, level):
+
+    methapor = result.getSimil(word, level)
+
+    return HttpResponse(json.dumps(methapor, ensure_ascii=False),
+                        content_type="application/json")

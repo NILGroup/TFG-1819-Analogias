@@ -260,8 +260,59 @@ def getMetaphor(word, level):
 ### SERVICIO QUE DADA UNA PALABRA Y UN NIVEL DEVUELVE UN SIMIL ###
 
 
+def getSimil(word, level):
+    dataJson = []
+    ##  Devuelve todos los offsets de los synsets de dicha palabra
+    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+    index = 1
+    dataJson.insert(0, {'word': ""})
+    dataJson[0]["word"] = word
+
+    for offset in listOffsetToTheSynset:
+        offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset['offset'], relation=12)).values(
+            'targetsynset').distinct()
+
+        if len(offsetMatchSourceSynset) > 0:
+            listEasyWords = list()
+            for targetSynset in offsetMatchSourceSynset:
+                listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values(
+                    'word').distinct()
+
+                for hyponym in listaWordsHyponyms:
+                    if hyponym['word'] != word:
+                        with connection.cursor() as cursor:
+                            if level == "1":
+                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
+                                               [hyponym['word']])
+                            elif level == "2":
+                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
+                                               [hyponym['word']])
+                            else:
+                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
+                                               [hyponym['word']])
+
+                            result = cursor.fetchone()[0]
+                            if result > 0:
+                                listEasyWords.append(hyponym['word'])
+
+            phraseHyponym = list()
+            if len(listEasyWords) > 0:
+                dataJson.append(
+                    {'offsetFather': "", 'offset': "",
+                     'simil': []})  # , 'definition': "", 'example': "", 'picto': ""})
+                dataJson[index]["offsetFather"] = offset['offset']
+                dataJson[index]["offset"] = targetSynset["targetsynset"]
+                for word in listEasyWords:
+                    phraseHyponym.append(spacy.phraseMaker(word))
+                    dataJson[index]['simil'] = phraseHyponym
+
+                index += 1
+
+        print("LISTA EASY WORDS")
+        print(listEasyWords)
 
 
+    return dataJson
 
 
 #    //-----------------------------------------------------------------------------------------------//    #
