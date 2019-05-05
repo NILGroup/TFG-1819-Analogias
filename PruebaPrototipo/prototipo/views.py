@@ -39,7 +39,7 @@ def index(request):
 
 def prueba():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/pruebaFiltrada.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/pruebaTecnologicoFiltrada.csv', encoding="utf8", errors='ignore')
     entrada = csv.reader(csvarchivo, delimiter=";")
 
     csvSinonimos = open('palabrasConSinonimos.csv', 'w', encoding="utf8", newline="")
@@ -117,7 +117,7 @@ def prueba():
 #Dada una palabra, devuelve si hay algún match entre sus terminos relacionados o sinonimos con el csv
 def busquedaPorNivel(palabra):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/10000PalabrasFiltradas.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/entrada1000palabrasAPI.csv', encoding="utf8", errors='ignore')
     conjuntoSinonimos = consultaSinonimo(palabra, csvarchivo)
     conjuntoTerminos = consultaTerminos(palabra, csvarchivo)
 
