@@ -347,6 +347,7 @@ def getImagenPalabra(request, palabra):
 
 def getJsonResults(request, word, level):
 
-    easySynonym = result.getEasySynonyms(word, level)
-    return HttpResponse(json.dumps(easySynonym, ensure_ascii=False),
+    #easySynonym = result.getEasySynonyms(word, level)
+    easyHyponym = result.getEasyHyponyms(word, level)
+    return HttpResponse(json.dumps(easyHyponym, ensure_ascii=False),
                  content_type="application/json")

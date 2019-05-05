@@ -17,24 +17,21 @@ import pandas as pd
 
 def getEasySynonyms(word, level):
     dataJson = []
+    ##  Devuelve todos los offsets de los synsets de dicha palabra
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
     index = 1
     dataJson.insert(0, {'word': ""})
     dataJson[0]["word"] = word
 
     for offset in listOffsetToTheSynset:
-        '''
-        dataJson.insert(index, {'offset': ""})
-        dataJson[index]["offset"] = offset['offset']
-        index += 1
-        '''
+        ##   Devuelve todos los sinónimos de esa palabra
         listaSynonyms = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('word').distinct()
-        definition = WeiSpa30Synset.objects.filter(offset=offset).values('gloss')
-        example = WeiSpa30Examples.objects.filter(offset=offset).values('examples')
+        #definition = WeiSpa30Synset.objects.filter(offset=offset).values('gloss')
+        #example = WeiSpa30Examples.objects.filter(offset=offset).values('examples')
 
+        ##   Por cada sinónimo, busca si se encuentra en la base de datos de las palabras fáciles
         listEasyWords = list()
         for synonym in listaSynonyms:
-
             if synonym['word'] != word:
                 with connection.cursor() as cursor:
                     if level == "1":
@@ -45,25 +42,16 @@ def getEasySynonyms(word, level):
                         cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s', [synonym['word']])
 
                     result = cursor.fetchone()[0]
-                    print("PALABRA")
-                    print(synonym['word'])
-                    print('RESULTADO')
-                    print(result)
                     if result > 0:
                         listEasyWords.append(synonym['word'])
 
         if len(listEasyWords) > 0:
-            print(listEasyWords)
             dataJson.append({'offset': "", 'synonyms': []})  # , 'definition': "", 'example': "", 'picto': ""})
             dataJson[index]['offset'] = offset['offset']
             dataJson[index]['synonyms'] = listEasyWords
-            print(repr(dataJson))
 
             index += 1
-        '''
-        for synonym in listaSynonyms:
-            dataJson[0]['synonyms'].append(synonym['word'])
-    
+        '''    
         if definition[0]["gloss"] != "None":
             dataJson[0]["definition"] = definition[0]['gloss']
     
@@ -77,7 +65,40 @@ def getEasySynonyms(word, level):
     return dataJson
 
 
+### SERVICIO QUE DADO UN OFFSET Y UN NIVEL DEVUELVE SUS HIPONIMOS FACILES ###
 
+def getEasyHyponyms(word, level):
+    dataJson = []
+    ##  Devuelve todos los offsets de los synsets de dicha palabra
+    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+    index = 1
+    dataJson.insert(0, {'word': ""})
+    dataJson[0]["word"] = word
+
+    for offset in listOffsetToTheSynset:
+        offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset['offset'], relation=12)).values(
+            'targetsynset').distinct()
+        # print(offsetMatchSourceSynset)
+        if len(offsetMatchSourceSynset) > 0:
+            index = 0
+            for targetSynset in offsetMatchSourceSynset:
+
+                dataJson.append(
+                    {'offsetFather': "", 'offset': "", 'hyponyms': [], 'definition': "", 'example': "", 'picto': ""})
+                dataJson[index]["offsetFather"] = offset['offset']
+                dataJson[index]["offset"] = targetSynset["targetsynset"]
+
+                listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values(
+                    'word').distinct()
+
+                listaAux = list()
+                for hyponym in listaWordsHyponyms:
+                    listaAux.append(hyponym["word"])
+
+                dataJson[index]["hyponyms"] = listaAux
+
+                index += 1
+    return dataJson
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
 
