@@ -78,30 +78,93 @@ def getEasyHyponyms(word, level):
     for offset in listOffsetToTheSynset:
         offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset['offset'], relation=12)).values(
             'targetsynset').distinct()
-        print("TARGET SYNSET")
-        # print(offsetMatchSourceSynset)
-        if len(offsetMatchSourceSynset) > 0:
-            index = 0
-            for targetSynset in offsetMatchSourceSynset:
 
-                print(targetSynset)
+        if len(offsetMatchSourceSynset) > 0:
+            listEasyWords = list()
+            for targetSynset in offsetMatchSourceSynset:
+                listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values('word').distinct()
+
+                for hyponym in listaWordsHyponyms:
+                    if hyponym['word'] != word:
+                        with connection.cursor() as cursor:
+                            if level == "1":
+                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
+                                               [hyponym['word']])
+                            elif level == "2":
+                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
+                                               [hyponym['word']])
+                            else:
+                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
+                                               [hyponym['word']])
+
+                            result = cursor.fetchone()[0]
+                            if result > 0:
+                                listEasyWords.append(hyponym['word'])
+            if len(listEasyWords) > 0:
                 dataJson.append(
-                    {'offsetFather': "", 'offset': "", 'hyponyms': [] })#, 'definition': "", 'example': "", 'picto': ""})
+                    {'offsetFather': "", 'offset': "", 'hyponyms': []})  # , 'definition': "", 'example': "", 'picto': ""})
                 dataJson[index]["offsetFather"] = offset['offset']
                 dataJson[index]["offset"] = targetSynset["targetsynset"]
-
-                listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values(
-                    'word').distinct()
-                print("LISTA HIPONIMOS")
-                print(listaWordsHyponyms)
-                listaAux = list()
-                for hyponym in listaWordsHyponyms:
-                    listaAux.append(hyponym["word"])
-
-                dataJson[index]["hyponyms"] = listaAux
+                dataJson[index]["hyponyms"] = listEasyWords
 
                 index += 1
     return dataJson
+
+### SERVICIO QUE DADO UN OFFSET Y UN NIVEL DEVUELVE SUS HIPERONIMOS FACILES ###
+
+def getEasyHyperonyms(word, level):
+    dataJson = []
+    ##  Devuelve todos los offsets de los synsets de dicha palabra
+    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+    index = 1
+    dataJson.insert(0, {'word': ""})
+    dataJson[0]["word"] = word
+
+    for offset in listOffsetToTheSynset:
+        offsetMatchTargetSynset = (WeiSpa30Relation.objects.filter(targetsynset=offset['offset'], relation=12)).values(
+            'sourcesynset').distinct()
+
+        if len(offsetMatchTargetSynset) > 0:
+            listEasyWords = list()
+            for sourceSynset in offsetMatchTargetSynset:
+                listaWordsHyperonyms = WeiSpa30Variant.objects.filter(offset=sourceSynset['sourcesynset']).values(
+                    'word').distinct()
+
+                for hyperonym in listaWordsHyperonyms:
+                    if hyperonym['word'] != word:
+                        with connection.cursor() as cursor:
+                            if level == "1":
+                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
+                                               [hyperonym['word']])
+                            elif level == "2":
+                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
+                                               [hyperonym['word']])
+                            else:
+                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
+                                               [hyperonym['word']])
+
+                            result = cursor.fetchone()[0]
+                            if result > 0:
+                                listEasyWords.append(hyperonym['word'])
+            if len(listEasyWords) > 0:
+                dataJson.append(
+                    {'offsetFather': "", 'offset': "", 'hyperonyms': []})  # , 'definition': "", 'example': "", 'picto': ""})
+                dataJson[index]["offsetFather"] = offset['offset']
+                dataJson[index]["offset"] = sourceSynset["sourcesynset"]
+                dataJson[index]["hyperonyms"] = listEasyWords
+
+                index += 1
+    return dataJson
+
+
+
+
+
+
+
+
+
+#    //-----------------------------------------------------------------------------------------------//    #
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
 
