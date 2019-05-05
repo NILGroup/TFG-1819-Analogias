@@ -78,19 +78,22 @@ def getEasyHyponyms(word, level):
     for offset in listOffsetToTheSynset:
         offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset['offset'], relation=12)).values(
             'targetsynset').distinct()
+        print("TARGET SYNSET")
         # print(offsetMatchSourceSynset)
         if len(offsetMatchSourceSynset) > 0:
             index = 0
             for targetSynset in offsetMatchSourceSynset:
 
+                print(targetSynset)
                 dataJson.append(
-                    {'offsetFather': "", 'offset': "", 'hyponyms': [], 'definition': "", 'example': "", 'picto': ""})
+                    {'offsetFather': "", 'offset': "", 'hyponyms': [] })#, 'definition': "", 'example': "", 'picto': ""})
                 dataJson[index]["offsetFather"] = offset['offset']
                 dataJson[index]["offset"] = targetSynset["targetsynset"]
 
                 listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values(
                     'word').distinct()
-
+                print("LISTA HIPONIMOS")
+                print(listaWordsHyponyms)
                 listaAux = list()
                 for hyponym in listaWordsHyponyms:
                     listaAux.append(hyponym["word"])
