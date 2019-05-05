@@ -303,7 +303,7 @@ def getSimil(word, level):
                 dataJson[index]["offsetFather"] = offset['offset']
                 dataJson[index]["offset"] = targetSynset["targetsynset"]
                 for word in listEasyWords:
-                    phraseHyponym.append(spacy.phraseMaker(word))
+                    phraseHyponym.append(spacy.phraseMakerForHyponyms(word))
                     dataJson[index]['simil'] = phraseHyponym
 
                 index += 1
