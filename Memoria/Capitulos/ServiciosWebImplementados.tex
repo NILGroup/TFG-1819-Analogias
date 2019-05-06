@@ -1,7 +1,7 @@
 \chapter{Servicios Web para la obtención de conceptos fáciles relacionados}
 \label{cap:serviciosWebImplementados}
 
-Como se ha comentado en anteriores capítulos existen varias aplicaciones web que son redes semánticas y facilitan sinónimos, términos relacionados, metáforas, hipéronimos, etc... de un concepto dado por el usuario. Para este trabajo, algunas de ellas son de gran utilidad ya que de esta forma podemos obtener las palabras fáciles para un concepto más complicado, pero hay que saber exactamente cuál es la que mejor conviene y la que mejores resultados ofrece. Hay que corroborar que los conceptos devueltos son correctos y que disponen de un significado claro y parecido respecto al concepto buscado. Para ello se han implementado dos servicios web, uno utilizando la aplicación de ConceptNet y el otro utilizando WordNet, en la sección 5.1 se explicará el servicio web para ConceptNet con los métodos creados y su explicación y en la sección 5.2 aparece lo mismo pero utilizando WordNet. Por último, una vez implementados dichos servicios, se han realizado una serie de pruebas para comprobar que aplicación era más necesaria para la aplicación final, en la sección 5.3 queda reflejado dichas pruebas, como se han realizado, con que cantidad de palabras se han hecho las pruebas y cuales han sido los resultados obtenidos.
+Como se ha comentado en anteriores capítulos existen varias aplicaciones web que son redes semánticas y facilitan sinónimos, términos relacionados, metáforas, hiperónimos, etc... de un concepto dado por el usuario. Para este trabajo, algunas de ellas son de gran utilidad ya que de esta forma podemos obtener las palabras fáciles para un concepto más complicado, pero hay que saber exactamente cuál es la que mejor conviene y la que mejores resultados ofrece. Hay que corroborar que los conceptos devueltos son correctos y que disponen de un significado claro y parecido respecto al concepto buscado. Para ello se han implementado dos servicios web, uno utilizando la aplicación de ConceptNet y el otro utilizando WordNet, en la sección 5.1 se explicará el servicio web para ConceptNet con los métodos creados y su explicación y en la sección 5.2 aparece lo mismo pero utilizando WordNet. Por último, una vez implementados dichos servicios, se han realizado una serie de pruebas para comprobar que aplicación era más necesaria para la aplicación final, en la sección 5.3 queda reflejado dichas pruebas, como se han realizado, con que cantidad de palabras se han hecho las pruebas y cuales han sido los resultados obtenidos.
 
 
 %-------------------------------------------------------------------
@@ -9,13 +9,18 @@ Como se ha comentado en anteriores capítulos existen varias aplicaciones web qu
 %-------------------------------------------------------------------
 \label{cap:sec:disenoEval}
 
-Para decidir que red semántica se iba a usar se decidió hacer una prueba con palabras que fuesen lo más heterogéneas posible, para ello se eligieron una serie de artículos periodísticos de distintos temas: medioambiental, tecnológico, deportivo y político. Estos artículos se filtraron para utilizar únicamente los verbos, artículos, sustantivos y adverbios. Para cada una de estas palabras se obtuvieron en WordNet y ConceptNet sus sinónimos y términos relacionados (en WordNet se entiende como término relacionado a los hiperónimos e hipónimos) y se analizaron, tanto la cantidad de términos relacionados y sinónimos que generaban cada una de las redes semánticas que coincidían con alguna de las palabras fáciles de la RAE (prueba cuantitativa), como la calidad de los mismos, es decir, si las palabras que generaban tenían alguna relación aceptable con la palabra origen(prueba cualitativa).
+Para decidir que red semántica se iba a usar se decidió hacer una prueba con palabras que fuesen lo más heterogéneas posible, para ello se eligieron una serie de artículos periodísticos de distintos temas: medioambiental, tecnológico, deportivo y político. Estos artículos se filtraron para utilizar únicamente los verbos, artículos, sustantivos y adverbios. Para cada una de estas palabras se obtuvieron en WordNet y ConceptNet sus sinónimos y términos relacionados (en WordNet se entiende como término relacionado a los hiperónimos e hipónimos) y se analizaron, tanto la cantidad de términos relacionados y sinónimos que generaban cada una de las redes semánticas que coincidían con alguna de las palabras fáciles de la RAE (prueba cuantitativa) probando en cada una de las tres listas(1.000 palabras fáciles, 5.000 palabras fáciles y 10.000 palabras fáciles), como la calidad de los mismos, es decir, si las palabras que generaban tenían alguna relación aceptable con la palabra origen(prueba cualitativa).
 
 %-------------------------------------------------------------------
 \section{Resultados cuantitativos}
 %-------------------------------------------------------------------
 \label{cap:sec:pruebaCuantitativa}
+\figura{Bitmap/Capitulo5/tabla}{width=1.0\textwidth}{fig:tabla}{Tabla de resultados de las pruebas} 
 
+Como se puede observar en la Tabla \ref{fig:tabla} en términos generales, WordNet ofrece mejores resultados que ConceptNet ya que el porcentaje de palabras sin términos relacionados, sinónimos o ambas, es mayor en esta última, siendo especialmente notorio en el caso de los sinónimos con más de 60 puntos de diferencia en todos los casos en favor de WordNet. Los únicos casos en los que ConceptNet supera a WordNet son con las listas de palabras fáciles de 5.000 y 10.000 palabras, ConceptNet deja menos palabras sin coincidencia que WordNet, sin embargo, encuentra mas términos relacionados y muchos más sinónimos que ConceptNet.
+
+
+\begin{comment}
 \begin{table}
 \centering
 \begin{tabular}{|l|l}
@@ -42,6 +47,21 @@ Para decidir que red semántica se iba a usar se decidió hacer una prueba con p
 	\end{tabular}
 \end{table}
 
+\end{comment}
+
+%-------------------------------------------------------------------
+\section{Análisis cualitativo}
+
+Pendiente de terminar...
+%-------------------------------------------------------------------
+\label{cap:sec:pruebaCualitativa}
+
+%-------------------------------------------------------------------
+\section{Conclusiones}
+%-------------------------------------------------------------------
+\label{cap:sec:conclusionPruebas}
+
+Pendiente de terminar...
 
 %-------------------------------------------------------------------
 \section{Servidor de Base de Datos}
@@ -49,17 +69,17 @@ Para decidir que red semántica se iba a usar se decidió hacer una prueba con p
 Para este proyecto, se ha utilizado una base de datos para la persistencia de los datos. El sistema encargado de la gestión de la base de datos corresponde con MariaDB y esta constituida por varias tablas:
 \begin{itemize}
 	\item Se ha hecho uso de MCR (\textit{Multilingual Central Repository}), utilizando la versión 3.0. 
-	MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués. Nosotros hemos utilizado principalmente la tabla llamada \textbf{wei\_spa-30\_variant} y \textbf{wei\_spa-30\_relation}. De la tabla \textit{Variant} las columnas con las que hemos trabajado han sido:
+	MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués. Se ha utilizado principalmente la tabla llamada \textbf{wei\_spa-30\_variant} y \textbf{wei\_spa-30\_relation}. De la tabla \textit{Variant} las columnas con las que hemos trabajado han sido:
 	\begin{itemize}
-		\item \textit{Word}: Contiene la palabra. De esta forma podemos realizar búsquedas cuando el usuario introduce el concepto para de esta forma saber si dicha palabra se encuentra en la base de datos.
-		\item \textit{Offset}: Es el identificador de la palabra, aunque una misma palabra puede tener distintos \textit{offsets}. Con dicha columna podemos obtener los sinónimos, así como el identificador para posteriormente obtener los hipónimos e hiperónimos.
+		\item \textit{Word}: Contiene la palabra. De esta forma se pueden realizar búsquedas cuando el usuario introduce el concepto para de esta forma saber si dicha palabra se encuentra en la base de datos.
+		\item \textit{Offset}: Es el identificador de la palabra, aunque una misma palabra puede tener distintos \textit{offsets}. Con dicha columna se pueden obtener los sinónimos, así como el identificador para posteriormente obtener los hipónimos e hiperónimos.
 	\end{itemize}
 	\item Tres tablas llamadas \textbf{1000\_palabras\_faciles}, \textbf{5000\_palabras\_faciles} y \textbf{10000\_palabras\_faciles} que guardan tanto las 1.000, 5.000 y 10.000 palabras más usadas de la RAE. Las tres se componen únicamente de una columna llamada \textit{word} y que almacena la palabra.
 	\item Una tabla llamada \textbf{datos\_picto}, que está formada por las siguientes columnas:
 	\begin{itemize}
 		\item Palabra: Contiene la palabra en cuestión. 
-		\item Offset31: Es el identificador del \textit{synset} pero en la versión 3.1 de WordNet.
-		\item Offset30: Es el identificador del \textit{synset} pero en la versión 3.0 de WordNet.
+		\item Offset31: Es el identificador del \textit{synset} en la versión 3.1 de WordNet.
+		\item Offset30: Es el identificador del \textit{synset} en la versión 3.0 de WordNet.
 		\item id\_picto: Es el identificador del pictograma.
 	\end{itemize}
 	\item Una última tabla llamada \textbf{pictogramas} que almacena los pictogramas de ARASAAC y que contienen dos columnas: 
@@ -121,7 +141,7 @@ Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nive
 
 http://127.0.0.1:8000/easyHyponym/json/word=inmueble\&level=2
 
-Y en la Figura \ref{fig:peticionGetEasyHyponym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} de hipónimo fácil , la lista de hipónimos fáciles asi como el \textit{offsetFather}, este identificador corresponde al \textit{offset} de uno de los \textit{synsets} de inmueble. De esta forma, si una palabra buscada dispone de varios \textit{synsets}, se podrá mostrar sus correspondientes sinónimos e hipónimos.
+Y en la Figura \ref{fig:peticionGetEasyHyponym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} de hipónimo fácil , la lista de hipónimos fáciles así como el \textit{offsetFather}, este identificador corresponde al \textit{offset} de uno de los \textit{synsets} de inmueble. De esta forma, si una palabra buscada dispone de varios \textit{synsets}, se podrá mostrar sus correspondientes sinónimos e hipónimos.
 
 
 \figura{Bitmap/Capitulo5/peticionGetEasyHyponym}{width=1.0\textwidth}{fig:peticionGetEasyHyponym}{JSON devuelto al buscar los hipónimos fáciles de inmueble}
@@ -143,7 +163,7 @@ Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nive
 
 http://127.0.0.1:8000/easyHyperonym/json/word=inmueble\&level=2
 
-En la Figura \ref{fig:peticionGetEasyHyperonym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} de hiperónimo fácil, la lista de hiperónimos fáciles asi como el \textit{offsetFather}, ya explicado en el apartado anterior.
+En la Figura \ref{fig:peticionGetEasyHyperonym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} de hiperónimo fácil, la lista de hiperónimos fáciles así como el \textit{offsetFather}, ya explicado en el apartado anterior.
 
 
 \figura{Bitmap/Capitulo5/peticionGetEasyHyperonym}{width=1.0\textwidth}{fig:peticionGetEasyHyperonym}{JSON devuelto al buscar los hiperónimos fáciles de inmueble}
@@ -157,7 +177,7 @@ http://127.0.0.1:8000/metaphor/json/word=\textit{palabra}\&level=\textit{nivel}
 
 Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, igual que en los casos explicados anteriormente para buscar sinónimos, hipónimos e hiperónimos fáciles.
 
-La implementación de dicho servicio es idéntico al ya explicado en el servicio web para obtener sinónimos fáciles e hiperónimos fáciles, con la única diferencia que para poder formar la metáfora se llama a otro servicio implementado, el cual utiliza Spacy para definir si el concepto es masculino o femenino y si está en singular o plurar.
+La implementación de dicho servicio es idéntico al ya explicado en el servicio web para obtener sinónimos fáciles e hiperónimos fáciles, con la única diferencia que para poder formar la metáfora se llama a otro servicio implementado, el cual utiliza SpaCy para definir si el concepto es masculino o femenino y si está en singular o plural.
 
 Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
 
@@ -176,7 +196,7 @@ Para ello se realiza la siguiente petición GET:
 http://127.0.0.1:8000/simil/json/word=\textit{palabra}\&level=\textit{nivel}
 
 Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, igual que en los casos explicados anteriormente.
-Para la implementación de dicho servicio, se utiliza exactamente el mismo código explicado en el apartado de obtención de hipónimos fáciles pero ncluyendo la llamada al servicio de Spacy para volver a definir si el concepto es masculino o femenino y si es singular o plural.
+Para la implementación de dicho servicio, se utiliza exactamente el mismo código explicado en el apartado de obtención de hipónimos fáciles pero incluyendo la llamada al servicio de SpaCy para volver a definir si el concepto es masculino o femenino y si es singular o plural.
 
 Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
 
@@ -199,7 +219,7 @@ El primer Servicio Web implementado obtiene los resultados de ConceptNet, una re
 
 Este servicio web consta de tres servicios, como se puede ver en la Figura \ref{fig:conceptnet}. El primero, cuando se introduce en el campo de texto una palabra en castellano, se realiza una consulta a la API de ConceptNet y se muestran únicamente los sinónimos obtenidos para dicha palabra. El segundo, realiza otra consulta a la API de ConceptNet pero esta vez en lugar de obtener los sinónimos, devuelve solamente los términos relacionados.
 
-Y por último, el tercer servicio hace uso de los servicios 1 y 2 para obtener tanto los sinónimos como los términos relacionados del concepto introducido. Con los resultados obtenidos, se realiza una nueva búsqueda en la lista de ``las 1000 palabras más utilizadas del castellano según la RAE'' y en caso de que algún resultado se encuentre en dicha lista, se le mostrará al usuario y si no, se mostrará un mensaje informativo indicando que no hay resultados. Aparte, este servicio consta de un selector numérico donde se indica la profundidad de la búsqueda que por defecto, su valor es 1. Esto quiere decir que, por ejemplo, con un nivel de profundidad de nivel 1 se realizará el proceso descrito anteriormente una única vez. Sin embargo, si se introduce una profundidad mayor, por ejemplo 2, se repetirá el proceso dos veces pero esta vez buscando los sinónimos y los términos relacionados de los resultados y no de la palabra introducida en un primer momento. Por ejemplo, si el usuario introduce la palabra Gato, ConcepNet devuelve como sinónimos: feria, madrileño y felino pero ninguna de estas palabras se encuentran en las lista de ``las 1000 palabras más utilizadas del castellano según la RAE'', por lo que el servicio web implementado buscará los sinónimos y términos relacionados de cada una de las palabras, es decir, de feria, madrileño y felino. Si alguno de los resultados se encuentra en la lista, entonces se mostrarán y si no, aparecerá el mensaje informativo indicando que no hay resultados.
+Y por último, el tercer servicio hace uso de los servicios 1 y 2 para obtener tanto los sinónimos como los términos relacionados del concepto introducido. Con los resultados obtenidos, se realiza una nueva búsqueda en la lista de ``las 1000 palabras más utilizadas del castellano según la RAE'' y en caso de que algún resultado se encuentre en dicha lista, se le mostrará al usuario y si no, se mostrará un mensaje informativo indicando que no hay resultados. Aparte, este servicio consta de un selector numérico donde se indica la profundidad de la búsqueda que por defecto, su valor es 1. Esto quiere decir que, por ejemplo, con un nivel de profundidad de nivel 1 se realizará el proceso descrito anteriormente una única vez. Sin embargo, si se introduce una profundidad mayor, por ejemplo 2, se repetirá el proceso dos veces pero esta vez buscando los sinónimos y los términos relacionados de los resultados y no de la palabra introducida en un primer momento. Por ejemplo, si el usuario introduce la palabra Gato, ConceptNet devuelve como sinónimos: feria, madrileño y felino pero ninguna de estas palabras se encuentran en las lista de ``las 1000 palabras más utilizadas del castellano según la RAE'', por lo que el servicio web implementado buscará los sinónimos y términos relacionados de cada una de las palabras, es decir, de feria, madrileño y felino. Si alguno de los resultados se encuentra en la lista, entonces se mostrarán y si no, aparecerá el mensaje informativo indicando que no hay resultados.
 
 Si por otro lado, se añade un nivel de profundidad aún mayor pero la coincidencia de los resultados con la lista se encuentra en un nivel anterior, la búsqueda se detendrá y se indicará al usuario en que nivel ha sido obtenido con éxito dicho resultado.
 Ahora bien, dependiendo de qué tipo de palabra haya coincidido y en que nivel, se generará el resultado utilizando un tipo de comparación distinta. Estas pueden ser:
@@ -228,76 +248,3 @@ Por último, el usuario dispone de un botón como el de la Figura \ref{fig:resul
 \figura{Bitmap/Capitulo5/WordNet}{width=1.0\textwidth}{fig:resultadoWordnet}{Resultados obtenidos para el Servicio Web de WordNet}
 
 
-%-------------------------------------------------------------------
-\section{Pruebas Estadísticas}
-%-------------------------------------------------------------------
-\label{cap:sec:pruebasEstadisticas}
-Una vez implementados los distintos servicios web, los integrantes del grupo deben elegir cuál de ellos devuelve más resultados fiables y cuantos se pueden utilizar, ya que puede ser que los resultados obtenidos difieran mucho del concepto inicial a buscar.
-Es por ello que se realizaron varias pruebas introduciendo una cantidad de palabras para medir cuantos de los sinónimos y términos relacionados generados, coincidían con las listas de ``las 1000 palabras más utilizadas del castellano según la RAE'', ``las 5000 palabras más utilizadas del castellano según la RAE'' y ``las 10000 palabras más utilizadas del castellano según la RAE''. Lo primero que se buscó fue un artículo periodístico que constaba de un total de 2.542 palabras, pero que tras un proceso de filtrado se eliminaron aquellas palabras que no fueran verbos, sustantivos, adverbios o adjetivos así como las palabras que apareciesen repetidas, quedando finalmente con un total de 717 palabras válidas para realizar la prueba. A continuación, se introdujeron en el prototipo de ConceptNet y de WordNet generando unos resultados que se describirán y se analizarán a continuación.
-
-\subsection{Estadística para ConceptNet}
-\label{cap:subsec:pruebaConceptnet}
-
-Para esta prueba se tuvieron en cuenta principalmente tres parámetros:
-\begin{itemize}
-	\item Cantidad de palabras que tuviesen al menos un sinónimo.
-	\item Cantidad de palabras que tuviesen al menos un término relacionado.
-	\item Cantidad de palabras de las que no se obtuvo ningún sinónimo ni ningún término relacionado.
-\end{itemize}
-
-
-Como se puede observar en la Figura \ref{fig:resultadosConceptnet} no se obtuvo ningún resultado para un total de 565 palabras, es decir, un 78,8\% de las palabras introducidas no disponen de ningún sinónimos ni término relacionado que aparezca en la lista de las 1000 palabras de la RAE. Del 21,20\% restante que se atribuye a un total de 173 coincidencias que si disponen de resultados coincidentes en dicha lista, 51 palabras son sinónimos y 122 términos relacionados, es decir, el 6,25\% pertenece a los sinónimos y el 14,95\% a términos relacionados.
-
-\figura{Bitmap/Capitulo5/resultadosConceptnet}{width=1.0\textwidth}{fig:resultadosConceptnet}{Resultados obtenidos para el Servicio Web de ConceptNet con la lista de 1000 palabras}
-Se realizó una segunda prueba pero comparando esta vez con la lista de las 5000 palabras de la RAE, los resultados mejoran con respecto a los resultados anteriores, pasando de 173 a 362 las palabras que tienen al menos un sinónimos o un término relacionado en la lista, como se puede comprobar en la Figura \ref{fig:resultadosConceptnet5000}, lo que supone un aumento del 109\%. Los sinónimos encontrados son 94 (aumento del 84\% respecto a los resultados anteriores) y los términos relacionados son 268 (aumento del 120\%), por otra parte las palabras de las que no se obtuvo ninguna coincidencia pasaron a ser 428 (una reducción del 24\%).
-
-\figura{Bitmap/Capitulo5/resultadosConceptnet5000}{width=1.0\textwidth}{fig:resultadosConceptnet5000}{Resultados obtenidos para el Servicio Web de ConceptNet con la lista de 5000 palabras}
-
-Por último, se probó con la lista de 10.000 palabras obteniendo unos resultados de 423 coincidencias totales como se puede comprobar en la Figura \ref{fig:resultadosConceptnet10000} (aumento del 16\% con respecto a la lista de 5.000 palabras), de estas 423 coincidencias 112 corresponden a sinónimos (aumento del 19\%) y 311 términos relacionados (aumento del 16\%). Las palabras que no obtuvieron ningún resultado fueron 387 (disminución del 10\%).
-
-\figura{Bitmap/Capitulo5/resultadosConceptnet10000}{width=1.0\textwidth}{fig:resultadosConceptnet10000}{Resultados obtenidos para el Servicio Web de ConceptNet con la lista de 10000 palabras}
-
-
-\subsection{Estadística para WordNet}
-\label{cap:subsec:pruebaWordnet}
-
-Para esta prueba se valoraron los siguientes parámetros:
-\begin{itemize}
-	\item Cantidad de palabras que tuviesen al menos un sinónimo.
-	\item Cantidad de palabras que tuviesen al menos un hipónimo.
-	\item Cantidad de palabras que tuviesen al menos un hiperónimo.
-	\item Cantidad de palabras de las que no se obtuvo ningún sinónimo, ni hipónimo ni hiperónimo.
-\end{itemize}
-
-Al contrastar los resultados de las consultas a WordNet con la lista de las 1.000 palabras, se obtuvieron como se puede observar en la Figura \ref{fig:resultadosWordnet} un total de 430 coincidencias (131 sinónimos, 112 hipónimos y 187 hiperónimos) y un total de 488 palabras no tienen ningún resultado, lo que supone un 68\% sobre el total de palabras introducidas.
-
-\figura{Bitmap/Capitulo5/resultadosWordnet}{width=1.0\textwidth}{fig:resultadosWordnet}{Resultados obtenidos para el Servicio Web de WordNet con la lista de 1.000 palabras}
-
-Al aumentar la lista de palabras a 5.000(Figura \ref{fig:resultadosWordnet5000}), se obtuvieron un total 631 coincidencias(aumento del 47\%) de las cuales 234 eran sinónimos (aumento del 78\%), 164 hipónimos (46\% más) y 233 hiperónimos (aumento del 25\%). El número de palabras sin coincidencia, fue de 427(disminución del 13\%).
-
-\figura{Bitmap/Capitulo5/resultadosWordnet5000}{width=1.0\textwidth}{fig:resultadosWordnet5000}{Resultados obtenidos para el Servicio Web de WordNet con la lista de 5.000 palabras}
-
-Para finalizar la prueba, se probó con la lista de las 10.000 palabras fáciles y los resultados como se pueden apreciar en la Figura \ref{fig:resultadosWordnet10000} fueron de un total de 685 coincidencias, lo que supone un aumento del 9\% respecto a los resultados obtenidos con la lista de 5.000 palabras, de las cuales 262 eran sinónimos (aumento del 12\%), 177 hipónimos (aumento del 8\%) y 246 hiperónimos(aumento del 6\%). Por último el número de palabras sin coincidencia fue de 413 sobre el total de 717, lo que supone una disminución del 3\% con respecto a la lista anterior.
-
-\figura{Bitmap/Capitulo5/resultadosWordnet10000}{width=1.0\textwidth}{fig:resultadosWordnet10000}{Resultados obtenidos para el Servicio Web de WordNet con la lista de 10.000 palabras}
-
-\subsection{Conclusiones}
-\label{cap:subsec:conclusionesPruebas}
-
-A continuación, se muestran unas gráficas para poder poder analizar mejor los resultados y obtener una conclusión más clara. En cuánto a los resultados obtenidos utilizando la lista de las 1000 palabras de la RAE podemos observar en la Figura \ref{fig:resultados1000palabrasConcepNet} que un 78,80\% de las palabras introducidas en ConcepNet no tiene ningún sinónimo ni ningún término relacionado frente a un 68,06\% de las palabras introducidas en WordNet que tampoco tienen ningún resultado coincidente en la lista, como se puede ver en la Figura \ref{fig:resultados1000palabrasWordNet} Y los resultados que si disponen de un algún concepto, ya sea un sinónimo, hiperónimo o hipónimo en WordNet es mayor que en ConcepNet, por lo que en un primer momento el servicio web de WordNet sería más acorde a utilizar para nuestra aplicación.
-
-Si nos fijamos en los resultados obtenidos utilizando la lista de las 5000 palabras de la RAE, podemos ver en la Figura \ref{fig:resultados5000palabrasConcepNet} el porcentaje de palabras de ConcepNet que no tienen ningún resultado coincidente con la lista es similar al de la Figura \ref{fig:resultados5000palabrasWordNet}de WordNet, siendo estos un 59,7\% y un 59,55\% respectivamente. Respecto a los sinónimos, podemos ver que WordNet tiene un porcentaje superior al de ConcepNet, siendo este un 13,10\% frente a un 32,63\%. Por lo que teniendo en cuenta tanto estos resultados como los anteriores, seguiriamos decantandonos más por WordNet que por ConcepNet.
-
-Y por último, utilizando la lista de las 10000 palabras de la RAE, podemos ver en la Figura \ref{fig:resultados10000palabrasConcepNet} que el porcentaje de palabras no encontradas por ConcepNet es esta vez menor que en WordNet, como se puede ver en la Figura \ref{fig:resultados10000palabrasWordNet}, siendo estos un 54\% y un 57,60\% respectivamente. Incluso el porcentaje de términos relacionados encontrados en ConcepNet es también superior a los hiperónimos e hipónimos de WordNet, pero en cambio el porcentaje de sinónimos encontrados en WordNet con un 36,54\% es el doble de los encontrados en ConcepNet, con un 15,62\%.
-
-Teniendo también en cuenta la calidad\footnote{Entendiendo por calidad la relación de las palabras devueltas por las dos aplicaciones con la palabra buscada} de los sinónimos y términos relacionados generados por ambos servicios decidimos utilizar WordNet para la aplicación definitiva ya los resultados son más satisfactorios y las palabras no difieren demasiado del concepto buscado.
-
-
-\figura{Bitmap/Graficas/resultados1000palabrasConcepNet}{width=.6\textwidth}{fig:resultados1000palabrasConcepNet}{Gráfica de los resultados obtenidos para las 1000 palabras con ConcepNet}
-\figura{Bitmap/Graficas/resultados1000palabrasWordNet}{width=.6\textwidth}{fig:resultados1000palabrasWordNet}{Gráfica de los resultados obtenidos para las 1000 palabras con WordNet}
-
-\figura{Bitmap/Graficas/resultados5000palabrasConcepNet}{width=.6\textwidth}{fig:resultados5000palabrasConcepNet}{Gráfica de los resultados obtenidos para las 5000 palabras con ConcepNet}
-\figura{Bitmap/Graficas/resultados1000palabrasWordNet}{width=.6\textwidth}{fig:resultados5000palabrasWordNet}{Gráfica de los resultados obtenidos para las 5000 palabras con WordNet}
-
-\figura{Bitmap/Graficas/resultados10000palabrasConcepNet}{width=.6\textwidth}{fig:resultados10000palabrasConcepNet}{Gráfica de los resultados obtenidos para las 10000 palabras con ConcepNet}
-\figura{Bitmap/Graficas/resultados10000palabrasWordNet}{width=.6\textwidth}{fig:resultados10000palabrasWordNet}{Gráfica de los resultados obtenidos para las 10000 palabras con WordNet}
