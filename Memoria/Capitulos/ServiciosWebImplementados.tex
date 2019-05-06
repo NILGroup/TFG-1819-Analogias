@@ -1,7 +1,7 @@
 \chapter{Servicios Web para la obtención de conceptos fáciles relacionados}
 \label{cap:serviciosWebImplementados}
 
-Como se ha comentado en anteriores capítulos existen varias aplicaciones web que son redes semánticas y facilitan sinónimos, términos relacionados, metáforas, hiperónimos, etc... de un concepto dado por el usuario. Para este trabajo, algunas de ellas son de gran utilidad ya que de esta forma podemos obtener las palabras fáciles para un concepto más complicado, pero hay que saber exactamente cuál es la que mejor conviene y la que mejores resultados ofrece. Hay que corroborar que los conceptos devueltos son correctos y que disponen de un significado claro y parecido respecto al concepto buscado. Para ello se han implementado dos servicios web, uno utilizando la aplicación de ConceptNet y el otro utilizando WordNet, en la sección 5.1 se explicará el servicio web para ConceptNet con los métodos creados y su explicación y en la sección 5.2 aparece lo mismo pero utilizando WordNet. Por último, una vez implementados dichos servicios, se han realizado una serie de pruebas para comprobar que aplicación era más necesaria para la aplicación final, en la sección 5.3 queda reflejado dichas pruebas, como se han realizado, con que cantidad de palabras se han hecho las pruebas y cuales han sido los resultados obtenidos.
+Como se ha comentado en anteriores capítulos existen varias aplicaciones web que son redes semánticas y facilitan sinónimos, términos relacionados, metáforas, hiperónimos, etc... de un concepto dado por el usuario. Para este trabajo, algunas de ellas son de gran utilidad ya que de esta forma podemos obtener las palabras fáciles para un concepto más complicado, pero hay que saber exactamente cuál es la que mejor conviene y la que mejores resultados ofrece. Hay que corroborar que los conceptos devueltos son correctos y que disponen de un significado claro y parecido respecto al concepto buscado. Para ello se han implementado dos servicios web, uno utilizando la aplicación de ConceptNet y el otro utilizando WordNet, en la sección 5.1 se explicará el diseño de la prueba que se ha realizado para ver que red semántica se utilizará finalmente en el proyecto, en la sección 5.2 se analizarán los resultados cuantitativos de la prueba realizada, en el punto 5.3, se analizarán los resultados obtenidos a nivel cualitativo y en el 5.4 se describirán las conclusiones finales de la prueba. Por otra parte, en los apartados posteriores, se detallarán los distintos servicios web utilizados para este proyecto, en la sección 5.5 se hablará de la base de datos utilizada y de su estructura, en los apartados 5.6, 5.7 y 5.8 se describirán los servicios web que se utilizan para la obtención de sinónimos, hipónimos e hiperónimos fáciles respectivamente. Por último, se hablará en los puntos 5.9 y 5.10 sobre los servicios web utilizados para crear las metáforas y los símiles que finalmente leerá el usuario.
 
 
 %-------------------------------------------------------------------
@@ -206,45 +206,5 @@ En la Figura \ref{fig:peticionSimil} se puede ver el resultado obtenido en forma
 
 
 \figura{Bitmap/Capitulo5/peticionSimil}{width=1.0\textwidth}{fig:peticionSimil}{JSON devuelto al buscar los símiles de la palabra inmueble}
-
-
-%-------------------------------------------------------------------
-\section{Servicio Web Para ConceptNet}
-%-------------------------------------------------------------------
-\label{cap:sec:servicioConceptnet}
-
-El primer Servicio Web implementado obtiene los resultados de ConceptNet, una red semántica que al introducir una palabra devuelve sinónimos y términos relacionados de la misma (dicha red semántica ha sido descrita detalladamente en el apartado \ref{cap:subsec:concepnet}).
-
-\figura{Bitmap/Capitulo5/ejemploConceptnet}{width=1.0\textwidth}{fig:conceptnet}{Interfaz del Servicio Web para ConceptNet}
-
-Este servicio web consta de tres servicios, como se puede ver en la Figura \ref{fig:conceptnet}. El primero, cuando se introduce en el campo de texto una palabra en castellano, se realiza una consulta a la API de ConceptNet y se muestran únicamente los sinónimos obtenidos para dicha palabra. El segundo, realiza otra consulta a la API de ConceptNet pero esta vez en lugar de obtener los sinónimos, devuelve solamente los términos relacionados.
-
-Y por último, el tercer servicio hace uso de los servicios 1 y 2 para obtener tanto los sinónimos como los términos relacionados del concepto introducido. Con los resultados obtenidos, se realiza una nueva búsqueda en la lista de ``las 1000 palabras más utilizadas del castellano según la RAE'' y en caso de que algún resultado se encuentre en dicha lista, se le mostrará al usuario y si no, se mostrará un mensaje informativo indicando que no hay resultados. Aparte, este servicio consta de un selector numérico donde se indica la profundidad de la búsqueda que por defecto, su valor es 1. Esto quiere decir que, por ejemplo, con un nivel de profundidad de nivel 1 se realizará el proceso descrito anteriormente una única vez. Sin embargo, si se introduce una profundidad mayor, por ejemplo 2, se repetirá el proceso dos veces pero esta vez buscando los sinónimos y los términos relacionados de los resultados y no de la palabra introducida en un primer momento. Por ejemplo, si el usuario introduce la palabra Gato, ConceptNet devuelve como sinónimos: feria, madrileño y felino pero ninguna de estas palabras se encuentran en las lista de ``las 1000 palabras más utilizadas del castellano según la RAE'', por lo que el servicio web implementado buscará los sinónimos y términos relacionados de cada una de las palabras, es decir, de feria, madrileño y felino. Si alguno de los resultados se encuentra en la lista, entonces se mostrarán y si no, aparecerá el mensaje informativo indicando que no hay resultados.
-
-Si por otro lado, se añade un nivel de profundidad aún mayor pero la coincidencia de los resultados con la lista se encuentra en un nivel anterior, la búsqueda se detendrá y se indicará al usuario en que nivel ha sido obtenido con éxito dicho resultado.
-Ahora bien, dependiendo de qué tipo de palabra haya coincidido y en que nivel, se generará el resultado utilizando un tipo de comparación distinta. Estas pueden ser:
-\begin{itemize}
-	\item Si la palabra que coincide es un sinónimo de la palabra original  y se ha encontrado en un nivel de profundidad 1, entonces se entiende que existe una similitud alta entre ambos conceptos por lo que el resultado que se mostrará tendrá el siguiente aspecto: ``A \textbf{es} B'' . Por ejemplo, si se ha introducido ``hogar'' y el resultado obtenido con éxito es ``casa'' , se mostrará: ``hogar \textbf{es} casa''.
-	
-	\item En cualquier otro caso, se entiende que la similitud entre los conceptos es más baja por lo que el mensaje que aparecerá será:  ``A \textbf{es como} B''. Por ejemplo, si se ha introducido ``casa'' y se ha encontrado como término relacionado en el nivel 1 de profundidad o en cualquier otro nivel la palabra ``edificio'', la comparación que se mostrará será: ``casa \textbf{es como} edificio''.
-\end{itemize}
-
-
-%-------------------------------------------------------------------
-\section{Servicio Web para WordNet}
-%-------------------------------------------------------------------
-\label{cap:sec:servicioWordnet}
-
-Para la implementación y desarrollo del servicio web, se ha hecho uso de MCR (\textit{Multilingual Central Repository}), el cuál es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués. 
-Lo que se consigue al utilizar MCR es poder acceder a la base de datos de WordNet y obtener los resultados que dicha aplicación.
-Como se puede ver en la Figura \ref{fig:textoWordnet}, el usuario dispone de un campo de texto donde puede introducir únicamente una palabra. Cuando se pulsa el botón de enviar, se capta dicho concepto mediante una petición POST a través de un formulario.
-Al tener la base de datos de WordNet, podemos realizar consultas directamente para obtener los resultados en función de si se buscan sinónimos, hiperónimos o hipónimos, y aunque la base de datos es mysql, al estar utilizando el framework Django este no admite la realización de \textit{querys} si no que utiliza \textit{querysets}.  Las \textit{querysets} son listas de objetos de un modelo determinado y permiten leer los datos de la base de datos, filtrarlos y ordenarlos.
-Por lo que el siguiente paso, es realizar una \textit{queryset} para obtener todas las filas filtrando por el nombre, posteriormente se busca por separado los sinónimos, los hiperónimos y los hipónimos. Para ello, se vuelve a realizar una \textit{queryset} donde el filtro de búsqueda es que tengan el mismo \textit{offset}, el \textit{offset} es un ``identificador'' del \textit{synset} que lo tienen todas las palabras que lo forman.
-Una vez obtenidos los sinónimos, hiperónimos e hipónimos de la base de datos, se realiza una búsqueda en un fichero csv que tiene las mil palabras de la RAE quedándose con las palabras que se encuentren en dicho fichero.
-Los resultados se guardan en un diccionario cuyas claves son``sinónimos'',``hipónimos'' e ``hiperónimos'' y se convierten a formato JSON. Una vez convertidos se pasan al HTML, donde se recorre y se muestra como en la Figura \ref{fig:resultadoWordnet} donde los resultados se han dividido en 6 campos: Sinónimos que coinciden con las palabras que forman las mil palabras de la RAE, Sinónimos que devuelve la aplicación de WordNet, y de la misma manera para los hipónimos y los hiperónimos.
-Por último, el usuario dispone de un botón como el de la Figura \ref{fig:resultadoJSON} para ver los resultados que coinciden con las mil palabras de la RAE en formato JSON.
-\figura{Bitmap/Capitulo5/jsonWordnet}{width=1.2\textwidth}{fig:resultadoJSON}{Resultados en formato JSON para el Servicio Web de WordNet}
-\figura{Bitmap/Capitulo5/campoTextoWordnet}{width=1.0\textwidth}{fig:textoWordnet}{Campo de texto para introducir una palabra}
-\figura{Bitmap/Capitulo5/WordNet}{width=1.0\textwidth}{fig:resultadoWordnet}{Resultados obtenidos para el Servicio Web de WordNet}
 
 
