@@ -2,13 +2,26 @@ import spacy
 import csv
 import requests
 
+csvarchivo = open('palabrasHiperonimos.csv', 'r+',encoding="utf8", errors='ignore')
+entrada = csv.DictReader(csvarchivo, delimiter=";")
+contador = 0
+lista = list()
+for i in entrada:
+    elem = i['HIPERONIMOS'].split(',')
+    contador += len(elem)
+salida = csv.writer(csvarchivo)
+salida.writerow(('TOTAL:', contador))
+print(contador)
+
 #TAGGEADOR DE PALABRAS FACILES
+'''
 nlp = spacy.load('es_core_news_sm')
 frase = 'el coche es rojo'
 frase = frase.split(" ")
 for i in frase:
     doc = nlp(i)
     print(doc[0].text, doc[0].pos_)
+'''
 '''
 csvarchivo = open('10000PALABRAS.csv', encoding="utf8", errors='ignore')
 entrada = csv.reader(csvarchivo, delimiter=";")
