@@ -93,8 +93,9 @@ function getArrayResultado(offset, array){
 
 
 function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra){
-    
-    let elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagen/" +  offset.offset + "'></img><div class='results'><p>";
+
+    let elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='http://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>";
+    //let elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagen/" +  offset.offset + "'></img><div class='results'><p>";
     let definicion = [];
     let tieneDef = false;
     let tieneEjemplo = false;
@@ -112,10 +113,13 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
                 tieneEjemplo = true;
                 ejemplo += "<p><b> Ejemplo:</b><i>" + phrase.example + "</i></p>";
            }
-
-            let enlace = phrase.split(" ").pop();
-            phrase = phrase.replace(enlace, "");
-            elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
+    
+            
+                let enlace = phrase.split(" ").pop();
+                phrase = phrase.replace(enlace, "");
+                elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
+                //elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
+        
         });
 
     }
@@ -136,7 +140,7 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
             phrase.phraseHyponyms.forEach(p =>{              
                 let enlace = p.split(" ").pop();
                 phrase = p.replace(enlace, "");
-                elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
             }); 
         });
 
@@ -158,7 +162,7 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
             phrase.phraseHyperonyms.forEach(p =>{
                 let enlace = p.split(" ").pop();
                 phrase = p.replace(enlace, "");
-                elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
             });     
         });
 
