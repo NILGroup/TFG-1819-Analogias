@@ -109,8 +109,8 @@ def easySynonyms(word, offset):
            img = urllib.request.urlopen('https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/' + word)
            #img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
            if img.info()['Content-Type'] != 'application/json':
-               #dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
-               dataJson[0]["picto"] = 'https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/' + word
+               dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
+               #dataJson[0]["picto"] = 'https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/' + word
            print("DATA JSON")
            print(dataJson)
            '''
@@ -234,8 +234,8 @@ def easyHyponyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            img = urllib.request.urlopen('https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/' + word)
-            #img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
+            #img = urllib.request.urlopen('https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/' + word)
+            img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
             if img.info()['Content-Type'] != 'application/json':
                 #dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
                 dataJson[0]["picto"] = 'https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/' + word
@@ -358,8 +358,8 @@ def easyHyperonyms(word, offset):
             if dataJson[0]["definition"] != "None":
                 dataJson[0]["definition"] = obj["definition"]
             dataJson[0]["example"] = obj["example"]
-            img = urllib.request.urlopen('https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/' + word)
-            #img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
+            #img = urllib.request.urlopen('https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/' + word)
+            img = urllib.request.urlopen('http://127.0.0.1:8000/imagenByPalabra/' + word)
             if img.info()['Content-Type'] != 'application/json':
                 dataJson[0]["picto"] = 'https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/' + word
                 #dataJson[0]["picto"] = 'http://127.0.0.1:8000/imagenByPalabra/' + word
