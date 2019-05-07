@@ -347,7 +347,7 @@ def getSynonymsJsonResults(request, word, level):
 
     easySynonym = result.getEasySynonyms(word, level)
 
-    return HttpResponse(json.dumps(easySynonym, ensure_ascii=False),
+    return HttpResponse(easySynonym,
                  content_type="application/json")
 
 

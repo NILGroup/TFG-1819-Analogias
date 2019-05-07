@@ -91,46 +91,60 @@ function getArrayResultado(offset, array){
     return arrayResultado;
 }
 
-function httpGetAsync(theUrl, callback)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous
-    xmlHttp.send(null);
-    console.log(xmlHttp.responseType)
-}
 
-function getImgContentType(img) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("HEAD",img , true);
-    xhr.onreadystatechange = function() {
+function getImgContentType(img, callback) {
+    let hayImagen = true;
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET",img, false);
+    xhr.onload = function() {
+        console.log("HOLIII");
+
         if (this.readyState == this.DONE) {
             console.log(xhr.getResponseHeader("Content-Type"));   // type
             if (xhr.getResponseHeader("Content-Type") != "application/json") {
-
+                hayImagen = true;
+                console.log("HAY IMAGEN");
+            }else{
+                hayImagen = false;
+                console.log(" NO HAY IMAGEN");
             }
+            
+            callback(hayImagen);
             //console.log(xhr.getResponseHeader("Content-Length")); // size
             // ...
             //return xhr.getResponseHeader("Content-Type");
         }
     };
     xhr.send();
-
+    
 }
 
 function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra){
-    console.log("OFFSET")
-    console.log(offset.offset)
+    //console.log("OFFSET")
+    //console.log(offset.offset)
     //httpGetAsync()
-    getImgContentType("http://127.0.0.1:8000/imagen/" +  offset.offset)
+   /* getImgContentType("http://127.0.0.1:8000/imagen/" +  offset.offset, (hayImg) => {
+            formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra)
+    });*/
+    getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset, (hayImg) => {
+            formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra)
+    });
+    
+    
+    
+}
 
+
+
+function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra){
+    console.log(hayImg)
     let elemento;
-    if (find != "application/json") {
-    //let elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>";
-     elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagen/" +  offset.offset + "'></img><div class='results'><p>";
+    if (hayImg) {
+        //elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagen/" +  offset.offset + "'></img><div class='results'><p>";
+        elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>";
+        //let elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>"; 
+    }else{        
+        elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div>"
     }
     let definicion = [];
     let tieneDef = false;
@@ -154,8 +168,25 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
                 let enlace = phrase.split(" ").pop();
                 phrase = phrase.replace(enlace, "");
                 //elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
-                console.log(enlace)
-                elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
+               
+                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });
+                /*getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });*/
+
+                
         
         });
 
@@ -179,7 +210,22 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
                 phrase = p.replace(enlace, "");
                 //elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                 console.log(enlace)
-                elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
+                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });
+                /*getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });*/
             }); 
         });
 
@@ -203,7 +249,22 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
                 phrase = p.replace(enlace, "");
                 //elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                 console.log(enlace)
-                elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
+                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });
+                /*getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });*/
             });     
         });
 
@@ -223,8 +284,4 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
             
 
     $("#list-results").append(elemento);
-    
 }
-
-
-            
