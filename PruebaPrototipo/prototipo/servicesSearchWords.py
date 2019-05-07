@@ -10,7 +10,9 @@ from django.db import connection
 import urllib
 import base64
 import pandas as pd
-
+import ssl, os
+if(not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl,'_create_unverified_context', None)):
+    ssl._create_default_https_context = ssl._create_unverified_context
 
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
