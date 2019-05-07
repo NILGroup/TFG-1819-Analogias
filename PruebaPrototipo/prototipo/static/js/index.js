@@ -169,7 +169,7 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
                 phrase = phrase.replace(enlace, "");
                 //elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                
-                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra" + enlace, (hayImg)=>{
+                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
                         elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                     }else{
@@ -210,7 +210,7 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
                 phrase = p.replace(enlace, "");
                 //elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                 console.log(enlace)
-                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra" + enlace, (hayImg)=>{
+                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
                         elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                     }else{
@@ -249,7 +249,7 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
                 phrase = p.replace(enlace, "");
                 //elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                 console.log(enlace)
-                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra" + enlace, (hayImg)=>{
+                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
                         elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                     }else{
