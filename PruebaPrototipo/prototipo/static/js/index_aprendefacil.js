@@ -43,9 +43,9 @@ function showCardHandler(event){
     
      $.ajax({
         type:'POST',
-        url: 'version1',
+        url: '/',
         data: {'button-search' : true, 'word' : word},
-        success: mostrarJson,
+        success: mostrarJsonNew,
         error: function(data, jqXHR, textStatus, errorThrown){
             console.log(data);
 
@@ -54,6 +54,10 @@ function showCardHandler(event){
 
 }
 
+
+function mostrarJsonNew(json){
+    console.log(json);
+}
 
 function mostrarJson(json){
     $("#list-results").html("");

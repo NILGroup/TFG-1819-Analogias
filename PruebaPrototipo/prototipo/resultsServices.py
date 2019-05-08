@@ -315,6 +315,27 @@ def getSimil(word, level):
     return dataJson
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #    //-----------------------------------------------------------------------------------------------//    #
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####

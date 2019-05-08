@@ -20,89 +20,38 @@ import shutil
 
 
 
+@csrf_exempt
 def index(request):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if os.path.exists('prototipo/pictogramas'):
+        shutil.rmtree(BASE_DIR + '/prototipo/pictogramas')
     form = PostFormWordSearch()
 
     if request.method == "POST":
         form = PostFormWordSearch(request.POST)
-
         if 'button-search' in request.POST:
-           # words = request.POST.get('word')
-            #print(words)
-            word = form['word'].value()
-            #print(word)
-            #results = services.searchAllHyponyms(word)
-            allOffsets = services.allOffsets(word)
-            #resultsHyperonyms = list()
-            #resultsSynonyms = list()
-            #resultsHyponyms = list()
+            word = request.POST.get('word')
+            #word = form['word'].value()
+            if word.isupper():
+                word = word.lower()
 
-            #resultPictos = list()
-            jsonImage = pictos.getSynsetsAPI(word)
-            fichas = list()
-
-            for offset in allOffsets:
-                ficha = ({'picto': "", 'data': []})
-                #ficha.append({'picto': "", 'data': []})
-                #resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
-                resultsSynonyms = services.customSynonyms(word, offset['offset'], jsonImage)
-                resultsHyponyms = services.customHyponyms(word, offset['offset'], jsonImage)
-                resultsHyperonyms = services.customHyperonyms(word, offset['offset'], jsonImage)
-
-                if len(resultsSynonyms) > 0:
-                    elem = ({'tipo': "", 'datos': ""})
-                    #elem.append({'tipo': "", 'datos': ""})
-                    elem['tipo'] = 'synonyms'
-                    elem['datos'] = resultsSynonyms[0]
-                    ficha['data'].append(elem)
-                if len(resultsHyponyms) > 0:
-                    elem = ({'tipo': "", 'datos': ""})
-                    #elem.append({'tipo': "", 'datos': ""})
-                    elem['tipo'] = 'hyponyms'
-                    elem['datos'] = resultsHyponyms
-                    #print(resultsHyponyms)
-                    ficha['data'].append(elem)
-                if len(resultsHyperonyms) > 0:
-                    elem = ({'tipo': "", 'datos': ""})
-                   # elem.append({'tipo': "", 'datos': ""})
-                    elem['tipo'] = 'hyperonyms'
-                    elem['datos'] = resultsHyperonyms
-                    ficha['data'].append(elem)
-                if len(resultsSynonyms) > 0 or len(resultsHyponyms) > 0 or len(resultsHyperonyms) > 0:
-                    url = pictos.getImage(offset['offset'], jsonImage)
-                    if url != "None":
-                        ficha['picto'] = url
-
-                    fichas.append(ficha)
-                '''
-                for synsets in resultPictos:
-                    print(offset['offset'])
-                    print(synsets["synsets"])
-                    #url = pictos.getImage(offset['offset'], synsets)
-                    #print(url)
-                    '''
-
-            #print("HYPERONYMS")
-            #print(resultsHyperonyms)
-            #print("HYPONYMS")
-            #print(resultsHyponyms)
-            #print("SYNONYMS")
-            #print(resultsSynonyms)
-            #print(fichas)
-            '''
-            if len(resultsHyperonyms) > 0:
-                for elem in resultsHyperonyms:
-                    #print(elem['offsetFather'])
-                    url = pictos.getImage(str(elem['offsetFather']), jsonPictos)
-                    if url != "None":
-                        elem['picto'] = url
-            '''
-
-            return render(request, 'prototipo/index.html', {'form': form, 'word': word, 'counter' :functools.partial(next, itertools.count(1)), 'counterId' :functools.partial(next, itertools.count(1)),'fichas': fichas})
+            metaphor = result.getMetaphor(word, 2)
+            simil = result.getSimil(word, 2)
+            print("ENTRO A INDEXXXXXXXXXXXXXX")
+            return JsonResponse({'word' : word, 'metaphor' : metaphor, 'simil' : simil})
 
 
 
-    return render(request, 'prototipo/index.html', {'form': form, 'word': "", 'results': ""})
+    return render(request, 'prototipo/aprende_facil.html', {'form': form, 'word': "", 'results': ""})
+
+
+
+
+
+
+
+
+
 
 
 @csrf_exempt
@@ -336,10 +285,76 @@ def getImagenPalabra(request, palabra):
     notFound = ['pictograma no encontrado']
     return JsonResponse(notFound, safe=False)
 
+'''
+def index(request):
+    form = PostFormWordSearch()
 
+    if request.method == "POST":
+        form = PostFormWordSearch(request.POST)
 
+        if 'button-search' in request.POST:
+            # words = request.POST.get('word')
+            # print(words)
+            word = form['word'].value()
+            # print(word)
+            # results = services.searchAllHyponyms(word)
+            allOffsets = services.allOffsets(word)
+            # resultsHyperonyms = list()
+            # resultsSynonyms = list()
+            # resultsHyponyms = list()
 
-##### -------   SERVICIOS PARA PETICIONES GET  -------######
+            # resultPictos = list()
+            jsonImage = pictos.getSynsetsAPI(word)
+            fichas = list()
+
+            for offset in allOffsets:
+                ficha = ({'picto': "", 'data': []})
+                # ficha.append({'picto': "", 'data': []})
+                # resultsSynonyms += services.makerSynonymsPhrase(word, offset['offset'])
+                resultsSynonyms = services.customSynonyms(word, offset['offset'], jsonImage)
+                resultsHyponyms = services.customHyponyms(word, offset['offset'], jsonImage)
+                resultsHyperonyms = services.customHyperonyms(word, offset['offset'], jsonImage)
+
+                if len(resultsSynonyms) > 0:
+                    elem = ({'tipo': "", 'datos': ""})
+                    # elem.append({'tipo': "", 'datos': ""})
+                    elem['tipo'] = 'synonyms'
+                    elem['datos'] = resultsSynonyms[0]
+                    ficha['data'].append(elem)
+                if len(resultsHyponyms) > 0:
+                    elem = ({'tipo': "", 'datos': ""})
+                    # elem.append({'tipo': "", 'datos': ""})
+                    elem['tipo'] = 'hyponyms'
+                    elem['datos'] = resultsHyponyms
+                    # print(resultsHyponyms)
+                    ficha['data'].append(elem)
+                if len(resultsHyperonyms) > 0:
+                    elem = ({'tipo': "", 'datos': ""})
+                    # elem.append({'tipo': "", 'datos': ""})
+                    elem['tipo'] = 'hyperonyms'
+                    elem['datos'] = resultsHyperonyms
+                    ficha['data'].append(elem)
+                if len(resultsSynonyms) > 0 or len(resultsHyponyms) > 0 or len(resultsHyperonyms) > 0:
+                    url = pictos.getImage(offset['offset'], jsonImage)
+                    if url != "None":
+                        ficha['picto'] = url
+
+                    fichas.append(ficha)
+
+            if len(resultsHyperonyms) > 0:
+                for elem in resultsHyperonyms:
+                    # print(elem['offsetFather'])
+                    url = pictos.getImage(str(elem['offsetFather']), jsonPictos)
+                    if url != "None":
+                        elem['picto'] = url
+
+            return render(request, 'prototipo/index.html',
+                          {'form': form, 'word': word, 'counter': functools.partial(next, itertools.count(1)),
+                           'counterId': functools.partial(next, itertools.count(1)), 'fichas': fichas})
+
+    return render(request, 'prototipo/index.html', {'form': form, 'word': "", 'results': ""})
+'''
+##### -------   SERVICIOS PARA PETICIONES GET MEDIANTE URL -------######
 
 
 
@@ -349,7 +364,6 @@ def getSynonymsJsonResults(request, word, level):
 
     return HttpResponse(easySynonym,
                  content_type="application/json")
-
 
 
 def getHyponymsJsonResults(request, word, level):
@@ -364,6 +378,7 @@ def getHyperonymsJsonResults(request, word, level):
 
     return HttpResponse(json.dumps(easyHyperonym, ensure_ascii=False),
                         content_type="application/json")
+
 
 def getMetaphor(request, word, level):
 
