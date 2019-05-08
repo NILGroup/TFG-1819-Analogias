@@ -31,38 +31,54 @@
           </nav>
 
 
-        <div class="container">
-
+        <div class="container"> 
+            <div class=" label-panel">
+             <p>Introduzca una palabra y seleccione un nivel de búsqueda: </p> 
+            </div>        
               <div class="heading center-content">
-
-                    <label><b>Introduzca una palabra: </b></label>
-                    <!--<input type="text"  class="pl-3  ml-3 mr-3 input-word">-->
-
+                   
                       <form method="POST" class="panel-search-word ml-2 " id="formulario">
                           {% csrf_token %}
                           {{ form.as_p }}
 
+                            
                             <button id="button-send" type="submit" class="learn-more  mb-4 ml-2" name="button-search">
                                 <div class="circle "><i class="material-icons icon arrow pb-4">search</i>
                                 <!--<span class="icon arrow"></span>-->
                                 </div>
                                 <p class="button-text pt-1">Buscar</p>
-                            </button>
+                            </button>        
                       </form>
-
+                      
                 </div>
+                <div class="panel-select-level">
+                <select class="form-control" id="level">
+                    <option value="1">Nivel fácil</option>
+                    <option value="2">Nivel medio</option>
+                    <option value="3">Nivel avanzado</option>                                
+                  </select>
+                </div>
+               
+               
 
 
                 <hr>
 
                <div class="panel-results mt-5">
-
-                 <!-- <h3>Resultados para la palabra <p class="ml-2"> {{ word }}</p></h3>
+                  <div class='loader'>
+                      <div class='circle'></div>
+                      <div class='circle'></div>
+                      <div class='circle'></div>
+                      <div class='circle'></div>
+                      <div class='circle'></div>
+                    </div>
+                  <div class="title"> </div>
+                 
 
                   <ul id="list-results">
 
 
-                      {% for offset in offsetInicial %}
+                     <!-- {% for offset in offsetInicial %}
 
 
                           <div id ="card{{ counterId }}" class="panel-words mt-4 pt-3 pb-3 col-8 ">

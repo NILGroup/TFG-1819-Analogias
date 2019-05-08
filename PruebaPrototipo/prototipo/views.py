@@ -35,11 +35,14 @@ def index(request):
             if word.isupper():
                 word = word.lower()
 
+            level = request.POST.get('level')
+            print("NIVEL")
+            print(level)
+
             allOffset = result.allOffsets(word)
-            metaphor = result.getMetaphor(word, 2)
-            simil = result.getSimil(word, 2)
-            print("METAFORAS")
-            print(metaphor)
+            metaphor = result.getMetaphor(word, level)
+            simil = result.getSimil(word, level)
+
 
             return JsonResponse({'word' : word, 'allOffsets' : allOffset, 'metaphor' : metaphor, 'simil' : simil})
 

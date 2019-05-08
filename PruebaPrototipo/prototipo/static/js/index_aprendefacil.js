@@ -3,7 +3,8 @@ let clasePanelButtons = "panel-buttons-display-none";
 
 
 $(function() {
-
+    $(".loader").hide();
+    $("#id_word").attr("placeholder", "Palabra");
     $("#button-accept").on("click", selectOptionHandler);
     $("#formulario").on("submit", showCardHandler);
 
@@ -37,14 +38,16 @@ function showCardHandler(event){
 
     event.preventDefault();
     let word = $("#formulario").find("p").find("input").val();
-    let elemento = "<h3> Resultados para la palabra" + "<p class=' word ml-2'>" + word + "</p></h3><ul id='list-results'>";
-    console.log(word);
-    $(".panel-results").append(elemento); 
+    let level = $("#level").val();
+   
     
+     $(".loader").show();
+     $("#list-results").html("");
+     $(".title").html("");
      $.ajax({
         type:'POST',
         url: '/',
-        data: {'button-search' : true, 'word' : word},
+        data: {'button-search' : true, 'word' : word, 'level' : level},
         success: mostrarJson,
         error: function(data, jqXHR, textStatus, errorThrown){
             console.log(data);
@@ -57,39 +60,53 @@ function showCardHandler(event){
 
 
 function mostrarJson(json){
+    $(".loader").hide();
+
     $("#list-results").html("");
     let contador = 1;
     console.log(json);
     
+    if(json.allOffsets.length == 0){
+        $(".title").html("");
+        let elemento = "<h3> No hay resultados para la palabra" + "<p class=' word ml-2'>" + json.word + "</p></h3>";
+        console.log(elemento);
+        $(".title").append(elemento); 
+    }else{
 
-
-
-    json.allOffsets.forEach(offset => {
-        let arrayMetaforas = [];
-        let arraySimiles = [];
-        let arrayHiponimos = [];
-        let arrayHiperonimos = [];
-     
-        json.metaphor.find(elem =>{             
-            if(elem.type == "SYNONYM" && elem.offset == offset.offset || elem.type == "HYPERONYM" && elem.offsetFather == offset.offset ){
-                arrayMetaforas.push(elem);
-            }
-        });
-        
-        json.simil.find(elem =>{
-            if (elem.offsetFather == offset.offset){
-                arraySimiles.push(elem);
-            }
-        });
-       
-       
-
-        if(arrayMetaforas.length > 0 || arraySimiles.length > 0){
-            obtenerImg(offset, arrayMetaforas, arraySimiles, contador, json.word);
+        json.allOffsets.forEach(offset => {
+            let arrayMetaforas = [];
+            let arraySimiles = [];
             
-            ++contador;
-        }
-    });
+            if(json.metaphor.length > 0){
+                json.metaphor.find(elem =>{             
+                    if(elem.type == "SYNONYM" && elem.offset == offset.offset || elem.type == "HYPERONYM" && elem.offsetFather == offset.offset ){
+                        arrayMetaforas.push(elem);
+                    }
+                });
+            }      
+            if(json.simil.length > 0){ 
+                json.simil.find(elem =>{
+                    if (elem.offsetFather == offset.offset){
+                        arraySimiles.push(elem);
+                    }
+                });
+            }
+    
+            if(arrayMetaforas.length > 0 || arraySimiles.length > 0){
+                $(".title").html("");
+                let elemento = "<h3> Resultados para la palabra" + "<p class=' word ml-2'>" + json.word + "</p></h3>";
+                console.log(elemento);
+                $(".title").append(elemento); 
+                obtenerImg(offset, arrayMetaforas, arraySimiles, contador, json.word);
+                
+                ++contador;
+            }
+            
+        });
+    }
+
+
+    
 }
 
 

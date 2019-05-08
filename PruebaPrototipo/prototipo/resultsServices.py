@@ -161,8 +161,7 @@ def getEasyHyperonyms(word, level):
 
 
 def getMetaphor(word, level):
-    print("NIVEL")
-    print(level)
+
     dataJson = []
     repeatWords = set()
     ##  Devuelve todos los offsets de los synsets de dicha palabra
@@ -186,7 +185,7 @@ def getMetaphor(word, level):
                     if level == 1:
 
                         cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s', [synonym['word']])
-                    elif level == 2:
+                    elif level == "2":
 
                         cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s', [synonym['word']])
                     else:
@@ -210,7 +209,7 @@ def getMetaphor(word, level):
 
             index += 1
 
-        print(dataJson)
+        #print(dataJson)
 
 
     for offset in listOffsetToTheSynset:
@@ -227,10 +226,10 @@ def getMetaphor(word, level):
                     if hyperonym['word'] != dataJson[0]['word']:
 
                         with connection.cursor() as cursor:
-                            if level == 1:
+                            if level == "1":
                                 cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
                                                [hyperonym['word']])
-                            elif level == 2:
+                            elif level == "2":
                                 cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
                                                [hyperonym['word']])
                             else:
@@ -290,13 +289,16 @@ def getSimil(word, level):
                 for hyponym in listaWordsHyponyms:
                     if hyponym['word'] != dataJson[0]["word"]:
                         with connection.cursor() as cursor:
-                            if level == 1:
+                            if level == "1":
+                                print("ENTRO NIVEL 1")
                                 cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
                                                [hyponym['word']])
-                            elif level == 2:
+                            elif level == "2":
+                                print("ENTRO NIVEL 2")
                                 cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
                                                [hyponym['word']])
                             else:
+                                print("ENTRO NIVEL 3")
                                 cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
                                                [hyponym['word']])
 
@@ -324,6 +326,10 @@ def getSimil(word, level):
     if len(dataJson) == 1:
         dataJson.pop()
     return dataJson
+
+
+
+
 
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
