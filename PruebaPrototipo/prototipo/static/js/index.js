@@ -22,6 +22,7 @@ function selectOptionHandler(){
 
 
     if($("#defyejemplo").is(':checked')){
+        
         clasePanelButtons = "panel-buttons-display-block";
         $(".panel-buttons").removeClass("panel-buttons-display-none");
         $(".panel-buttons").addClass("panel-buttons-display-block");
@@ -36,7 +37,8 @@ function showCardHandler(event){
 
     event.preventDefault();
     let word = $("#formulario").find("p").find("input").val();
-    let elemento = "<h3> Resultados para la palabra" + "<p class='ml-2'>" + word + "</p></h3><ul id='list-results'>";
+    let elemento = "<h3> Resultados para la palabra" + "<p class=' word ml-2'>" + word + "</p></h3><ul id='list-results'>";
+    console.log(word);
     $(".panel-results").append(elemento); 
     
      $.ajax({
@@ -56,7 +58,7 @@ function showCardHandler(event){
 function mostrarJson(json){
     $("#list-results").html("");
     let contador = 1;
-    console.log(json);
+    //console.log(json);
     
     json.allOffsets.forEach(offset => {
         let arrayHiponimos = [];
@@ -96,17 +98,16 @@ function getImgContentType(img, callback) {
     let hayImagen = true;
     let xhr = new XMLHttpRequest();
     xhr.open("GET",img, false);
-    xhr.onload = function() {
-        console.log("HOLIII");
+    xhr.onload = function() {       
 
         if (this.readyState == this.DONE) {
-            console.log(xhr.getResponseHeader("Content-Type"));   // type
+           // console.log(xhr.getResponseHeader("Content-Type"));   // type
             if (xhr.getResponseHeader("Content-Type") != "application/json") {
                 hayImagen = true;
-                console.log("HAY IMAGEN");
+                
             }else{
                 hayImagen = false;
-                console.log(" NO HAY IMAGEN");
+                 
             }
             
             callback(hayImagen);
@@ -120,15 +121,17 @@ function getImgContentType(img, callback) {
 }
 
 function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra){
-    //console.log("OFFSET")
-    //console.log(offset.offset)
-    //httpGetAsync()
-   /* getImgContentType("http://127.0.0.1:8000/imagen/" +  offset.offset, (hayImg) => {
-            formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra)
-    });*/
-    getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset, (hayImg) => {
+   
+    //--> LOCAL
+   getImgContentType("http://127.0.0.1:8000/imagen/" +  offset.offset, (hayImg) => {
             formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra)
     });
+
+    //--> HOLSTEIN
+    /*
+    getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset, (hayImg) => {
+            formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra)
+    });*/
     
     
     
@@ -137,12 +140,15 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
 
 
 function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra){
-    console.log(hayImg)
+    
     let elemento;
     if (hayImg) {
-        //elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagen/" +  offset.offset + "'></img><div class='results'><p>";
-        elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>";
-        //let elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>"; 
+        //--> LOCAL
+        elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto' src='http://127.0.0.1:8000/imagen/" +  offset.offset + "'></img><div class='results'><p>";
+        
+        //--> HOLSTEIN
+        //elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>";
+        
     }else{        
         elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><div class='results'><p>"
     }
@@ -167,26 +173,25 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
             
                 let enlace = phrase.split(" ").pop();
                 phrase = phrase.replace(enlace, "");
-                //elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
-               
-                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
+                //--> LOCAL
+                getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li><div class='panel-word'>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div></li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });
+
+                  //--> HOLSTEIN
+                 /* getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
                         elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                     }else{
                         elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
                     }
                    
-                });
-                /*getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
-                    if(hayImg){
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
-                    }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
-                    }
-                   
                 });*/
-
-                
         
         });
 
@@ -208,19 +213,21 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
             phrase.phraseHyponyms.forEach(p =>{              
                 let enlace = p.split(" ").pop();
                 phrase = p.replace(enlace, "");
-                //elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
-                console.log(enlace)
-                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
+                
+                
+              //--> LOCAL
+                getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
+                        elemento += "<li><div class='panel-word'>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div</li><br>";
                     }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
                     }
                    
                 });
-                /*getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
+                // --> HOLSTEIN
+                /*getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                     }else{
                         elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
                     }
@@ -247,19 +254,20 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
             phrase.phraseHyperonyms.forEach(p =>{
                 let enlace = p.split(" ").pop();
                 phrase = p.replace(enlace, "");
-                //elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
-                console.log(enlace)
-                getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
+                
+                //--> LOCAL
+                getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
+                        elemento += "<li><div class='panel-word'>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div></li><br>";
                     }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
                     }
                    
                 });
-                /*getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
+                //--> HOLSTEIN
+                /*getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img></li><br>";
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
                     }else{
                         elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
                     }
