@@ -2,6 +2,19 @@ import spacy
 import csv
 import requests
 
+
+csvarchivo = open('palabrasHiperonimos.csv', 'r+',encoding="utf8", errors='ignore')
+entrada = csv.DictReader(csvarchivo, delimiter=";")
+contador = 0
+for i in entrada:
+    contador += int(i['VALIDOS'])
+    print(contador)
+salida = csv.writer(csvarchivo)
+salida.writerow(('VALIDOS:', contador))
+print(contador)
+
+#CUENTA LAS PALABRAS GENERADAS TOTALES
+'''
 csvarchivo = open('palabrasHiperonimos.csv', 'r+',encoding="utf8", errors='ignore')
 entrada = csv.DictReader(csvarchivo, delimiter=";")
 contador = 0
@@ -12,7 +25,7 @@ for i in entrada:
 salida = csv.writer(csvarchivo)
 salida.writerow(('TOTAL:', contador))
 print(contador)
-
+'''
 #TAGGEADOR DE PALABRAS FACILES
 '''
 nlp = spacy.load('es_core_news_sm')
