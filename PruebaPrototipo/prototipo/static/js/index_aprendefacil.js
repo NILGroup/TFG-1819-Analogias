@@ -45,7 +45,7 @@ function showCardHandler(event){
         type:'POST',
         url: '/',
         data: {'button-search' : true, 'word' : word},
-        success: mostrarJsonNew,
+        success: mostrarJson,
         error: function(data, jqXHR, textStatus, errorThrown){
             console.log(data);
 
@@ -55,46 +55,41 @@ function showCardHandler(event){
 }
 
 
-function mostrarJsonNew(json){
-    console.log(json);
-}
 
 function mostrarJson(json){
     $("#list-results").html("");
     let contador = 1;
     console.log(json);
     
+
+
+
     json.allOffsets.forEach(offset => {
+        let arrayMetaforas = [];
+        let arraySimiles = [];
         let arrayHiponimos = [];
         let arrayHiperonimos = [];
-        
-        let resultadoSinonimos = json.resultsSynonyms.find(resultSynonym =>{
-            return resultSynonym.offset == offset.offset;
+     
+        json.metaphor.find(elem =>{             
+            if(elem.type == "SYNONYM" && elem.offset == offset.offset || elem.type == "HYPERONYM" && elem.offsetFather == offset.offset ){
+                arrayMetaforas.push(elem);
+            }
         });
-
-        arrayHiponimos = getArrayResultado(offset, json.resultsHyponyms);
-        arrayHiperonimos = getArrayResultado(offset, json.resultsHyperonyms);
+        
+        json.simil.find(elem =>{
+            if (elem.offsetFather == offset.offset){
+                arraySimiles.push(elem);
+            }
+        });
+       
        
 
-        if(resultadoSinonimos != undefined || arrayHiponimos.length > 0 || arrayHiperonimos.length > 0){
-            formarFicha(offset, resultadoSinonimos, arrayHiponimos, arrayHiperonimos, contador, json.word);
+        if(arrayMetaforas.length > 0 || arraySimiles.length > 0){
+            obtenerImg(offset, arrayMetaforas, arraySimiles, contador, json.word);
             
             ++contador;
         }
     });
-}
-
-
-
-
-function getArrayResultado(offset, array){
-   let arrayResultado = [];
-    array.forEach(element =>{            
-        if (element.offsetFather == offset.offset){
-            arrayResultado.push(element);
-        };
-    });
-    return arrayResultado;
 }
 
 
@@ -124,17 +119,17 @@ function getImgContentType(img, callback) {
     
 }
 
-function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra){
+function obtenerImg(offset, resultadoMetaforas, resultadoSimiles, numTarjeta, palabra){
    
     //--> LOCAL
    getImgContentType("http://127.0.0.1:8000/imagen/" +  offset.offset, (hayImg) => {
-            formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra)
+            formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTarjeta, palabra);
     });
 
     //--> HOLSTEIN
     /*
     getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset, (hayImg) => {
-            formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra)
+            formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTarjeta, palabra);
     });*/
     
     
@@ -143,7 +138,7 @@ function formarFicha(offset, resultadoSinonimos, resultadoHiponimos, resultadoHi
 
 
 
-function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, resultadoHiperonimos,  numTarjeta, palabra){
+function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTarjeta, palabra){
     
     let elemento;
     if (hayImg) {
@@ -160,7 +155,73 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
     let tieneDef = false;
     let tieneEjemplo = false;
     let ejemplo = [];
-    if(resultadoSinonimos != undefined){
+
+
+    if(resultadoMetaforas.length > 0){
+        resultadoMetaforas.forEach(result =>{
+            result.metaphor.forEach(metaphor=> {
+                let enlace = metaphor.split(" ").pop();
+                phrase = metaphor.replace(enlace, "");
+                
+                
+              //--> LOCAL
+                getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li><div class='panel-word'>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div</li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });
+                // --> HOLSTEIN
+                /*getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });*/
+            });
+           
+        });
+    } 
+
+    if(resultadoSimiles.length > 0){
+        console.log("RESULTADO SIMILES");
+        console.log(resultadoSimiles);
+        resultadoSimiles.forEach(similResult =>{
+            similResult.simil.forEach(simil =>{
+               
+            let enlace = simil.split(" ").pop();
+                phrase = simil.replace(enlace, "");
+                
+                
+              //--> LOCAL
+                getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li><div class='panel-word'>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div</li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });
+                // --> HOLSTEIN
+                /*getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
+                    if(hayImg){
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
+                    }else{
+                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
+                    }
+                   
+                });*/
+            });
+            
+           
+        });
+        
+    }
+  /*  if(resultadoSinonimos != undefined){
 
         resultadoSinonimos.phraseSynonyms.forEach(phrase =>{
 
@@ -185,7 +246,7 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
                         elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
                     }
                    
-                });
+                });*/
 
                   //--> HOLSTEIN
                  /* getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
@@ -197,11 +258,11 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
                    
                 });*/
         
-        });
+       /* });
 
-    }
+    }*/
     
-    if(resultadoHiponimos != undefined){
+   /* if(resultadoHiponimos != undefined){
        
         resultadoHiponimos.forEach(phrase =>{
             if(phrase.definition.length != 0){
@@ -227,7 +288,7 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
                         elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
                     }
                    
-                });
+                });*/
                 // --> HOLSTEIN
                 /*getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
@@ -237,11 +298,11 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
                     }
                    
                 });*/
-            }); 
+           /* }); 
         });
 
-    }
-   
+    }*/
+   /*
     if(resultadoHiperonimos != undefined){         
         resultadoHiperonimos.forEach(phrase =>{     
 
@@ -267,7 +328,7 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
                         elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
                     }
                    
-                });
+                });*/
                 //--> HOLSTEIN
                 /*getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
@@ -277,20 +338,20 @@ function formarFicha2(hayImg, offset, resultadoSinonimos, resultadoHiponimos, re
                     }
                    
                 });*/
-            });     
+            /*});     
         });
 
        
-    }
+    }*/
 
 
-    if(tieneDef || tieneEjemplo){
+    /*if(tieneDef || tieneEjemplo){
         elemento += "<div id='panel-button' class='" + clasePanelButtons + "'>" +
         "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
            "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
 
         idsFichasConDefinicionYejemplo.push(numTarjeta);
-    }
+    }*/
 
         
             

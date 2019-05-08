@@ -35,10 +35,13 @@ def index(request):
             if word.isupper():
                 word = word.lower()
 
+            allOffset = result.allOffsets(word)
             metaphor = result.getMetaphor(word, 2)
             simil = result.getSimil(word, 2)
-            print("ENTRO A INDEXXXXXXXXXXXXXX")
-            return JsonResponse({'word' : word, 'metaphor' : metaphor, 'simil' : simil})
+            print("METAFORAS")
+            print(metaphor)
+
+            return JsonResponse({'word' : word, 'allOffsets' : allOffset, 'metaphor' : metaphor, 'simil' : simil})
 
 
 

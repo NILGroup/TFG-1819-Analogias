@@ -161,6 +161,8 @@ def getEasyHyperonyms(word, level):
 
 
 def getMetaphor(word, level):
+    print("NIVEL")
+    print(level)
     dataJson = []
     repeatWords = set()
     ##  Devuelve todos los offsets de los synsets de dicha palabra
@@ -178,13 +180,17 @@ def getMetaphor(word, level):
         ##   Por cada sinónimo, busca si se encuentra en la base de datos de las palabras fáciles
         listEasySynonymsWords = list()
         for synonym in listaSynonyms:
+
             if synonym['word'] != dataJson[0]['word']:
                 with connection.cursor() as cursor:
-                    if level == "1":
+                    if level == 1:
+
                         cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s', [synonym['word']])
-                    elif level == "2":
+                    elif level == 2:
+
                         cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s', [synonym['word']])
                     else:
+
                         cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s', [synonym['word']])
 
                     result = cursor.fetchone()[0]
@@ -221,10 +227,10 @@ def getMetaphor(word, level):
                     if hyperonym['word'] != dataJson[0]['word']:
 
                         with connection.cursor() as cursor:
-                            if level == "1":
+                            if level == 1:
                                 cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
                                                [hyperonym['word']])
-                            elif level == "2":
+                            elif level == 2:
                                 cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
                                                [hyperonym['word']])
                             else:
@@ -253,6 +259,8 @@ def getMetaphor(word, level):
             index += 1
 
 
+    if len(dataJson) == 1:
+        dataJson.pop()
 
     return dataJson
 
@@ -282,10 +290,10 @@ def getSimil(word, level):
                 for hyponym in listaWordsHyponyms:
                     if hyponym['word'] != dataJson[0]["word"]:
                         with connection.cursor() as cursor:
-                            if level == "1":
+                            if level == 1:
                                 cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
                                                [hyponym['word']])
-                            elif level == "2":
+                            elif level == 2:
                                 cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
                                                [hyponym['word']])
                             else:
@@ -312,10 +320,28 @@ def getSimil(word, level):
                 index += 1
 
 
+
+    if len(dataJson) == 1:
+        dataJson.pop()
     return dataJson
 
 
+####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
 
+def allOffsets(word):
+    dataJson = []
+    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+
+    index = 0
+
+    for offset in listOffsetToTheSynset:
+        dataJson.insert(index, {'offset': ""})
+        dataJson[index]["offset"] = offset['offset']
+        index += 1
+    # print("DATA ALL OFFSETS")
+    # print(repr(dataJson))
+    # print(json.dumps(dataJson ,ensure_ascii=False))
+    return dataJson
 
 
 
