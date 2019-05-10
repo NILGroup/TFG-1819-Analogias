@@ -345,6 +345,9 @@ def getDefAndExample(word, level):
     dataJson.insert(2, {"simil" : []})
     dataJson[0]["word"] = word
     i = 0
+    i_simil = 0
+
+    # SINONIMOS #
     for offset in listOffsetToTheSynset:
         ##   Devuelve todos los sinónimos de esa palabra
         listaSynonyms = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('word').distinct()
@@ -374,24 +377,27 @@ def getDefAndExample(word, level):
                             listEasySynonymsWords.append(synonym['word'])
 
 
-        phraseSynonym = list()
         if len(listEasySynonymsWords) > 0:
-            dataJson[1]['metaphor'].append(({'type': "SYNONYM", 'offset': "", 'definition': "", 'example': ""}))
-            dataJson[1]['metaphor'][i]['offset'] = offset['offset']
+            if definition[0]["gloss"] != "None" or len(example) > 0:
+                dataJson[1]['metaphor'].append(({'type': "SYNONYM", 'offset': "", 'definition': "", 'example': ""}))
+                dataJson[1]['metaphor'][i]['offset'] = offset['offset']
 
-            print(example)
-            if definition[0]["gloss"] != "None":
-                dataJson[1]['metaphor'][i]["definition"] = definition[0]['gloss']
+                if definition[0]["gloss"] != "None":
+                    dataJson[1]['metaphor'][i]["definition"] = definition[0]['gloss']
+                    #print("DEF SINONIMOS")
+                    #print(definition[0]["gloss"])
+                    #print(definition)
+                if len(example) > 0:
+                    #print("EXAMPLE SINONIMOS")
+                    #print(example)
+                    dataJson[1]['metaphor'][i]["example"] = example[0]['examples']
+                i += 1
+                index += 1
 
-            if len(example) > 0:
-                dataJson[1]['metaphor'][i]["example"] = example[0]['examples']
-            i += 1
-            index += 1
 
 
-        #print(dataJson)
 
-
+    # HYPERONIMOS #
     for offset in listOffsetToTheSynset:
 
         offsetMatchTargetSynset = (WeiSpa30Relation.objects.filter(targetsynset=offset['offset'], relation=12)).values(
@@ -402,8 +408,8 @@ def getDefAndExample(word, level):
             for sourceSynset in offsetMatchTargetSynset:
                 listaWordsHyperonyms = WeiSpa30Variant.objects.filter(offset=sourceSynset['sourcesynset']).values(
                     'word').distinct()
-                definition = WeiSpa30Synset.objects.filter(offset=sourceSynset["sourcesynset"]).values('gloss')
-                example = WeiSpa30Examples.objects.filter(offset=sourceSynset["sourcesynset"]).values('examples')
+                definitionHyper = WeiSpa30Synset.objects.filter(offset=sourceSynset["sourcesynset"]).values('gloss')
+                exampleHyper = WeiSpa30Examples.objects.filter(offset=sourceSynset["sourcesynset"]).values('examples')
 
                 for hyperonym in listaWordsHyperonyms:
                     if hyperonym['word'] != dataJson[0]['word']:
@@ -426,26 +432,89 @@ def getDefAndExample(word, level):
                                     listEasyHyperonymsWords.append(hyperonym['word'])
 
 
-        phraseHyperonym = list()
-        if len(listEasyHyperonymsWords) > 0:
-            if definition[0]["gloss"] != "None" or len(example) > 0:
-                dataJson[1]['metaphor'].append(({'type': "HYPERONYM", 'offsetFather': "", 'offset': "", 'definition': "", 'example': ""}))
-                print(dataJson)
-                dataJson[1]['metaphor'][i]['offsetFather'] = offset['offset']
-                dataJson[1]['metaphor'][i]['offset'] = sourceSynset["sourcesynset"]
+            phraseHyperonym = list()
+            if len(listEasyHyperonymsWords) > 0:
+                #print(definitionHyper)
+                #print(exampleHyper)
+                if definitionHyper[0]["gloss"] != "None" or len(exampleHyper) > 0:
 
-                print(example)
-                if definition[0]["gloss"] != "None":
-                    dataJson[1]['metaphor'][i]["definition"] = definition[0]['gloss']
+                    dataJson[1]['metaphor'].append(({'type': "HYPERONYM", 'offsetFather': "", 'offset': "", 'definition': "", 'example': ""}))
+                    dataJson[1]['metaphor'][i]['offsetFather'] = offset['offset']
+                    dataJson[1]['metaphor'][i]['offset'] = sourceSynset["sourcesynset"]
 
-                if len(example) > 0:
-                    dataJson[1]['metaphor'][i]["example"] = example[0]['examples']
-                i += 1
-                index += 1
+                    if definitionHyper[0]['gloss'] != 'None':
+                        #print("DEF HIPERONIMOS")
+                        #print(definitionHyper)
+                        dataJson[1]['metaphor'][i]["definition"] = definition[0]['gloss']
+
+                    if len(exampleHyper) > 0:
+                        #print("EXAMPLE HIPERONIMOS")
+                        #print(exampleHyper)
+                        dataJson[1]['metaphor'][i]["example"] = exampleHyper[0]['examples']
+                    i += 1
+                    index += 1
 
 
-    if len(dataJson) == 1:
-        dataJson.pop()
+    # HIPONIMOS #
+    for offset in listOffsetToTheSynset:
+
+        offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset['offset'], relation=12)).values(
+            'targetsynset').distinct()
+
+        if len(offsetMatchSourceSynset) > 0:
+            listEasyWords = list()
+            for targetSynset in offsetMatchSourceSynset:
+
+                listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values(
+                    'word').distinct()
+                definitionHypo = WeiSpa30Synset.objects.filter(offset=targetSynset["targetsynset"]).values('gloss')
+                exampleHypo = WeiSpa30Examples.objects.filter(offset=targetSynset["targetsynset"]).values('examples')
+
+                for hyponym in listaWordsHyponyms:
+                    if hyponym['word'] != dataJson[0]["word"]:
+                        with connection.cursor() as cursor:
+                            if level == "1":
+                                #print("ENTRO NIVEL 1")
+                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
+                                               [hyponym['word']])
+                            elif level == "2":
+                                #print("ENTRO NIVEL 2")
+                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
+                                               [hyponym['word']])
+                            else:
+                                #print("ENTRO NIVEL 3")
+                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
+                                               [hyponym['word']])
+
+                            result = cursor.fetchone()[0]
+                            if result > 0:
+                                if hyponym['word'] not in repeatWords:
+                                    repeatWords.add(hyponym['word'])
+                                    listEasyWords.append(hyponym['word'])
+
+
+
+            if len(listEasyWords) > 0:
+
+                if definitionHyper[0]["gloss"] != "None" or len(exampleHypo) > 0:
+                    dataJson[2]['simil'].append(
+                        ({'type': "HYPONYM", 'offsetFather': "", 'offset': "", 'definition': "", 'example': ""}))
+
+                    dataJson[2]['simil'][i_simil]['offsetFather'] = offset['offset']
+                    dataJson[2]['simil'][i_simil]['offset'] = targetSynset["targetsynset"]
+
+
+                    if definitionHypo[0]["gloss"] != "None":
+                        if len(definitionHypo) > 0:
+                            dataJson[2]['simil'][i_simil]["definition"] = definitionHypo[0]['gloss']
+
+                    if len(exampleHypo) > 0:
+                        dataJson[2]['simil'][i_simil]["example"] = exampleHypo[0]['examples']
+                    i_simil += 1
+                    index += 1
+
+
+
     return dataJson
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
