@@ -7,12 +7,14 @@ $(function() {
     $("#id_word").attr("placeholder", "Palabra");
     $("#button-accept").on("click", selectOptionHandler);
     $("#formulario").on("submit", showCardHandler);
-
+    $("#text-mayusculas").on("click", selectOptionHandler);
 
 });
 
 function selectOptionHandler(){
 
+
+    $("body").css("text-transform" ,"uppercase");
     if($("#mayusculas").is(':checked')){
         $("body").css("text-transform" ,"uppercase");
 

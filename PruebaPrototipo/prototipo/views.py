@@ -400,3 +400,11 @@ def getSimil(request, word, level):
 
     return HttpResponse(json.dumps(methapor, ensure_ascii=False),
                         content_type="application/json")
+
+
+def getDefAndExample(request, word, level):
+
+    content = result.getDefAndExample(word, level)
+
+    return HttpResponse(json.dumps(content, ensure_ascii=False),
+                        content_type="application/json")

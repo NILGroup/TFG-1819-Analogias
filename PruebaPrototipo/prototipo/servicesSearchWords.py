@@ -413,7 +413,7 @@ def makerHyperonymsPhrase(word, offset):
 
 def aperturaYlecturaCSV():
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csvarchivo = open(BASE_DIR + '/prototipo/5000PalabrasFiltradasYordenadas.csv', encoding="utf8", errors='ignore')
+    csvarchivo = open(BASE_DIR + '/prototipo/1000PalabrasFiltradasYordenadas.csv', encoding="utf8", errors='ignore')
 
     archivo = csv.DictReader(csvarchivo, delimiter=";")
 

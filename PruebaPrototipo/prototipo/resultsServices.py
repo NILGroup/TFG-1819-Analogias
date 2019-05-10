@@ -182,7 +182,7 @@ def getMetaphor(word, level):
 
             if synonym['word'] != dataJson[0]['word']:
                 with connection.cursor() as cursor:
-                    if level == 1:
+                    if level == "1":
 
                         cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s', [synonym['word']])
                     elif level == "2":
@@ -329,8 +329,124 @@ def getSimil(word, level):
 
 
 
+####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
 
 
+def getDefAndExample(word, level):
+    dataJson = []
+
+    repeatWords = set()
+    ##  Devuelve todos los offsets de los synsets de dicha palabra
+    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+    index = 1
+
+    dataJson.insert(0, {'word' : ""})
+    dataJson.insert(1, {"metaphor" : []})
+    dataJson.insert(2, {"simil" : []})
+    dataJson[0]["word"] = word
+    i = 0
+    for offset in listOffsetToTheSynset:
+        ##   Devuelve todos los sinónimos de esa palabra
+        listaSynonyms = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('word').distinct()
+        definition = WeiSpa30Synset.objects.filter(offset=offset['offset']).values('gloss')
+        example = WeiSpa30Examples.objects.filter(offset=offset['offset']).values('examples')
+
+        ##   Por cada sinónimo, busca si se encuentra en la base de datos de las palabras fáciles
+        listEasySynonymsWords = list()
+        for synonym in listaSynonyms:
+
+            if synonym['word'] != dataJson[0]['word']:
+                with connection.cursor() as cursor:
+                    if level == "1":
+
+                        cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s', [synonym['word']])
+                    elif level == "2":
+
+                        cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s', [synonym['word']])
+                    else:
+
+                        cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s', [synonym['word']])
+
+                    result = cursor.fetchone()[0]
+                    if result > 0:
+                        if synonym['word'] not in repeatWords:
+                            repeatWords.add(synonym['word'])
+                            listEasySynonymsWords.append(synonym['word'])
+
+
+        phraseSynonym = list()
+        if len(listEasySynonymsWords) > 0:
+            dataJson[1]['metaphor'].append(({'type': "SYNONYM", 'offset': "", 'definition': "", 'example': ""}))
+            dataJson[1]['metaphor'][i]['offset'] = offset['offset']
+
+            print(example)
+            if definition[0]["gloss"] != "None":
+                dataJson[1]['metaphor'][i]["definition"] = definition[0]['gloss']
+
+            if len(example) > 0:
+                dataJson[1]['metaphor'][i]["example"] = example[0]['examples']
+            i += 1
+            index += 1
+
+
+        #print(dataJson)
+
+
+    for offset in listOffsetToTheSynset:
+
+        offsetMatchTargetSynset = (WeiSpa30Relation.objects.filter(targetsynset=offset['offset'], relation=12)).values(
+            'sourcesynset').distinct()
+
+        if len(offsetMatchTargetSynset) > 0:
+            listEasyHyperonymsWords = list()
+            for sourceSynset in offsetMatchTargetSynset:
+                listaWordsHyperonyms = WeiSpa30Variant.objects.filter(offset=sourceSynset['sourcesynset']).values(
+                    'word').distinct()
+                definition = WeiSpa30Synset.objects.filter(offset=sourceSynset["sourcesynset"]).values('gloss')
+                example = WeiSpa30Examples.objects.filter(offset=sourceSynset["sourcesynset"]).values('examples')
+
+                for hyperonym in listaWordsHyperonyms:
+                    if hyperonym['word'] != dataJson[0]['word']:
+
+                        with connection.cursor() as cursor:
+                            if level == "1":
+                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
+                                               [hyperonym['word']])
+                            elif level == "2":
+                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
+                                               [hyperonym['word']])
+                            else:
+                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
+                                               [hyperonym['word']])
+
+                            result = cursor.fetchone()[0]
+                            if result > 0:
+                                if hyperonym['word'] not in repeatWords:
+                                    repeatWords.add(hyperonym['word'])
+                                    listEasyHyperonymsWords.append(hyperonym['word'])
+
+
+        phraseHyperonym = list()
+        if len(listEasyHyperonymsWords) > 0:
+            if definition[0]["gloss"] != "None" or len(example) > 0:
+                dataJson[1]['metaphor'].append(({'type': "HYPERONYM", 'offsetFather': "", 'offset': "", 'definition': "", 'example': ""}))
+                print(dataJson)
+                dataJson[1]['metaphor'][i]['offsetFather'] = offset['offset']
+                dataJson[1]['metaphor'][i]['offset'] = sourceSynset["sourcesynset"]
+
+                print(example)
+                if definition[0]["gloss"] != "None":
+                    dataJson[1]['metaphor'][i]["definition"] = definition[0]['gloss']
+
+                if len(example) > 0:
+                    dataJson[1]['metaphor'][i]["example"] = example[0]['examples']
+                i += 1
+                index += 1
+
+
+    if len(dataJson) == 1:
+        dataJson.pop()
+    return dataJson
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
 
