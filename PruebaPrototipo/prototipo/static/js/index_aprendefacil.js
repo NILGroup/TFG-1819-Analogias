@@ -8,7 +8,7 @@ $(function() {
     $("#button-accept").on("click", selectOptionHandler);
     $("#formulario").on("submit", showCardHandler);
     $("#text-mayusculas").on("click", selectOptionHandler);
-
+    $("#button-send").on("click", selectOptionHandler);
 });
 
 function selectOptionHandler(){
@@ -25,11 +25,33 @@ function selectOptionHandler(){
 
 
     if($("#defyejemplo").is(':checked')){
+        $(".def-example").css("display", "block");
+       
         
-        clasePanelButtons = "panel-buttons-display-block";
+        
+       /*clasePanelButtons = "panel-buttons-display-block";
         $(".panel-buttons").removeClass("panel-buttons-display-none");
-        $(".panel-buttons").addClass("panel-buttons-display-block");
+        $(".panel-buttons").addClass("panel-buttons-display-block");*/
 
+    }else{
+        $(".def-example").css("display", "none");
+        
+        
+        
+    }
+
+
+    if($("#pictos").is(':checked')){
+        $(".image-picto").css("display", "block");
+        $(".panel-img").css("margin-top", "10%");
+    
+       /*clasePanelButtons = "panel-buttons-display-block";
+        $(".panel-buttons").removeClass("panel-buttons-display-none");
+        $(".panel-buttons").addClass("panel-buttons-display-block");*/
+
+    }else{
+        $(".image-picto").css("display", "none");
+        $(".panel-img").css("margin-top", "90px");
     }
 }
 
@@ -66,20 +88,24 @@ function mostrarJson(json){
 
     $("#list-results").html("");
     let contador = 1;
-    console.log(json);
+     console.log(json);
     
     if(json.allOffsets.length == 0){
         $(".title").html("");
         let elemento = "<h3> No hay resultados para la palabra" + "<p class=' word ml-2'>" + json.word + "</p></h3>";
-        console.log(elemento);
+         
         $(".title").append(elemento); 
     }else{
 
         json.allOffsets.forEach(offset => {
+             console.log("offset");
+             console.log(offset);
             let arrayMetaforas = [];
             let arraySimiles = [];
+            let arrayContent = [];
             
             if(json.metaphor.length > 0){
+                 
                 json.metaphor.find(elem =>{             
                     if(elem.type == "SYNONYM" && elem.offset == offset.offset || elem.type == "HYPERONYM" && elem.offsetFather == offset.offset ){
                         arrayMetaforas.push(elem);
@@ -87,19 +113,31 @@ function mostrarJson(json){
                 });
             }      
             if(json.simil.length > 0){ 
+                 
                 json.simil.find(elem =>{
                     if (elem.offsetFather == offset.offset){
                         arraySimiles.push(elem);
                     }
                 });
             }
-    
+            
+            if(json.content.length > 0){
+                 
+                json.content[1].metaphor.forEach(elem =>{
+                     
+                    if(elem.type == "SYNONYM" && elem.offset == offset.offset || elem.type == "HYPERONYM" && elem.offsetFather == offset.offset || elem.type == "HYPONYM" && elem.offsetFather == offset.offse ){
+                        arrayContent.push(elem);
+                    }
+                });
+            }
+
+            
             if(arrayMetaforas.length > 0 || arraySimiles.length > 0){
                 $(".title").html("");
                 let elemento = "<h3> Resultados para la palabra" + "<p class=' word ml-2'>" + json.word + "</p></h3>";
-                console.log(elemento);
+                
                 $(".title").append(elemento); 
-                obtenerImg(offset, arrayMetaforas, arraySimiles, contador, json.word);
+                obtenerImg(offset, arrayMetaforas, arraySimiles, arrayContent, contador, json.word);
                 
                 ++contador;
             }
@@ -138,11 +176,11 @@ function getImgContentType(img, callback) {
     
 }
 
-function obtenerImg(offset, resultadoMetaforas, resultadoSimiles, numTarjeta, palabra){
+function obtenerImg(offset, resultadoMetaforas, resultadoSimiles, resultadoDefEjemplo, numTarjeta, palabra){
    
     //--> LOCAL
    getImgContentType("http://127.0.0.1:8000/imagen/" +  offset.offset, (hayImg) => {
-            formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTarjeta, palabra);
+            formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resultadoDefEjemplo, numTarjeta, palabra);
     });
 
     //--> HOLSTEIN
@@ -157,7 +195,7 @@ function obtenerImg(offset, resultadoMetaforas, resultadoSimiles, numTarjeta, pa
 
 
 
-function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTarjeta, palabra){
+function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resultadoDefEjemplo, numTarjeta, palabra){
     
     let elemento;
     if (hayImg) {
@@ -177,8 +215,12 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTa
 
 
     if(resultadoMetaforas.length > 0){
-        resultadoMetaforas.forEach(result =>{
-            result.metaphor.forEach(metaphor=> {
+        /*console.log("RESULTADO DE METAFORAS")
+        console.log(resultadoMetaforas); 
+        */console.log("RESULTADO DEF Y EJEMPLO")
+        console.log(resultadoDefEjemplo); 
+        resultadoMetaforas.forEach(result =>{            
+          result.metaphor.forEach(metaphor=> {
                 let enlace = metaphor.split(" ").pop();
                 phrase = metaphor.replace(enlace, "");
                 
@@ -186,9 +228,9 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTa
               //--> LOCAL
                 getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
-                        elemento += "<li><div class='panel-word'>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div</li><br>";
+                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div></li><hr>";
                     }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
+                        elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><hr>";
                     }
                    
                 });
@@ -207,9 +249,11 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTa
     } 
 
     if(resultadoSimiles.length > 0){
-        console.log("RESULTADO SIMILES");
-        console.log(resultadoSimiles);
+        //console.log("RESULTADO SIMILES");
+        //console.log(resultadoSimiles);
         resultadoSimiles.forEach(similResult =>{
+            console.log("FOR EACH DE SIMILES")
+            console.log(resultadoSimiles); 
             similResult.simil.forEach(simil =>{
                
             let enlace = simil.split(" ").pop();
@@ -219,9 +263,9 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTa
               //--> LOCAL
                 getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
-                        elemento += "<li><div class='panel-word'>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div</li><br>";
+                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div></li><hr>";
                     }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
+                        elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><hr>";
                     }
                    
                 });
@@ -240,6 +284,40 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTa
         });
         
     }
+
+   
+    if(resultadoDefEjemplo.length > 0){
+        resultadoDefEjemplo.forEach(result =>{
+            console.log("def");
+            console.log(result.definition);
+            tieneDef = true;
+            definicion += "<p><b> Definición:</b><i>" + result.definition + "</i></p>";
+            
+            if(result.example.length > 0){
+                result.example.forEach(exam =>{
+                    tieneEjemplo = true;
+                    ejemplo += "<p><b> Ejemplo:</b><i>" + result.example + "</i></p>";
+                    console.log("ejemplo");
+                    console.log(exam);
+                });
+            }
+            
+        });
+    }
+
+
+    if(tieneDef || tieneEjemplo){
+        elemento += "<div id='panel-button' class='def-example'>" +
+        "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+        "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
+    }
+        /*elemento += "<div id='panel-button' class='" + clasePanelButtons + "'>" +
+        "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+        "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
+    }*/
+    
+    $("#list-results").append(elemento);
+    
   /*  if(resultadoSinonimos != undefined){
 
         resultadoSinonimos.phraseSynonyms.forEach(phrase =>{
@@ -375,5 +453,5 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, numTa
         
             
 
-    $("#list-results").append(elemento);
+    
 }

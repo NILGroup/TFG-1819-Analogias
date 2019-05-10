@@ -42,9 +42,10 @@ def index(request):
             allOffset = result.allOffsets(word)
             metaphor = result.getMetaphor(word, level)
             simil = result.getSimil(word, level)
+            def_and_example = result.getDefAndExample(word, level)
 
 
-            return JsonResponse({'word' : word, 'allOffsets' : allOffset, 'metaphor' : metaphor, 'simil' : simil})
+            return JsonResponse({'word' : word, 'allOffsets' : allOffset, 'metaphor' : metaphor, 'simil' : simil, 'content' : def_and_example})
 
 
 

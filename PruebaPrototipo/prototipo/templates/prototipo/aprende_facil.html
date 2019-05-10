@@ -14,15 +14,15 @@
             <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
               <ul class="navbar-nav">
                 <li class="nav-item active">
-                  <a class="nav-link" href="#">Aprende Fácil ULTIMA VERSION <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="#">Aprende Fácil<span class="sr-only">(current)</span></a>
                 </li>
                   <li class="nav-item dropdown dropwdown-nav">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">settings</i></a>
                     <div class="dropdown-menu panel-dropdown" id="select-option" aria-labelledby="dropdown01">
-                        <div class="center-content"><input type="checkbox" id="mayusculas" class="ml-3"><a id="text-mayusculas" class="dropdown-item" href="#">Convertir a mayúsculas</a></input></div>
-                        <div class="center-content"><input type="checkbox" id="defyejemplo" class="ml-3"><a class="dropdown-item" href="#">Mostrar definición y ejemplo</a></input></div>
-                        <div class="center-content"><input type="checkbox" id="pictos" class="ml-3"><a class="dropdown-item" href="#">Mostrar pictos</a></input></div>
-                        <div class="center-content mt-3"><button type="button"id="button-accept" class="btn btn-primary">Aceptar</button><button type="button" class="btn btn-secondary ml-3">Cancelar</button></div>
+                        <div class="center-content"><input type="checkbox" id="mayusculas" class="options ml-3"><a id="text-mayusculas" class=" options dropdown-item" href="#">Convertir a mayúsculas</a></input></div>
+                        <div class="center-content"><input type="checkbox" id="defyejemplo" class="options ml-3"><a class="dropdown-item" href="#">Mostrar definición y ejemplo</a></input></div>
+                        <div class="center-content"><input type="checkbox" id="pictos" class="options ml-3"><a class="dropdown-item" href="#">Mostrar pictos</a></input></div>
+                        <div class="center-content mt-3"><button type="button"id="button-accept" class="btn">Aceptar</button><button type="button" class="btn btn-secondary ml-3">Cancelar</button></div>
                     </div>
                   </li>
 
@@ -34,7 +34,14 @@
         <div class="container"> 
             <div class=" label-panel">
              <p>Introduzca una palabra y seleccione un nivel de búsqueda: </p> 
-            </div>        
+            </div>   
+            <div class="panel-select-level mt-5">
+                <select class="form-control" id="level">
+                    <option value="1">Nivel fácil</option>
+                    <option value="2">Nivel medio</option>
+                    <option value="3">Nivel avanzado</option>                                
+                  </select>
+                </div>     
               <div class="heading center-content">
                    
                       <form method="POST" class="panel-search-word ml-2 " id="formulario">
@@ -51,13 +58,7 @@
                       </form>
                       
                 </div>
-                <div class="panel-select-level">
-                <select class="form-control" id="level">
-                    <option value="1">Nivel fácil</option>
-                    <option value="2">Nivel medio</option>
-                    <option value="3">Nivel avanzado</option>                                
-                  </select>
-                </div>
+                
                
                
 
@@ -73,7 +74,7 @@
                       <div class='circle'></div>
                     </div>
                   <div class="title"> </div>
-                 
+                  
 
                   <ul id="list-results">
 
