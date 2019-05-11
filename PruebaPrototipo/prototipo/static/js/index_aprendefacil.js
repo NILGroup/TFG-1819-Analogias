@@ -71,6 +71,8 @@ function showCardHandler(event){
      $.ajax({
         type:'POST',
         url: '/',
+        headers: "Access-Control-Allow-Headers: *",
+        
         data: {'button-search' : true, 'word' : word, 'level' : level},
         success: mostrarJson,
         error: function(data, jqXHR, textStatus, errorThrown){
@@ -153,6 +155,7 @@ function mostrarJson(json){
 function getImgContentType(img, callback) {
     let hayImagen = true;
     let xhr = new XMLHttpRequest();
+   
     xhr.open("GET",img, false);
     xhr.onload = function() {       
 
