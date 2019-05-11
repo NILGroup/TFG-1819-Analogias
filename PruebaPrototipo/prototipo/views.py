@@ -23,8 +23,8 @@ import shutil
 @csrf_exempt
 def index(request):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    if os.path.exists('prototipo/pictogramas'):
-        shutil.rmtree(BASE_DIR + '/prototipo/pictogramas')
+    #if os.path.exists('prototipo/pictogramas'):
+        #shutil.rmtree(BASE_DIR + '/prototipo/pictogramas')
     form = PostFormWordSearch()
 
     if request.method == "POST":
