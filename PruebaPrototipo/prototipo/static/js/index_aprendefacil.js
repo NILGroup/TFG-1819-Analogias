@@ -71,7 +71,7 @@ function showCardHandler(event){
      $.ajax({
         type:'POST',
         url: '/',
-        headers: "Access-Control-Allow-Headers: *",
+        headers: {'Access-Control-Allow-Headers' : 'https://holstein.fdi.ucm.es'},
         
         data: {'button-search' : true, 'word' : word, 'level' : level},
         success: mostrarJson,
