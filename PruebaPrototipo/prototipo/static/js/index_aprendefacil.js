@@ -68,9 +68,26 @@ function showCardHandler(event){
      $(".loader").show();
      $("#list-results").html("");
      $(".title").html("");
+
+     /*let urlMetaforas = "https://holstein.fdi.ucm.es/tfg-analogias/metaphor/json/word=" + word + "&level=" + level;
+     let urlSimil = "https://holstein.fdi.ucm.es/tfg-analogias/simil/json/word=" + word + "&level=" + level;
+
+     $.get(urlMetaforas, function(data, status){
+         console.log("DATOS met");
+         console.log(status);
+         $.get(urlSimil, function(data, status){
+            console.log("DATOS SIMIL");
+            console.log(data);
+        });
+     });*/
+
+   
+
+    console.log("EEEEOOOO");
+
      $.ajax({
         type:'POST',
-        url: '/',
+        url: 'https://holstein.fdi.ucm.es/tfg-analogias/',
         data: {'button-search' : true, 'word' : word, 'level' : level},
         success: mostrarJson,
         error: function(data, jqXHR, textStatus, errorThrown){
