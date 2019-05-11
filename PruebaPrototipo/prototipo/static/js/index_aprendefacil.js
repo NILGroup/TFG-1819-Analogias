@@ -71,8 +71,6 @@ function showCardHandler(event){
      $.ajax({
         type:'POST',
         url: '/',
-        headers: {'Access-Control-Allow-Headers' : 'https://holstein.fdi.ucm.es'},
-        
         data: {'button-search' : true, 'word' : word, 'level' : level},
         success: mostrarJson,
         error: function(data, jqXHR, textStatus, errorThrown){
@@ -182,7 +180,7 @@ function getImgContentType(img, callback) {
 function obtenerImg(offset, resultadoMetaforas, resultadoSimiles, resultadoDefEjemplo, numTarjeta, palabra){
    
     //--> LOCAL
-   /*getImgContentType("http://127.0.0.1:8000/imagen/" +  offset.offset, (hayImg) => {
+  /* getImgContentType("http://127.0.0.1:8000/imagen/" +  offset.offset, (hayImg) => {
             formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resultadoDefEjemplo, numTarjeta, palabra);
     });*/
 
@@ -206,7 +204,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
        // elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto' src='http://127.0.0.1:8000/imagen/" +  offset.offset + "'></img><div class='results'><p>";
         
         //--> HOLSTEIN
-        elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>";
+       elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>";
        
         
     }else{        
@@ -264,7 +262,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
             let enlace = simil.split(" ").pop();
                 phrase = simil.replace(enlace, "");
                 
-                
+                    
               //--> LOCAL
                 /*getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
