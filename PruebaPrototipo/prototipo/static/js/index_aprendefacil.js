@@ -15,10 +15,18 @@ $(function() {
 function selectOptionHandler(){
     $("body").css("text-transform" ,"uppercase");
     if($("#mayusculas").is(':checked')){
+        $(".mayusculas").html("");
+        $(".mayusculas").append("<div class='minusculas center-content border-color-right'><input type='checkbox' id='minusculas' class='options ml-3'><a id='text-mayusculas' class='options dropdown-item' href='#'>Convertir a minúsculas</a></input></div>");
         $("body").css("text-transform" ,"uppercase");
 
-    }else{
+    } else{
         $("body").css("text-transform" ,"");
+    }
+
+    if($("#minusculas").is(':checked')){
+        $(".minusculas").html("");
+        $(".mayusculas").append("<div class=' mayusculas center-content border-color-right'><input type='checkbox' id='mayusculas' class='options ml-3'><a id='text-mayusculas' class='options dropdown-item' href='#'>Convertir a mayúsculas</a></input></div>");
+        $("body").css("text-transform" ,"lowercase");
 
     }
 
@@ -27,6 +35,8 @@ function selectOptionHandler(){
        clasePanelButtons = "panel-buttons-display-block";
         $(".panel-buttons").removeClass("panel-buttons-display-none");
         $(".panel-buttons").addClass("panel-buttons-display-block");
+    }else{
+        clasePanelButtons = "panel-buttons-display-none";
     }
     /*}else{
         $(".def-example").css("display", "none"); 

@@ -19,6 +19,11 @@ body{
   height: 1000px;
 }
 
+.hr-panel-top{
+  background-color:rgb(149, 138, 216);
+  height: 1px;
+  width: 70%;
+}
 
 hr{
   background-color:rgb(149, 138, 216);

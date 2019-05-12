@@ -31,9 +31,11 @@ def index(request):
         form = PostFormWordSearch(request.POST)
         if 'button-search' in request.POST:
             word = request.POST.get('word')
+            word = word.lower()
+
             #word = form['word'].value()
-            if word.isupper():
-                word = word.lower()
+            #if word.isupper():
+             #   word = word.lower()
 
             level = request.POST.get('level')
             print("NIVEL")
