@@ -77,6 +77,7 @@ function selectOptionHandler(){
     }else{
         claseMostrarPictos = "pos-ini-none";
         clasePosicionPictos = "img-pos-ini-90";
+        
     }
 
     
@@ -247,8 +248,8 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
     if(resultadoMetaforas.length > 0){
         /*console.log("RESULTADO DE METAFORAS")
         console.log(resultadoMetaforas); 
-        */console.log("RESULTADO DEF Y EJEMPLO")
-        console.log(resultadoDefEjemplo); 
+        *///console.log("RESULTADO DEF Y EJEMPLO")
+        //console.log(resultadoDefEjemplo); 
         resultadoMetaforas.forEach(result =>{            
           result.metaphor.forEach(metaphor=> {
                 let enlace = metaphor.split(" ").pop();
@@ -272,7 +273,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
                         "<a href='/'>" + enlace + "</a></div></li><hr>";
                     }else{
                         elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + 
-                        "<a class='ml-2' href='/'>" + enlace + "</a></li></hr>";
+                        "<a class='ml-2' href='/'>" + enlace + "</a></li><hr>";
                        // "<a class='ml-2' href='/'>" + enlace + "</a></li><hr>";
                     }
                    
@@ -287,8 +288,8 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
         //console.log("RESULTADO SIMILES");
         //console.log(resultadoSimiles);
         resultadoSimiles.forEach(similResult =>{
-            console.log("FOR EACH DE SIMILES")
-            console.log(resultadoSimiles); 
+            //console.log("FOR EACH DE SIMILES")
+            //console.log(resultadoSimiles); 
             similResult.simil.forEach(simil =>{
                
             let enlace = simil.split(" ").pop();
