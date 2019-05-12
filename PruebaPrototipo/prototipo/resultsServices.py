@@ -12,7 +12,7 @@ import urllib
 import base64
 import pandas as pd
 
-repeatWords = set()
+
 ### SERVICIO QUE DADA UNA PALABRA Y UN NIVEL DEVUELVE SUS SINONIMOS FACILES  ###
 
 def getEasySynonyms(word, level):
@@ -163,7 +163,7 @@ def getEasyHyperonyms(word, level):
 def getMetaphor(word, level):
 
     dataJson = []
-
+    repeatWords = set()
     ##  Devuelve todos los offsets de los synsets de dicha palabra
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
     index = 1
@@ -275,7 +275,7 @@ def getMetaphor(word, level):
 
 def getSimil(word, level):
     dataJson = []
-
+    repeatWords = set()
     ##  Devuelve todos los offsets de los synsets de dicha palabra
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
     index = 1
@@ -315,9 +315,8 @@ def getSimil(word, level):
 
                             result = cursor.fetchone()[0]
                             if result > 0:
-                                if hyponym['word'] not in repeatWords:
-                                    repeatWords.add(hyponym['word'])
-                                    listEasyWords.append(hyponym['word'])
+                                repeatWords.add(hyponym['word'])
+                                listEasyWords.append(hyponym['word'])
 
             phraseHyponym = list()
             if len(listEasyWords) > 0:
@@ -346,7 +345,7 @@ def getSimil(word, level):
 def getDefAndExample(word, level):
     dataJson = []
 
-
+    repeatWords = set()
     ##  Devuelve todos los offsets de los synsets de dicha palabra
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
     index = 1
