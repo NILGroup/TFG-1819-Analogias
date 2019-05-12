@@ -25,29 +25,24 @@ function selectOptionHandler(){
 
 
     if($("#defyejemplo").is(':checked')){
-        $(".def-example").css("display", "block");
-       
-        
-        
-       /*clasePanelButtons = "panel-buttons-display-block";
+       // $(".def-example").css("display", "block");
+       clasePanelButtons = "panel-buttons-display-block";
         $(".panel-buttons").removeClass("panel-buttons-display-none");
-        $(".panel-buttons").addClass("panel-buttons-display-block");*/
-
-    }else{
+        $(".panel-buttons").addClass("panel-buttons-display-block");
+    }
+    /*}else{
         $(".def-example").css("display", "none");
         
         
         
-    }
+    }*/
 
 
     if($("#pictos").is(':checked')){
         $(".image-picto").css("display", "block");
         $(".panel-img").css("margin-top", "10%");
     
-       /*clasePanelButtons = "panel-buttons-display-block";
-        $(".panel-buttons").removeClass("panel-buttons-display-none");
-        $(".panel-buttons").addClass("panel-buttons-display-block");*/
+       
 
     }else{
         $(".image-picto").css("display", "none");
@@ -87,7 +82,8 @@ function showCardHandler(event){
 
      $.ajax({
         type:'POST',
-        url: 'https://holstein.fdi.ucm.es/tfg-analogias/',
+        //url: 'https://holstein.fdi.ucm.es/tfg-analogias/',
+        url: '/',
         data: {'button-search' : true, 'word' : word, 'level' : level},
         success: mostrarJson,
         error: function(data, jqXHR, textStatus, errorThrown){
@@ -256,9 +252,13 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
                 // --> HOLSTEIN
                 getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
-                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div></li><hr>";
+                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase +
+                        "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img>" +
+                        "<a href='/'>" + enlace + "</a></div></li><hr>";
                     }else{
-                        elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><hr>";
+                        elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + 
+                        "<form method='POST'><button type='submit' name='wordForSearch'><input type='hidden' value=" + enlace + ">" + enlace + "</button></form></li></hr>";
+                       // "<a class='ml-2' href='/'>" + enlace + "</a></li><hr>";
                     }
                    
                 });
@@ -292,9 +292,9 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
                 // --> HOLSTEIN
                 getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
-                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div></li><hr>";
+                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img><a href='/'>" + enlace + "</a></div></li><hr>";
                     }else{
-                        elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><hr>";
+                        elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "<a class='ml-2' href='/'>" + enlace + "</a></li><hr>";
                     }
                    
                 });
@@ -328,14 +328,14 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
 
 
     if(tieneDef || tieneEjemplo){
-        elemento += "<div id='panel-button' class='def-example'>" +
-        "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-        "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
-    }
-        /*elemento += "<div id='panel-button' class='" + clasePanelButtons + "'>" +
+        /*elemento += "<div id='panel-button' class='def-example'>" +
         "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
         "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
     }*/
+        elemento += "<div id='panel-button' class='" + clasePanelButtons + "'>" +
+        "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+        "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
+    }
     
     $("#list-results").append(elemento);
     

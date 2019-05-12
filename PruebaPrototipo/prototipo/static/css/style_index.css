@@ -33,6 +33,18 @@ hr{
     
 }
 
+
+.panel-options{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top:40px;
+}
+
+.border-color-right{
+  border-right: 2px solid rgb(149, 138, 216);;
+}
+
 .label-panel > p{
   text-align: center;
   margin-top:5%;
@@ -62,14 +74,7 @@ hr{
   margin-top: 90px;
 }
 
-.panel-img{
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  left:40%;
-  /*margin-top:10%;*/
-  margin-top:90px;
-}
+
 .panel-select-level{
   display: flex;
   
@@ -142,6 +147,9 @@ hr{
 .panel-buttons-display-block{
     display: block;
 }
+
+
+
 .results li{
   display: flex;
   /*margin-bottom: 5px;
@@ -252,6 +260,15 @@ form.panel-search-word > p > label {
   justify-content: center;
   
   
+}
+
+.panel-img{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  left:40%;
+  /*margin-top:10%;*/
+  margin-top:90px;
 }
 
 .image-picto{

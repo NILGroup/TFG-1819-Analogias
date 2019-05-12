@@ -10,6 +10,7 @@ class PostFormWordSearch(forms.ModelForm):
        # self.fields['palabra'].required = False
         self.fields['word'].required = False
 
+
     class Meta:
         model = WeiSpa30Variant
         fields = ('word',)
