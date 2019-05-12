@@ -267,17 +267,34 @@ form.panel-search-word > p > label {
   flex-direction: column;
   align-items: center;
   left:40%;
-  /*margin-top:10%;*/
+  
+ 
+}
+
+.img-pos-ini-90{
   margin-top:90px;
 }
 
+.img-pos-fin-10{
+  margin-top:10%;
+}
+
+
+
 .image-picto{
-  display: none;
+  
   border-radius:30px;
   border: 2px solid rgb(77, 67, 139);
   width: 100px;
   height:100px;
   
+}
+.pos-ini-none{
+  display: none;
+}
+
+.pos-fin-block{
+  display: block;
 }
 
 .result-picto{

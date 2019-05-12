@@ -1,6 +1,7 @@
 let idsFichasConDefinicionYejemplo = [];
 let clasePanelButtons = "panel-buttons-display-none";
-
+let claseMostrarPictos = "pos-ini-none";
+let clasePosicionPictos = "img-pos-ini-90";
 
 $(function() {
     $(".loader").hide();
@@ -12,8 +13,6 @@ $(function() {
 });
 
 function selectOptionHandler(){
-
-
     $("body").css("text-transform" ,"uppercase");
     if($("#mayusculas").is(':checked')){
         $("body").css("text-transform" ,"uppercase");
@@ -23,7 +22,6 @@ function selectOptionHandler(){
 
     }
 
-
     if($("#defyejemplo").is(':checked')){
        // $(".def-example").css("display", "block");
        clasePanelButtons = "panel-buttons-display-block";
@@ -31,23 +29,30 @@ function selectOptionHandler(){
         $(".panel-buttons").addClass("panel-buttons-display-block");
     }
     /*}else{
-        $(".def-example").css("display", "none");
-        
-        
-        
+        $(".def-example").css("display", "none"); 
     }*/
 
-
     if($("#pictos").is(':checked')){
-        $(".image-picto").css("display", "block");
-        $(".panel-img").css("margin-top", "10%");
-    
-       
+        claseMostrarPictos = "pos-ini-block";
+        clasePosicionPictos = "img-pos-fin-10";
+        $(".image-picto").removeClass("pos-ini-none");
+        $(".image-picto").addClass("pos-ini-block");
 
+
+        $(".panel-img").removeClass("img-pos-ini-90");
+        $(".panel-img").addClass("img-pos-fin-10");
     }else{
+        claseMostrarPictos = "pos-ini-none";
+        clasePosicionPictos = "img-pos-ini-90";
+    }
+       /* $(".image-picto").css("display", "block");
+        $(".panel-img").css("margin-top", "10%");
+    }*/
+
+    /*}else{
         $(".image-picto").css("display", "none");
         $(".panel-img").css("margin-top", "90px");
-    }
+    }*/
 }
 
 
@@ -64,21 +69,6 @@ function showCardHandler(event){
      $("#list-results").html("");
      $(".title").html("");
 
-     /*let urlMetaforas = "https://holstein.fdi.ucm.es/tfg-analogias/metaphor/json/word=" + word + "&level=" + level;
-     let urlSimil = "https://holstein.fdi.ucm.es/tfg-analogias/simil/json/word=" + word + "&level=" + level;
-
-     $.get(urlMetaforas, function(data, status){
-         console.log("DATOS met");
-         console.log(status);
-         $.get(urlSimil, function(data, status){
-            console.log("DATOS SIMIL");
-            console.log(data);
-        });
-     });*/
-
-   
-
-    console.log("EEEEOOOO");
 
      $.ajax({
         type:'POST',
@@ -93,8 +83,6 @@ function showCardHandler(event){
      });
 
 }
-
-
 
 function mostrarJson(json){
     $(".loader").hide();
@@ -217,7 +205,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
        // elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto' src='http://127.0.0.1:8000/imagen/" +  offset.offset + "'></img><div class='results'><p>";
         
         //--> HOLSTEIN
-       elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>";
+       elemento =  "<div id ='card" + numTarjeta + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + numTarjeta + ".</p></div><img class='image-picto " + claseMostrarPictos + "' src='https://holstein.fdi.ucm.es/tfg-analogias/imagen/" +  offset.offset + "'></img><div class='results'><p>";
        
         
     }else{        
@@ -253,7 +241,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
                 getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
                         elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase +
-                        "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img>" +
+                        "</div><div class='panel-img " + clasePosicionPictos + " ml-2'><img class='image-picto " + claseMostrarPictos + " result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img>" +
                         "<a href='/'>" + enlace + "</a></div></li><hr>";
                     }else{
                         elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + 
@@ -292,7 +280,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
                 // --> HOLSTEIN
                 getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
-                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img><a href='/'>" + enlace + "</a></div></li><hr>";
+                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "</div><div class='panel-img " + clasePosicionPictos + "  ml-2'><img class='image-picto " + claseMostrarPictos + " result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img><a href='/'>" + enlace + "</a></div></li><hr>";
                     }else{
                         elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "<a class='ml-2' href='/'>" + enlace + "</a></li><hr>";
                     }
