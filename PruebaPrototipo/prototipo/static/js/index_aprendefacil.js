@@ -10,7 +10,13 @@ $(function() {
     $("#formulario").on("submit", showCardHandler);
     $("#text-mayusculas").on("click", selectOptionHandler);
     $("#button-send").on("click", selectOptionHandler);
+    $("#defyejemplo-oculto").on("click", selectOptionHandler);
+   
+    
 });
+
+
+
 
 function selectOptionHandler(){
     $("body").css("text-transform" ,"uppercase");
@@ -32,6 +38,8 @@ function selectOptionHandler(){
 
     if($("#defyejemplo").is(':checked')){
        // $(".def-example").css("display", "block");
+       $(".defyejemplo").html("");
+        $(".defyejemplo").append("<div class=' defyejemplo-oculto center-content border-color-right'><input type='checkbox' id='defyejemplo-oculto' class='options ml-3'><a class='dropdown-item' href='#'>Ocultar definición y ejemplo</a></input></div>");
        clasePanelButtons = "panel-buttons-display-block";
         $(".panel-buttons").removeClass("panel-buttons-display-none");
         $(".panel-buttons").addClass("panel-buttons-display-block");
@@ -42,7 +50,22 @@ function selectOptionHandler(){
         $(".def-example").css("display", "none"); 
     }*/
 
+
+    if($("#defyejemplo-oculto").is(':checked')){
+        // $(".def-example").css("display", "block");
+        $(".defyejemplo-oculto").html("");
+         $(".defyejemplo-oculto").append("<div class=' defyejemplo center-content border-color-right'><input type='checkbox' id='defyejemplo' class='options ml-3'><a class='dropdown-item' href='#'>Mostrar definición y ejemplo</a></input></div>");
+         clasePanelButtons = "panel-buttons-display-none";
+       
+     }
+
+
+
     if($("#pictos").is(':checked')){
+        //$(".pictos").css("display", "none");
+        //$(".pictos-oculto").remove(".pictos-oculto");
+        //$(".pictos-oculto").add(".pic");
+
         claseMostrarPictos = "pos-ini-block";
         clasePosicionPictos = "img-pos-fin-10";
         $(".image-picto").removeClass("pos-ini-none");
@@ -55,14 +78,8 @@ function selectOptionHandler(){
         claseMostrarPictos = "pos-ini-none";
         clasePosicionPictos = "img-pos-ini-90";
     }
-       /* $(".image-picto").css("display", "block");
-        $(".panel-img").css("margin-top", "10%");
-    }*/
 
-    /*}else{
-        $(".image-picto").css("display", "none");
-        $(".panel-img").css("margin-top", "90px");
-    }*/
+    
 }
 
 
@@ -82,8 +99,8 @@ function showCardHandler(event){
 
      $.ajax({
         type:'POST',
-        //url: 'https://holstein.fdi.ucm.es/tfg-analogias/',
-        url: '/',
+        url: 'https://holstein.fdi.ucm.es/tfg-analogias/',
+        //url: '/',
         data: {'button-search' : true, 'word' : word, 'level' : level},
         success: mostrarJson,
         error: function(data, jqXHR, textStatus, errorThrown){
