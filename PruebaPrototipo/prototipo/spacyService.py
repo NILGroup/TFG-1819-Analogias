@@ -88,13 +88,17 @@ def phraseMaker(synset):
 '''
 
 def genderAndNumberAPI(word):
-    print("ENTRO A GENDER")
+    #print("ENTRO A GENDER")
     obj = requests.get('https://holstein.fdi.ucm.es/nlp-api/analisis/'+word, verify=False).json()
-    print("PASADO PETICION")
+    #print("PASADO PETICION")
     #print(obj['morfologico']['genero'])
     #print(obj['morfologico']['numero'])
-    print(obj['morfologico']['parte'])
-    return obj['morfologico']['genero'], obj['morfologico']['numero']
+    #print("LLEGO A LA API")
+    #print(obj['morfologico']['parte'])
+    if obj['morfologico']['parte'] != "verbo":
+        return obj['morfologico']['parte'], obj['morfologico']['genero'], obj['morfologico']['numero']
+    else:
+        return obj['morfologico']['parte'], "", ""
 
 def genderAndNumberSpacy(word):
     nlp = spacyInstance.SpacyIMP.__getModel__()
@@ -129,28 +133,36 @@ def genderAndNumberSpacy(word):
 
 def phraseMaker(word):
     #print(word)
-    gender, number = genderAndNumberSpacy(word)
+    #print("LLEGO")
+    type, gender, number = genderAndNumberAPI(word)
 
-    if gender == "masculino" and number == "singular":
-        return "es un " + word
-    elif gender == "masculino" and number == "plural":
-        return "son unos " + word
-    elif gender == "femenino" and number == "singular":
-        return "es una " + word
+
+    if type != "verbo":
+        if gender == "masculino" and number == "singular":
+            return "es un " + word
+        elif gender == "masculino" and number == "plural":
+            return "son unos " + word
+        elif gender == "femenino" and number == "singular":
+            return "es una " + word
+        else:
+            return "son unas " + word
     else:
-        return "son unas " + word
+        return "es " + word
 
 
 
 def phraseMakerForHyponyms(word):
     #print(word)
-    gender, number = genderAndNumberSpacy(word)
+    type, gender, number = genderAndNumberAPI(word)
 
-    if gender == "masculino" and number == "singular":
-        return "es como un " + word
-    elif gender == "masculino" and number == "plural":
-        return "son como unos " + word
-    elif gender == "femenino" and number == "singular":
-        return "es como una " + word
+    if type != "verbo":
+        if gender == "masculino" and number == "singular":
+            return "es como un " + word
+        elif gender == "masculino" and number == "plural":
+            return "son como unos " + word
+        elif gender == "femenino" and number == "singular":
+            return "es como una " + word
+        else:
+            return "son como unas " + word
     else:
-        return "son como unas " + word
+        return "es como " + word
