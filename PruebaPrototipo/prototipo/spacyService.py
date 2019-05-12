@@ -142,7 +142,7 @@ def phraseMaker(word):
     type, gender, number = genderAndNumberAPI(word)
 
 
-    if type != "verbo":
+    if type == "nombre" or "adjetivo":
         if gender == "masculino" and number == "singular":
             return "es un " + word
         elif gender == "masculino" and number == "plural":
@@ -160,7 +160,7 @@ def phraseMakerForHyponyms(word):
     #print(word)
     type, gender, number = genderAndNumberAPI(word)
 
-    if type != "verbo":
+    if type == "nombre" or "adjetivo":
         if gender == "masculino" and number == "singular":
             return "es como un " + word
         elif gender == "masculino" and number == "plural":
