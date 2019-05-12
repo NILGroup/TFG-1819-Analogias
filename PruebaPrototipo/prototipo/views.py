@@ -42,9 +42,8 @@ def index(request):
             print(level)
 
             allOffset = result.allOffsets(word)
-            simil = result.getSimil(word, level)
             metaphor = result.getMetaphor(word, level)
-
+            simil = result.getSimil(word, level)
             def_and_example = result.getDefAndExample(word, level)
 
 
