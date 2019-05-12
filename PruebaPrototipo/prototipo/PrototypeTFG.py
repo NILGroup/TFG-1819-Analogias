@@ -6,7 +6,7 @@ import re
 import os
 
 #PARA QUE AL COMPARAR PALABRAS NO TENGA EN CUENTA LOS ACENTOS
-from unidecode import unidecode
+#from unidecode import unidecode
 
 
 
@@ -14,21 +14,21 @@ from unidecode import unidecode
 
 
 
-os.makedirs('pictogramas',mode=0o777)
-'''
+#os.makedirs('pictogramas',mode=0o777)
 
 #CREA FICHEROS CON SOLO LA PALABRA FACIL
+
 csvarchivo = open('10000PALABRASFILTRADAS.csv', encoding="utf8", errors='ignore')
 entrada = csv.DictReader(csvarchivo, delimiter=";")
 csvsalida = open('10000_palabras_faciles.csv', 'w', encoding="utf8", newline="")
 salida = csv.writer(csvsalida, delimiter=";")
 for i in entrada:
-    #print(i)
-    salida.writerow([i['PALABRA']])
+    if i['TAG'] == 'AUX' or i['TAG'] == 'ADJ' or i['TAG'] == 'NOUN' or i['TAG'] == 'VERB':
+        salida.writerow((i['PALABRA'], i['TAG']))
 
 csvarchivo.close()
 csvsalida.close()
-'''
+
 '''
 #CLASIFICADOR DE PALABRAS SEGUN LETRA INICIAL
 

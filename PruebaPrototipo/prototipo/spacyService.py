@@ -88,15 +88,20 @@ def phraseMaker(synset):
 '''
 
 def genderAndNumberAPI(word):
+    print(word)
     #print("ENTRO A GENDER")
     obj = requests.get('https://holstein.fdi.ucm.es/nlp-api/analisis/'+word, verify=False).json()
     #print("PASADO PETICION")
     #print(obj['morfologico']['genero'])
     #print(obj['morfologico']['numero'])
     #print("LLEGO A LA API")
-    #print(obj['morfologico']['parte'])
-    if obj['morfologico']['parte'] != "verbo":
-        return obj['morfologico']['parte'], obj['morfologico']['genero'], obj['morfologico']['numero']
+    print(obj['morfologico']['parte'])
+
+    if obj['morfologico']['parte'] == "nombre" or obj['morfologico']['parte'] == "adjetivo" :
+        if 'genero' in obj['morfologico']:
+            return obj['morfologico']['parte'], obj['morfologico']['genero'], obj['morfologico']['numero']
+        else:
+            return obj['morfologico']['parte'], "masculino", obj['morfologico']['numero']
     else:
         return obj['morfologico']['parte'], "", ""
 
