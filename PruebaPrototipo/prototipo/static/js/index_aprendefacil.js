@@ -272,7 +272,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
                         "<a href='/'>" + enlace + "</a></div></li><hr>";
                     }else{
                         elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + 
-                        "<form method='POST'><button type='submit' name='wordForSearch'><input type='hidden' value=" + enlace + ">" + enlace + "</button></form></li></hr>";
+                        "<a class='ml-2' href='/'>" + enlace + "</a></li></hr>";
                        // "<a class='ml-2' href='/'>" + enlace + "</a></li><hr>";
                     }
                    
