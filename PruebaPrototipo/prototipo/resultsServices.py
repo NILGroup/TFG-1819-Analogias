@@ -185,25 +185,22 @@ def getMetaphor(word, level):
 
                 with connection.cursor() as cursor:
                     if level == "1":
-
-                        cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s', [synonym['word']])
+                        cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s', [synonym['word'], tipo])
                     elif level == "2":
 
-                        cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s', [synonym['word']])
+                        cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s', [synonym['word'], tipo])
                     else:
-
-                        cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s', [synonym['word']])
+                        cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s', [synonym['word'], tipo])
 
                     result = cursor.fetchone()[0]
                     if result > 0:
                         if synonym['word'] not in repeatWords:
                             repeatWords.add(synonym['word'])
-                            tipoSinonimo, generoSinonimo, numeroSinonimo = spacy.genderAndNumberAPI(synonym['word'])
-                            if tipoSinonimo == tipo:
-                                listEasySynonymsWords.append(synonym['word'])
+                            listEasySynonymsWords.append(synonym['word'])
 
 
         phraseSynonym = list()
+        print(listEasySynonymsWords)
         if len(listEasySynonymsWords) > 0:
             dataJson.append({'type' : "SYNONYM", 'offset': "", 'metaphor': []})  # , 'definition': "", 'example': "", 'picto': ""})
             dataJson[index]['offset'] = offset['offset']
@@ -231,23 +228,25 @@ def getMetaphor(word, level):
 
                         with connection.cursor() as cursor:
                             if level == "1":
-                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
-                                               [hyperonym['word']])
+
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyperonym['word'], tipo])
                             elif level == "2":
-                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
-                                               [hyperonym['word']])
+
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyperonym['word'], tipo])
                             else:
-                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
-                                               [hyperonym['word']])
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyperonym['word'], tipo])
 
                             result = cursor.fetchone()[0]
                             if result > 0:
                                 if hyperonym['word'] not in repeatWords:
-                                    tipoHiperonimo, generoHiperonimo, numeroHiperonimo = spacy.genderAndNumberAPI(
-                                        hyperonym['word'])
-                                    if tipoHiperonimo == tipo:
-                                        repeatWords.add(hyperonym['word'])
-                                        listEasyHyperonymsWords.append(hyperonym['word'])
+                                    repeatWords.add(hyperonym['word'])
+                                    listEasyHyperonymsWords.append(hyperonym['word'])
 
 
         phraseHyperonym = list()
@@ -300,26 +299,24 @@ def getSimil(word, level):
 
                         with connection.cursor() as cursor:
                             if level == "1":
-                                print("ENTRO NIVEL 1")
-                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
-                                               [hyponym['word']])
+
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyponym['word'], tipo])
                             elif level == "2":
-                                print("ENTRO NIVEL 2")
-                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
-                                               [hyponym['word']])
+
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyponym['word'], tipo])
                             else:
-                                print("ENTRO NIVEL 3")
-                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
-                                               [hyponym['word']])
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyponym['word'], tipo])
 
                             result = cursor.fetchone()[0]
                             if result > 0:
-                                if hyponym['word'] not in repeatWords:
-                                    tipoHiponimo, generoHiponimo, numeroHiponimo = spacy.genderAndNumberAPI(
-                                        hyponym['word'])
-                                    if tipo == tipoHiponimo:
-                                        repeatWords.add(hyponym['word'])
-                                        listEasyWords.append(hyponym['word'])
+                                repeatWords.add(hyponym['word'])
+                                listEasyWords.append(hyponym['word'])
 
             phraseHyponym = list()
             if len(listEasyWords) > 0:
@@ -373,29 +370,32 @@ def getDefAndExample(word, level):
         for synonym in listaSynonyms:
 
             if synonym['word'] != dataJson[0]['word']:
-                tipoSinonimo, generoSinonimo, numeroSinonimo = spacy.genderAndNumberAPI(synonym['word'])
-                if tipoSinonimo == tipo:
-                    with connection.cursor() as cursor:
-                        if level == "1":
+                with connection.cursor() as cursor:
+                    if level == "1":
 
-                            cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s', [synonym['word']])
-                        elif level == "2":
+                        cursor.execute(
+                            'SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
+                            [synonym['word'], tipo])
+                    elif level == "2":
 
-                            cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s', [synonym['word']])
-                        else:
+                        cursor.execute(
+                            'SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
+                            [synonym['word'], tipo])
+                    else:
+                        cursor.execute(
+                            'SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
+                            [synonym['word'], tipo])
 
-                            cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s', [synonym['word']])
-
-                        result = cursor.fetchone()[0]
-                        if result > 0:
-                            if synonym['word'] not in repeatWords:
-                                repeatWords.add(synonym['word'])
-                                listEasySynonymsWords.append(synonym['word'])
+                    result = cursor.fetchone()[0]
+                    if result > 0:
+                        if synonym['word'] not in repeatWords:
+                            repeatWords.add(synonym['word'])
+                            listEasySynonymsWords.append(synonym['word'])
 
 
         if len(listEasySynonymsWords) > 0:
-            print(examples)
-            print(len(examples))
+            #print(examples)
+            #print(len(examples))
 
             if definition[0]["gloss"] != "None" or len(examples) > 0:
                 dataJson[1]['metaphor'].append(({'type': "SYNONYM", 'offset': "", 'definition': "", 'example': []}))
@@ -435,25 +435,29 @@ def getDefAndExample(word, level):
 
                 for hyperonym in listaWordsHyperonyms:
                     if hyperonym['word'] != dataJson[0]['word']:
-                        tipoHiperonimo, generoHiperonimo, numeroHiperonimo = spacy.genderAndNumberAPI(hyperonym['word'])
-                        if tipoHiperonimo == tipo:
 
-                            with connection.cursor() as cursor:
-                                if level == "1":
-                                    cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
-                                                   [hyperonym['word']])
-                                elif level == "2":
-                                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
-                                                   [hyperonym['word']])
-                                else:
-                                    cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
-                                                   [hyperonym['word']])
 
-                                result = cursor.fetchone()[0]
-                                if result > 0:
-                                    if hyperonym['word'] not in repeatWords:
-                                        repeatWords.add(hyperonym['word'])
-                                        listEasyHyperonymsWords.append(hyperonym['word'])
+                        with connection.cursor() as cursor:
+                            if level == "1":
+
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyperonym['word'], tipo])
+                            elif level == "2":
+
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyperonym['word'], tipo])
+                            else:
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyperonym['word'], tipo])
+
+                            result = cursor.fetchone()[0]
+                            if result > 0:
+                                if hyperonym['word'] not in repeatWords:
+                                    repeatWords.add(hyperonym['word'])
+                                    listEasyHyperonymsWords.append(hyperonym['word'])
 
 
             phraseHyperonym = list()
@@ -499,27 +503,27 @@ def getDefAndExample(word, level):
 
                 for hyponym in listaWordsHyponyms:
                     if hyponym['word'] != dataJson[0]["word"]:
-                        tipoHiponimo, generoHiponimo, numeroHiponimo = spacy.genderAndNumberAPI(hyponym['word'])
-                        if tipoHiponimo == tipo:
-                            with connection.cursor() as cursor:
-                                if level == "1":
-                                    #print("ENTRO NIVEL 1")
-                                    cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
-                                                   [hyponym['word']])
-                                elif level == "2":
-                                    #print("ENTRO NIVEL 2")
-                                    cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
-                                                   [hyponym['word']])
-                                else:
-                                    #print("ENTRO NIVEL 3")
-                                    cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
-                                                   [hyponym['word']])
+                        with connection.cursor() as cursor:
+                            if level == "1":
 
-                                result = cursor.fetchone()[0]
-                                if result > 0:
-                                    if hyponym['word'] not in repeatWords:
-                                        repeatWords.add(hyponym['word'])
-                                        listEasyWords.append(hyponym['word'])
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyponym['word'], tipo])
+                            elif level == "2":
+
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyponym['word'], tipo])
+                            else:
+                                cursor.execute(
+                                    'SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
+                                    [hyponym['word'], tipo])
+
+                            result = cursor.fetchone()[0]
+                            if result > 0:
+                                if hyponym['word'] not in repeatWords:
+                                    repeatWords.add(hyponym['word'])
+                                    listEasyWords.append(hyponym['word'])
 
 
 

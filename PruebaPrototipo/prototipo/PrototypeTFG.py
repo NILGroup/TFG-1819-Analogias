@@ -22,9 +22,15 @@ csvarchivo = open('10000PALABRASFILTRADAS.csv', encoding="utf8", errors='ignore'
 entrada = csv.DictReader(csvarchivo, delimiter=";")
 csvsalida = open('10000_palabras_faciles.csv', 'w', encoding="utf8", newline="")
 salida = csv.writer(csvsalida, delimiter=";")
+salida.writerow(('word', 'tag'))
 for i in entrada:
-    if i['TAG'] == 'AUX' or i['TAG'] == 'ADJ' or i['TAG'] == 'NOUN' or i['TAG'] == 'VERB':
-        salida.writerow((i['PALABRA'], i['TAG']))
+    if i['TAG'] == 'AUX' or i['TAG'] == 'VERB':
+        salida.writerow((i['PALABRA'], "verbo"))
+    elif i['TAG'] == 'ADJ':
+        salida.writerow((i['PALABRA'], "adjetivo"))
+    elif i['TAG'] == 'NOUN':
+        salida.writerow((i['PALABRA'], "nombre"))
+
 
 csvarchivo.close()
 csvsalida.close()
