@@ -97,11 +97,15 @@ def genderAndNumberAPI(word):
     #print("LLEGO A LA API")
     #print(obj['morfologico']['parte'])
 
-    if obj['morfologico']['parte'] == "nombre" or obj['morfologico']['parte'] == "adjetivo" :
-        if 'genero' in obj['morfologico']:
-            return obj['morfologico']['parte'], obj['morfologico']['genero'], obj['morfologico']['numero']
-        else:
+    if obj['morfologico']['parte'] == "nombre" or obj['morfologico']['parte'] == "adjetivo":
+        if 'genero' not in obj['morfologico'] and 'numero' not in obj['morfologico']:
+            return obj['morfologico']['parte'], "", ""
+        elif 'genero' in obj['morfologico'] and 'numero' not in obj['morfologico']:
+            return obj['morfologico']['parte'], obj['morfologico']['genero'], "singular"
+        elif 'numero' in obj['morfologico'] and 'genero' not in obj['morfologico']:
             return obj['morfologico']['parte'], "masculino", obj['morfologico']['numero']
+        else:
+            return obj['morfologico']['parte'], obj['morfologico']['genero'], obj['morfologico']['numero']
     else:
         return obj['morfologico']['parte'], "", ""
 
