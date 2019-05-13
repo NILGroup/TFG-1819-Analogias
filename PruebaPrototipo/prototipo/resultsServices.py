@@ -11,7 +11,7 @@ from django.db import connection
 import urllib
 import base64
 import pandas as pd
-
+repeatWords = set()
 
 ### SERVICIO QUE DADA UNA PALABRA Y UN NIVEL DEVUELVE SUS SINONIMOS FACILES  ###
 
@@ -163,7 +163,7 @@ def getEasyHyperonyms(word, level):
 def getMetaphor(word, level):
 
     dataJson = []
-    repeatWords = set()
+    global repeatWords
     ##  Devuelve todos los offsets de los synsets de dicha palabra
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
     index = 1
@@ -182,7 +182,8 @@ def getMetaphor(word, level):
         for synonym in listaSynonyms:
 
             if synonym['word'] != dataJson[0]['word']:
-
+                print("sinonimo")
+                print(synonym['word'])
                 with connection.cursor() as cursor:
                     if level == "1":
                         cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s', [synonym['word'], tipo])
@@ -195,6 +196,7 @@ def getMetaphor(word, level):
                     result = cursor.fetchone()[0]
                     if result > 0:
                         if synonym['word'] not in repeatWords:
+                            print("entro al if de sinonimos")
                             repeatWords.add(synonym['word'])
                             listEasySynonymsWords.append(synonym['word'])
 
@@ -225,7 +227,8 @@ def getMetaphor(word, level):
                     'word').distinct()
                 for hyperonym in listaWordsHyperonyms:
                     if hyperonym['word'] != dataJson[0]['word']:
-
+                        print("hiperonimo")
+                        print(hyperonym['word'])
                         with connection.cursor() as cursor:
                             if level == "1":
 
@@ -245,6 +248,7 @@ def getMetaphor(word, level):
                             result = cursor.fetchone()[0]
                             if result > 0:
                                 if hyperonym['word'] not in repeatWords:
+                                    print("entro al if de hiperonimos")
                                     repeatWords.add(hyperonym['word'])
                                     listEasyHyperonymsWords.append(hyperonym['word'])
 
@@ -263,7 +267,8 @@ def getMetaphor(word, level):
 
             index += 1
 
-
+    print("PALABRAS REPETIDAS")
+    print(repeatWords)
     if len(dataJson) == 1:
         dataJson.pop()
 
@@ -275,7 +280,7 @@ def getMetaphor(word, level):
 
 def getSimil(word, level):
     dataJson = []
-    repeatWords = set()
+    global repeatWords
     ##  Devuelve todos los offsets de los synsets de dicha palabra
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
     index = 1
@@ -295,7 +300,8 @@ def getSimil(word, level):
 
                 for hyponym in listaWordsHyponyms:
                     if hyponym['word'] != dataJson[0]["word"]:
-
+                        print("hiponimo")
+                        print(hyponym['word'])
 
                         with connection.cursor() as cursor:
                             if level == "1":
@@ -315,8 +321,10 @@ def getSimil(word, level):
 
                             result = cursor.fetchone()[0]
                             if result > 0:
-                                repeatWords.add(hyponym['word'])
-                                listEasyWords.append(hyponym['word'])
+                                if hyponym['word'] not in repeatWords:
+                                    print("entro al if de hiponimos")
+                                    repeatWords.add(hyponym['word'])
+                                    listEasyWords.append(hyponym['word'])
 
             phraseHyponym = list()
             if len(listEasyWords) > 0:
@@ -345,7 +353,7 @@ def getSimil(word, level):
 def getDefAndExample(word, level):
     dataJson = []
 
-    repeatWords = set()
+    global repeatWords
     ##  Devuelve todos los offsets de los synsets de dicha palabra
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
     index = 1
