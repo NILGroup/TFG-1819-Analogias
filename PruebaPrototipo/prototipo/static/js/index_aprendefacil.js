@@ -11,10 +11,11 @@ $(function() {
     $("#id_word").attr("placeholder", "Palabra");
     $("#button-accept").on("click", selectOptionHandler);
     $("#formulario").on("submit", showCardHandler);
-    $("#text-mayusculas").on("click", selectOptionHandler);
+    $("#mayusculas").on("click", selectOptionHandler);
+     
     $("#button-send").on("click", selectOptionHandler);
     $("#defyejemplo-oculto").on("click", selectOptionHandler);
-   
+    
     
 });
 
@@ -24,8 +25,7 @@ $(function() {
 function selectOptionHandler(){
     $("body").css("text-transform" ,"uppercase");
     if($("#mayusculas").is(':checked')){
-        $(".mayusculas").html("");
-        $(".mayusculas").append("<div class='minusculas center-content border-color-right'><input type='checkbox' id='minusculas' class='options ml-3'><a id='text-mayusculas' class='options dropdown-item' href='#'>Convertir a minúsculas</a></input></div>");
+        $("#text-mayusculas").text("Convertir a minúsculas");        
         $("body").css("text-transform" ,"uppercase");
 
     } else{
