@@ -76,7 +76,7 @@ hr{
 
 .panel-word{
   display: flex;
-  /*margin-top: 105px;*/
+  margin-top: 90px;
 }
 
 
@@ -157,8 +157,6 @@ hr{
 
 .results li{
   display: flex;
-  align-items: center;
-  
   /*margin-bottom: 5px;
   margin-top: 5px;
   padding-top: 5px;
@@ -175,7 +173,7 @@ hr{
   border-color:rgb(149, 138, 216);
 }
 
-h3  p , p{
+h3  p , .results  a{
   /*color:rgb(212, 183, 19);*/
   color: rgb(149, 138, 216);
 }
@@ -270,38 +268,21 @@ form.panel-search-word > p > label {
 }
 
 .panel-img{
-  position: relative;
-  /*left: 3%;*/
-  bottom: 20%;
-
-  /*display:flex;
+  display:flex;
   flex-direction: column;
   align-items: center;
-  left:40%;*/
+  left:40%;
   
  
 }
 
-.position-p-img{
-  margin-bottom: 31px;
-}
-
-
-.position-img{
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 35px;
-  margin-left: 10px;
-}
-/*.img-pos-ini-90{
+.img-pos-ini-90{
   margin-top:90px;
 }
 
 .img-pos-fin-10{
   margin-top:10%;
-}*/
+}
 
 
 

@@ -217,9 +217,9 @@ def getMetaphor(word, level):
 
         offsetMatchTargetSynset = (WeiSpa30Relation.objects.filter(targetsynset=offset['offset'], relation=12)).values(
             'sourcesynset').distinct()
-        listEasyHyperonymsWords = list()
-        if len(offsetMatchTargetSynset) > 0:
 
+        if len(offsetMatchTargetSynset) > 0:
+            listEasyHyperonymsWords = list()
             for sourceSynset in offsetMatchTargetSynset:
                 listaWordsHyperonyms = WeiSpa30Variant.objects.filter(offset=sourceSynset['sourcesynset']).values(
                     'word').distinct()
@@ -286,9 +286,9 @@ def getSimil(word, level):
     for offset in listOffsetToTheSynset:
         offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset['offset'], relation=12)).values(
             'targetsynset').distinct()
-        listEasyWords = list()
-        if len(offsetMatchSourceSynset) > 0:
 
+        if len(offsetMatchSourceSynset) > 0:
+            listEasyWords = list()
             for targetSynset in offsetMatchSourceSynset:
                 listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values(
                     'word').distinct()
