@@ -1,8 +1,11 @@
 let idsFichasConDefinicionYejemplo = [];
 let clasePanelButtons = "panel-buttons-display-none";
 let claseMostrarPictos = "pos-ini-none";
-let clasePosicionPictos = "img-pos-ini-90";
+let clasePosicionPictos = "panel-img";
+let posicionMet = "p-met";
 
+let existMetaphor = false;
+let existSimil = false;
 $(function() {
     $(".loader").hide();
     $("#id_word").attr("placeholder", "Palabra");
@@ -41,7 +44,8 @@ function selectOptionHandler(){
        $(".defyejemplo").html("");
         $(".defyejemplo").append("<div class=' defyejemplo-oculto center-content border-color-right'><input type='checkbox' id='defyejemplo-oculto' class='options ml-3'><a class='dropdown-item' href='#'>Ocultar definición y ejemplo</a></input></div>");
        clasePanelButtons = "panel-buttons-display-block";
-        $(".panel-buttons").removeClass("panel-buttons-display-none");
+       
+       $(".panel-buttons").removeClass("panel-buttons-display-none");
         $(".panel-buttons").addClass("panel-buttons-display-block");
     }else{
         clasePanelButtons = "panel-buttons-display-none";
@@ -62,22 +66,16 @@ function selectOptionHandler(){
 
 
     if($("#pictos").is(':checked')){
-        //$(".pictos").css("display", "none");
-        //$(".pictos-oculto").remove(".pictos-oculto");
-        //$(".pictos-oculto").add(".pic");
-
         claseMostrarPictos = "pos-ini-block";
-        clasePosicionPictos = "img-pos-fin-10";
+        clasePosicionPictos = "position-img";
         $(".image-picto").removeClass("pos-ini-none");
         $(".image-picto").addClass("pos-ini-block");
 
-
-        $(".panel-img").removeClass("img-pos-ini-90");
-        $(".panel-img").addClass("img-pos-fin-10");
-    }else{
-        claseMostrarPictos = "pos-ini-none";
-        clasePosicionPictos = "img-pos-ini-90";
-        
+        posicionMet = "position-p-img";
+        $(".panel-img").removeClass("panel-img");
+        $(".panel-img").addClass("position-img");
+        $(".p-met").removeClass("p-met");
+        $(".p-met").addClass("position-p-img");
     }
 
     
@@ -137,6 +135,7 @@ function mostrarJson(json){
                  
                 json.metaphor.find(elem =>{             
                     if(elem.type == "SYNONYM" && elem.offset == offset.offset || elem.type == "HYPERONYM" && elem.offsetFather == offset.offset ){
+                        existMetaphor = true;
                         arrayMetaforas.push(elem);
                     }
                 });
@@ -145,6 +144,7 @@ function mostrarJson(json){
                  
                 json.simil.find(elem =>{
                     if (elem.offsetFather == offset.offset){
+                        existSimil = true;
                         arraySimiles.push(elem);
                     }
                 });
@@ -171,7 +171,14 @@ function mostrarJson(json){
                 ++contador;
             }
             
+
+            
         });
+
+        if(!existMetaphor && !existSimil){
+            let elemento = "<h3> No hay resultados para la palabra" + "<p class=' word ml-2'>" + json.word + "</p></h3>";
+            $(".title").append(elemento); 
+        }
     }
 
 
@@ -246,34 +253,21 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
 
 
     if(resultadoMetaforas.length > 0){
-        /*console.log("RESULTADO DE METAFORAS")
-        console.log(resultadoMetaforas); 
-        *///console.log("RESULTADO DEF Y EJEMPLO")
-        //console.log(resultadoDefEjemplo); 
         resultadoMetaforas.forEach(result =>{            
           result.metaphor.forEach(metaphor=> {
                 let enlace = metaphor.split(" ").pop();
                 phrase = metaphor.replace(enlace, "");
-                
-                
-              //--> LOCAL
-                /*getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
-                    if(hayImg){
-                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div></li><hr>";
-                    }else{
-                        elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><hr>";
-                    }
-                   
-                });*/
+    
                 // --> HOLSTEIN
                 getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
                         elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase +
-                        "</div><div class='panel-img " + clasePosicionPictos + " ml-2'><img class='image-picto " + claseMostrarPictos + " result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img>" +
-                        "<a href='/'>" + enlace + "</a></div></li><hr>";
+                        "</div><div class='panel-img mt-3 " + clasePosicionPictos + " ml-2'><img class='image-picto " + claseMostrarPictos + 
+                        " result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img>" +
+                        "<p class='" + posicionMet + "'>" + enlace + "</p></div></li><hr>";
                     }else{
                         elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + 
-                        "<a class='ml-2' href='/'>" + enlace + "</a></li><hr>";
+                        "<p class='ml-2 mt-3'>" + enlace + "</p></li><hr>";
                        // "<a class='ml-2' href='/'>" + enlace + "</a></li><hr>";
                     }
                    
@@ -285,32 +279,23 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
     } 
 
     if(resultadoSimiles.length > 0){
-        //console.log("RESULTADO SIMILES");
-        //console.log(resultadoSimiles);
-        resultadoSimiles.forEach(similResult =>{
-            //console.log("FOR EACH DE SIMILES")
-            //console.log(resultadoSimiles); 
+       
+        resultadoSimiles.forEach(similResult =>{             
             similResult.simil.forEach(simil =>{
                
             let enlace = simil.split(" ").pop();
                 phrase = simil.replace(enlace, "");
                 
-                    
-              //--> LOCAL
-                /*getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
-                    if(hayImg){
-                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div></li><hr>";
-                    }else{
-                        elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><hr>";
-                    }
-                   
-                });*/
                 // --> HOLSTEIN
                 getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
-                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "</div><div class='panel-img " + clasePosicionPictos + "  ml-2'><img class='image-picto " + claseMostrarPictos + " result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img><a href='/'>" + enlace + "</a></div></li><hr>";
+                        elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + 
+                        "</div><div class='panel-img mt-3 " + clasePosicionPictos + "  ml-2'><img class='image-picto " + claseMostrarPictos + 
+                        " result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img>" +
+                        "<p>" + enlace + "<p></div></li><hr>";
                     }else{
-                        elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + "<a class='ml-2' href='/'>" + enlace + "</a></li><hr>";
+                        elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + 
+                        "<p class='ml-2 mt-3'>" + enlace + "</p></li><hr>";
                     }
                    
                 });
