@@ -175,6 +175,11 @@ hr{
   border-color:rgb(149, 138, 216);
 }
 
+
+p i{
+  color:black;
+}
+
 h3  p , p{
   /*color:rgb(212, 183, 19);*/
   color: rgb(149, 138, 216);

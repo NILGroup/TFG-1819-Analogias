@@ -263,7 +263,8 @@ def getMetaphor(word, level):
 
             index += 1
 
-
+    print("palabras repetidas metaforas")
+    print(repeatWords)
     if len(dataJson) == 1:
         dataJson.pop()
 
@@ -331,8 +332,8 @@ def getSimil(word, level):
 
                 index += 1
 
-
-
+    print("palabras repetidas simil")
+    print(repeatWords)
     if len(dataJson) == 1:
         dataJson.pop()
     return dataJson

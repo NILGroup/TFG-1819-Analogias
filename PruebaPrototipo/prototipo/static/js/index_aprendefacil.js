@@ -23,9 +23,10 @@ $(function() {
 
 
 function selectOptionHandler(){
-    $("body").css("text-transform" ,"uppercase");
+    
     if($("#mayusculas").is(':checked')){
-        $("#text-mayusculas").text("Convertir a minúsculas");        
+        
+        $("#mayusculas").val("Convertir a minúsculas"); 
         $("body").css("text-transform" ,"uppercase");
 
     } else{
