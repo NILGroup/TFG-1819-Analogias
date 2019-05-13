@@ -296,7 +296,6 @@ def getSimil(word, level):
                 for hyponym in listaWordsHyponyms:
                     if hyponym['word'] != dataJson[0]["word"]:
 
-
                         with connection.cursor() as cursor:
                             if level == "1":
 
@@ -315,8 +314,9 @@ def getSimil(word, level):
 
                             result = cursor.fetchone()[0]
                             if result > 0:
-                                repeatWords.add(hyponym['word'])
-                                listEasyWords.append(hyponym['word'])
+                                if hyponym['word'] not in repeatWords:
+                                    repeatWords.add(hyponym['word'])
+                                    listEasyWords.append(hyponym['word'])
 
             phraseHyponym = list()
             if len(listEasyWords) > 0:

@@ -21,6 +21,36 @@ import shutil
 
 
 @csrf_exempt
+def principal(request, word, level):
+
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # if os.path.exists('prototipo/pictogramas'):
+    # shutil.rmtree(BASE_DIR + '/prototipo/pictogramas')
+
+
+    if request.method == "GET":
+
+        print("ENTRO A GET ")
+        print("palabra parametro")
+        print(word)
+        print("level por parametro")
+        print(level)
+        allOffset = result.allOffsets(word)
+        metaphor = result.getMetaphor(word, level)
+        print(metaphor)
+        simil = result.getSimil(word, level)
+        def_and_example = result.getDefAndExample(word, level)
+
+        return JsonResponse({'word': word, 'allOffsets': allOffset, 'metaphor': metaphor, 'simil': simil,
+                                 'content': def_and_example})
+
+    return render(request, 'prototipo/aprende_facil.html', { 'word': "", 'results': ""})
+
+
+
+
+
+@csrf_exempt
 def index(request):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     #if os.path.exists('prototipo/pictogramas'):
