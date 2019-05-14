@@ -235,7 +235,11 @@ function mostrarJson(json){
         if(!existMetaphor && !existSimil){
             let elemento = "<h3> No hay resultados para la palabra" + "<p class=' word ml-2'>" + json.word + "</p></h3>";
             $(".title").append(elemento); 
+           
         }
+
+        existMetaphor = false;
+        existSimil = false;
     }
 
 
