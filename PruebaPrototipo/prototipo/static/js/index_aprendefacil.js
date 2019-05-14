@@ -26,20 +26,15 @@ function selectOptionHandler(){
     
     if($("#mayusculas").is(':checked')){
         
-        $("#mayusculas").val("Convertir a minúsculas"); 
+        $("#text-mayusculas").find("span").text("Convertir a minúsculas"); 
         $("body").css("text-transform" ,"uppercase");
 
     } else{
+        $("#text-mayusculas").find("span").text("Convertir a mayúsculas"); 
         $("body").css("text-transform" ,"");
     }
 
-    if($("#minusculas").is(':checked')){
-        $(".minusculas").html("");
-        $(".mayusculas").append("<div class=' mayusculas center-content border-color-right'><input type='checkbox' id='mayusculas' class='options ml-3'><a id='text-mayusculas' class='options dropdown-item' href='#'>Convertir a mayúsculas</a></input></div>");
-        $("body").css("text-transform" ,"lowercase");
-
-    }
-
+  
     if($("#defyejemplo").is(':checked')){
        // $(".def-example").css("display", "block");
        $(".defyejemplo").html("");
@@ -51,9 +46,7 @@ function selectOptionHandler(){
     }else{
         clasePanelButtons = "panel-buttons-display-none";
     }
-    /*}else{
-        $(".def-example").css("display", "none"); 
-    }*/
+     
 
 
     if($("#defyejemplo-oculto").is(':checked')){
@@ -341,137 +334,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
     
     $("#list-results").append(elemento);
     
-  /*  if(resultadoSinonimos != undefined){
-
-        resultadoSinonimos.phraseSynonyms.forEach(phrase =>{
-
-            if(phrase.definition != undefined){
-                tieneDef = true;
-                definicion += "<p><b> Definición:</b><i>" + phrase.definition + "</i></p>";
-           }    
-
-           if(phrase.example != undefined){
-                tieneEjemplo = true;
-                ejemplo += "<p><b> Ejemplo:</b><i>" + phrase.example + "</i></p>";
-           }
-    
-            
-                let enlace = phrase.split(" ").pop();
-                phrase = phrase.replace(enlace, "");
-                //--> LOCAL
-                getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
-                    if(hayImg){
-                        elemento += "<li><div class='panel-word'>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div></li><br>";
-                    }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
-                    }
-                   
-                });*/
-
-                  //--> HOLSTEIN
-                 /* getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
-                    if(hayImg){
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
-                    }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
-                    }
-                   
-                });*/
-        
-       /* });
-
-    }*/
-    
-   /* if(resultadoHiponimos != undefined){
-       
-        resultadoHiponimos.forEach(phrase =>{
-            if(phrase.definition.length != 0){
-            tieneDef = true;
-                definicion += "<p><b> Definición:</b><i>" + phrase.definition + "</i></p>";
-           }    
-
-           if(phrase.example.length != 0){
-                tieneEjemplo = true;
-                ejemplo += "<p><b> Ejemplo:</b><i>" + phrase.example + "</i></p>";
-           }
-
-            phrase.phraseHyponyms.forEach(p =>{              
-                let enlace = p.split(" ").pop();
-                phrase = p.replace(enlace, "");
-                
-                
-              //--> LOCAL
-                getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
-                    if(hayImg){
-                        elemento += "<li><div class='panel-word'>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div</li><br>";
-                    }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
-                    }
-                   
-                });*/
-                // --> HOLSTEIN
-                /*getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
-                    if(hayImg){
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
-                    }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
-                    }
-                   
-                });*/
-           /* }); 
-        });
-
-    }*/
-   /*
-    if(resultadoHiperonimos != undefined){         
-        resultadoHiperonimos.forEach(phrase =>{     
-
-    
-            if(phrase.definition.length != 0){
-                tieneDef = true;
-                definicion += "<p><b> Definición:</b><i>" + phrase.definition + "</i></p>";
-           }   
-
-           if(phrase.example.length != 0){
-                tieneEjemplo = true;
-                ejemplo += "<p><b> Ejemplo:</b><i>" + phrase.example + "</i></p>";
-           }
-            phrase.phraseHyperonyms.forEach(p =>{
-                let enlace = p.split(" ").pop();
-                phrase = p.replace(enlace, "");
-                
-                //--> LOCAL
-                getImgContentType("http://127.0.0.1:8000/imagenByPalabra/" + enlace, (hayImg)=>{
-                    if(hayImg){
-                        elemento += "<li><div class='panel-word'>" + palabra + ' ' + phrase + "</div><div class='panel-img ml-2'><img class='image-picto result-picto' src='http://127.0.0.1:8000/imagenByPalabra/" + enlace + "'></img><a href='#'>" + enlace + "</a></div></li><br>";
-                    }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a class='ml-2' href='#'>" + enlace + "</a></li><br>";
-                    }
-                   
-                });*/
-                //--> HOLSTEIN
-                /*getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
-                    if(hayImg){
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a><img class='image-picto ml-3' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img></li><br>";
-                    }else{
-                        elemento += "<li>" + palabra + ' ' + phrase + "<a href='#'>" + enlace + "</a></li><br>";
-                    }
-                   
-                });*/
-            /*});     
-        });
-
-       
-    }*/
-
-
-    /*if(tieneDef || tieneEjemplo){
-        elemento += "<div id='panel-button' class='" + clasePanelButtons + "'>" +
-        "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-           "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
-
-        idsFichasConDefinicionYejemplo.push(numTarjeta);
-    }*/
+ 
 
         
             
