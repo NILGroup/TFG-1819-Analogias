@@ -17,10 +17,55 @@ $(function() {
     $("#button-send").on("click", selectOptionHandler);
 
     $("#defyejemplo").on("click", defyejemploCheckboxHandler);
+    $("#pictos").on("click", pictosCheckboxHandler);
     
 });
 
-function defyejemploCheckboxHandler(event){
+
+function pictosCheckboxHandler(){
+    if (buttonSendPulsado){
+        let texto = $("#text-pictos").find("span").text(); 
+     
+        if (texto == "Mostrar pictos"){
+            $("#text-pictos").find("span").text("Ocultar pictos"); 
+            claseMostrarPictos = "pos-ini-block";            
+            $(".image-picto").removeClass("pos-ini-none");
+            $(".image-picto").addClass("pos-ini-block");
+    
+            clasePosicionPictos = "position-img";
+            $(".position-metaphor").removeClass("panel-img");
+            $(".position-metaphor").addClass("position-img");
+
+            posicionMet = "position-p-img";
+            $(".p-met").addClass("position-p-img");
+            //$(".p-met").removeClass("p-met");
+            
+
+        }else if(texto == "Ocultar pictos"){
+            $("#text-pictos").find("span").text("Mostrar pictos"); 
+            claseMostrarPictos = "pos-ini-none";            
+            $(".image-picto").removeClass("pos-ini-block");
+            $(".image-picto").addClass("pos-ini-none");
+    
+            clasePosicionPictos = "panel-img";
+            $(".position-metaphor").removeClass("position-img");
+            $(".position-metaphor").addClass("panel-img");
+
+            posicionMet = "p-met";
+            $(".p-met").addClass("p-met");
+            $(".p-met").removeClass("position-p-img");
+            
+            
+            
+        }
+        
+        $("#pictos").prop("checked", false);
+        
+        }
+}
+
+
+function defyejemploCheckboxHandler(){
     if (buttonSendPulsado){
         let texto = $("#text-defyejemplo").find("span").text(); 
      
@@ -73,9 +118,8 @@ function selectOptionHandler(){
      
     
 
-
-
     if($("#pictos").is(':checked')){
+        $("#text-pictos").find("span").text("Ocultar pictos"); 
         claseMostrarPictos = "pos-ini-block";
         clasePosicionPictos = "position-img";
         $(".image-picto").removeClass("pos-ini-none");
@@ -86,9 +130,9 @@ function selectOptionHandler(){
         $(".panel-img").addClass("position-img");
         $(".p-met").removeClass("p-met");
         $(".p-met").addClass("position-p-img");
-    }
 
-    
+        $("#pictos").prop("checked", false);
+    }    
 }
 
 
@@ -272,7 +316,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
                 getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
                         elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase +
-                        "</div><div class='panel-img mt-3 " + clasePosicionPictos + " ml-2'><img class='image-picto " + claseMostrarPictos + 
+                        "</div><div class='position-metaphor panel-img mt-3 " + clasePosicionPictos + " ml-2'><img class='image-picto " + claseMostrarPictos + 
                         " result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img>" +
                         "<p class='" + posicionMet + "'>" + enlace + "</p></div></li><hr>";
                     }else{
@@ -300,7 +344,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
                 getImgContentType("https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace, (hayImg)=>{
                     if(hayImg){
                         elemento += "<li><div class='panel-word'><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + 
-                        "</div><div class='panel-img mt-3 " + clasePosicionPictos + "  ml-2'><img class='image-picto " + claseMostrarPictos + 
+                        "</div><div class='position-metaphor panel-img mt-3 " + clasePosicionPictos + "  ml-2'><img class='image-picto " + claseMostrarPictos + 
                         " result-picto' src='https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/" + enlace + "'></img>" +
                         "<p>" + enlace + "<p></div></li><hr>";
                     }else{
