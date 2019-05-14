@@ -346,7 +346,11 @@ form.panel-search-word > p > label {
   color: white !important;
 }
 
-
+.word-search:hover{
+  cursor: pointer;
+  text-decoration: underline;
+  
+}
 .color-no-defyejemplo{
   width: fit-content;
   background:rgb(90, 90, 90);

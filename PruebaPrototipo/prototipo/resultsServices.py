@@ -342,7 +342,7 @@ def getSimil(word, level):
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
 
-
+ 
 def getDefAndExample(word, level):
     dataJson = []
 
