@@ -3,6 +3,7 @@ let clasePanelButtons = "panel-buttons-display-none";
 let claseMostrarPictos = "pos-ini-none";
 let clasePosicionPictos = "panel-img";
 let posicionMet = "p-met";
+let buttonSendPulsado = false;
 
 let existMetaphor = false;
 let existSimil = false;
@@ -14,56 +15,63 @@ $(function() {
     $("#mayusculas").on("click", selectOptionHandler);
      
     $("#button-send").on("click", selectOptionHandler);
-    $("#defyejemplo-oculto").on("click", selectOptionHandler);
-    
+
+    $("#defyejemplo").on("click", defyejemploCheckboxHandler);
     
 });
 
+function defyejemploCheckboxHandler(event){
+    if (buttonSendPulsado){
+        let texto = $("#text-defyejemplo").find("span").text(); 
+     
+        if (texto == "Mostrar definición y ejemplo"){
+            $("#text-defyejemplo").find("span").text("Ocultar definición y ejemplo"); 
+            clasePanelButtons = "panel-buttons-display-block";
+            $(".panel-buttons").removeClass("panel-buttons-display-none");
+            $(".panel-buttons").addClass("panel-buttons-display-block");
 
+        }else if(texto == "Ocultar definición y ejemplo"){
+            $("#text-defyejemplo").find("span").text("Mostrar definición y ejemplo"); 
+            clasePanelButtons = "panel-buttons-display-none";
+            $(".panel-buttons").removeClass("panel-buttons-display-block");
+            $(".panel-buttons").addClass("panel-buttons-display-none");
+            
+        }
+        
+        $("#defyejemplo").prop("checked", false);
+        
+        }
+}
 
 
 function selectOptionHandler(){
     let texto = $("#text-mayusculas").find("span").text(); 
-     
+    
+     buttonSendPulsado = true;
+
     if($("#mayusculas").is(':checked')){
         if (texto == "Convertir a minúsculas"){
             $("#text-mayusculas").find("span").text("Convertir a mayúsculas"); 
             $("body").css("text-transform" ,"");
+
         }else if(texto == "Convertir a mayúsculas"){
 
             $("#text-mayusculas").find("span").text("Convertir a minúsculas"); 
             $("body").css("text-transform" ,"uppercase");
-        
-
         }
-        
         $("#mayusculas").prop("checked", false);
-       
     }
    
 
-  
     if($("#defyejemplo").is(':checked')){
-       // $(".def-example").css("display", "block");
-       $(".defyejemplo").html("");
-        $(".defyejemplo").append("<div class=' defyejemplo-oculto center-content border-color-right'><input type='checkbox' id='defyejemplo-oculto' class='options ml-3'><a class='dropdown-item' href='#'>Ocultar definición y ejemplo</a></input></div>");
-       clasePanelButtons = "panel-buttons-display-block";
-       
-       $(".panel-buttons").removeClass("panel-buttons-display-none");
+        $("#text-defyejemplo").find("span").text("Ocultar definición y ejemplo"); 
+       clasePanelButtons = "panel-buttons-display-block";       
+        $(".panel-buttons").removeClass("panel-buttons-display-none");
         $(".panel-buttons").addClass("panel-buttons-display-block");
-    }else{
-        clasePanelButtons = "panel-buttons-display-none";
+        $("#defyejemplo").prop("checked", false);
     }
      
-
-
-    if($("#defyejemplo-oculto").is(':checked')){
-        // $(".def-example").css("display", "block");
-        $(".defyejemplo-oculto").html("");
-         $(".defyejemplo-oculto").append("<div class=' defyejemplo center-content border-color-right'><input type='checkbox' id='defyejemplo' class='options ml-3'><a class='dropdown-item' href='#'>Mostrar definición y ejemplo</a></input></div>");
-         clasePanelButtons = "panel-buttons-display-none";
-       
-     }
+    
 
 
 
@@ -335,7 +343,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
         "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
         "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
     }*/
-        elemento += "<div id='panel-button' class='" + clasePanelButtons + "'>" +
+        elemento += "<div id='panel-button' class='panel-buttons " + clasePanelButtons + "'>" +
         "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
         "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
     }
