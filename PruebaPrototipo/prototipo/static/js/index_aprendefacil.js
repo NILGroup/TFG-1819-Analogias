@@ -406,7 +406,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
         "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
         "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
     } else {
-        elemento += "<div class='color-no-defyejemplo pl-3 pr-3 pt-2 pb-2 panel-buttons-display-none'>NO HAY DEFINICIÓN NI EJEMPLO</div>"
+        elemento += "<div class='color-no-defyejemplo pl-3 pr-3 pt-2 pb-2 " + clasePanelButtons + "'>NO HAY DEFINICIÓN NI EJEMPLO</div>"
     }
     
     $("#list-results").append(elemento);
