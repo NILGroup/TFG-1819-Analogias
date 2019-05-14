@@ -23,16 +23,24 @@ $(function() {
 
 
 function selectOptionHandler(){
-    
+    let texto = $("#text-mayusculas").find("span").text(); 
+     
     if($("#mayusculas").is(':checked')){
-        
-        $("#text-mayusculas").find("span").text("Convertir a minúsculas"); 
-        $("body").css("text-transform" ,"uppercase");
+        if (texto == "Convertir a minúsculas"){
+            $("#text-mayusculas").find("span").text("Convertir a mayúsculas"); 
+            $("body").css("text-transform" ,"");
+        }else if(texto == "Convertir a mayúsculas"){
 
-    } else{
-        $("#text-mayusculas").find("span").text("Convertir a mayúsculas"); 
-        $("body").css("text-transform" ,"");
+            $("#text-mayusculas").find("span").text("Convertir a minúsculas"); 
+            $("body").css("text-transform" ,"uppercase");
+        
+
+        }
+        
+        $("#mayusculas").prop("checked", false);
+       
     }
+   
 
   
     if($("#defyejemplo").is(':checked')){
