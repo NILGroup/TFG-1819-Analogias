@@ -77,12 +77,16 @@ function defyejemploCheckboxHandler(){
             clasePanelButtons = "panel-buttons-display-block";
             $(".panel-buttons").removeClass("panel-buttons-display-none");
             $(".panel-buttons").addClass("panel-buttons-display-block");
+            $(".color-no-defyejemplo").removeClass("panel-buttons-display-none");
 
         }else if(texto == "Ocultar definición y ejemplo"){
             $("#text-defyejemplo").find("span").text("Mostrar definición y ejemplo"); 
             clasePanelButtons = "panel-buttons-display-none";
             $(".panel-buttons").removeClass("panel-buttons-display-block");
             $(".panel-buttons").addClass("panel-buttons-display-none");
+            $(".color-no-defyejemplo").addClass("panel-buttons-display-none");
+            
+
             
         }
         
@@ -116,6 +120,10 @@ function selectOptionHandler(){
        clasePanelButtons = "panel-buttons-display-block";       
         $(".panel-buttons").removeClass("panel-buttons-display-none");
         $(".panel-buttons").addClass("panel-buttons-display-block");
+        $(".color-no-defyejemplo").removeClass("panel-buttons-display-none");
+        $(".color-no-defyejemplo").addClass("panel-buttons-display-block");
+            
+            
         $("#defyejemplo").prop("checked", false);
     }
      
@@ -397,6 +405,8 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
         elemento += "<div id='panel-button' class='panel-buttons " + clasePanelButtons + "'>" +
         "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
         "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
+    } else {
+        elemento += "<div class='color-no-defyejemplo pl-3 pr-3 pt-2 pb-2 panel-buttons-display-none'>NO HAY DEFINICIÓN NI EJEMPLO</div>"
     }
     
     $("#list-results").append(elemento);
