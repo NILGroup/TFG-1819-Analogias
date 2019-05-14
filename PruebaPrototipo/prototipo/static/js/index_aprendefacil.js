@@ -22,6 +22,9 @@ $(function() {
 });
 
 
+
+
+
 function pictosCheckboxHandler(){
     if (buttonSendPulsado){
         let texto = $("#text-pictos").find("span").text(); 
@@ -128,7 +131,7 @@ function selectOptionHandler(){
         posicionMet = "position-p-img";
         $(".panel-img").removeClass("panel-img");
         $(".panel-img").addClass("position-img");
-        $(".p-met").removeClass("p-met");
+   
         $(".p-met").addClass("position-p-img");
 
         $("#pictos").prop("checked", false);
