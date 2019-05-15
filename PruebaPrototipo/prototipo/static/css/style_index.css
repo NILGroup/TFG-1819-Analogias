@@ -13,7 +13,7 @@
 }*/
 
 body{
-  background-image: url("/static/img/fondo_a_z_morado.png");
+  background-image: url(."/static/img/fondo_a_z_morado.png");
   background-size: 100% ;
   background-position-y: 60%;
   height: 1000px;
