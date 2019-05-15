@@ -361,26 +361,26 @@ function mostrarJson(json){
             let elemento = "<h3> No hay resultados para la palabra" + "<p class=' word ml-2'>" + json.word + "</p></h3>";
             $(".title").append(elemento);
             $.getJSON('https://holstein.fdi.ucm.es/nlp-api/analisis/'+json.word, function(data) {
-                if ("morfologico" in data) {
-			if ("genero" in data["morfologico"]){
-				if (data["morfologico"]["genero"] == "masculino"){
-					console.log("soy masculino");
-				}else {
-					console.log("soy femenino");
-				}
-			}
-			if ("numero" in data["morfologico"]){
-				if(data["morfologico"]["numero"]== "singular" ){
-					console.log("soy singular");
-				}else {
-					console.log("soy plural");
-				}
-			}
-		}
+                let genero = "";
+                let numero = "";
+                if (data['morfologico']['parte'] == "nombre" || data['morfologico']['parte'] == "adjetivo") {
+                    if ("genero" in data["morfologico"] && "numero" in data['morfologico']){
+                        genero = data["morfologico"]["genero"];
+                        numero = data["morfologico"]["numero"];
+                    } else if ("genero" in data["morfologico"] && "numero" not in data['morfologico']) {
+                            genero = data["morfologico"]["genero"];
+                            numero = "singular";
+                    } else if ("genero" not in data["morfologico"] && "numero" in data['morfologico']) {
+                            genero = "masculino";
+                            numero = data["morfologico"]["numero"];
+
+                    }
+
+                }
+                //aqui ya tienes las variables con valor
             });
            
         }
-
         existMetaphor = false;
         existSimil = false;
     }
