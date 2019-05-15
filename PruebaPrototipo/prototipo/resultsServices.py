@@ -412,7 +412,7 @@ def getDefAndExample(word, level):
                             dataJson[2]['simil'][i_simil]["definition"] = definitionHypo[0]['gloss']
 
                     if len(exampleHypo) > 0:
-                        for example in examples:
+                        for example in exampleHypo:
                             listExamplesHypo.append(example['examples'])
                         dataJson[2]['simil'][i_simil]["example"] = listExamplesHypo
                     i_simil += 1
