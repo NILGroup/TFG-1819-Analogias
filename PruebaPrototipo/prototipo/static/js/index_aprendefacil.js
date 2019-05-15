@@ -10,14 +10,21 @@ let existSimil = false;
 $(function() {
     $(".loader").hide();
     $("#id_word").attr("placeholder", "Palabra");
-    $("#button-accept").on("click", selectOptionHandler);
+     
     $("#formulario").on("submit", showCardHandler);
     $("#mayusculas").on("click", selectOptionHandler);
+    $("#minusculas").on("click", selectOptionHandler);
      
+    $("#defyejemplo").on("click", defyejemploCheckboxHandler);
+    $("#defyejemplo-ocultar").on("click", defyejemploCheckboxHandler);
+
+    $("#pictos").on("click", pictosCheckboxHandler);
+    $("#pictos-oculto").on("click", pictosCheckboxHandler);
+
     $("#button-send").on("click", selectOptionHandler);
     $("#list-results").on("click", ".word-search", wordSearchHandler);
-    $("#defyejemplo").on("click", defyejemploCheckboxHandler);
-    $("#pictos").on("click", pictosCheckboxHandler);
+   
+  
     
 });
 
@@ -27,7 +34,6 @@ function wordSearchHandler(){
     let word = $(this).text();
     let level = $("#level").val();
    
-    
      $(".loader").show();
      $("#list-results").html("");
      $(".title").html("");
@@ -45,10 +51,38 @@ function wordSearchHandler(){
      });
 }
 
-
+/* Metodo que hace que aparezca o desaparezca la definicion y el ejemplo cuando ya han salido los resultados */
 function pictosCheckboxHandler(){
     if (buttonSendPulsado){
-        let texto = $("#text-pictos").find("span").text(); 
+        if($("#pictos").is(':checked')){        
+            claseMostrarPictos = "pos-ini-block";            
+            $(".image-picto").removeClass("pos-ini-none");
+            $(".image-picto").addClass("pos-ini-block");
+    
+            clasePosicionPictos = "position-img";
+            $(".position-metaphor").removeClass("panel-img");
+            $(".position-metaphor").addClass("position-img");
+
+            posicionMet = "position-p-img";
+            $(".p-met").addClass("position-p-img");
+        }
+
+
+        if($("#pictos-oculto").is(':checked')){ 
+            claseMostrarPictos = "pos-ini-none";            
+            $(".image-picto").removeClass("pos-ini-block");
+            $(".image-picto").addClass("pos-ini-none");
+    
+            clasePosicionPictos = "panel-img";
+            $(".position-metaphor").removeClass("position-img");
+            $(".position-metaphor").addClass("panel-img");
+
+            posicionMet = "p-met";
+            $(".p-met").addClass("p-met");
+            $(".p-met").removeClass("position-p-img");  
+    
+        }
+        /*let texto = $("#text-pictos").find("span").text(); 
      
         if (texto == "Mostrar pictos"){
             $("#text-pictos").find("span").text("Ocultar pictos"); 
@@ -77,21 +111,33 @@ function pictosCheckboxHandler(){
 
             posicionMet = "p-met";
             $(".p-met").addClass("p-met");
-            $(".p-met").removeClass("position-p-img");
-            
-            
-            
+            $(".p-met").removeClass("position-p-img");   
         }
         
-        $("#pictos").prop("checked", false);
+        $("#pictos").prop("checked", false);*/
         
         }
 }
 
-
+/* Metodo que hace que aparezca o desaparezca la definicion y el ejemplo cuando ya han salido los resultados */
 function defyejemploCheckboxHandler(){
     if (buttonSendPulsado){
-        let texto = $("#text-defyejemplo").find("span").text(); 
+        if($("#defyejemplo").is(':checked')){
+            clasePanelButtons = "panel-buttons-display-block";       
+            $(".panel-buttons").removeClass("panel-buttons-display-none");
+            $(".panel-buttons").addClass("panel-buttons-display-block");
+            $(".color-no-defyejemplo").removeClass("panel-buttons-display-none");
+            $(".color-no-defyejemplo").addClass("panel-buttons-display-block");
+         }
+    
+         if($("#defyejemplo-ocultar").is(':checked')){
+            clasePanelButtons = "panel-buttons-display-none";       
+            $(".panel-buttons").removeClass("panel-buttons-display-block");
+            $(".panel-buttons").addClass("panel-buttons-display-none");
+            $(".color-no-defyejemplo").removeClass("panel-buttons-display-block");
+            $(".color-no-defyejemplo").addClass("panel-buttons-display-none");
+         }
+        /*let texto = $("#text-defyejemplo").find("span").text(); 
      
         if (texto == "Mostrar definición y ejemplo"){
             $("#text-defyejemplo").find("span").text("Ocultar definición y ejemplo"); 
@@ -105,13 +151,10 @@ function defyejemploCheckboxHandler(){
             clasePanelButtons = "panel-buttons-display-none";
             $(".panel-buttons").removeClass("panel-buttons-display-block");
             $(".panel-buttons").addClass("panel-buttons-display-none");
-            $(".color-no-defyejemplo").addClass("panel-buttons-display-none");
-            
-
-            
+            $(".color-no-defyejemplo").addClass("panel-buttons-display-none");   
         }
         
-        $("#defyejemplo").prop("checked", false);
+        $("#defyejemplo").prop("checked", false);*/
         
         }
 }
@@ -122,7 +165,62 @@ function selectOptionHandler(){
     
      buttonSendPulsado = true;
 
-    if($("#mayusculas").is(':checked')){
+     if($("#mayusculas").is(':checked')){
+        $("body").css("text-transform" ,"uppercase");
+     }
+
+
+     if($("#minusculas").is(':checked')){
+        $("body").css("text-transform" ,"");
+     }
+
+     
+     if($("#defyejemplo").is(':checked')){
+        clasePanelButtons = "panel-buttons-display-block";       
+        $(".panel-buttons").removeClass("panel-buttons-display-none");
+        $(".panel-buttons").addClass("panel-buttons-display-block");
+        $(".color-no-defyejemplo").removeClass("panel-buttons-display-none");
+        $(".color-no-defyejemplo").addClass("panel-buttons-display-block");
+     }
+
+     if($("#defyejemplo-ocultar").is(':checked')){
+        clasePanelButtons = "panel-buttons-display-none";       
+        $(".panel-buttons").removeClass("panel-buttons-display-block");
+        $(".panel-buttons").addClass("panel-buttons-display-none");
+        $(".color-no-defyejemplo").removeClass("panel-buttons-display-block");
+        $(".color-no-defyejemplo").addClass("panel-buttons-display-none");
+     }
+
+
+
+     if($("#pictos").is(':checked')){        
+        claseMostrarPictos = "pos-ini-block";
+        clasePosicionPictos = "position-img";
+        $(".image-picto").removeClass("pos-ini-none");
+        $(".image-picto").addClass("pos-ini-block");
+
+        posicionMet = "position-p-img";
+        $(".panel-img").removeClass("panel-img");
+        $(".panel-img").addClass("position-img");   
+        $(".p-met").addClass("position-p-img");
+    }
+
+    /*if($("#pictos-oculto").is(':checked')){ 
+        claseMostrarPictos = "pos-ini-none";            
+        $(".image-picto").removeClass("pos-ini-block");
+        $(".image-picto").addClass("pos-ini-none");
+
+        clasePosicionPictos = "panel-img";
+        $(".position-metaphor").removeClass("position-img");
+        $(".position-metaphor").addClass("panel-img");
+
+        posicionMet = "p-met";
+        $(".p-met").addClass("p-met");
+        $(".p-met").removeClass("position-p-img");   
+
+    }*/
+    
+    /*if($("#mayusculas").is(':checked')){
         if (texto == "Convertir a minúsculas"){
             $("#text-mayusculas").find("span").text("Convertir a mayúsculas"); 
             $("body").css("text-transform" ,"");
@@ -133,10 +231,10 @@ function selectOptionHandler(){
             $("body").css("text-transform" ,"uppercase");
         }
         $("#mayusculas").prop("checked", false);
-    }
+    }*/
    
 
-    if($("#defyejemplo").is(':checked')){
+   /* if($("#defyejemplo").is(':checked')){
         $("#text-defyejemplo").find("span").text("Ocultar definición y ejemplo"); 
        clasePanelButtons = "panel-buttons-display-block";       
         $(".panel-buttons").removeClass("panel-buttons-display-none");
@@ -147,10 +245,10 @@ function selectOptionHandler(){
             
         $("#defyejemplo").prop("checked", false);
     }
-     
+     */
     
 
-    if($("#pictos").is(':checked')){
+    /*if($("#pictos").is(':checked')){
         $("#text-pictos").find("span").text("Ocultar pictos"); 
         claseMostrarPictos = "pos-ini-block";
         clasePosicionPictos = "position-img";
@@ -162,7 +260,7 @@ function selectOptionHandler(){
         $(".panel-img").addClass("position-img");   
         $(".p-met").addClass("position-p-img");
         $("#pictos").prop("checked", false);
-    }    
+    }  */  
 }
 
 

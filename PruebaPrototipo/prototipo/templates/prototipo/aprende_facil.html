@@ -36,24 +36,47 @@
              <p>Introduzca una palabra y seleccione un nivel de búsqueda: </p> 
             </div>   
 
-            <div class="panel-options">        
-              <div class=" mayusculas border-color-right">
-                <label for="mayusculas" id="text-mayusculas" class=" mt-2 ml-2 mr-3" >
-                  <input type="checkbox" id="mayusculas" name="mayusculas" class="ml-3 mr-3"/>
-                  <span>Convertir a mayúsculas</span>
-                </label>
-              </div>
-              <div class=" border-color-right">
-                <label for="defyejemplo" id="text-defyejemplo" class="mt-2 ml-2 mr-3">
-                  <input type="checkbox" id="defyejemplo" name="defyejemplo" class="ml-3 mr-3"/><span>Mostrar definición y ejemplo</span>
-                </label>
-              </div>
-              <div >
-                <label for="pictos" id="text-pictos" class="mt-2 ml-2 mr-3" >
-                  <input type="checkbox" id="pictos" name="pictos" class=" ml-3 mr-3"><span>Mostrar pictos</span></input>
-                </label>
-              </div>
+            <div class="panel-options"> 
+
+                <div class="panel-options-colum">
+                    <div class=" minusculas border-color-right">
+                        <label for="minusculas" id="text-minusculas" class=" mt-2 ml-2 mr-3" >
+                          <input type="radio" id="minusculas" name="mayusculas" class="ml-3 mr-3 input-radio" checked/>
+                          <span>Convertir a minúsculas</span>
+                        </label>
+                    </div>
+                    <div class=" mayusculas border-color-right">
+                      <label for="mayusculas" id="text-mayusculas" class=" mt-2 ml-2 mr-3" >
+                        <input type="radio" id="mayusculas" name="mayusculas" class="ml-3 mr-3 input-radio"/>
+                        <span>Convertir a mayúsculas</span>
+                      </label>
+                    </div>                  
+                </div>
+
+                <div class="panel-options-colum">                  
+                  <div class=" border-color-right">
+                    <label for="defyejemplo-ocultar" id="text-defyejemplo-ocultar" class="mt-2 ml-2 mr-3">
+                      <input type="radio" id="defyejemplo-ocultar" name="defyejemplo" class="ml-3 mr-3 input-radio" checked/><span>No mostrar definición ni ejemplo</span>
+                    </label>
+                  </div>
+                  <div class=" border-color-right">
+                      <label for="defyejemplo" id="text-defyejemplo" class="mt-2 ml-2 mr-3">
+                        <input type="radio" id="defyejemplo" name="defyejemplo" class="ml-3 mr-3 input-radio"/><span>Mostrar definición y ejemplo</span>
+                      </label>
+                    </div>
+                </div>
+                
+                <div class="panel-options-colum">
+                  <div>                    
+                     <input type="radio" id="pictos-oculto" name="pictos" class=" ml-3 mr-3 input-radio" checked><label for="pictos-oculto" id="text-pictos-oculto" class="mt-2 ml-2 mr-3">No mostrar pictos</label>
+                  </div>
+                  <div>                
+                     <input type="radio" id="pictos" name="pictos" class=" ml-3 mr-3 input-radio"><label for="pictos" id="text-pictos" class="mt-2 ml-2 mr-3" >Mostrar pictos  </label>              
+                  </div>                              
+                </div>
             </div>
+
+
             <div class="panel-select-level mt-5">
                 <select class="form-control" id="level">
                     <option value="1">Nivel fácil</option>

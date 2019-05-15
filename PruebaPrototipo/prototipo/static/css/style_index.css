@@ -46,6 +46,12 @@ hr{
   margin-top:40px;
 }
 
+.panel-options-colum{
+  display: flex;
+  flex-direction: column;
+}
+
+
 .border-color-right{
   border-right: 2px solid rgb(149, 138, 216);;
 }
@@ -364,6 +370,29 @@ form.panel-search-word > p > label {
   border-color:rgb(92, 92, 94) !important;
 }
 
+
+
+.input-radio{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+
+  border: 1px solid black;
+  transition: 0.2s all linear;
+  outline: none;
+  margin-right: 5px;
+
+  position: relative;
+  top: 4px;
+}
+
+.input-radio:checked{
+  border: 6px solid rgb(149, 138, 216);
+}
 
 /* BOTON ENVIAR */
 
