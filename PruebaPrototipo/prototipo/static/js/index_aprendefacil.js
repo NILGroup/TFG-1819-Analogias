@@ -412,7 +412,7 @@ function mostrarJson(json){
                     frase = "es"
                 }
                 
-                let elemento = "<li><i class='material-icons color-list mr-3'>lens</i>" + json.word + ' ' + frase + ' ' + json.word + "</li><hr>";
+                let elemento = "<div id ='card" + 1 + "' class='panel-words mt-4 pt-3 pb-3 col-8 '><div class='number-panel pt-3 ml-3'><p>" + 1 + ".</p></div><div class='results'><li><i class='material-icons color-list mr-3'>lens</i>" + json.word + ' ' + frase + ' ' + json.word + "</li></div><hr>";
                 $(".title").append(elemento);
                 
             });
