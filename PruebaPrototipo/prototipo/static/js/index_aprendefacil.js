@@ -363,7 +363,20 @@ function mostrarJson(json){
             $.getJSON('https://holstein.fdi.ucm.es/nlp-api/analisis/'+json.word, function(data) {
                 let genero = "";
                 let numero = "";
-                if (data['morfologico']['parte'] == "nombre" || data['morfologico']['adjetivo']){
+                if (data['morfologico']['parte'] == "nombre"){
+                    if ("genero" in data["morfologico"] && "numero" in data['morfologico']){
+                        genero = data["morfologico"]["genero"];
+                        numero = data["morfologico"]["numero"];
+                    } else if ("genero" in data["morfologico"]) {
+                            genero = data["morfologico"]["genero"];
+                            numero = "singular";
+                    } else if ("numero" in data['morfologico']) {
+                            genero = "masculino";
+                            numero = data["morfologico"]["numero"];
+
+                    }
+
+                } else if (data['morfologico']['parte'] == "adjetivo"){
                     if ("genero" in data["morfologico"] && "numero" in data['morfologico']){
                         genero = data["morfologico"]["genero"];
                         numero = data["morfologico"]["numero"];
