@@ -361,7 +361,22 @@ function mostrarJson(json){
             let elemento = "<h3> No hay resultados para la palabra" + "<p class=' word ml-2'>" + json.word + "</p></h3>";
             $(".title").append(elemento);
             $.getJSON('https://holstein.fdi.ucm.es/nlp-api/analisis/'+json.word, function(data) {
-                console.log(data);
+                if ("morfologico" in data) {
+			if ("genero" in data["morfologico"]){
+				if (data["morfologico"]["genero"] == "masculino"){
+					console.log("soy masculino");
+				}else {
+					console.log("soy femenino");
+				}
+			}
+			if ("numero" in data["morfologico"]){
+				if(data["morfologico"]["numero"]== "singular" ){
+					console.log("soy singular");
+				}else {
+					console.log("soy plural");
+				}
+			}
+		}
             });
            
         }
