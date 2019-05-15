@@ -358,8 +358,8 @@ function mostrarJson(json){
         });
 
         if(!existMetaphor && !existSimil){
-            let elemento = "<h3> No hay resultados para la palabra" + "<p class=' word ml-2'>" + json.word + "</p></h3>";
-            $(".title").append(elemento);
+            /*let elemento = "<h3> No hay resultados para la palabra" + "<p class=' word ml-2'>" + json.word + "</p></h3>";*/
+            
             $.getJSON('https://holstein.fdi.ucm.es/nlp-api/analisis/'+json.word, function(data) {
                 let genero = "";
                 let numero = "";
@@ -408,7 +408,13 @@ function mostrarJson(json){
 							frase == "son unas";
 						}
 					}
-				}
+                }else{
+                    frase = "es"
+                }
+                
+                let elemento = "<li><i class='material-icons color-list mr-3'>lens</i>" + json.word + ' ' + frase + ' ' + json.word + "</li><hr>";
+                $(".title").append(elemento);
+                
             });
            
         }
