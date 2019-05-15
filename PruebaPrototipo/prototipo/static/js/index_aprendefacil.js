@@ -391,8 +391,24 @@ function mostrarJson(json){
 
                 }
                 //aqui ya tienes las variables con valor
-				console.log(genero);
-				console.log(numero);
+				let frase = "";
+				if (genero != "" && numero != "") {
+					if (genero == "masculino") {
+						if (numero == "singular") {
+							frase = "es un";
+						}
+						else {
+							frase == "son unos";
+						}
+					} else {
+						if (numero == "singular") {
+							frase = "es una";
+						}
+						else {
+							frase == "son unas";
+						}
+					}
+				}
             });
            
         }
