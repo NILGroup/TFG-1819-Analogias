@@ -367,10 +367,10 @@ function mostrarJson(json){
                     if ("genero" in data["morfologico"] && "numero" in data['morfologico']){
                         genero = data["morfologico"]["genero"];
                         numero = data["morfologico"]["numero"];
-                    } else if ("genero" in data["morfologico"] && "numero" not in data['morfologico']) {
+                    } else if ("genero" in data["morfologico"] && !"numero" in data['morfologico']) {
                             genero = data["morfologico"]["genero"];
                             numero = "singular";
-                    } else if ("genero" not in data["morfologico"] && "numero" in data['morfologico']) {
+                    } else if (!"genero" in data["morfologico"] && "numero" in data['morfologico']) {
                             genero = "masculino";
                             numero = data["morfologico"]["numero"];
 
@@ -378,6 +378,8 @@ function mostrarJson(json){
 
                 }
                 //aqui ya tienes las variables con valor
+		console.log(genero);
+		console.log(numero);
             });
            
         }
