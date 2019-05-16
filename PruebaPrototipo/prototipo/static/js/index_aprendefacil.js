@@ -398,14 +398,14 @@ function mostrarJson(json){
 							frase = "es un";
 						}
 						else {
-							frase == "son unos";
+							frase = "son unos";
 						}
 					} else {
 						if (numero == "singular") {
 							frase = "es una";
 						}
 						else {
-							frase == "son unas";
+							frase = "son unas";
 						}
 					}
                 }else{
