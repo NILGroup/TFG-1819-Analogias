@@ -1,14 +1,14 @@
 \chapter{Estado de la Cuestión}
 \label{cap:estadoDeLaCuestion}
 
-En primer lugar, se deben buscar los conceptos relacionados de una determinada palabra para que de esta forma se pueda obtener una mayor cantidad de resultados, y así conseguir que este sea lo más correcto y apropiado posible. Para ello, se ha utilizado una rama de la Inteligencia Artificial llamada Procesamiento del Lenguaje Natural (PLN) y en la sección 2.4 se explicará en qué consiste y las distintas herramientas disponibles para la búsqueda de conceptos relacionados de una palabra específica.
+En primer lugar, se deben buscar los conceptos relacionados con la palabra introducida por el usuario. Para ello, se ha utilizado una rama de la Inteligencia Artificial llamada Procesamiento del Lenguaje Natural (PLN). En la sección 2.1 se explicará en qué consiste y las distintas herramientas disponibles para la búsqueda de conceptos relacionados con una palabra específica.
 
-Una vez obtenidos dichos resultados, se debe hacer una distinción de cuales pertenecen al grupo de palabras fáciles y cuales al grupo de palabras dificiles, es decir, distinguir entre aquellas palabras que se utilizan asiduamente y las que no se utilizan a menudo en nuestra vida cotidiana.
-Esta distinción es necesaria ya que uno de nuestros objetivos es trabajar únicamente con las palabras fáciles para facilitar la compresión del significado de un concepto devolviendo un resultado lo más sencillo posible. Dado que este trabajo está enfocado para personas con discapacidad cognitiva, el concepto de lectura fácil nos ayuda a comprender como debemos trabajar con las palabras fáciles y por ello en la sección 2.1 se explicará que es la lectura fácil y algunas pautas que se pueden seguir para escribir correctamente un texto con esta adaptación, así como la definición de palabras facíles y difíciles y los documentos que se utilizarán como referencia para las palabras fáciles.
+Una vez obtenidas las palabras relacionadas con el concepto introducido, se debe hacer una distinción de cuales de las palabras relacionadas pertenecen al grupo de palabras fáciles y cuales al grupo de palabras dificiles, es decir, distinguir entre aquellas palabras que se utilizan asiduamente y las que no.
+Esta distinción es necesaria ya que uno de nuestros objetivos es trabajar únicamente con las palabras fáciles para facilitar la compresión del significado de un concepto devolviendo un resultado lo más sencillo posible. Dado que este trabajo está enfocado para personas con discapacidad cognitiva, el concepto de lectura fácil nos ayuda a comprender como debemos trabajar con las palabras fáciles y por ello en la sección 2.2 se explicará que es la lectura fácil y algunas pautas que se pueden seguir para escribir correctamente un texto con esta adaptación, así como la definición de palabras faciles y difíciles y los documentos que se utilizarán como referencia para las palabras fáciles.
 
-Tras conocer que palabras se identificarán como palabras fáciles y saber como trabajar con ellas , se utilizarán figuras retóricas para comparar conceptos complejos con otros más sencillos. De esta manera el usuario se podrá hacer una idea de sus características principales. En la sección 2.2 se hablará de las figuras retóricas y se explicarán los tres tipos fundamentales que se van a utilizar para la realización de este trabajo. 
+Tras identificar las palabras fáciles relacionadsa con el concepto introducido, se utilizarán figuras retóricas para comparar el concepto complejo con otros conceptos más sencillos que ayuden a entender el significado del concepto complejo introducido por el usuario. En la sección 2.3 se hablará de las figuras retóricas y se explicarán los tres tipos fundamentales que se van a utilizar para la realización de este trabajo. 
 
-Por último, se necesitará hacer uso de servicios web para dotar a la aplicación de funcionalidad. Como se ha comentado en el anterior capítulo, uno de los objetivos tecnológicos es construir la aplicación con servicios web y en la sección 2.3 se explicará detalladamente que es un servicio web, los tipos que existen, sus características principales, su arquitectura y las ventajas de ser utilizados así como sus desventajas.
+Por último, vamos a hacer uso de servicios web para dotar a la aplicación de funcionalidad. Como se ha comentado en el anterior capítulo, uno de los objetivos tecnológicos de este trabajo es construir la aplicación con servicios web y en la sección 2.4 se explicará detalladamente que es un servicio web, los tipos que existen, sus características principales, su arquitectura y las ventajas de ser utilizados así como sus desventajas.
 
 %-------------------------------------------------------------------
 \section{Lectura Fácil}
@@ -46,10 +46,11 @@ Algunas pautas a seguir para escribir correctamente un texto en Lectura Fácil s
 \end{itemize}
 
 Se debe también hacer hincapié en la distinción entre palabras fáciles y complejas \citep{GarciaMunoz2012LecturaFacil}, puesto que son de gran importancia para la lectura fácil. 
-Las palabras complejas son aquellas que no se utilizan a menudo, como por ejemplo: melifluo o inefable. Las palabras complejas deben descartarse en la lectura fácil, y en su lugar se deben introducir palabras fáciles, que son aquellas que se utilizan asiduamente. La RAE (Real Academia Española) dispone de un corpus\footnote{http://corpus.rae.es/lfrecuencias.html} donde se encuentran varios documentos en los que se incluyen las mil palabras más usadas, las cinco mil palabras más usadas y las diez mil palabras más usadas por los hablantes de lengua española. En estos listados se incluyen verbos, sustantivos, preposiciones, pronombres, adjetivos, etc...
-Para este trabajo, es fundamental la distinción entre palabras fáciles y palabras complejas, los listados que se acaban de mencionar son imprescindibles ya que se identificarán como palabras fáciles y por lo tanto son las palabras con las que se trabajarán para obtener los resultados.
+Las palabras complejas son aquellas que no se utilizan a menudo, como por ejemplo: melifluo o inefable. Las palabras complejas deben descartarse en la lectura fácil, y en su lugar se deben introducir palabras fáciles, que son aquellas que se utilizan asiduamente. La RAE (Real Academia Española) dispone de un corpus\footnote{http://corpus.rae.es/lfrecuencias.html} donde se encuentran varios documentos en los que se incluyen las mil palabras más usadas, las cinco mil palabras más usadas y las diez mil palabras más usadas por los hablantes de lengua española. En estos listados se incluyen verbos, sustantivos, preposiciones, pronombres, adjetivos, etc.
+Para este trabajo, es fundamental la distinción entre palabras fáciles y palabras complejas, por ello los documentos facilitados por la RAE de las 1.000, 5.000 y 10.000 palabras más usadas se tendrán como referencia de palabras fáciles y por tanto se utilizarán para poder obtener los resultados de la aplicación. Aunque de todas las palabras de estos documentos, se trabajará unicamente con verbos, sustantivos y adjetivos.
+ 
 
-%-------------------------------------------------------------------
+ 
 
 
 
@@ -67,14 +68,14 @@ En este trabajo se van a utilizar los tres tipos de figuras retóricas mencionad
 \begin{itemize}
 	\item Metáfora: Utiliza el desplazamiento de características similares entre dos conceptos con fines estéticos o retóricos. Por ejemplo, cuando el tiempo de una persona es muy preciado se dice: ``Mi tiempo es oro''.
 	
-	\item Símil: Realiza una comparación entre dos términos usando conectores (por ejemplo, como, cual, que, o verbos).
+	\item Símil: Realiza una comparación entre dos términos usando conectores (por ejemplo, \textit{como}, \textit{cual}, \textit{que}, o verbos).
 	Por ejemplo, cuando nos referimos a una persona que es muy corpulenta, se dice: ``Es como un oso'', ya que los osos son muy grandes.
 	
 	\item Analogía: Es la comparación entre varios conceptos, indicando las características que permiten dicha relación. En la retórica, una analogía es una comparación textual que resalta alguna de las similitudes semánticas entre los conceptos protagonistas de dicha comparación. Por ejemplo: ``Sus ojos son azules como el mar''.
 	
 \end{itemize}
 
-En dicho trabajo, las figuras retóricas van a permitir comparar el concepto complejo introducido por el usuario con otros conceptos mas sencillos.
+En nuestro trabajo, las figuras retóricas van a permitir comparar el concepto complejo introducido por el usuario con otros conceptos mas sencillos.
 
 %-------------------------------------------------------------------
 \section{Servicios Web}
@@ -224,7 +225,7 @@ Por otro lado, los servicios web se componen de varias capas\footnote{https://di
 \label{cap:sec:lenguajenatural}
 El Procesamiento del Lenguaje Natural (PLN) es una rama de la Inteligencia Artificial que se encarga de la comunicación entre máquinas y personas mediante el uso del lenguaje natural (entendiendo como lenguaje natural el idioma usado con fines de comunicación por humanos, ya sea hablado o escrito, como pueden ser el español, el ruso o el inglés). 
 
-Para ello, una de las tareas principales en el Procesamiento del Lenguaje Natural es interpretar un texto escrito en lenguaje natural y entender su significado, entendiendo como significado la relación entre una palabra o una frase con el mundo. Para realizar dicha acción no solo es necesario el conocimiento del propio lenguaje en que está escrito el texto sino que también es necesario un conocimiento del mundo. Por tanto, uno de los grandes retos del Procesamiento del Lenguaje Natural es la representación del conocimiento. Se deben de buscar técnicas que permitan representar conceptos y relaciones semánticas entre ellos. 
+Una de las tareas principales en el Procesamiento del Lenguaje Natural (PLN) es interpretar un texto escrito en lenguaje natural y entender su significado, entendiendo como significado la relación entre una palabra o una frase con el mundo. Para realizar dicha acción no solo es necesario el conocimiento del propio lenguaje en que está escrito el texto sino que también es necesario un conocimiento del mundo. Por tanto, uno de los grandes retos del PLN es la representación del conocimiento. Se deben de buscar técnicas que permitan representar conceptos y relaciones semánticas entre ellos. 
 
 Una de las principales técnicas de representación de conocimiento son las redes semánticas, en ellas los conceptos que componen el mundo y sus relaciones se representan mediante un grafo. Las redes semánticas se utilizan para representar mapas conceptuales y mentales \citep{redSemantica2018}.
 Los nodos están representados por el elemento lingüístico, y la relación entre los nodos sería la arista. Se puede ver un ejemplo en la Figura \ref{fig:red}, donde el nodo \textit{Oso} representa un concepto, en este caso un sustantivo que identifica a un tipo de animal, y otro nodo \textit{Pelo} el cual también es un sustantivo. La relación entre ambos se ve representada por la arista con valor \textit{tiene}, dando lugar a una característica de este animal: \textit{Oso tiene pelo}.
@@ -239,20 +240,20 @@ Existen principalmente tres tipos de redes semánticas \citep{tiposRedesSemantic
 	\item Grafos Conceptuales: existen dos tipos de nodos en estas redes: nodos de conceptos, los cuáles representan una entidad, un estado o un proceso y los nodos de relaciones, que indican como se relacionan los nodos de concepto. En este tipo de red semántica no existen enlaces entre los nodos con una etiqueta, sino que son los propios nodos los que tienen el significado. Se puede ver un ejemplo en la Figura \ref{fig:grafoConceptual} en la cual la frase \textit{``Man biting dog"} quedaría representada \citep{osti_5673179}. Los cuadrados implican el concepto y el círculo la relación entre ambos, por lo que en el caso de \textit{man} y \textit{bite}, la acción de morder la realiza \textit{man} siendo éste el agente, y la relación entre \textit{bite} y \textit{dog} sería el objeto.
 \end{itemize}
 \figura{Bitmap/Capitulo2/grafoConceptual}{width=.9\textwidth}{fig:grafoConceptual}{Ejemplo de Grafo Conceptual}
-Para el trabajo que queremos realizar, existen varias aplicaciones web de redes semánticas que disponen de una representación del conocimiento y que necesitaremos para relacionar el concepto díficil introducido por el usuario con otros conceptos. A continuación, hablaremos de las más representativas.
+Para el trabajo que queremos realizar, existen varias redes semánticas que disponen de una representación del conocimiento que necesitaremos para relacionar el concepto díficil introducido por el usuario con otros conceptos. A continuación, describiremos las más representativas.
 
 \subsection{ConceptNet} 
 \label{cap:subsec:concepnet}
 
-ConcepNet es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, diseñada para ayudar a los ordenadores a entender el significado de las palabras. ConceptNet ofrece la posibilidad de obtener de una palabra un listado de sinónimos, términos relacionados, términos derivados, el contexto de la palabra, resultados etimológicamente relacionados, símbolos, etc... 
+ConcepNet es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, fue diseñada para ayudar a los ordenadores a entender el significado de las palabras. ConceptNet ofrece la posibilidad de obtener de una palabra un listado de sinónimos, términos relacionados, términos derivados, el contexto de la palabra, resultados etimológicamente relacionados, símbolos, etc. 
 
 ConcepNet dispone de una aplicación web\footnote{http://conceptnet.io/} donde se pueden buscar palabras en distintos idiomas,  como el español, el inglés o el chino.
-En la Figura \ref{fig:busquedaConcepnet} se puede ver la información que devuelve la aplicación ConcepNet para la palabra chaqueta, por ejemplo, se puede ver una columna con los sinónimos del concepto, pero en distintos idiomas (americana, \textit{jacket} o \textit{blouson}).  A continuación, aparece otra columna con los términos relacionados (saco o chaquetear) también en distintos idiomas, etc... Para algunos de los resultados de ConcepNet además aparece a la derecha de la palabra y entre paréntesis, una sola letra que indica si es un verbo, un sustantivo o un adjetivo. 
+En la Figura \ref{fig:busquedaConcepnet} se puede ver la información que devuelve la aplicación ConcepNet para la palabra chaqueta. Como se puede ver en la Figura hay una columna con los sinónimos del concepto  en distintos idiomas (americana, \textit{jacket} o \textit{blouson}), otra columna con los términos relacionados (saco o chaquetear) también en distintos idiomas, etc... Para algunos de los resultados de ConcepNet además aparece a la derecha de la palabra y entre paréntesis, una sola letra que indica si es un verbo, un sustantivo o un adjetivo. 
 
-En cuanto a si la palabra introducida es polisémica, ConcepNet no realiza ninguna agrupación de los resultados en función del significado, si no que muestra todo el listado de palabras y en algunas de ellas aparece el contexto al cual se refieren, por ejemplo, para la palabra arco algunos de los resultados que devuelve son arco de arquitectura y arco de geometría.
+ConcepNet no realiza ninguna agrupación de los resultados en función del significado, si no que muestra todo el listado de palabras y en algunas de ellas aparece el contexto al cual se refieren. Por ejemplo, para la palabra arco algunos de los resultados que devuelve son referentes al significado arco de arquitectura y otros son referentes al arco de geometría.
 \figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de ConcepNet para la palabra chaqueta} 
 
-Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con el mismo ejemplo anterior utilizando la palabra chaqueta, se puede ver en el Listado \ref{lst:json} los resultados devueltos por el servicio web. El JSON devuelto en este caso consta de cuatro campos principales\footnote{https://github.com/commonsense/conceptnet5/wiki/AP}:
+Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con la palabra chaqueta, se pueden ver en el Listado \ref{lst:json} los resultados devueltos por el servicio web para chaqueta. El JSON devuelto en este caso consta de cuatro campos principales\footnote{https://github.com/commonsense/conceptnet5/wiki/AP}:
 \begin{itemize}
 	\item @context: URL enlazada a un archivo de información del JSON para comprender la API. También puede contener comentarios que pueden ser útiles para el usuario.
 	\item @id: concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
@@ -352,9 +353,7 @@ Thesaurus\footnote{https://www.thesaurus.com/} es una aplicación web que se aut
 Si la palabra introducida es polisémica, Thesaurus devuelve los resultados por grupos según su connotación. En la Figura \ref{fig:thesauruspolisemica}, se puede ver los resultados devueltos por Thesaurus para la palabra \textit{book}, donde este puede utilizarse como un sustantivo o como un verbo. Y dentro de si es un tipo u otro, los divide según el significado, ya sea para utilizarlo como un documento, un diario o como una reserva. Y cada uno se muestran en pestañas distintas para facilitar al usuario la distinción de conceptos.
 
 Por otro lado, esta aplicación proporciona una API\footnote{http://thesaurus.altervista.org/} tipo RESTful que obtiene los sinónimos de una palabra mediante una petición HTTP GET a la url \textit{http://thesaurus.altervista.org/thesaurus/v1}. 
-Este devuelve los resultados en formato XML o JSON. 
-
-El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: categoría y sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
+Este devuelve los resultados en formato XML o JSON. El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: categoría y sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
 Se puede ver en el Listado \ref{lst:xmlthesaurus} el resultado devuelto por Thesaurus para la palabra \textit{peace} en formato XML y en el Listado \ref{lst:jsonthesaurus} para la misma palabra, \textit{peace}, pero en formato JSON.
 Ambos son muy similares, por ejemplo en formato XML se puede ver que devuelve el tipo de categoría de las palabras, en este caso son sustantivos y a continuación aparcen los sinónimos. En caso de que alguna palabra sea un antónimo aparecera entre paréntesis al lado de la misma, como ocurre con la palabra \textit{war}. Por otro lado, el formato JSON devuelve dentro del campo \textit{category / categoría} todos los sinónimos, y en caso de ser un antónimo aparecerá de la misma forma que en el formato XML.
 
@@ -448,8 +447,8 @@ La aplicación también dispone de una API pública que devuelve los resultados 
 En el Listado \ref{lst:xmlthesaurusrex} se muestra el XML devuelto por la aplicación para la palabra \textit{house}. El XML devuelto consta de tres grandes bloques: \textit{Categories}, \textit{Modifiers} y \textit{CategoryHeads}. Todos los resultados tienen un peso \textit{(weight)} asignado, esto significa que cuanto mayor sea el peso mayor es la similitud con el concepto dado. 
 Los campos que se encuentran dentro del apartado \textit{categories} son los resultados más utilizados en ese momento por los hablantes y que Thesaurus Rex ha encontrado, como por ejemplo \textit{permanent-structure}, los que se encuentran dentro de  \textit{modifiers}, como se ha comentado anteriormente son atributos del concepto a buscar, como por ejemplo \textit{fixed}  y por último los que se encuentran en \textit{categoryHeads} son las categorías más simples que se han encontrado para dicho concepto, como por ejemplo \textit{structure}.
 
-Thesaurus Rex utiliza el contenido de la web para generar sus resultados, con lo cual la información disponible no es fija, sino que varía según los datos actuales de la web.
-La ventaja de utilizar esta herramienta es que se encuentra en continua actualización, pero el inconveniente es que en algunos casos la información puede resultar un poco extraña dado que se crea semiautomáticamente desde contenido de la web \citep{VealeT2013}. Por ejemplo, para la palabra \textit{house}, uno de los resultados es \textit{sphere}, que en un primer momento no tiene ninguna relación un concepto con otro.
+Thesaurus Rex utiliza el contenido de la web para generar sus resultados, con lo cual la información disponible no es fija, sino que varía según los datos de la web.
+La ventaja de utilizar esta herramienta es que se encuentra en continua actualización, pero el inconveniente es que en algunos casos la información puede resultar un poco extraña dado que se crea semiautomáticamente desde contenido de la web \citep{VealeT2013}. Por ejemplo, para la palabra \textit{house}, uno de los resultados es \textit{sphere}, que en principio no tiene ninguna relación con \textit{house}.
 
 \lstset{language=XML}
 \begin{lstlisting}[caption=XML devuelto por Thesaurus Rex para la palabra \textit{house}, label={lst:xmlthesaurusrex}, frame=single]
@@ -498,10 +497,10 @@ La ventaja de utilizar esta herramienta es que se encuentra en continua actualiz
 Metaphor Magnet es una aplicación web\footnote{http://ngrams.ucd.ie/metaphor-magnet-acl/}, que crea metáforas a partir de una palabra y que solo está disponible para el inglés.
 Metaphor Magnet permite al usuario introducir palabras y, ayudándose de los n-gramas de Google \citep{VealeT2012}, busca e interpreta las distintas metáforas que existan sobre dicha palabra.
 
-Se entiende como n-grama \citep{ngrama1999} a una subsecuencia de n elementos consecutivos en una secuencia dada y a su vez estos pueden ser bigramas, tigramas, etc... Metaphor Magnet lo que hace es utilizando dichos n-gramas busca en la Web cuantas veces aparece el concepto introducido y cuantas veces aparece junto con otra palabra. De esta forma, se obtienen los resultados más utilizados por los hablantes, por ejemplo, en la Figura \ref{fig:metaphormagnet} se puede ver el resultado obtenido en la aplicación para la palabra \textit{house}. En este caso la aplicación devuelve métaforas propias del concepto, por ejemplo \textit{protecting:home}.
+Un n-grama \citep{ngrama1999} es una subsecuencia de n elementos consecutivos en una secuencia dada y a su vez estos pueden ser bigramas, tigramas, etc... Metaphor Magnet lo que hace es utilizando dichos n-gramas busca en la Web cuantas veces aparece el concepto introducido y cuantas veces aparece junto con otra palabra en un n-grama. De esta forma, se obtienen los resultados más utilizados por los hablantea. En la Figura \ref{fig:metaphormagnet} se puede ver el resultado obtenido en la aplicación para la palabra \textit{house}. En este caso la aplicación devuelve métaforas propias del concepto, como \textit{protecting:home}.
 En el caso de introducir una palabra polisémica, por ejemplo \textit{book}, Metaphor Magnet no realiza ninguna agrupación según los distintos significados, si no que muestra todos los resultados juntos.
 
-Metaphor Magnet también dispone de una API pública que devuelve los resultados en formato XML. En el Listado \ref{lst:xmlmetaphormagnet} se puede ver el resultado devuelto por la API para la palabra \textit{house}. En el XML devuelto aparece la etiqueta \textit{<Source Name>} seguido de la palabra a buscar, en este caso \textit{house}. Otra etiqueta \textit{<Score>} que muestra un número, cuanto mayor sea más acertado será respecto al concepto introducido, por ejemplo \textit{``tall:building"}  tiene una etiqueta \textit{score} de 86 mientras que \textit{``intuitive:natural"} tiene una etiqueta \textit{score} de 25, indicando así que es uno de los resultados menos acertados a la palabra \textit{house}. Por último, la etiqueta \textit{<Text>} contiene la metáfora, por ejemplo \textit{``protecting:home"}.
+Metaphor Magnet también dispone de una API pública que devuelve los resultados en formato XML. En el Listado \ref{lst:xmlmetaphormagnet} se puede ver el resultado devuelto por la API para la palabra \textit{house}. En el XML devuelto aparece la etiqueta \textit{<Source Name>} seguido de la palabra a buscar, en este caso \textit{house}. Otra etiqueta \textit{<Score>} que muestra un número, cuanto mayor sea este número más relacionado será con el concepto introducido, por ejemplo \textit{``tall:building"}  tiene un \textit{score} de 86 mientras que \textit{``intuitive:natural"} tiene un \textit{score} de 25, indicando así que es uno de los resultados menos relacionados con la palabra \textit{house}. Por último, la etiqueta \textit{<Text>} contiene la metáfora, por ejemplo \textit{``protecting:home"}.
 
 
 
@@ -561,17 +560,17 @@ Metaphor Magnet también dispone de una API pública que devuelve los resultados
 
 \subsection{WordNet}
 \label{cap:subsec:wordnet}
-WordNet es un \textit{corpus}\footnote{Colección de documentos de texto} perteneciente a NLTK \textit{(Natural Language Toolkit)}\footnote{Conjunto de bibliotecas y programas para el Procesamiento del Lenguaje Natural} que almacena sustantivos, verbos, adjetivos y adverbios ignorando preposiciones, determinantes y otras palabras funcionales. Además está disponible en varios idiomas como el español, el inglés o el francés. Los conceptos se agrupan en conjuntos de sinónimos cognitivos llamados \textit{synsets}, es decir, se agrupan según su significado. Por ejemplo, si se introduce la palabra coche, un grupo de sinónimos cognitivos sería: ``auto, automóvil, carro, máquina, turismo y vehículo" y otro grupo de sinónimos cognitivos sería: ``carruaje, coche de caballos y vagón". A su vez, cada \textit{synset} contiene:
+WordNet es un \textit{corpus}\footnote{Colección de documentos de texto} perteneciente a NLTK \textit{(Natural Language Toolkit)}\footnote{Conjunto de bibliotecas y programas para el Procesamiento del Lenguaje Natural} que almacena sustantivos, verbos, adjetivos y adverbios ignorando preposiciones, determinantes y otras palabras funcionales. Además está disponible en varios idiomas como el español, el inglés o el francés. Los conceptos se agrupan en conjuntos de sinónimos cognitivos llamados \textit{synsets}, es decir, se agrupan según su significado. Por ejemplo, la palabra guardia tiene el siguiente grupo de sinónimos cognitivos para un \textit{synset}: ``defensor, guardián, protector y tutor'' y para otro \textit{synset} el siguiente grupo de sinónimos cognitivos: ``velador, sereno, guarda de seguridad y vigilante ". A su vez, cada \textit{synset} contiene:
 \begin{itemize}
 	
 	\item Hiperónimos: Palabras cuyo significado está incluido en el de otras\footnote{https://dle.rae.es/?id=KRW1qe2}. Por ejemplo, mamífero es hiperónimo de gato y de perro ya que los gatos y los perros pertenecen al conjunto de los mamíferos.
 	\item Hipónimos: Palabras cuyo significado incluyen el de otra\footnote{https://dle.rae.es/?id=KU5UAn5}. Por ejemplo, gato es hipónimo de mamífero ya que está incluido dentro del conjunto de los mamíferos.
 	\item Holónimos: Palabras que representan el todo respecto a una parte. Por ejemplo, coche es el holónimo de rueda, volante y acelerador ya que forman parte de un todo, que es el coche.
 	\item Antónimos: Palabras cuyo significado es totalmente opuesto al concepto inicial. Por ejemplo, el antónimo de alegre sería triste.
-	\item Definición de la palabra: Oraciones cortas que explican su significado. Esta información no aparece siempre.
+	\item Definición de la palabra: Oraciones cortas que explican el significado de la palabra. Esta información no aparece siempre.
 \end{itemize} 
 
-Existen varias aplicaciones web que utilizan dicho \textit{corpus}, una de las más completas es EuroWordNet, ya que está disponible en varios idiomas y permite extraer sinónimos, antónimos, hiperónimos, hipónimos y holónimos. Además de algunas oraciones de ejemplo, y algunas definiciones de los \textit{synsets} obtenidos. En la Figura \ref{fig:eurowordnet} aparece la información devuelta por EuroWordNet para la palabra casa. Los datos obtenidos son:
+Existen varias aplicaciones web que implementan dicho \textit{corpus}, una de las más completas es EuroWordNet, ya que está disponible en varios idiomas y permite extraer sinónimos, antónimos, hiperónimos, hipónimos y holónimos. Además de algunas oraciones de ejemplo, y algunas definiciones de los \textit{synsets} obtenidos. En la Figura \ref{fig:eurowordnet} aparece la información devuelta por EuroWordNet para la palabra casa. Los datos obtenidos son:
 
 
 \figura{Bitmap/Capitulo2/eurowordnet}{width=1.1\textwidth}{fig:eurowordnet}{Resultados de la búsqueda en EuroWordNet para la palabra \textit{casa}}
@@ -580,13 +579,14 @@ Existen varias aplicaciones web que utilizan dicho \textit{corpus}, una de las m
 \begin{itemize}
 	
 	\item \textit{Offset} del \textit{synset}: es un código que lo identifica inequívocamente y que finaliza con una letra, la cual describe la categoría gramatical de los sinónimos devueltos. Por ejemplo, un \textit{synset} de la palabra casa tiene asociado el \textit{offset} spa-30-02913152-n, donde la ``n'' hace referencia a \textit{noun}, esto quiere decir que es un sustantivo. 
-	\item Sinónimos: como por ejemplo, edificio, inmueble, construcción y edificación. Siendo todos estos resultados similares unos a otros respecto al significado del concepto a buscar.
-	\item Definición: sirve para contextualizar el concepto. Por ejemplo, ``una estructura que tiene un techo, paredes y se encuentra más o menos permanente en un solo lugar", da más información sobre su significado, haciendo así que resulte más fácil y rápida su comprensión.
-	\item Ejemplo: en el caso de que la definición no sea suficientemente clara para el usuario, el ejemplo ayuda a comprender mejor el significado del concepto. Por ejemplo, había un edificio de tres pisos en la esquina. 
+	\item Sinónimos: listado con todos los sinónimos del \textit{synset}. Por ejemplo en un mismo \textit{synset} se obtiene edificio, inmueble, construcción y edificación.
+	\item Definición: sirve para entender el concepto. Por ejemplo, en un mismo \textit{synset} se obtiene la siguiente definición: ``Una estructura que tiene un techo, paredes y se encuentra más o menos permanente en un solo lugar".
+	\item Ejemplo: En el caso de que la definición no sea suficientemente clara para el usuario, el ejemplo ayuda a comprender mejor el significado del concepto. Por ejemplo, para un \textit{synset} se obtiene el siguiente ejemplo: ``\textit{Había un edificio de tres pisos en la esquina}". 
 \end{itemize} 
 
-Si se introduce una palabra polisémica, como portero, EuroWordNet devuelve en los distintos grupos de sinónimos cognitivos o \textit{synsets} los resultados. En este caso devolverá en un \textit{synset}: ``conserje, guardabarrera y ostiario" \hspace{1pt} haciendo referencia a la profesión y en otro \textit{synset}: ``arquero, guardameta, guardavalla y golero" que son los resultados para el significado de portero como jugador. 
-Además, en el desplegable de la izquierda se muestra la información que se puede consultar de dicho concepto. Por ejemplo, si se selecciona \textit{has hyperonym} se obtendrán los hiperónimos de casa, o seleccionando \textit{has hyponym} se obtendrán los hipónimos.
+Si se introduce una palabra polisémica, EuroWordNet devuelve tantos \textit{synsets} como significados tenga la palabra.
+Por ejemplo, para la palabra \textit{portero} EuroWordNet devolverá en un \textit{synset}: ``conserje, guardabarrera y ostiario'' haciendo referencia a portero como profesión y en otro \textit{synset}: ``arquero, guardameta, guardavalla y golero'' que son los resultados para portero como jugador. 
+
 
 
 

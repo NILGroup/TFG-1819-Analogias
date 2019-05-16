@@ -8,7 +8,7 @@
 \section{Diseño de la Aplicación}
 %-------------------------------------------------------------------
 \label{cap:sec:disenioInterfaz}
-Como ya se ha explicado en capítulos anteriores, esta aplicación está creada por y para personas que tienen alguna discapacidad cognitiva, por lo que el diseño de la Interfaz debe estar centrado para este tipo de usuarios, es decir, debe ser lo más sencilla posible, su uso no debe llevar a confusión ni debe hacer sentir al usuario frustrado al usarla. En definitiva, debe cumplir con las Ocho Reglas de Oro del diseño de interfaces, pero simplificándola aún más de lo que podría ser un diseño para otro tipo de aplicación destinada para otro tipo de usuario. 
+Como ya se ha explicado en capítulos anteriores, esta aplicación está creada por y para personas que tienen alguna discapacidad cognitiva, por lo que el diseño de la interfaz debe ser sencillo y su uso no debe llevar a confusión ni debe hacer sentir al usuario frustrado al usarla. En definitiva, debe cumplir con las Ocho Reglas de Oro del diseño de interfaces, pero simplificándola aún más de lo que podría ser un diseño para otro tipo de aplicación destinada para otro tipo de usuario. 
 Las Ocho Reglas de Oro del diseño de interfaces consisten en que el diseño tenga \citep{ochoreglasdeoro}:
 \begin{itemize} 
 	\item Consistencia: La funcionalidad debe ser similar a otras aplicaciones que el usuario está acostumbrado a utilizar. En cuanto a la interfaz debe tener los mismos colores, iconos, formas, botones, mensajes de aviso... Por ejemplo, si el usuario está acostumbrado a que el botón de eliminar o cancelar sea rojo, no debemos añadirle uno de color verde.
@@ -27,56 +27,65 @@ Teniendo en cuenta estas ocho reglas, la creación del diseño de la Interfaz se
 %-------------------------------------------------------------------
 \label{cap:subsec:iteracionCompetitiva}
 
-En esta primera iteración cada integrante del grupo ha realizado su propio diseño de la aplicación. En la realización de estos diseños, los integrantes no podían hablar entre ellos ni comentar las diferentes ideas que tenían para la implementación. De esta forma se consigue que los diseños sean totalmente dispares y que las ideas de uno no provoquen la modificación del diseño del otro y que surgan ideas distintas.
-Cada integrante realizó cuatro prototipos distintos:
+En esta primera iteración cada integrante del grupo ha realizado su propio diseño de la aplicación. En la realización de estos diseños, los integrantes no podían hablar entre ellos ni comentar las diferentes ideas que tenían para la implementación. De esta forma se consigue que los diseños sean totalmente dispares y que las ideas de uno no provoquen la modificación del diseño del otro y que surjan ideas distintas.
+Se realizaron cuatro prototipos distintos ya que no teníamos claro si los usuarios finales iban a preferir que se mostrara un solo significado o todos, si mostrar la definición y el ejemplo les iba a ayudar o no y si añadir los pictogramas les ayudaría o no.
+Los prototipos fueron los siguientes:
 \begin{itemize}
-	\item Un primer prototipo mostrando un único significado, siendo este el más común.
-	\item Un segundo prototipo mostrando el significado más común, añadiendo una definición del concepto.
-	\item Un tercer prototipo mostrando todos los significados de la palabra buscada.
-	\item Un cuarto diseño mostrando todos los significados de la palabra y añadiendo pictogramas\footnote{Se entiende como pictograma un dibujo, imágen o figura que representa el significado de una palabra} de las palabras que facilitan aún más la comprensión del concepto.
+	\item Prototipo 1: Se muestra un único significado, siendo este el más común e incluyendo las comparaciones.
+	\item Prototipo 2: Se muestra el significado más común, junto con una definición tradicional del concepto e incluyendo las comparaciones.
+	\item Prototipo 3: Se muestran todos los significados de la palabra buscada e incluyendo las comparaciones.
+	\item Prototipo 4: Se muestran todos los significados de la palabra y se añaden pictogramas\footnote{Se entiende como pictograma un dibujo, imagen o figura que representa el significado de una palabra.} a las palabras, haciendo así que la comprensión del concepto sea mucho mas sencilla. Tanto en el prototipo diseñado por Pablo como en el de Irene se han utilizado los pictogramas de ARASAAC\footnote{http://www.arasaac.org/}.
 	
 \end{itemize}
 
 En las Figuras \ref{fig:mockup1pablo}, \ref{fig:mockup2pablo}, \ref{fig:mockup3pablo} y \ref{fig:mockup4pablo} se muestran los prototipos creados por Pablo y en las Figuras \ref{fig:mockup1irene_vInicial}, \ref{fig:mockup2irene_vInicial},  \ref{fig:mockup3irene_vInicial} y \ref{fig:mockup4irene_vInicial} los prototipos creados por Irene.
-Una vez que los prototipos estaban terminados, los integrantes de este trabajo se juntaron para hacer una puesta en común y analizar los resultados. A continuación, se explicarán los resultados de los análisis indicando las semejanzas y diferencias que se encontraron.
-Por lo general, los prototipos de los dos integrantes del grupo eran bastantes similares. Las principales diferencias han sido:
+
+Una vez que los prototipos estaban terminados, lnos juntamos para hacer una puesta en común y analizar los prototipos creados. 
+Por lo general, los prototipos de los dos integrantes del grupo eran bastantes similares, las principales diferencias eran:
 
 \begin{itemize}
-	\item En cuanto al diseño de la interfaz, ambos prototipos integran los mismos elementos: un campo de texto para introducir la palabra, un botón de búsqueda y los resultados se muestran en forma de lista, agrupando los distintos resultados en rectángulos, que a partir de ahora denominaremos fichas.
-	Pablo ha optado por formas rectángulares, tanto para las fichas como para el campo de texto, mientras que Irene utiliza formas redondeadas en todos los elementos. 
-	Por otro lado, Pablo implementó un diseño orientado a niños por lo que para el color utilizó azules muy suaves y fondos juveniles con lápices de colores, gomas de borrar, etc... E Irene utilizó un color mostaza, siendo un diseño más simple pero intentando abarcar a un usuario de cualquier edad.	Por útlimo en los resultados mostrados en el prototipo de Irene, se muestran en color mostaza indicando de esta forma que pueden clickar sobre el, y se realizará la búsqueda del concepto.
-	\item El orden a la hora de mostrar los resultados es distinto, en los prototipos de Pablo se muestran primero varios sinónimos e hiperónimos (\textit{Un vehículo es una máquina} o \textit{Un vehículo es un transporte}), después los hipónimos (\textit{Un vehículo es como un taxi}) y finalmente los hipónimos pero añadiendo un adjetivo que representa una característica del resultado devuelto (\textit{Un vehículo es rápido como un caballo}). Sin embargo, en los prototipos de Irene se muestra únicamente un resultado para cada tipo y en el siguiente orden: Primero un hipónimo pero añadiendo un adjetivo que representa una característica del resultado devuelto (\textit{Un vehículo es tan rápido como un caballo}), después un sinónimo o hipéronimo (\textit{Un vehículo es una coche}) y por útlimo un hipónimo (\textit{Un vehículo es como una ambulancia}).
-	\item Los prototipos de Pablo además incluyen un ejemplo siempre visible y justo debajo de los resultados mostrados (``Él necesita un coche para ir a trabajar"), para facilitar al usuario su comprensión, mientras que en los prototipos de Irene muestra unicamente la definición (``Vehículo motorizado de cuatro ruedas por lo general impulsado por un motor de combustión interna"), y se encuentra dentro de un botón, dando a elegir al usuario la decisión de poder verla o no.
-	\item Pablo decidió mostrar la lista de los resultados comenzando con ``Un X es ..." englobando así los resultados para un mismo significado. En caso de existir varias acepciones del concepto, por cada uno de ellos añade ``O también puede ser....", dejando así claramente dividido los distintos significados que pudieran existir para el concepto buscado. En cambio Irene, añade un título al principio (``Resultados para la palabra X") donde queda claro que los resultados que se obtienen son para dicho concepto y además añade delante de cada resultado ``Un X es" seguido del sinónimo, hiperónimo o hipónimo.
-	\item Para la numeración de los resultados obtenidos, Pablo incluye dentro de cada ficha un listado númerico e Irene únicamente añade un número a la ficha.
-	\item En el prototipo donde se incluyen también los pictogramas, Pablo añade un pictograma que hace referencia al concepto según en que contexto se utilice. Por ejemplo, un vehículo puede hacer referencia a un coche o puede ser un medio para llegar o lograr un fin, e Irene además de incluir el mismo pictograma que Pablo, añade pictogramas a cada resultado. Por ejemplo, en la frase ``Un portero es un vigilante" Irene añadió el pictograma de vigilante.
+	\item Ambos prototipos integran los mismos elementos: un campo de texto para introducir la palabra, un botón de búsqueda y los resultados se muestran en forma de lista, agrupando los distintos resultados en rectángulos, que a partir de ahora denominaremos fichas.
+	Pablo ha optado por formas rectangulares, tanto para las fichas como para el campo de texto, mientras que Irene utiliza formas redondeadas en todos los elementos. 
+	Por otro lado, Pablo implementó un diseño orientado a niños por lo que para el color utilizó azules muy suaves y fondos juveniles con lápices de colores, gomas de borrar, etc.  Irene utilizó un color mostaza, siendo un diseño más simple pero intentando abarcar a un usuario de cualquier edad. Por último, los resultados del prototipo de Irene, se muestran en color mostaza indicando de esta forma que se pueden pinchar en ellos, y se realizará la búsqueda del concepto pulsado.
+	
+	\item El orden a la hora de mostrar los resultados es distinto. En los prototipos de Pablo se muestran primero las metáforas (\textit{Un vehículo es una máquina} o \textit{Un vehículo es un transporte}), después los símiles (\textit{Un vehículo es como un taxi}) y finalmente las analogías (\textit{Un vehículo es rápido como un caballo}). En los prototipos de Irene se muestra únicamente una analogía, una metáfora y un símil para cada significado de la palabra buscada.
+	
+	\item En el prototipo 3 de Pablo incluye justo debajo de los resultados mostrados un ejemplo siempre visible (``Él necesita un coche para ir a trabajar'') para facilitar al usuario la comprensión del término buscado.
+	
+	 \item En el prototipo 3 de Irene incluye justo debajo de los resultados mostrados una definición dentro de un botón (``Vehículo motorizado de cuatro ruedas por lo general impulsado por un motor de combustión interna'') dando a elegir al usuario la decisión de poder verla o no.
+	
+	\item Pablo decidió añadir el título ``Un X es ...'' antes de la lista de los resultados, englobando de esta forma los conceptos que tienen el mismo significado. Si existen varias acepciones del concepto, añade el título ``O también puede ser...'' en los siguientes, dejando claramente divididos los distintos significados que pudieran existir para el concepto buscado. En cambio Irene, añade un único título al principio (``Resultados para la palabra X'') donde queda claro que los resultados que se obtienen son para dicho concepto y además añade delante de cada metáfora: ``Un X es...''  y delante de cada símil y analogía: ``Un X es como...''.
+
+	\item Para la numeración de los resultados obtenidos, Pablo incluye dentro de cada ficha un listado numérico e Irene únicamente añade un número a la ficha.
+	
+	\item En el prototipo donde se incluyen también los pictogramas, Pablo añade un pictograma que hace referencia al concepto buscado según el contexto en que se utilice. Por ejemplo, un vehículo puede hacer referencia a un coche o puede ser un medio para llegar o lograr un fin, por lo que el añade el pictograma en función de su significado, e Irene además de incluir el mismo pictograma que Pablo, añade pictogramas a las palabras usadas en las comparaciones. Por ejemplo, en la frase ``Un portero es un vigilante'' Irene añadió el pictograma de vigilante.
 \end{itemize}
 
-Tanto en el prototipo diseñado por Pablo como en el de Irene se han utilizado los pictos de ARASAAC\footnote{http://www.arasaac.org/}.
 
-Una vez analizados los prototipos de ambos integrantes nos reunimos con los directores de dicho trabajo y se decidió crear un prototipo con las siguientes características:
+
+Una vez analizados los prototipos de ambos integrantes nos reunimos con los directores del trabajo y se decidió crear un prototipo con las siguientes características:
 
 
 \begin{itemize}
-	\item Para el diseño de la interfaz se eligió el implementado por Irene.
-	\item Todos los prototipos deben tener el mismo ejemplo, por lo que se cambiaron para la palabra Portero.
-	\item El orden de las resultados se modificó, haciendo que primero aparezcan los sinónimos e hiperónimos (``Un portero es un vigilante"), después los hipónimos (``Un portero es como un guardia) y por último hipónimos que además tuviesen un adjetivo que permita realizar una comparación(``Un portero es tan ágil como un pájaro").
-	\item Eliminar la palabra \textit{tan} en las analogías.
-	\item Modificación del título de la aplicación por uno que estuviese en español, por lo que se cambió el nombre de \textit{``Easy Words"} por ``Aprende Fácil".
-	\item Añadir más de tres resultados por ficha.
-	\item Si solo aparece un resultado, eliminar el número de la ficha.
-	\item Añadir un pictograma a la característica que relaciona el concepto con el resultado. Por ejemplo, en la frase \textit{Un portero es tan fuerte como un gorila} añadir el pictograma correspondiente a fuerte.
-	\item Añadir el ejemplo del prototipo de Pablo junto con la definición, en este caso \textit{Mi tío trabaja de portero en una discoteca}.
-	\item Crear un nuevo prototipo donde la definición y el ejemplo se muestre a primera vista, y el usuario no tenga que estar pinchando en ningún botón.
+	\item Para el diseño de la interfaz se eligió el de Irene por tener una interfaz más atractiva.
+	\item Se eligió la palabra Portero para utilizarla como ejemplo en todos los prototipos.
+	\item El orden de las resultados se modificó, haciendo que primero aparezcan las metáforas (``Un portero es un vigilante''), después los símiles (``Un portero es como un guardia'') y por último las analogías  (``Un portero es tan ágil como un pájaro'').
+	\item Se eliminó la palabra \textit{tan} en la plantilla usada para las analogías.
+	\item Se creó un nombre para la aplicación que estuviese en español: ``Aprende Fácil''.
+	\item En vez de mostrar un único símil, una metáfora y una analogía. Se deben mostrar todos los resultados obtenidos para dicho concepto.
+	\item Se decidió que si la palabra solo tenía un significado se eliminaba el número de la ficha.
+	\item Se añadió un pictograma a la característica que relaciona el concepto con el resultado en las analogías. Por ejemplo, en la frase \textit{Un portero es tan fuerte como un gorila}  se añadió el pictograma correspondiente a fuerte.
+	\item Dejar el ejemplo del prototipo de Pablo junto con la definición del prototipo de Irene.
+	\item Crear un nuevo prototipo donde la definición y el ejemplo se muestren a primera vista, y el usuario no tenga que estar pinchando en ningún botón para que los expertos nos indiquen cual es la mejor opción.
 	\item Crear otro prototipo donde la definición y el ejemplo estén separados. Así el usuario puede elegir lo que quiere ver, si solo una cosa o ambas.
 \end{itemize} 
 
 Con todas estas decisiones, se crearon los prototipos que se muestran en las Figuras \ref{fig:mockup1irene_vFinal}, \ref{fig:mockup2irene_v1_vFinal}, \ref{fig:mockup2irene_v2_vFinal}, \ref{fig:mockup2irene_v3_vFinal}, \ref{fig:mockup3irene_vFinal}, \ref{fig:mockup4irene_vFinal} y que fueron los que se usaron para en la siguiente iteración donde nos reunimos con los expertos para que nos dieran su opinión sobre la aplicación, y nos ayudarán a decidir sobre los siguientes aspectos:
 \begin{itemize}
-	\item Mostrar únicamente el \textit{synset} más común o que en su lugar apareciesen todos los resultados.
-	\item Añadir definición y ejemplo o no. Y en caso de añadirlos, mostrarlos juntos en un mismo botón, en distintos botones o sin botón y que aparezcan debajo de los resultados.
-	\item Añadir pictogramas y en caso de añadirlos, solamente el pictograma global o también en cada resultado.
-	\item La forma de mostrar los resultados es correcta, o prefieren otra disposición.
+	\item ¿Se debe mostrar el significado más común o todos los significados de la palabra buscada?
+	\item ¿Se debe añadir la definición tradicional y el ejemplo junto con las figuras retóricas o no?  Y en caso de añadirlos, ¿Se deben mostrar juntos en un mismo botón, en distintos botones o sin botón y que aparezcan debajo de los resultados?
+	\item ¿Son útiles los pictogramas? En caso de serlo, ¿solamente el pictograma de la palabra buscada o también añadimos los pictogramas de las palabras que se usan en las figuras retóricas?
+	\item ¿La forma de mostrar los resultados es correcta, o es mejor otra disposición?
 	
 \end{itemize} 
 
