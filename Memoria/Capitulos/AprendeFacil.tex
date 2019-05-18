@@ -7,19 +7,9 @@
 \section{Diseño de la Aplicación}
 %-------------------------------------------------------------------
 \label{cap:sec:disenioInterfaz}
-Como ya se ha explicado en capítulos anteriores, esta aplicación está creada por y para personas que tienen alguna discapacidad cognitiva, por lo que el diseño de la interfaz debe ser sencillo y su uso no debe llevar a confusión ni debe hacer sentir al usuario frustrado al usarla. En definitiva, debe cumplir con las Ocho Reglas de Oro del diseño de interfaces, pero simplificándola aún más de lo que podría ser un diseño para otro tipo de aplicación destinada para otro tipo de usuario. 
-Las Ocho Reglas de Oro del diseño de interfaces consisten en que el diseño tenga \citep{ochoreglasdeoro}:
-\begin{itemize} 
-	\item Consistencia: La funcionalidad debe ser similar a otras aplicaciones que el usuario está acostumbrado a utilizar. En cuanto a la interfaz debe tener los mismos colores, iconos, formas, botones, mensajes de aviso... Por ejemplo, si el usuario está acostumbrado a que el botón de eliminar o cancelar sea rojo, no debemos añadirle uno de color verde.
-	\item Usabilidad Universal: Debemos tener en cuenta las necesidades de los distintos tipos de usuario, como por ejemplo, atajos de teclado para un usuario experto o filtros de color para usuarios con deficiencias visuales.
-	\item Retroalimentación activa: Por cada acción debe existir una retroalimentación legible y razonable por parte de la aplicación. Por ejemplo, si el usuario quiere guardar los datos obtenidos de la búsqueda, la aplicación debe informarle de si han sido guardados o no.
-	\item Diálogos para conducir la finalización: El usuario debe saber en que paso se encuentra en cada momento. Por ejemplo, en un proceso de compra que conlleva varios pasos hasta la finalización de la misma, se le debe informar donde se encuentra y cuánto le queda para terminar.
-	\item Prevención de errores: La interfaz debe ayudar al usuario a no cometer errores serios, y en caso de cometerlos se le debe dar una solución lo más clara y sencilla posible. Por ejemplo, deshabilitando opciones o indicando en un formulario el campo en el cual se ha producido el error sin perder la información ya escrita.
-	\item Deshacer acciones fácilmente: Se debe dar al usuario la capacidad de poder deshacer o revertir acciones de una manera sencilla. 
-	\item Sensación de control: Hay que dar al usuario la sensación de que tiene en todo momento el control de la aplicación, añadiendo contenidos fáciles de encontrar y de esta forma no causarle ansiedad o frustración por utilizar nuestra aplicación.
-	\item Reducir la carga de memoria a corto plazo: La interfaz debe ser lo más sencilla posible y con una jerarquía de información evidente, es decir, hay que minimizar la cantidad de elementos a memorizar por el usuario.
-\end{itemize}
-Teniendo en cuenta estas ocho reglas, la creación del diseño de la Interfaz se ha realizado en dos iteraciones distintas. Una primera iteración competitiva entre los integrantes del grupo y una segunda iteración con expertos del Colegio Estudio3 Afanias. 
+Como ya se ha explicado en capítulos anteriores, esta aplicación está creada por y para personas que tienen alguna discapacidad cognitiva, por lo que el diseño de la interfaz debe ser sencillo y su uso no debe llevar a confusión ni debe hacer sentir al usuario frustrado al usarla. 
+Es por ello que el diseño debe estar centrado en el usuario, y en nuestro caso aún más puesto que los usuarios finales requieren un diseño centrado en sus necesidades. Así pues, al ser un campo poco conocido por lo integrantes del equipo, se ha necesitado de la ayuda de expertos para saber con mas detalle cual es el diseño adecuado. 
+El diseño de la aplicación se ha realizado en dos iteraciones: una iteración competitiva entre los integrantes del grupo y una segunda iteración con expertos del Colegio Estudio3 Afanias\footnote{https://afanias.org/que-hacemos/educacion/colegio-estudio-3/}. 
 
 %-------------------------------------------------------------------
 \subsection{Primera Iteración: Iteración Competitiva}
@@ -149,20 +139,25 @@ Teniendo en cuenta las observaciones de los expertos se creo el diseño final de
 \section{Back end}
 %-------------------------------------------------------------------
 
-Como se ha comentado en anteriores capítulos existen varias aplicaciones web que son redes semánticas y facilitan sinónimos, términos relacionados, metáforas, hiperónimos, etc... de un concepto dado por el usuario. Para este trabajo, algunas de ellas son de gran utilidad ya que de esta forma podemos obtener las palabras fáciles para un concepto más complicado, pero hay que saber exactamente cuál es la que mejor conviene y la que mejores resultados ofrece. Hay que corroborar que los conceptos devueltos son correctos y que disponen de un significado claro y parecido respecto al concepto buscado. Para ello se han implementado dos servicios web, uno utilizando la aplicación de ConceptNet y el otro utilizando WordNet, en la sección 5.1 se explicará el diseño de la prueba que se ha realizado para ver que red semántica se utilizará finalmente en el proyecto, en la sección 5.2 se analizarán los resultados cuantitativos de la prueba realizada, en el punto 5.3, se analizarán los resultados obtenidos a nivel cualitativo y en el 5.4 se describirán las conclusiones finales de la prueba. Por otra parte, en los apartados posteriores, se detallarán los distintos servicios web utilizados para este proyecto, en la sección 5.5 se hablará de la base de datos utilizada y de su estructura, en los apartados 5.6, 5.7 y 5.8 se describirán los servicios web que se utilizan para la obtención de sinónimos, hipónimos e hiperónimos fáciles respectivamente. Por último, se hablará en los puntos 5.9 y 5.10 sobre los servicios web utilizados para crear las metáforas y los símiles que finalmente leerá el usuario.
-
-
 %-------------------------------------------------------------------
 \subsection{Red Semántica Utilizada}
 %-------------------------------------------------------------------
 \label{cap:subsec:redsemanticautilizada}
+
+En este trabajo necesitamos una herramienta que nos proporcione las palabras relacionadas con un concepto dado y para ello vamos a emplear una red semántica.
+Como se ha comentado en el capítulo 2 existen varias redes semánticas que facilitan sinónimos, términos relacionados, metáforas, hiperónimos, etc. de un concepto dado. 
+De todas las posibilidades presentadas en la sección 2.1 solo hay dos redes semánticas disponibles para el castellano: WordNet y ConcepNet. Para decidir con cual de las dos quedarnos hicimos una evaluación de ambas para evaluar si los conceptos devueltos por cada herramienta son correctos y sirven para nuestro propósito. En la sección 4.4.1.1 se explicará el diseño de la prueba que se ha realizado para ver que red semántica se utilizará finalmente en el proyecto, en la sección 5.2 se analizarán los resultados cuantitativos de la prueba realizada, en el punto 5.3, se analizarán los resultados obtenidos a nivel cualitativo y en el 5.4 se describirán las conclusiones finales de la evaluación. Por otra parte, en los apartados posteriores, se detallarán los distintos servicios web utilizados para este proyecto, en la sección 5.5 se hablará de la base de datos utilizada y de su estructura, en los apartados 5.6, 5.7 y 5.8 se describirán los servicios web que se utilizan para la obtención de sinónimos, hipónimos e hiperónimos fáciles respectivamente. Por último, se hablará en los puntos 5.9 y 5.10 sobre los servicios web utilizados para crear las metáforas y los símiles que finalmente leerá el usuario.
+
+
 %-------------------------------------------------------------------
 \subsubsection{Diseño de la evaluación}
 %-------------------------------------------------------------------
 \label{cap:subsec:disenioeval}
 
 
-Para decidir que red semántica se iba a usar se decidió hacer una prueba con palabras que fuesen lo más heterogéneas posible, para ello se eligieron una serie de artículos periodísticos de distintos temas: medioambiental, tecnológico, deportivo y político. Estos artículos se filtraron para utilizar únicamente los verbos, artículos, sustantivos y adverbios. Para cada una de estas palabras se obtuvieron en WordNet y ConceptNet sus sinónimos y términos relacionados (en WordNet se entiende como término relacionado a los hiperónimos e hipónimos) y se analizaron, tanto la cantidad de términos relacionados y sinónimos que generaban cada una de las redes semánticas que coincidían con alguna de las palabras fáciles de la RAE (prueba cuantitativa) probando en cada una de las tres listas(1.000 palabras fáciles, 5.000 palabras fáciles y 10.000 palabras fáciles), como la calidad de los mismos, es decir, si las palabras que generaban tenían alguna relación aceptable con la palabra origen(prueba cualitativa).
+Para decidir que red semántica se iba a usar se decidió hacer una prueba con palabras que fuesen lo más heterogéneas posible, para ello se eligieron tres artículos periodísticos de distintos temas: tecnológico\footnote{https://elpais.com/elpais/2019/04/12/ciencia/1555061040\_073105.html}, deportivo\footnote{https://elpais.com/deportes/2019/04/22/actualidad/1555956020\_022201.html} y político\footnote{https://elpais.com/politica/2019/04/23/actualidad/1556019953\_831941.html}. (Los artículos se pueden ver en el Apéndice \ref{sec:apendiceA} )De los artículos se seleccionaron para utilizar únicamente los verbos, sustantivos y adjetivos. Para cada una de estas palabras se obtuvieron en WordNet y ConceptNet sus sinónimos y términos relacionados (en WordNet se entiende como término relacionado a los hiperónimos e hipónimos).
+
+A continuación se comprobó cuantos de los sinónimos y términos relacionados se encontraban en las listas de palabras más usadas de la RAE (análisis cuantitativo) y se analizó la calidad de los mismos, es decir, si las palabras que generaban tenían una relación aceptable con la palabra origen (análisis cualitativo).
 
 %-------------------------------------------------------------------
 \subsubsection{Resultados cuantitativos}
