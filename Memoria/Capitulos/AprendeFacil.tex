@@ -163,46 +163,20 @@ A continuación se comprobó cuantos de los sinónimos y términos relacionados 
 \subsubsection{Resultados cuantitativos}
 %-------------------------------------------------------------------
 \label{cap:sec:pruebaCuantitativa}
-\figura{Bitmap/Capitulo5/tabla}{width=1.0\textwidth}{fig:tabla}{Tabla de resultados de las pruebas} 
+\figura{Bitmap/Capitulo4/tabla_cuantitativa}{width=1.0\textwidth}{fig:tabla_cuantitativa}{Tabla de resultados de las pruebas} 
 
-Como se puede observar en la Tabla \ref{fig:tabla} en términos generales, WordNet ofrece mejores resultados que ConceptNet ya que el porcentaje de palabras sin términos relacionados, sinónimos o ambas, es mayor en esta última, siendo especialmente notorio en el caso de los sinónimos con más de 60 puntos de diferencia en todos los casos en favor de WordNet. Los únicos casos en los que ConceptNet supera a WordNet son con las listas de palabras fáciles de 5.000 y 10.000 palabras, ConceptNet deja menos palabras sin coincidencia que WordNet, sin embargo, encuentra mas términos relacionados y muchos más sinónimos que ConceptNet.
+Como se puede observar en la Tabla \ref{fig:tabla_cuantitativa} en términos generales, WordNet ofrece mejores resultados que ConceptNet ya que el porcentaje de palabras sin términos relacionados, sinónimos o ambas, es mayor en esta última, siendo especialmente notorio en el caso de los sinónimos con más de 60 puntos de diferencia en todos los casos en favor de WordNet. Los únicos casos en los que ConceptNet supera a WordNet son con las listas de palabras fáciles de 5.000 y 10.000 palabras, ConceptNet deja menos palabras sin coincidencia que WordNet, sin embargo, encuentra mas términos relacionados y muchos más sinónimos que ConceptNet.Además, en la última fila de la tabla, se pueden observar las palabras generadas por cada red semántica. Introducidas las palabras de los textos en ambas, ConceptNet ha generado 2.652 sinónimos y términos relacionados, mientras que WordNet ha generado 14.172, casi 7 veces más.
 
 
-\begin{comment}
-\begin{table}
-\centering
-\begin{tabular}{|l|l}
-
-\multicolumn{2}{c} {1000 palabras}\\ 
-
-\end{tabular}
-\end{table}
-\begin{table}
-\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
-\hline
-\multirow{2}{*}{Resultados} &
-\multicolumn{3}{c}{Lista 1000 palabras} &
-\multicolumn{3}{c}{Lista 5000 palabras} &
-\multicolumn{3}{c|}{Lista 10000 palabras} \\
-& \% nada & \% noTerm & \% noSin &\% nada & \% noTerm & \% noSin & \% nada & \% noTerm & \% noSin \\
-\hline
-D1 & 2.1\% & 2.1\% & 2.1\% & 2.1\% & 2.1\% & 2.1\% \\
-\hline
-D2 & 11.6\% & 11.6\% & 11.6\% & 11.6\% & 11.6\% & 11.6\% \\
-\hline
-D3 & 5.5\% & 5.5\% & 5.5\% & 5.5\% & 5.5\% & 5.5\% \\
-\hline
-\end{tabular}
-\end{table}
-
-\end{comment}
 
 %-------------------------------------------------------------------
 \subsubsection{Análisis cualitativo}
-
-Pendiente de terminar...
 %-------------------------------------------------------------------
 \label{sssec:pruebaCualitativa}
+\figura{Bitmap/Capitulo4/tabla_cualitativa}{width=1.0\textwidth}{fig:tabla_cualitativa}{Tabla de resultados de las pruebas} 
+
+Como se puede observar en la Tabla \ref{fig:tabla_cualitativa}, los resultados son muy parejos para ambas redes semánticas. En el caso de la comparación con la lista de las 1.000 palabras fáciles, los sinónimos encontrado por WordNet son mejores que los de ConceptNet (65,45\% de sinónimos correctos frente a 46,15\%) sin embargo los términos relacionados son mejores en ConceptNet(78,67\%) que en WordNet(73,1\%). Aumentando las palabras a la lista de 5.000 palabras fáciles, ocurre lo mismo que con la lista anterior, hay más sinónimos correctos en WordNet (55,42\%) que en ConceptNet(55\%) y mejores términos relacionados en ConceptNet(84,17\%) que en WordNet(50,6\%). Por último en las comparaciones realizadas con las 10.000 palabras fáciles los resultados en ambos casos, fueron mejores en WordNet (60,73\% en el caso de los sinónimos y 55,3\% en los términos relacionados) que en ConceptNet(53,03\% y 53,19\% respectivamente).
+
 
 %-------------------------------------------------------------------
 \subsubsection{Conclusiones}
