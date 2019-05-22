@@ -186,9 +186,13 @@ A continuación se comprobó de manera independiente cuantos de los sinónimos y
 \subsubsection{Resultados cuantitativos}
 %-------------------------------------------------------------------
 \label{cap:sec:pruebaCuantitativa}
-\figura{Bitmap/Capitulo4/tabla_cuantitativa}{width=1.0\textwidth}{fig:tabla_cuantitativa}{Tabla de resultados de la prueba cuantitativa} 
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth]{Imagenes/Bitmap/Capitulo4/tabla_cuantitativa}
+\caption{Tabla de resultados de la prueba cuantitativa}
+\label{fig:tabla_cuantitativa}
+\end{figure}
 
-En la Tabla \ref{fig:tabla_cuantitativa} se muestran los resultados de la prueba cuantitativa realizada, como se puede observar, en términos generales, WordNet ofrece mejores resultados que ConceptNet ya que el porcentaje de palabras sin términos relacionados, sinónimos o ambas, es mayor en esta última. En el caso de la primera lista utilizada (1.000 palabras fáciles) ConceptNet no encontró ningún resultado para el 68,2\% de las palabras introducidas mientras que WordNet no encontró nada para el 62,6\%. En el caso de los términos relacionados, ConceptNet no encontró ninguno para el 72,1\% de las palabras, mientras que en el caso de WordNet fue del 47,6\%. Para el porcentaje de palabras sin sinónimos los resultados fueron de  La siguiente lista probada fue la de 5.000 palabras fáciles, ConceptNet ha generado 2.652 sinónimos y términos relacionados, mientras que WordNet ha generado 14.172, casi 7 veces más.
+En la Tabla \ref{fig:tabla_cuantitativa} se muestran los resultados de la prueba cuantitativa realizada, como se puede observar, en términos generales, WordNet ofrece mejores resultados que ConceptNet ya que el porcentaje de palabras sin términos relacionados, sinónimos o ambas, es mayor en esta última. En el caso de la primera lista utilizada (1.000 palabras fáciles) ConceptNet no encontró ningún resultado para el 68,2\% de las palabras introducidas mientras que WordNet no encontró nada para el 62,6\%. En el caso de los términos relacionados, ConceptNet no encontró ninguno para el 68,75\% de las palabras, mientras que en el caso de WordNet fue del 24,72\%. Para el porcentaje de palabras sin sinónimos los resultados fueron de 88,06 para ConceptNet y 26,5 para WordNet. La siguiente lista probada fue la de 5.000 palabras fáciles, para la cual, como se ha explicado anteriormente, se han evaluado los mismos parámetros. Las palabras sin resultado han sido el 49,6\% para el caso de ConceptNet y 56,5\% en el caso de WordNet. El porcentaje de palabras sin términos relacionados ha sido de 47,15\% en ConceptNet y 16,19\% en WordNet. En los sinónimos, no se encontraron para el 77,84\% de las palabras utilizando ConceptNet  y tan solo en un 15,05\% con WordNet. A continuación, utilizando la lista de 10.000 palabras fáciles, los resultados han sido: ConceptNet ha dejado un 43,4\% de palabras sin resultado frente al 55\% de WordNet, en los términos relacionados el 43,75\% usando ConceptNet  frente al 15,05\% de WordNet. En los sinónimos, ConceptNet no ha encontrado resultados en el 76,7\% de las palabras y WordNet en el 9,2\%. Por último, se ha realizado un conteo de las palabras totales que ha generado cada red semántica, con un resultado de 2.652 sinónimos y términos relacionados generado por ConceptNet, mientras que WordNet ha generado 14.172.
 
 
 
@@ -196,9 +200,14 @@ En la Tabla \ref{fig:tabla_cuantitativa} se muestran los resultados de la prueba
 \subsubsection{Análisis cualitativo}
 %-------------------------------------------------------------------
 \label{sssec:pruebaCualitativa}
-\figura{Bitmap/Capitulo4/tabla_cualitativa}{width=1.0\textwidth}{fig:tabla_cualitativa}{Tabla de resultados de la prueba cualitativa} 
-Para realizar el análisis cualitativo de la
-Como se puede observar en la Tabla \ref{fig:tabla_cualitativa}, los resultados son muy parejos para ambas redes semánticas. En el caso de la comparación con la lista de las 1.000 palabras fáciles, los sinónimos encontrado por WordNet son mejores que los de ConceptNet (65,45\% de sinónimos correctos frente a 46,15\%) sin embargo los términos relacionados son mejores en ConceptNet (78,67\%) que en WordNet (73,1\%). Después se hizo la comparación con la lista de 5.000 palabras fáciles, ocurre lo mismo que con la lista anterior, hay más sinónimos correctos en WordNet (55,42\%) que en ConceptNet (55\%) y mejores términos relacionados en ConceptNet (84,17\%) que en WordNet (50,6\%). Por último en las comparaciones realizadas con las 10.000 palabras fáciles los resultados en ambos casos, fueron mejores en WordNet (60,73\% en el caso de los sinónimos y 55,3\% en los términos relacionados) que en ConceptNet (53,03\% y 53,19\% respectivamente).
+
+\begin{figure}[!h]
+	\includegraphics[width=1.0\textwidth]{Imagenes/Bitmap/Capitulo4/tabla_cualitativa}
+	\caption{Tabla de resultados de la prueba cualitativa}
+	\label{fig:tabla_cualitativa}
+\end{figure}
+
+Después del análisis cuantitativo, como se ha descrito en el apartado \ref{cap:subsec:disenioeval} se ha realizado el análisis cualitativo, que consiste en analizar una a una de manera manual, si las palabras obtenidas por ConceptNet y WordNet son correctas(entendiendo como correctas que tengan relación directa con la palabra buscada inicialmente).Como se puede observar, en la Tabla \ref{fig:tabla_cualitativa} los resultados son muy parejos para ambas redes semánticas. En el caso de la comparación con la lista de las 1.000 palabras fáciles, los sinónimos encontrados por WordNet son mejores que los de ConceptNet (65,45\% de sinónimos correctos frente a 46,15\%) sin embargo los términos relacionados son mejores en ConceptNet que en WordNet (78,67\% frente a 73,1\%). Después se hizo la comparación con la lista de 5.000 palabras fáciles, en la que ocurre lo mismo que con la lista anterior, hay más sinónimos correctos en WordNet (55,42\%) que en ConceptNet (55\%) y mejores términos relacionados en ConceptNet (84,17\%) que en WordNet (50,6\%). Por último en las comparaciones realizadas con las 10.000 palabras fáciles los resultados en ambos casos, fueron mejores en WordNet (60,73\% en el caso de los sinónimos y 55,3\% en los términos relacionados) que en ConceptNet (53,03\% y 53,19\% respectivamente).
 
 
 %-------------------------------------------------------------------
@@ -206,7 +215,13 @@ Como se puede observar en la Tabla \ref{fig:tabla_cualitativa}, los resultados s
 %-------------------------------------------------------------------
 \label{sssec:conclusionPruebas}
 
-Pendiente de terminar...
+Valorando los datos obtenidos en ambas pruebas se puede concluir lo siguiente: de la prueba cuantitativa se puede deducir que la red semántica más útil es WordNet ya que en 8 de los 10 parámetros valorados es mejor que ConceptNet. Ya que, aunque el porcentaje de palabras que dejan sin ningún resultado es muy parejo, el número de palabras que deja ConceptNet sin términos relacionados es mucho mayor que el de WordNet(68,75\% frente a 24,72\%, 47,15\% frente a 16,19\% y 43,75 frente a 15,05\%), ocurriendo lo mismo en el caso de los sinónimos(88,06\% frente a 26,5\%, 77,84\% frente a 15,34\% y 76,7\% frente a 9,2\%). En algunos de ellos ganando por una diferencia de más de 60 puntos, por ejemplo, en el porcentaje de palabras sin sinónimos utilizando la lista de las 10.000 palabras fáciles. Además, el número de palabras generadas por WordNet es casi 7 veces mayor que por ConceptNet (14.172 frente a 2.652) lo que supone un factor clave a la hora de elegir que red semántica utilizar finalmente ya que con una se pueden generar muchas más metáforas y símiles que con la otra.
+
+Por otro lado, en la prueba cualitativa realizada, los resultados obtenidos son muy parecidos entre ambas redes semánticas, aunque una vez más, con la que se han obtenido mejores resultados ha sido WordNet ya que ha ganado 4 de los 6 parámetros medidos. Especialmente, en el caso de la lista de las 10.000 palabras, en donde gana ambas mediciones (53,03\% en el caso de los sinónimos correctos con ConceptNet frente a 60,73\% con WordNet y 55,19\% de términos relacionados correctos frente a 55,3\% con ConceptNet y WordNet respectivamente).
+
+Por estos motivos, la red semántica que se ha decidido utilizar finalmente para la aplicación final ha sido WordNet.
+
+
 
 %-------------------------------------------------------------------
 \section{Servidor de Base de Datos}
