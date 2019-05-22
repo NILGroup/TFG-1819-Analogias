@@ -138,12 +138,25 @@ En este apartado se describirá la arquitectura diseñada para la aplicación. E
 	\label{fig:diagrama_arquitectura}
 \end{figure}
 
-La aplicación está formada por una interfaz (\textit{frontend}) la cuál realiza peticiones a la parte interna (\textit{backend}), y este le devuelve la información correspondiente. Para ello, la parte \textit{backend} debe realizar consultas a la base de datos. En los siguientes apartados se explicará con mayor detalle.
+La aplicación está formada por una interfaz (\textit{frontend}) la cuál realiza peticiones a la parte interna (\textit{backend}), y este le devuelve la información correspondiente. Para ello, la parte \textit{backend} debe realizar consultas a la base de datos. En la Figura \ref{fig:relacionBackFront}  se puede ver la relación que existe entre el \textit{frontend} con el \textit{backend}, y los servicios web que son utilizados para la obtención de los resultados.
+Si el usuario introduce una palabra, dejando por defecto las distintas opciones que vienen y realiza la búsqueda de un concepto, la aplicación invocará a los servicios web relacionados con la obtención de metáforas (\textit{getMetaphor}) y símiles (\textit{getSimil}). A parte, si el usuario seleccionara la opción de ``Mostrar definición y ejemplo'', el servicio web invocado sería el \textit{getDefAndExample} y en caso de seleccionar la opción  ``Mostrar pictos'' se invocaría al servicio web ``getImagen'' para obtener el pictograma del resultado principal y ``getImagenPalabra'' para obtener el pictograma de cada resultado mostrado.
 
-La Universidad Complutense de Madrid nos facilitó un contenedor para poder alojar nuestro trabajo, accesible en la dirección \textit{holstein.fdi.ucm.es}. Este servidor no tenía instalado ningún servicio por lo que se tuvo que realizar la instalación de todo lo necesario (python, pyp, git, mysql, etc) 
+\begin{figure}[!h]
+	\includegraphics[width=1.2\textwidth]{Imagenes/Bitmap/Capitulo4/RelacionBackFront.png}
+	\caption{Relación entre \textit{Backend} y \textit{Frontend}}
+	\label{fig:relacionBackFront}
+\end{figure}
+
+
+ Igualmente en los siguientes apartados se explicará con mayor detalle tanto la implementación del \textit{frontend} como del \textit{backend} . 
+
+Por último, la Universidad Complutense de Madrid nos facilitó un contenedor para poder alojar nuestro trabajo, accesible en la dirección \textit{holstein.fdi.ucm.es}. Este servidor no tenía instalado ningún servicio por lo que se tuvo que realizar la instalación de todo lo necesario (python, pyp, git, mysql, etc). Una vez clonada la rama de GitHub donde tenemos el proyecto, el siguiente paso fue dejar el servidor siempre activo, para ello se tuvo que crear un servicio (\textit{.servi ce}) donde se guardaría la ruta del proyecto.
+
 %-------------------------------------------------------------------
 \section{Diseño de la Base de datos de Aprende Fácil}
 %-------------------------------------------------------------------
+
+
 
 %-------------------------------------------------------------------
 \section{Diseño del Backend de Aprende Fácil}
