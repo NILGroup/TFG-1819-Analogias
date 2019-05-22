@@ -3,14 +3,14 @@
 
 Como se ha comentado en el anterior capítulo, el objetivo principal de este trabajo es construir una aplicación que ayude a personas con discapacidad cognitiva a poder entender palabras más complejas mediante conceptos más sencillos. Para poder conseguir cumplir dicho objetivo hay que seguir ciertos pasos.
 
-En primer lugar, se deben buscar los conceptos relacionados con la palabra introducida por el usuario. Para ello, se ha utilizado una rama de la Inteligencia Artificial llamada Procesamiento del Lenguaje Natural (PLN). En la sección 2.1 se explicará en qué consiste y las distintas herramientas disponibles para la búsqueda de conceptos relacionados con una palabra específica.
+En primer lugar, se deben buscar los conceptos relacionados con la palabra introducida por el usuario. Para ello, se ha utilizado una rama de la Inteligencia Artificial llamada Procesamiento del Lenguaje Natural (PLN). En la sección \ref{cap:sec:lenguajenatural} se explicará en qué consiste y las distintas herramientas disponibles para la búsqueda de conceptos relacionados con una palabra específica.
 
 Una vez obtenidas las palabras relacionadas con el concepto introducido, se debe hacer una distinción de cuales de las palabras relacionadas pertenecen al grupo de palabras fáciles y cuales al grupo de palabras dificiles, es decir, distinguir entre aquellas palabras que se utilizan asiduamente y las que no.
-Esta distinción es necesaria ya que uno de nuestros objetivos es trabajar únicamente con las palabras fáciles para facilitar la compresión del significado de un concepto devolviendo un resultado lo más sencillo posible. Dado que este trabajo está enfocado para personas con discapacidad cognitiva, el concepto de lectura fácil nos ayuda a comprender como debemos trabajar con las palabras fáciles y por ello en la sección 2.2 se explicará que es la lectura fácil y algunas pautas que se pueden seguir para escribir correctamente un texto con esta adaptación, así como la definición de palabras faciles y difíciles y los documentos que se utilizarán como referencia para las palabras fáciles.
+Esta distinción es necesaria ya que uno de nuestros objetivos es trabajar únicamente con las palabras fáciles para facilitar la compresión del significado de un concepto devolviendo un resultado lo más sencillo posible. Dado que este trabajo está enfocado para personas con discapacidad cognitiva, el concepto de lectura fácil nos ayuda a comprender como debemos trabajar con las palabras fáciles y por ello en la sección \ref{cap:sec:lecturafacil} se explicará que es la lectura fácil y algunas pautas que se pueden seguir para escribir correctamente un texto con esta adaptación, así como la definición de palabras faciles y difíciles y los documentos que se utilizarán como referencia para las palabras fáciles.
 
-Tras identificar las palabras fáciles relacionadsa con el concepto introducido, se utilizarán figuras retóricas para comparar el concepto complejo con otros conceptos más sencillos que ayuden a entender el significado del concepto complejo introducido por el usuario. En la sección 2.3 se hablará de las figuras retóricas y se explicarán los tres tipos fundamentales que se van a utilizar para la realización de este trabajo. 
+Tras identificar las palabras fáciles relacionadsa con el concepto introducido, se utilizarán figuras retóricas para comparar el concepto complejo con otros conceptos más sencillos que ayuden a entender el significado del concepto complejo introducido por el usuario. En la sección \ref{cap:sec:figurasretoricas} se hablará de las figuras retóricas y se explicarán los tres tipos fundamentales que se van a utilizar para la realización de este trabajo. 
 
-Por último, vamos a hacer uso de servicios web para dotar a la aplicación de funcionalidad. Como se ha comentado en el anterior capítulo, uno de los objetivos tecnológicos de este trabajo es construir la aplicación con servicios web y en la sección 2.4 se explicará detalladamente que es un servicio web, los tipos que existen, sus características principales, su arquitectura y las ventajas de ser utilizados así como sus desventajas.
+Por último, vamos a hacer uso de servicios web para dotar a la aplicación de funcionalidad. Como se ha comentado en el anterior capítulo, uno de los objetivos tecnológicos de este trabajo es construir la aplicación con servicios web y en la sección \ref{cap:sec:serviciosweb} se explicará detalladamente que es un servicio web, los tipos que existen, sus características principales, su arquitectura y las ventajas de ser utilizados así como sus desventajas.
 
 
 %-------------------------------------------------------------------
@@ -25,20 +25,37 @@ Una de las principales técnicas de representación de conocimiento son las rede
 Los nodos están representados por el elemento lingüístico, y la relación entre los nodos sería la arista. Se puede ver un ejemplo en la Figura \ref{fig:red}, donde el nodo \textit{Oso} representa un concepto, en este caso un sustantivo que identifica a un tipo de animal, y otro nodo \textit{Pelo} el cual también es un sustantivo. La relación entre ambos se ve representada por la arista con valor \textit{tiene}, dando lugar a una característica de este animal: \textit{Oso tiene pelo}.
 
 \figura{Bitmap/Capitulo2/redSemantica}{width=.9\textwidth}{fig:red}{Ejemplo de Red Semántica}
-\figura{Bitmap/Capitulo2/ejemploRedMarco}{width=.9\textwidth}{fig:ejemploMarco}{Ejemplo de Red de Marco}
-\figura{Bitmap/Capitulo2/ejemploRedIsa}{width=.9\textwidth}{fig:ejemploIsa}{Ejemplo de Red IS-A}
-\figura{Bitmap/Capitulo2/grafoConceptual}{width=.9\textwidth}{fig:grafoConceptual}{Ejemplo de Grafo Conceptual}
+%\figura{Bitmap/Capitulo2/ejemploRedMarco}{width=.9\textwidth}{fig:ejemploMarco}{Ejemplo de Red de Marco}
+%\figura{Bitmap/Capitulo2/ejemploRedIsa}{width=.9\textwidth}{fig:ejemploIsa}{Ejemplo de Red IS-A}
+%\figura{Bitmap/Capitulo2/grafoConceptual}{width=.9\textwidth}{fig:grafoConceptual}{Ejemplo de Grafo Conceptual}
 
 Existen principalmente tres tipos de redes semánticas \citep{tiposRedesSemanticas}:
 \begin{itemize}
 	\item Redes de Marcos: los enlaces de unión de los nodos son parte del propio nodo, es decir, se encuentran organizados jerárquicamente, según un número de criterios estrictos, como por ejemplo la similitud entre nodos. En la Figura \ref{fig:ejemploMarco}, se muestra un ejemplo de Red de Marco donde por ejemplo el nodo ave tiene como características  que vuela, que tiene plumas y que pone huevos, pero en cambio el nodo avestruz que es un tipo de ave, no puede volar. Por lo que los nodos de ave son las características principales de un ave, aunque no todas tienen por que cumplirlo.
+	\begin{figure}[!h]
+		\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo2/ejemploRedMarco.png}
+		\caption{Ejemplo de Red de Marco}
+		\label{fig:ejemploIsa}
+	\end{figure}
+	
 	\item Redes IS-A: los enlaces entre los nodos están etiquetados con una relación entre ambos. Es el tipo que habitualmente se utiliza junto con las Redes de Marcos. En la Figura \ref{fig:ejemploIsa} se muestra una red IS-A en la que se representa que: mujer y hombre son personas, y perro y gato son animales. Por último, tanto personas como animales son seres vivos y una de sus características en común es que tienen pelo.
+	\begin{figure}[!h]
+		\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo2/ejemploRedIsa.png}
+		\caption{Ejemplo de Red de IS-A}
+		\label{fig:ejemploMarco}
+	\end{figure}
+
 	\item Grafos Conceptuales: existen dos tipos de nodos en estas redes: nodos de conceptos, los cuáles representan una entidad, un estado o un proceso y los nodos de relaciones, que indican como se relacionan los nodos de concepto. En este tipo de red semántica no existen enlaces entre los nodos con una etiqueta, sino que son los propios nodos los que tienen el significado. Se puede ver un ejemplo en la Figura \ref{fig:grafoConceptual} en la cual la frase \textit{``Man biting dog"} quedaría representada \citep{osti_5673179}. Los cuadrados implican el concepto y el círculo la relación entre ambos, por lo que en el caso de \textit{man} y \textit{bite}, la acción de morder la realiza \textit{man} siendo éste el agente, y la relación entre \textit{bite} y \textit{dog} sería el objeto.
+	\begin{figure}[!h]
+		\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo2/grafoConceptual.png}
+		\caption{Ejemplo de Grafo Conceptual}
+		\label{fig:grafoConceptual}
+	\end{figure}
 \end{itemize}
 
 Para el trabajo que queremos realizar, existen varias redes semánticas que disponen de una representación del conocimiento que necesitaremos para relacionar el concepto díficil introducido por el usuario con otros conceptos. A continuación, describiremos las más representativas.
 
-\figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de ConcepNet para la palabra chaqueta} 
+%\figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de ConcepNet para la palabra chaqueta} 
 \subsection{ConceptNet} 
 \label{cap:subsec:concepnet}
 
@@ -47,6 +64,11 @@ ConcepNet es una red semántica creada por el MIT \textit{(Massachusetts Institu
 ConcepNet dispone de una aplicación web\footnote{http://conceptnet.io/} donde se pueden buscar palabras en distintos idiomas,  como el español, el inglés o el chino.
 En la Figura \ref{fig:busquedaConcepnet} se puede ver la información que devuelve la aplicación ConcepNet para la palabra chaqueta. Como se puede ver en la Figura hay una columna con los sinónimos del concepto  en distintos idiomas (americana, \textit{jacket} o \textit{blouson}), otra columna con los términos relacionados (saco o chaquetear) también en distintos idiomas, otra columna que muestra los términos derivados del concepto (chaquetero, chaquetilla o chaquetita) y por último una columna que muestra otra forma de la palabra, en este caso el plural (chaquetas).  Para algunos de los resultados de ConcepNet además aparece a la derecha de la palabra y entre paréntesis, una sola letra que indica si es un verbo, un sustantivo o un adjetivo. 
 
+\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo2/busquedaConcepnet.png}
+	\caption{Resultados de ConcepNet para la palabra chaqueta}
+	\label{fig:busquedaConcepnet}
+\end{figure}
 ConcepNet no realiza ninguna agrupación de los resultados en función del significado, si no que muestra todo el listado de palabras y en algunas de ellas aparece el contexto al cual se refieren. Por ejemplo, para la palabra arco algunos de los resultados que devuelve son referentes al significado arco de arquitectura y otros son referentes al arco de geometría.
 
 
@@ -149,12 +171,18 @@ Thesaurus\footnote{https://www.thesaurus.com/} es una aplicación web que se aut
 
 Si la palabra introducida es polisémica, Thesaurus devuelve los resultados por grupos según su connotación. En la Figura \ref{fig:thesauruspolisemica}, se puede ver los resultados devueltos por Thesaurus para la palabra \textit{book}, donde este puede utilizarse como un sustantivo o como un verbo. Y dentro de si es un tipo u otro, los divide según el significado, ya sea para utilizarlo como un documento, un diario o como una reserva. Y cada uno se muestran en pestañas distintas para facilitar al usuario la distinción de conceptos.
 
+	\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo2/thesaurus_polisemica.png}
+	\caption{Resultados de ConcepNet para la palabra polisémica \textit{book}}
+	\label{fig:thesauruspolisemica}
+	\end{figure}
+
 Por otro lado, esta aplicación proporciona una API\footnote{http://thesaurus.altervista.org/} tipo RESTful que obtiene los sinónimos de una palabra mediante una petición HTTP GET a la url \textit{http://thesaurus.altervista.org/thesaurus/v1}. 
 Este devuelve los resultados en formato XML o JSON. El contenido de la respuesta es una lista y cada elemento de esta lista contiene un par de elementos: categoría y sinónimos. Este último a su vez contiene una lista de sinónimos separados por el carácter |. 
 Se puede ver en el Listado \ref{lst:xmlthesaurus} el resultado devuelto por Thesaurus para la palabra \textit{peace} en formato XML y en el Listado \ref{lst:jsonthesaurus} para la misma palabra, \textit{peace}, pero en formato JSON.
 Ambos son muy similares, por ejemplo en formato XML se puede ver que devuelve el tipo de categoría de las palabras, en este caso son sustantivos y a continuación aparcen los sinónimos. En caso de que alguna palabra sea un antónimo aparecera entre paréntesis al lado de la misma, como ocurre con la palabra \textit{war}. Por otro lado, el formato JSON devuelve dentro del campo \textit{category / categoría} todos los sinónimos, y en caso de ser un antónimo aparecerá de la misma forma que en el formato XML.
 
-\figura{Bitmap/Capitulo2/thesaurus_polisemica}{width=.9\textwidth}{fig:thesauruspolisemica}{Resultados de ConcepNet para la palabra polisémica \textit{book}} 
+%\figura{Bitmap/Capitulo2/thesaurus_polisemica}{width=.9\textwidth}{fig:thesauruspolisemica}{Resultados de ConcepNet para la palabra polisémica \textit{book}} 
 
 \definecolor{gray}{rgb}{0.4,0.4,0.4}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.6}
@@ -239,13 +267,19 @@ Thesaurus Rex\footnote{http://ngrams.ucd.ie/therex3/} es una red semántica que 
 En Thesaurus Rex las palabras tienen categorías y modificadores. Las categorías son sustantivos que definen a la palabra introducida por el usuario, como se puede ver en la Figura \ref{fig:thesaurusrex}, la palabra \textit{house} tiene asociadas las categorías \textit{structure, object, item o building}. Los modificadores son adjetivos que describen a la palabra, siguiendo con el mismo ejemplo, \textit{house} tiene como modificadores \textit{permanent, fixed o wooden}. Por último, dispone de un listado de las categorías más utilizadas por los hablantes de dicha lengua, como pueden ser \textit{permanent-structure, inanimate-object, everyday-object, etc...} 
 
 En el caso de introducir dos palabras en la aplicación, por ejemplo \textit{coffee y cola}, la aplicación devuelve las categorías que comparten dichos conceptos, en este caso serían \textit{cold-beverage, dark-beverage o stimulating-beverage} Si se introduce una palabra polisémica, como puede ser \textit{book}, Thesaurus Rex no realiza ninguna distinción entre que resultados corresponden a los distintos significados del concepto buscado.
+\begin{figure}[!h]
+	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo2/thesaurusrex.png}
+	\centering
+	\caption{Resultados búsqueda Thesaurus Rex con la palabra \textit{house}}
+	\label{fig:thesaurusrex}
+\end{figure}
 
 La aplicación también dispone de una API pública que devuelve los resultados en formato XML.
 En el Listado \ref{lst:xmlthesaurusrex} se muestra el XML devuelto por la aplicación para la palabra \textit{house}. El XML devuelto consta de tres grandes bloques: \textit{Categories}, \textit{Modifiers} y \textit{CategoryHeads}. Todos los resultados tienen un peso \textit{(weight)} asignado, esto significa que cuanto mayor sea el peso mayor es la similitud con el concepto dado. 
 Los campos que se encuentran dentro del apartado \textit{categories} son los resultados más utilizados en ese momento por los hablantes y que Thesaurus Rex ha encontrado, como por ejemplo \textit{permanent-structure}. Los que se encuentran dentro de  \textit{modifiers}, como se ha comentado anteriormente son atributos del concepto a buscar, como por ejemplo \textit{fixed}. Y por último, los que se encuentran en \textit{categoryHeads} son las categorías más simples que se han encontrado para dicho concepto, como por ejemplo \textit{structure}.
 
 Thesaurus Rex utiliza el contenido de la web para generar sus resultados, con lo cual la información disponible no es fija, sino que varía según los datos de la web.
-La ventaja de utilizar esta herramienta es que se encuentra en continua actualización, pero el inconveniente es que en algunos casos la información puede resultar un poco extraña dado que se crea semiautomáticamente desde contenido de la web \citep{VealeT2013}. Por ejemplo, para la palabra \textit{house}, uno de los resultados es \textit{sphere}, que en principio no tiene ninguna relación con \textit{house}.
+La ventaja de utilizar esta herramienta es que se encuentra en continua actualización, pero el inconveniente es que en algunos casos la información puede resultar un poco extraña dado que se crea de manera semiautomática desde contenido de la web \citep{VealeT2013}. Por ejemplo, para la palabra \textit{house}, uno de los resultados es \textit{sphere}, que en principio no tiene ninguna relación con \textit{house}.
 
 \lstset{language=XML}
 \begin{lstlisting}[caption=XML devuelto por Thesaurus Rex para la palabra \textit{house}, label={lst:xmlthesaurusrex}, frame=single]
@@ -286,7 +320,7 @@ La ventaja de utilizar esta herramienta es que se encuentra en continua actualiz
 
 \end{lstlisting}
 
-\figura{Bitmap/Capitulo2/thesaurusrex}{width=.6\textwidth}{fig:thesaurusrex}{Resultados búsqueda Thesaurus Rex con la palabra \textit{house}}
+%\figura{Bitmap/Capitulo2/thesaurusrex}{width=.6\textwidth}{fig:thesaurusrex}{Resultados búsqueda Thesaurus Rex con la palabra \textit{house}}
 
 
 \subsection{Metaphor Magnet}
@@ -296,6 +330,7 @@ Metaphor Magnet permite al usuario introducir palabras y, ayudándose de los n-g
 
 Un n-grama \citep{ngrama1999} es una subsecuencia de n elementos consecutivos en una secuencia dada y a su vez estos pueden ser bigramas, tigramas, etc... Metaphor Magnet lo que hace es utilizando dichos n-gramas busca en la Web cuantas veces aparece el concepto introducido y cuantas veces aparece junto con otra palabra en un n-grama. De esta forma, se obtienen los resultados más utilizados por los hablantea. En la Figura \ref{fig:metaphormagnet} se puede ver el resultado obtenido en la aplicación para la palabra \textit{house}. En este caso la aplicación devuelve métaforas propias del concepto, como \textit{protecting:home}.
 En el caso de introducir una palabra polisémica, por ejemplo \textit{book}, Metaphor Magnet no realiza ninguna agrupación según los distintos significados, si no que muestra todos los resultados juntos.
+
 
 Metaphor Magnet también dispone de una API pública que devuelve los resultados en formato XML. En el Listado \ref{lst:xmlmetaphormagnet} se puede ver el resultado devuelto por la API para la palabra \textit{house}. En el XML devuelto aparece la etiqueta \textit{<Source Name>} seguido de la palabra a buscar, en este caso \textit{house}. Otra etiqueta \textit{<Score>} que muestra un número, cuanto mayor sea este número más relacionado será con el concepto introducido, por ejemplo \textit{``tall:building"}  tiene un \textit{score} de 86 mientras que \textit{``intuitive:natural"} tiene un \textit{score} de 25, indicando así que es uno de los resultados menos relacionados con la palabra \textit{house}. Por último, la etiqueta \textit{<Text>} contiene la metáfora, por ejemplo \textit{``protecting:home"}.
 
@@ -350,9 +385,14 @@ Metaphor Magnet también dispone de una API pública que devuelve los resultados
 </Source>
 </Metaphor>
 \end{lstlisting}
-\figura{Bitmap/Capitulo2/metaphormagnet}{width=.6\textwidth}{fig:metaphormagnet}{Resultados búsqueda Metaphor Magnet con la palabra \textit{house}}
+%\figura{Bitmap/Capitulo2/metaphormagnet}{width=.6\textwidth}{fig:metaphormagnet}{Resultados búsqueda Metaphor Magnet con la palabra \textit{house}}
 
-
+\begin{figure}[!h]
+	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo2/metaphormagnet.png}
+	\centering
+	\caption{Resultados búsqueda Metaphor Magnet con la palabra \textit{house}}
+	\label{fig:metaphormagnet}
+\end{figure}
 
 
 \subsection{WordNet}
@@ -393,11 +433,18 @@ Por ejemplo, para la palabra \textit{portero} EuroWordNet devolverá en un \text
 
 Se llama lectura fácil\footnote{https://www.discapnet.es/areas-tematicas/diseno-para-todos/accesibilidad-de-comunicacion/lectura-facil} a aquellos contenidos que han sido resumidos y reescritos con lenguaje sencillo y claro, de forma que puedan ser entendidos por personas con discapacidad cognitiva o discapacidad intelectual. Es decir, es la adaptación de textos, ilustraciones y maquetaciones que permite una mejor lectura y comprensión.
 
+
 La lectura fácil surgió en Suecia en el año 1968, donde se editó el primer libro en la Agencia de Educación en el marco de un proyecto experimental. A continuación, en 1976, se creó en el Ministerio de Justicia un grupo de trabajo para conseguir textos legales más claros.
 En 1984 nació el primer periódico en lectura fácil, titulado "8 páginas", que tres años más tarde, en 1987, se publicó de forma permanente en papel hasta que empezó a editarse en la web. 
 En el año 2013, en México se produce la primera sentencia judicial en lectura fácil\footnote{https://dilofacil.wordpress.com/2013/12/04/el-origen-de-la-lectura-facil/}. En la actualidad, podemos distinguir los documentos en lectura fácil gracias al logo de la Figura \ref{fig:lecturafacil}.
 
-	\figura{Bitmap/Capitulo2/lecturaFacil}{width=.3\textwidth}{fig:lecturafacil}{Logo Lectura Fácil} 
+%	\figura{Bitmap/Capitulo2/lecturaFacil}{width=.3\textwidth}{fig:lecturafacil}{Logo Lectura Fácil} 
+	\begin{figure}[!h]
+		\includegraphics[width=.3\textwidth]{Imagenes/Bitmap/Capitulo2/lecturaFacil}
+		\centering
+		\caption{Logo Lectura Fácil}
+		\label{fig:lecturafacil}
+	\end{figure}
 	
 	
 Los documentos escritos en Lectura Fácil \citep{lecturafacil} son documentos de todo tipo que siguen las directrices internacionales de la IFLA\footnote{International Federation of Library Associations and Institutions} y de Inclusion Europe\footnote{Una asociación de personas con discapacidad intelectual y sus familias en Europa} en cuanto al contenido y la forma.
@@ -460,16 +507,13 @@ En nuestro trabajo, las figuras retóricas van a permitir comparar el concepto c
 
 Para definir el concepto de servicio web de la forma más simple posible, se podría decir que es una tecnología que utiliza un conjunto de protocolos para intercambiar datos entre aplicaciones, sin importar el lenguaje de programación en el cual estén programadas o ejecutadas en cualquier tipo de plataforma\footnote{http://www.jtech.ua.es/j2ee/publico/servc-web-2012-13/sesion01-apuntes.html}. Según el W3C (\textit{World Wide Web Consortium})\footnote{https://www.w3.org/},\textit{``un servicio web es un sistema software diseñado para soportar la interacción máquina-a-máquina, a través de una red, de forma interoperable''}.
 
-
-
-
 Las principales características de un servicio web son \citep{TorresJoaquin2017SC}:
-
-
 
 \begin{itemize}
 	\item Es accesible a través de la Web. Para ello debe utilizar protocolos de transporte estándares como HTTP, y codificar los mensajes en un lenguaje estándar que pueda ser accesible por cualquier cliente que quiera utilizar el servicio. 
+	
 	\item Contiene una descripción de sí mismo. De esta forma, una aplicación web podrá saber cual es la función de un determinado Servicio Web, y cuál es su interfaz, de manera que pueda ser utilizado de forma automática por cualquier aplicación, sin la intervención del usuario.
+	
 	\item Debe ser localizado. Debe tener algún mecanismo que permita encontrarle. De esta forma tendremos la posibilidad de que una aplicación localice el servicio que necesite de forma automática, sin tener que conocerlo previamente.
 \end{itemize}
 

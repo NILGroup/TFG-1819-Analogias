@@ -34,7 +34,7 @@ SpaCy\footnote{https://spacy.io/} es una biblioteca de código abierto para el P
 
 
 
-\figura{Bitmap/Capitulo3/spacy}{width=.8\textwidth}{fig:spacy}{Ejemplo de clasificación de palabras}
+%\figura{Bitmap/Capitulo3/spacy}{width=.8\textwidth}{fig:spacy}{Ejemplo de clasificación de palabras}
 
 El analizador semántico de SpaCy, según un estudio realizado en 2015 por la universidad Emory\footnote{https://www.aclweb.org/anthology/P15-1038}, es el más rápido y según Medium Corporation tiene un índice de acierto mucho mayor que el analizador sintáctico de NLTK \footnote{https://medium.com/@pemagrg/private-nltk-vs-spacy-3926b3674ee4}. Para utilizar en analizador, hay que importar la biblioteca de idioma correspondiente (en este caso español: ``es\_core\_news\_sm'') y pasar como parámetro las palabras que se deseen clasificar. El resultado para cada palabra introducida en el analizador, serán una serie de etiquetas, de todas ellas, la utilizada es la etiqueta ``pos'', que contiene el grupo semántico de la palabra analizada, como se puede ver en la Figura \ref{fig:spacy}, se ha introducido la frase: ``el coche es rojo'' y se han obtenido los siguientes resultados:
 \begin{itemize}
@@ -43,6 +43,13 @@ El analizador semántico de SpaCy, según un estudio realizado en 2015 por la un
 	\item es: ha obtenido la etiqueta AUX, haciendo referencia a que es un verbo auxiliar.
 	\item rojo: ha obtenido la etiqueta ADJ, haciendo referencia a que es un adjetivo.
 \end{itemize}
+
+\begin{figure}[!h]
+	\includegraphics[width=.4\textwidth]{Imagenes/Bitmap/Capitulo3/spacy}
+	\centering
+	\caption{Ejemplo de clasificación de palabras}
+	\label{fig:spacy}
+\end{figure}
 
 Se ha elegido ya que ha sido el que mejor resultado ha dado. Inicialmente se utilizó el POS-tagger (clasificador sintáctico de palabras) de NLTK, pero su índice de acierto no era muy bueno, por lo que se descartó su uso. A continuación se probó con SpaCy y ,además de ser más rápido, su índice de acierto ha sido prácticamente del 100\% ,por lo que fue lo finalmente utilizado.
 
