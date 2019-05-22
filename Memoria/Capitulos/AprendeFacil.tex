@@ -1,10 +1,10 @@
-\chapter{Aprende Fácil}
+\chapter{Propuesta solución: Aplicación Aprende Fácil}
 \label{cap:aprendeFacil}
 
 
 
 %-------------------------------------------------------------------
-\section{Diseño de la Aplicación}
+\section{Diseño centrado en el usuario de los prototipos de la Aplicación}
 %-------------------------------------------------------------------
 \label{cap:sec:disenioInterfaz}
 Como ya se ha explicado en capítulos anteriores, esta aplicación está creada por y para personas que tienen alguna discapacidad cognitiva, por lo que el diseño de la interfaz debe ser sencillo y su uso no debe llevar a confusión ni debe hacer sentir al usuario frustrado al usarla. 
@@ -128,19 +128,29 @@ Teniendo en cuenta las observaciones de los expertos se creo el diseño final de
 
 
 %-------------------------------------------------------------------
-\section{Arquitectura}
+\section{Arquitectura de Aprende Fácil}
+%-------------------------------------------------------------------
+En este apartado se describirá la arquitectura diseñada para la aplicación. En la Figura \ref{fig:diagrama_arquitectura} se puede ver los distintos componentes por los que está formada.
+
+\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/DiagramaArquitectura.png}
+	\caption{Diagrama de la arquitectura del proyecto}
+	\label{fig:diagrama_arquitectura}
+\end{figure}
+
+La aplicación está formada por una interfaz (\textit{frontend}) la cuál realiza peticiones a la parte interna (\textit{backend}), y este le devuelve la información correspondiente. Para ello, la parte \textit{backend} debe realizar consultas a la base de datos. En los siguientes apartados se explicará con mayor detalle.
+
+La Universidad Complutense de Madrid nos facilitó un contenedor para poder alojar nuestro trabajo, accesible en la dirección \textit{holstein.fdi.ucm.es}. Este servidor no tenía instalado ningún servicio por lo que se tuvo que realizar la instalación de todo lo necesario (python, pyp, git, mysql, etc) 
+%-------------------------------------------------------------------
+\section{Diseño de la Base de datos de Aprende Fácil}
 %-------------------------------------------------------------------
 
 %-------------------------------------------------------------------
-\section{Base de datos}
+\section{Diseño del Backend de Aprende Fácil}
 %-------------------------------------------------------------------
 
 %-------------------------------------------------------------------
-\section{Back end}
-%-------------------------------------------------------------------
-
-%-------------------------------------------------------------------
-\subsection{Red Semántica Utilizada}
+\subsection{Selección de la Red Semántica a utilizar}
 %-------------------------------------------------------------------
 \label{cap:subsec:redsemanticautilizada}
 
@@ -332,18 +342,19 @@ En la Figura \ref{fig:peticionSimil} se puede ver el resultado obtenido en forma
 
 
 %-------------------------------------------------------------------
-\section{Front end}
+\section{Diseño del Frontend  de Aprende Fácil}
 %-------------------------------------------------------------------
 
 %-------------------------------------------------------------------
-\section{Evaluación}
+\section{Evaluación de Aprende Fácil}
 %-------------------------------------------------------------------
 
 El día 17 de Mayo de 2019 tuvo lugar la evaluación final en el colegio Estudio3 Afanias situado en la Comunidad de Madrid. A esta evaluación acudieron los integrantes del equipo junto con los directores.
 Esta evaluación se dividió en dos grupos distintos: El primer grupo formado por 7 alumnos de la edad de 17 años y 1 profesor, y un segundo grupo formado por 7 alumnos de la edad de 14 años y 1 profesor.
 Cabe destacar que el primer grupo estaba formado mayoritariamente por alumnos autónomos e independientes, en contraposición del segundo grupo que no disponían de las mismas habilidades.
 Se utilizó un formulario de Google Forms dividido en dos secciones: Una primera sección guiada enfocada al análisis de los resultados, viendo si estos eran útiles y correctos. Y otra sección dedicada a la usabilidad de la aplicación.
-El formulario empleado en esta evaluación puede encontrarse en nuestro repositorio de GitHub, y en el Ápendice ..X..
+El formulario empleado en esta evaluación puede encontrarse en nuestro repositorio de GitHub, y en el Ápendice ..X..
+
 
 La idea principal era que cada usuario probará la aplicación y realizara el formulario de forma individual, pero finalmente se decidió que los integrantes del equipo fueran los que realizaran la evaluación in situ mientras los alumnos daban su opinión y se recogían sus respuestas.
 A continuación explicaremos los resultados obtenidos en cada grupo:
