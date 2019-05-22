@@ -150,12 +150,66 @@ Si el usuario introduce una palabra, dejando por defecto las distintas opciones 
 
  Igualmente en los siguientes apartados se explicará con mayor detalle tanto la implementación del \textit{frontend} como del \textit{backend} . 
 
-Por último, la Universidad Complutense de Madrid nos facilitó un contenedor para poder alojar nuestro trabajo, accesible en la dirección \textit{holstein.fdi.ucm.es}. Este servidor no tenía instalado ningún servicio por lo que se tuvo que realizar la instalación de todo lo necesario (python, pyp, git, mysql, etc). Una vez clonada la rama de GitHub donde tenemos el proyecto, el siguiente paso fue dejar el servidor siempre activo, para ello se tuvo que crear un servicio (\textit{.servi ce}) donde se guardaría la ruta del proyecto.
+Por último, la Universidad Complutense de Madrid nos facilitó un contenedor para poder alojar nuestro trabajo, accesible en la dirección \textit{holstein.fdi.ucm.es}. Este servidor no tenía instalado ningún servicio por lo que se tuvo que realizar la instalación de todo lo necesario (python, pyp, git, mysql, etc). Una vez clonada la rama de GitHub donde tenemos el proyecto, el siguiente paso fue dejar el servidor siempre activo, para ello se tuvo que crear un servicio (\textit{.service}) donde se guardaría la ruta del proyecto.
 
 %-------------------------------------------------------------------
 \section{Diseño de la Base de datos de Aprende Fácil}
 %-------------------------------------------------------------------
 
+Para este proyecto, se ha utilizado una base de datos para la persistencia de los datos. El sistema encargado de la gestión de la base de datos corresponde con MariaDB y esta constituida por las tablas que se pueden ver en la Figura \ref{fig:tablasBBDD} :
+
+\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/tablasBBDD.png}
+	\caption{Tablas utilizadas en la Base de Datos}
+	\label{fig:tablasBBDD}
+\end{figure}
+
+\begin{itemize}
+	\item Se ha hecho uso de la base de datos propia de WordNet, llamada MCR (\textit{Multilingual Central Repository})\footnote{http://adimen.si.ehu.es/web/MCR/}, y se ha utilizado la versión 3.0.  MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués.  
+	
+	Se han utilizado principalmente cuatro tablas: ``wei\_spa-30\_variant'', ``wei\_spa-30\_relation'', ``wei\_spa-30\_examples'' y ``wei\_spa-30\_synset''. 
+	De la tabla ``wei\_spa-30\_variant'' solamente se han utilizado estos atributos:
+	\begin{itemize}
+		\item \textit{word}: Contiene la palabra. Cuando el usuario introduce la palabra en la aplicación, se realiza una búsqueda en dicha tabla para saber si la palabra buscada se encuentra .
+		\item \textit{offset}: Es el identificador de la palabra, aunque una misma palabra puede tener distintos \textit{offsets} (uno por cada acepción). 
+	\end{itemize}
+
+	De la tabla ``wei\_spa-30\_relation'', solamente se han utilizado estos atributos:
+	\begin{itemize}
+		\item \textit{sourceSynset}: Contiene el \textit{offset} de hipónimo.  
+		\item \textit{targetSynset}: Contiene el \textit{offset} de hiperónimo.  
+	\end{itemize}
+
+
+	De la tabla ``wei\_spa-30\_examples'', se han utilizado los siguientes atributos:
+		\begin{itemize}
+		\item \textit{offset}: Contiene el \textit{offset} de la palabra.  
+		\item \textit{examples}: Contiene el ejemplo correspondiente.
+	\end{itemize}
+	
+	De la tabla ``wei\_spa-30\_synset'', se han utilizado los siguientes atributos:
+	\begin{itemize}
+		\item \textit{offset}: Contiene el \textit{offset} de la palabra.  
+		\item \textit{gloss}: Contiene la definición correspondiente.
+	\end{itemize} 
+
+
+	\item En vez de tener tres ficheros donde guardar las 1.000, 5.000 y 10.000 palabras más usadas de la RAE, se guardaron los datos en tres tablas llamadas ``1000\_palabras\_faciles'', ``5000\_palabras\_faciles'' y ``10000\_palabras\_faciles''. Las tres se componen de dos columnas:
+	\begin{itemize}
+		\item \textit{word}: Contiene la palabra fácil.  
+		\item \textit{tag}: Contiene el tipo de palabra que es (sustantivo, adjetivo o verbo).
+	\end{itemize} 
+	 
+	 
+	\item Una tabla llamada ``pictos'', que almacena la información de los pictogramas y está formada por las siguientes columnas:
+	\begin{itemize}
+		\item \textit{offset30}: Es el identificador del \textit{synset} en la versión 3.0 de WordNet.
+		\item palabra: Contiene la palabra del pictograma.
+		\item id\_picto: Es el identificador del pictograma.
+		\item imagen: Contiene el pictograma con una codificación binaria ``base64''.
+	\end{itemize}
+
+\end{itemize}
 
 
 %-------------------------------------------------------------------
@@ -208,63 +262,46 @@ Como se puede observar en la Tabla \ref{fig:tabla_cualitativa}, los resultados s
 
 Pendiente de terminar...
 
-%-------------------------------------------------------------------
-\section{Servidor de Base de Datos}
-%-------------------------------------------------------------------
-
-Para este proyecto, se ha utilizado una base de datos para la persistencia de los datos. El sistema encargado de la gestión de la base de datos corresponde con MariaDB y esta constituida por varias tablas:
-\begin{itemize}
-	\item Se ha hecho uso de MCR (\textit{Multilingual Central Repository}), utilizando la versión 3.0. 
-	MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués. Se ha utilizado principalmente la tabla llamada \textbf{wei\_spa-30\_variant} y \textbf{wei\_spa-30\_relation}. De la tabla \textit{Variant} las columnas con las que hemos trabajado han sido:
-	\begin{itemize}
-		\item \textit{Word}: Contiene la palabra. De esta forma se pueden realizar búsquedas cuando el usuario introduce el concepto para de esta forma saber si dicha palabra se encuentra en la base de datos.
-		\item \textit{Offset}: Es el identificador de la palabra, aunque una misma palabra puede tener distintos \textit{offsets}. Con dicha columna se pueden obtener los sinónimos, así como el identificador para posteriormente obtener los hipónimos e hiperónimos.
-	\end{itemize}
-	\item Tres tablas llamadas \textbf{1000\_palabras\_faciles}, \textbf{5000\_palabras\_faciles} y \textbf{10000\_palabras\_faciles} que guardan tanto las 1.000, 5.000 y 10.000 palabras más usadas de la RAE. Las tres se componen únicamente de una columna llamada \textit{word} y que almacena la palabra.
-	\item Una tabla llamada \textbf{datos\_picto}, que está formada por las siguientes columnas:
-	\begin{itemize}
-		\item Palabra: Contiene la palabra en cuestión. 
-		\item Offset31: Es el identificador del \textit{synset} en la versión 3.1 de WordNet.
-		\item Offset30: Es el identificador del \textit{synset} en la versión 3.0 de WordNet.
-		\item id\_picto: Es el identificador del pictograma.
-	\end{itemize}
-	\item Una última tabla llamada \textbf{pictogramas} que almacena los pictogramas de ARASAAC y que contienen dos columnas: 
-	\begin{itemize}
-		\item id\_picto: Es el identificador del pictograma.
-		\item imagen: Contiene el pictograma.
-	\end{itemize}
-	
-\end{itemize}
-
+ 
 
 
 %-------------------------------------------------------------------
-\section{Servicio Web  para obtener sinónimos fáciles}
+\subsection{Servicio Web  para la obtención de  Sinónimos Fáciles}
 %-------------------------------------------------------------------
+\label{cap:subsec:sw_sinonimosfaciles}
 
-La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todos los sinónimos fáciles correspondientes en formato JSON. Para ello se realiza la siguiente petición GET:
+Servicio web que recibe como entrada una palabra y un nivel de búsqueda, y devuelve todos los sinónimos en formato JSON. 
 
-http://127.0.0.1:8000/easySynonym/json/word=\textit{palabra}\&level=\textit{nivel}
+La petición a este servicio sería GET y tendría la siguiente forma:
+
+https://holstein.fdi.ucm.es/tfg-analogias/easysynonym/json/word=\textit{palabra}\&level=\textit{nivel}
 
 Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, el cual puede tomar los siguientes valores:
 \begin{itemize}
-	\item Nivel 1 (Nivel sencillo): Se realizará la búsqueda en las 1.000 palabras más usadas de la RAE.
-	\item Nivel 2 (Nivel medio): Se realizará la búsqueda en las 5.000 palabras más usadas de la RAE.
-	\item Nivel 3 (Nivel avanzado): Se realizará la búsqueda en las 10.000 palabras más usadas de la RAE.
+	\item Nivel 1 (Nivel sencillo): Se filtran los sinónimos que están entre las 1.000 palabras más usadas de la RAE.
+	\item Nivel 2 (Nivel medio): Se filtran los sinónimos que están entre las 5.000 palabras más usadas de la RAE.
+	\item Nivel 3 (Nivel avanzado): Se filtran los sinónimos que están entre las 10.000 palabras más usadas de la RAE.
 \end{itemize}
+ 
+Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos a través de una \textit{queryset} para obtener todos los \textit{offsets} cuya palabra sea igual a la introducida.
+Si se obtienen resultados, se vuelve a buscar en la base de datos para obtener las palabras de cada \textit{offset}. Por cada palabra obtenida  se comprueba que es distinta del concepto introducido y en función del nivel de búsqueda introducido, se realizará la búsqueda en una de las tres tablas que contienen las palabras fáciles de la RAE y comprobará si alguna de estas palabras se encuentra en dicha tabla.
 
-Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos de MCR 3.0 a través de una \textit{queryset} para obtener todos los \textit{offsets} cuya palabra sea igual que la introducida.
-Por cada \textit{offset} volveremos a buscar en la tabla \textit{Variant} de la base de datos de MCR 3.0 para obtener las palabras que compartan dicho identificador y posteriormente, mediante un cursor se realizará una búsqueda en una de las tres tablas de la RAE (en función del nivel introducido) y buscará si alguna de estas palabras se encuentra en dicha tabla.
-Si el resultado es positivo se añadirá al JSON.
 
-Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
+Si la palabra se encuentra en las palabras más usadas de la RAE, se añade a su correspondiente campo del JSON, y si no se obtiene ningún resultado se devolverá el JSON solamente con un campo que guarda la palabra que se ha introducido.
 
-http://127.0.0.1:8000/easySynonym/json/word=inmueble\&level=2
+Por ejemplo, si se realizará una búsqueda para la palabra ``inmueble'' con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
+
+https://holstein.fdi.ucm.es/tfg-analogias/easysynonym/json/word=inmueble\&level=2
 
 Y en la Figura \ref{fig:peticionGetEasySynonym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye tanto el \textit{offset} como la lista de sinónimos fáciles .
 
+\begin{figure}[!h]
+	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo5/peticionGetEasySynonym.png}
+	\caption{JSON devuelto al buscar los sinónimos fáciles de inmueble en el servicio web para la obtención de sinónimos fáciles}
+	\label{fig:peticionGetEasySynonym}
+\end{figure}
 
-\figura{Bitmap/Capitulo5/peticionGetEasySynonym}{width=1.0\textwidth}{fig:peticionGetEasySynonym}{JSON devuelto al buscar los sinónimos fáciles de inmueble}
+\figura{Bitmap/Capitulo5/peticionGetEasySynonym}{width=.5\textwidth}{fig:peticionGetEasySynonym}{JSON devuelto al buscar los sinónimos fáciles de inmueble}
 
 
 
@@ -357,6 +394,55 @@ En la Figura \ref{fig:peticionSimil} se puede ver el resultado obtenido en forma
 %-------------------------------------------------------------------
 \section{Diseño del Frontend  de Aprende Fácil}
 %-------------------------------------------------------------------
+Igual que la parte interna de una aplicación es de suma importancia, la parte visual y como el usuario interactúa con ella es una parte a tener en cuenta siempre. Para este trabajo, como se ha comentado en la sección \ref{cap:sec:disenioInterfaz}  se necesita aún más tener en cuenta cuales son los usuarios finales y sus necesidades, por lo que la interfaz debe adecuarse a ellos.
+Lo primero que debemos decir respecto a la implementación, es que para la creación de los elementos visuales de la interfaz, así como para la colocación de los distintos elementos se ha uso de HTML, CSS y Bootstrap4 y para el funcionamiento de los distintos elementos así como para obtener los resultados que proporcionan los servicios web se ha hecho uso de JavaScript y jQuery.
+
+En la Figura \ref{fig:paginaInicial} se puede ver la interfaz de la aplicación final sin haber buscado aún ningún concepto. Se han numerado los elementos principales y a continuación se explicarán detalladamente:
+
+\begin{figure}[!h]
+	\includegraphics[width=1.2\textwidth]{Imagenes/Bitmap/Capitulo4/Frontend/paginaInicial.png}
+	\caption{Interfaz de Aprende Fácil  sin realizar ninguna búsqueda}
+	\label{fig:paginaInicial}
+\end{figure}
+
+
+\begin{itemize}
+	\item Elemento número 1 - Barra de navegación: Para la barra de navegación se ha utilizado la etiqueta <nav> propia de Bootstrap4 y para que los laterales queden redondeados se añadió al estilo la propiedad ``radius'' tanto en el borde inferior izquierdo como en el borde inferior derecho.
+	\item Elemento número 2 - Contenedor: El contenedor engloba toda la página exceptuando la barra de navegación, para ello se añade la clase ``container'', también propia de Bootstrap4 y dentro de este es donde se implementan el resto de elementos que forman la interfaz.
+	\item Elemento número 3 - Selectores tipo ``radio'': Para la implementación de este elemento, se creó un <div> para cada par de opciones de configuración (Por ejemplo, Convertir a minúsculas y Convertir a mayúsculas) añadiéndole una clase que contiene un estilo CSS para que los elementos se ordenen por columna, es decir, uno debajo de otro. Además se le añadió un ``checkbox'' de tipo radio para poder seleccionar una opción u otra pero no ambas a la vez.
+	\item Elemento número 4 - Desplegable con opciones: Este desplegable se encuentra dentro de otra etiqueta <div> con una etiqueta <select> propia de Bootstrap4 y que permite añadir un listado con distintas opciones. En este caso sirve para que el usuario pueda decidir con que nivel de búsqueda quiere realizar la consulta. A parte, se le añadió un estilo para que el elemento quede centrado en la página.
+	\item Elemento número 5 - Entrada de texto y botón enviar: La barra para introducir la palabra es un <input> de tipo texto, al cual se le añadió una propiedad CSS ``radius'' para redondear los bordes y un ``placeholder'' con el texto ``Palabra'' para que el usuario sepa que debe introducir. Y por otro lado, se encuentra el botón con un icono de una lupa pero que al pasar el ratón por encima tiene un efecto y el botón se alarga, añadiendo a este icono la palabra Buscar.
+	Tanto el input como el botón están dentro de un <div> que contiene un estilo para centrar ambos elementos.
+\end{itemize}
+
+Se ha intentado separar mediante una barra el panel de arriba donde se encuentra la configuración de la aplicación y el panel abajo donde se muestran los resultados. 
+Ahora que ya se ha explicado la implementación de los elementos estáticos de la interfaz, explicaremos como se crean de manera dinámica el resto de elementos.
+En la Figura \ref{fig:paginaResultado} se encuentra la aplicación con los resultados para la palabra ``Familia''. En esta Figura se han vuelto a enumerar los elementos para poder comprender mejor como funciona la aplicación. 
+Para este ejemplo se ha seleccionado las opciones ``Mostrar pictos'' y ``Mostrar definición y ejemplo'', y cuando se introduce una palabra y se da al botón de Buscar, se realiza una petición AJAX la cuál se conecta con el Backend y obtiene un JSON formado por cuatro objetos: todos los \textit{offsets} de la palabra buscada, las metáforas, los símiles y las definiciones y ejemplos. Por cada \textit{offset} se comprueba mediante JavaScript que \textit{offset} de metáfora coincide y que \textit{offset} de símil coincide y así poder mostrarlos en una misma ficha.
+A continuación, se explicarán como se construye cada elemento:
+
+
+\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/Frontend/paginaResultado.png}
+	\caption{Interfaz de Aprende Fácil mostrando resultados }
+	\label{fig:paginaResultado}
+\end{figure}
+
+
+\begin{itemize}
+	\item Elemento número 1 - Texto informativo: Da información constante de la palabra que se ha buscado. En caso de que la palabra introducida sea inventada aparecerá ``No hay resultados para la palabra X''. Este texto informativo se añade a la interfaz mediante jQuery una vez que se ha realizado la petición AJAX y se puede saber si tiene o no resultados.
+	
+	\item Elemento número 2 y 3 - Ficha: Como se ha explicado anteriormente, hay que mostrar los resultados según su significado, por lo que la relación entre el significado de la palabra buscada, y el significado de la palabra mostrada es el \textit{offset}. Con JavaScript se recorre \textit{offset} a \textit{offset}, y por cada uno de ellos se comprueba que resultados tienen el mismo identificador. Esta ficha se crea dinamicamente según el número de resultados que se obtengan y es un <div> con una clase donde se añade un estilo para redondear los bordes, y la propiedad ``box-shadow'' para el sombreado, dando así sensación de que la ficha está superpuesta a la página. A parte, se debe saber si el resultado principal dispone de pictograma o no, por lo que se mediante la siguiente url ``https://holstein.fdi.ucm.es/tfg-analogias/imagen/\textit{offset}'' donde \textit{offset} es el identificador, se realiza una petición GET al servicio web correspondiente.
+	
+	\item Elemento número 4 - Resultado en formato lista: Como se puede observar los resultados se muestran en formato lista, primero aparecen las metáforas y después los símiles. Para poder obtener la frase completa, se recoge la metáfora (en este caso ``familia es una grupo'') se realiza un \textit{split} para poder quedarnos con la última palabra y se vuelve hacer una petición GET al servicio web con la siguiente url ``https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/\textit{palabra}'' donde palabra, siguiendo con el ejemplo anterior sería ``grupo'' y así se obtiene el pictograma correspondiente.
+	
+	\item Elemento número 5 - Botón definición y ejemplo: Se muestra la definición y ejemplo cuyo \textit{offset} concida con el \textit{offset} de la ficha principal. En caso de que no tenga se mostrará ``NO HAY DEFINICIÓN NI EJEMPLO''. Este botón siempre aparecerá después de mostrar todas las metáforas y símiles.
+ 
+\end{itemize}
+
+
+Cabe destacar que una vez mostrados los resultados, tenemos la posibilidad de ocultar o mostrar los pictogramas así como la definición y el ejemplo sin tener que volver a realizar la búsqueda. Esto se consigue teniendo un manejador de eventos, el cual una vez que se pincha sobre los diferentes ``checkbox'' se añaden o eliminar las clases necesarias para que la interfaz se vea siempre correctamente. Por ejemplo, si en la Figura se pulsara sobre ``Ocultar pictos'', estos desaparecían y la palabra se quedaría perfectamente alineada con el texto de la metáfora. En el caso de pinchar sobre ``Convertir a mayúsculas'' se le añadiría un estilo CSS a la etiqueta <body>con la propiedad ``text-transform: uppercase''.
+Por último, también se puede realizar la búsqueda de algún resultado obtenido pinchando sobre el, haciendo así que se vuelva a realizar una petición AJAX, recogiendo los resultados que se han comentado anteriormente y siguiendo el mismo proceso para mostrar los resultados.
 
 %-------------------------------------------------------------------
 \section{Evaluación de Aprende Fácil}
