@@ -139,6 +139,7 @@ En este apartado se describirá la arquitectura diseñada para la aplicación. E
 
 \begin{figure}[!h]
 	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/DiagramaArquitectura.png}
+	\centering
 	\caption{Diagrama de la arquitectura del proyecto}
 	\label{fig:diagrama_arquitectura}
 \end{figure}
@@ -148,6 +149,7 @@ Si el usuario introduce una palabra, dejando por defecto las distintas opciones 
 
 \begin{figure}[!h]
 	\includegraphics[width=1.2\textwidth]{Imagenes/Bitmap/Capitulo4/RelacionBackFront.png}
+	\centering
 	\caption{Relación entre \textit{Backend} y \textit{Frontend}}
 	\label{fig:relacionBackFront}
 \end{figure}
@@ -164,7 +166,8 @@ Por último, la Universidad Complutense de Madrid nos facilitó un contenedor pa
 Para este proyecto, se ha utilizado una base de datos para la persistencia de los datos. El sistema encargado de la gestión de la base de datos corresponde con MariaDB y esta constituida por las tablas que se pueden ver en la Figura \ref{fig:tablasBBDD} :
 
 \begin{figure}[!h]
-	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/tablasBBDD.png}
+	\includegraphics[width=.8\textwidth]{Imagenes/Bitmap/Capitulo4/tablasBBDD.png}
+	\centering
 	\caption{Tablas utilizadas en la Base de Datos}
 	\label{fig:tablasBBDD}
 \end{figure}
@@ -379,10 +382,8 @@ En la Figura \ref{fig:swhiponimos} se puede ver el Diagrama de Flujo del servici
 	\label{fig:swhiponimos}
 \end{figure}
 
-Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos de MCR 3.0 a través de una \textit{queryset} para obtener todos los \textit{offsets} cuya palabra sea igual que la introducida.
-Por cada \textit{offset} volveremos a buscar en la tabla \textit{Relation} de la base de datos de MCR 3.0 para obtener los offsets que se encuentran en la columna \textit{targetSynset}. Después, con cada \textit{offset} obtenido de esta \textit{queryset}, se realizará la búsqueda en la tabla \textit{Variant} para obtener las palabras cuyo identificador sea igual que el offset de \textit{targetSynset}.
-Mediante un cursor se realizará una búsqueda en una de las tres tablas de la RAE (en función del nivel introducido) y buscará si alguna de estas palabras se encuentra en dicha tabla.
-Si el resultado es positivo se añadirá al JSON.
+La implementación de este servicio web es igual que el servicio web para la obtención de hiperónimos fáciles, con la única diferencia de que en este en vez de obtener los \textit{offset} de la columna \textit{sourceSynset}, se obtiene de \textit{targetSynset}.
+
 
 Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
 
@@ -403,43 +404,66 @@ Y en la Figura \ref{fig:peticionGetEasyHyponym} se puede ver el resultado obteni
 \subsubsection{Servicio Web  para la obtención de metáforas}
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_metaforas}
-Este servicio web dado un offset y una profundidad obtiene las metáforas de un concepto, es decir, se obtienen tanto los sinónimos como los hiperónimos fáciles formando la metáfora y este servicio devuelve dichos resultados en formato JSON.
-Para ello se realiza la siguiente petición GET:
+La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todas las metáforas de dicha palabra en formato JSON. La petición que se realizará a este servicio será de tipo GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/metaphor/json/word=\textit{palabra}\&level=\textit{nivel}}.
 
-http://127.0.0.1:8000/metaphor/json/word=\textit{palabra}\&level=\textit{nivel}
+La metáfora estará formada por sinónimos e hiperónimos, ya que ambos devuelven resultados similares al concepto.
 
-Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, igual que en los casos explicados anteriormente para buscar sinónimos, hipónimos e hiperónimos fáciles.
+En la Figura \ref{fig:swmetafora} se puede ver el Diagrama de Flujo del servicio web.
+\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/ServiciosWeb/DiagramaFlujoMetafora.png}
+	\centering
+	\caption{Diagrama de flujo del Servicio Web para la obtención de Metáforas}
+	\label{fig:swmetafora}
+\end{figure}
 
 La implementación de dicho servicio es idéntico al ya explicado en el servicio web para obtener sinónimos fáciles e hiperónimos fáciles, con la única diferencia que para poder formar la metáfora se llama a otro servicio implementado, el cual utiliza SpaCy para definir si el concepto es masculino o femenino y si está en singular o plural.
 
 Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
 
-http://127.0.0.1:8000/metaphor/json/word=inmueble\&level=2
+https://holstein.fdi.ucm.es/tfg-analogias/metaphor/json/word=portero\&level=3
 
 En la Figura \ref{fig:peticionMetaphor} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} del sinónimo o hiperónimo fácil, el \textit{offsetFather}  ya explicado en apartados anteriores y la lista de metáforas (es una casa, es una construcción, son unos edificios, es un edificio). 
 
+\begin{figure}[!h]
+	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionMetaphor.png}
+	\centering
+	\caption{JSON para la palabra ``portero'' devuelto por el servicio web para la obtención de metáforas}
+	\label{fig:peticionMetaphor}
+\end{figure}
 
-\figura{Bitmap/Capitulo5/peticionMetaphor}{width=1.0\textwidth}{fig:peticionMetaphor}{JSON devuelto al buscar las metáforas de la palabra inmueble}
+
+%\figura{Bitmap/Capitulo5/peticionMetaphor}{width=1.0\textwidth}{fig:peticionMetaphor}{JSON devuelto al buscar las metáforas de la palabra inmueble}
 %-------------------------------------------------------------------
-\subsubsection{Servicio Web  para la obtención de símiles}
+\subsubsection{Servicio Web  para la obtención de Símiles}
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_simil}
-Este servicio web dado un offset y una profundidad obtiene los símiles de un concepto, es decir, se obtienen los hipónimos fáciles formando así el símil y devolviendo los resultados en formato JSON.
-Para ello se realiza la siguiente petición GET:
+La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todas los símiles de dicha palabra en formato JSON. La petición que se realizará a este servicio será de tipo GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/simil/json/word=\textit{palabra}\&level=\textit{nivel}}.
 
-http://127.0.0.1:8000/simil/json/word=\textit{palabra}\&level=\textit{nivel}
+El símil estará formado por hipónimos ya que estos devuelven resultados inferiores al del concepto buscado.
+En la Figura \ref{fig:swsimil} se puede ver el Diagrama de Flujo del servicio web.
+\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/ServiciosWeb/DiagramaFlujoSimil.png}
+	\centering
+	\caption{Diagrama de flujo del Servicio Web para la obtención de Símiles}
+	\label{fig:swsimil}
+\end{figure}
 
-Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, igual que en los casos explicados anteriormente.
 Para la implementación de dicho servicio, se utiliza exactamente el mismo código explicado en el apartado de obtención de hipónimos fáciles pero incluyendo la llamada al servicio de SpaCy para volver a definir si el concepto es masculino o femenino y si es singular o plural.
 
 Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
 
-http://127.0.0.1:8000/simil/json/word=inmueble\&level=2
+https://holstein.fdi.ucm.es/tfg-analogias/simil/json/word=funcionario\&level=3
 
 En la Figura \ref{fig:peticionSimil} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} del hipónimo fácil, el \textit{offsetFather}  ya explicado en apartados anteriores y la lista de símiles (es como una biblioteca es como un colegio, es como un restaurante).
 
+\begin{figure}[!h]
+	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionSimil.png}
+	\centering
+	\caption{JSON para la palabra ``funcionario'' devuelto por el servicio web para la obtención de símiles}
+	\label{fig:peticionSimil}
+\end{figure}
 
-\figura{Bitmap/Capitulo5/peticionSimil}{width=1.0\textwidth}{fig:peticionSimil}{JSON devuelto al buscar los símiles de la palabra inmueble}
+%\figura{Bitmap/Capitulo5/peticionSimil}{width=1.0\textwidth}{fig:peticionSimil}{JSON devuelto al buscar los símiles de la palabra inmueble}
 
 
 %-------------------------------------------------------------------
@@ -451,7 +475,8 @@ Lo primero que debemos decir respecto a la implementación, es que para la creac
 En la Figura \ref{fig:paginaInicial} se puede ver la interfaz de la aplicación final sin haber buscado aún ningún concepto. Se han numerado los elementos principales y a continuación se explicarán detalladamente:
 
 \begin{figure}[!h]
-	\includegraphics[width=1.2\textwidth]{Imagenes/Bitmap/Capitulo4/Frontend/paginaInicial.png}
+	\includegraphics[width=1.1\textwidth]{Imagenes/Bitmap/Capitulo4/Frontend/paginaInicial.png}
+	\centering
 	\caption{Interfaz de Aprende Fácil  sin realizar ninguna búsqueda}
 	\label{fig:paginaInicial}
 \end{figure}
@@ -475,6 +500,7 @@ A continuación, se explicarán como se construye cada elemento:
 
 \begin{figure}[!h]
 	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/Frontend/paginaResultado.png}
+	\centering
 	\caption{Interfaz de Aprende Fácil mostrando resultados }
 	\label{fig:paginaResultado}
 \end{figure}
