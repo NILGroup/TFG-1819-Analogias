@@ -1,8 +1,6 @@
 \chapter{Propuesta solución: Aplicación Aprende Fácil}
 \label{cap:aprendeFacil}
 
-\setcounter{secnumdepth}{5} % para que ponga 1.1.1.1 en subsubsecciones
-\setcounter{tocdepth}{5}
 
 %-------------------------------------------------------------------
 \section{Diseño de la Aplicación}
@@ -292,11 +290,8 @@ Por estos motivos, la red semántica que se ha decidido utilizar finalmente para
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_sinonimosfaciles}
 
-Servicio web que recibe como entrada una palabra y un nivel de búsqueda, y devuelve todos los sinónimos en formato JSON. 
-
-La petición a este servicio sería GET y tendría la siguiente forma:
-
-https://holstein.fdi.ucm.es/tfg-analogias/easysynonym/json/word=\textit{palabra}\&level=\textit{nivel}
+La petición que se realizará a este servicio será de tipo GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easysynonym/json/word=\textit{palabra}\&level=\textit{nivel}}.
+Servicio web que recibe como entrada una palabra y un nivel de búsqueda, y devuelve todos los sinónimos fáciles en formato JSON. 
 
 Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, el cual puede tomar los siguientes valores:
 \begin{itemize}
@@ -304,61 +299,49 @@ Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de b
 	\item Nivel 2 (Nivel medio): Se filtran los sinónimos que están entre las 5.000 palabras más usadas de la RAE.
 	\item Nivel 3 (Nivel avanzado): Se filtran los sinónimos que están entre las 10.000 palabras más usadas de la RAE.
 \end{itemize}
- 
-Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos a través de una \textit{queryset} para obtener todos los \textit{offsets} cuya palabra sea igual a la introducida.
-Si se obtienen resultados, se vuelve a buscar en la base de datos para obtener las palabras de cada \textit{offset}. Por cada palabra obtenida  se comprueba que es distinta del concepto introducido y en función del nivel de búsqueda introducido, se realizará la búsqueda en una de las tres tablas que contienen las palabras fáciles de la RAE y comprobará si alguna de estas palabras se encuentra en dicha tabla.
+En la Figura \ref{fig:swsinonimos} se puede ver el Diagrama de Flujo del servicio web.
 
+\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/ServiciosWeb/DiagramaFlujoSinonimos.png}
+	\centering
+	\caption{Diagrama de flujo del Servicio Web para la obtención de Sinónimos Fáciles}
+	\label{fig:swsinonimos}
+\end{figure}
+Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos a través de una \textit{queryset} para obtener todos los \textit{offsets} cuya palabra sea igual a la introducida.
+Si se obtienen resultados, se vuelve a buscar en la base de datos para obtener las palabras de cada \textit{offset}. Por cada palabra obtenida  se comprueba que es distinta del concepto introducido. Y en función del nivel de búsqueda introducido, se realizará la búsqueda en una de las tres tablas que contienen las palabras fáciles de la RAE y comprobará si alguna de estas palabras se encuentra en dicha tabla.
 
 Si la palabra se encuentra en las palabras más usadas de la RAE, se añade a su correspondiente campo del JSON, y si no se obtiene ningún resultado se devolverá el JSON solamente con un campo que guarda la palabra que se ha introducido.
 
-Por ejemplo, si se realizará una búsqueda para la palabra ``inmueble'' con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
+Por ejemplo, si se realizará una búsqueda para la palabra ``inmueble'' con un nivel de búsqueda 2 (nivel medio), la petición GET sería de la siguiente manera:
 
 https://holstein.fdi.ucm.es/tfg-analogias/easysynonym/json/word=inmueble\&level=2
 
 Y en la Figura \ref{fig:peticionGetEasySynonym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye tanto el \textit{offset} como la lista de sinónimos fáciles .
 
 \begin{figure}[!h]
-	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo5/peticionGetEasySynonym.png}
-	\caption{JSON devuelto al buscar los sinónimos fáciles de inmueble en el servicio web para la obtención de sinónimos fáciles}
+	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionGetEasySynonym.png}
+	\centering
+	\caption{JSON  para la palabra ``inmueble'' devuelto por el servicio web para la obtención de sinónimos fáciles}
 	\label{fig:peticionGetEasySynonym}
 \end{figure}
 
-\figura{Bitmap/Capitulo5/peticionGetEasySynonym}{width=.5\textwidth}{fig:peticionGetEasySynonym}{JSON devuelto al buscar los sinónimos fáciles de inmueble}
+%\figura{Bitmap/Capitulo5/peticionGetEasySynonym}{width=.5\textwidth}{fig:peticionGetEasySynonym}{JSON devuelto al buscar los sinónimos fáciles de inmueble}
 
-
-
-%-------------------------------------------------------------------
-\subsubsection{Servicio Web  para la obtención de hipónimos fáciles}
-%-------------------------------------------------------------------
-\label{cap:subsec:sw_hiponimosfaciles}
-La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todos los hipónimos fáciles correspondientes en formato JSON. Para ello se realiza la siguiente petición GET:
-
-http://127.0.0.1:8000/easyHyponym/json/word=\textit{palabra}\&level=\textit{nivel}
-
-Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, igual que en el caso explicado anteriormente para buscar sinónimos fáciles.
-
-Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos de MCR 3.0 a través de una \textit{queryset} para obtener todos los \textit{offsets} cuya palabra sea igual que la introducida.
-Por cada \textit{offset} volveremos a buscar en la tabla \textit{Relation} de la base de datos de MCR 3.0 para obtener los offsets que se encuentran en la columna \textit{targetSynset}. Después, con cada \textit{offset} obtenido de esta \textit{queryset}, se realizará la búsqueda en la tabla \textit{Variant} para obtener las palabras cuyo identificador sea igual que el offset de \textit{targetSynset}.
-Mediante un cursor se realizará una búsqueda en una de las tres tablas de la RAE (en función del nivel introducido) y buscará si alguna de estas palabras se encuentra en dicha tabla.
-Si el resultado es positivo se añadirá al JSON.
-
-Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
-
-http://127.0.0.1:8000/easyHyponym/json/word=inmueble\&level=2
-
-Y en la Figura \ref{fig:peticionGetEasyHyponym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} de hipónimo fácil , la lista de hipónimos fáciles así como el \textit{offsetFather}, este identificador corresponde al \textit{offset} de uno de los \textit{synsets} de inmueble. De esta forma, si una palabra buscada dispone de varios \textit{synsets}, se podrá mostrar sus correspondientes sinónimos e hipónimos.
-
-
-\figura{Bitmap/Capitulo5/peticionGetEasyHyponym}{width=1.0\textwidth}{fig:peticionGetEasyHyponym}{JSON devuelto al buscar los hipónimos fáciles de inmueble}
 %-------------------------------------------------------------------
 \subsubsection{Servicio Web  para la obtención de hiperónimos fáciles}
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_hiperonimosfaciles}
-La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todos los hiperónimos fáciles correspondientes en formato JSON. Para ello se realiza la siguiente petición GET:
+La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todos los hiperónimos fáciles de dicha palabra en formato JSON. La petición que se realizará a este servicio será de tipo GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easyhyperonym/json/word=\textit{palabra}\&level=\textit{nivel}}.
 
-http://127.0.0.1:8000/easyHyperonym/json/word=\textit{palabra}\&level=\textit{nivel}
+Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, igual que en el caso explicado anteriormente de la obtención de sinónimos.
 
-Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, igual que en los casos explicados anteriormente para buscar sinónimos e hipónimos fáciles.
+En la Figura \ref{fig:swhiperonimos} se puede ver el Diagrama de Flujo del servicio web.
+\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/ServiciosWeb/DiagramaFlujoHiperonimos.png}
+	\centering
+	\caption{Diagrama de flujo del Servicio Web para la obtención de Hiperónimos Fáciles}
+	\label{fig:swhiperonimos}
+\end{figure}
 
 Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos de MCR 3.0 a través de una \textit{queryset} para obtener todos los \textit{offsets} cuya palabra sea igual que la introducida.
 Por cada \textit{offset} volveremos a buscar en la tabla \textit{Relation} de la base de datos de MCR 3.0 para obtener los offsets que se encuentran esta vez y con diferencia de la búsqueda de hipónimos fáciles, en la columna \textit{sourceSynset}. Después, con cada \textit{offset} obtenido de esta \textit{queryset}, se realizará la búsqueda en la tabla \textit{Variant} para obtener las palabras cuyo identificador sea igual que el offset de \textit{sourcetSynset}.
@@ -367,12 +350,55 @@ Si el resultado es positivo se añadirá al JSON.
 
 Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
 
-http://127.0.0.1:8000/easyHyperonym/json/word=inmueble\&level=2
+https://holstein.fdi.ucm.es/tfg-analogias/easyhyperonym/json/word=inmueble\&level=2
 
 En la Figura \ref{fig:peticionGetEasyHyperonym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} de hiperónimo fácil, la lista de hiperónimos fáciles así como el \textit{offsetFather}, ya explicado en el apartado anterior.
 
+\begin{figure}[!h]
+	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionGetEasyHyperonym.png}
+	\centering
+	\caption{JSON para la palabra ``inmueble'' devuelto por el servicio web para la obtención de hiperónimos fáciles}
+	\label{fig:peticionGetEasyHyperonym}
+\end{figure}
 
-\figura{Bitmap/Capitulo5/peticionGetEasyHyperonym}{width=1.0\textwidth}{fig:peticionGetEasyHyperonym}{JSON devuelto al buscar los hiperónimos fáciles de inmueble}
+%\figura{Bitmap/Capitulo5/peticionGetEasyHyperonym}{width=1.0\textwidth}{fig:peticionGetEasyHyperonym}{JSON devuelto al buscar los hiperónimos fáciles de inmueble}
+
+%-------------------------------------------------------------------
+\subsubsection{Servicio Web  para la obtención de hipónimos fáciles}
+%-------------------------------------------------------------------
+\label{cap:subsec:sw_hiponimosfaciles}
+La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todos los hipónimos fáciles de dicha palabra en formato JSON. La petición que se realizará a este servicio será de tipo GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easyhyponym/json/word=\textit{palabra}\&level=\textit{nivel}}.
+
+Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, igual que en el caso explicado anteriormente de la obtención de sinónimos.
+
+En la Figura \ref{fig:swhiponimos} se puede ver el Diagrama de Flujo del servicio web.
+\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/ServiciosWeb/DiagramaFlujoHiponimos.png}
+	\centering
+	\caption{Diagrama de flujo del Servicio Web para la obtención de Hipónimos Fáciles}
+	\label{fig:swhiponimos}
+\end{figure}
+
+Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos de MCR 3.0 a través de una \textit{queryset} para obtener todos los \textit{offsets} cuya palabra sea igual que la introducida.
+Por cada \textit{offset} volveremos a buscar en la tabla \textit{Relation} de la base de datos de MCR 3.0 para obtener los offsets que se encuentran en la columna \textit{targetSynset}. Después, con cada \textit{offset} obtenido de esta \textit{queryset}, se realizará la búsqueda en la tabla \textit{Variant} para obtener las palabras cuyo identificador sea igual que el offset de \textit{targetSynset}.
+Mediante un cursor se realizará una búsqueda en una de las tres tablas de la RAE (en función del nivel introducido) y buscará si alguna de estas palabras se encuentra en dicha tabla.
+Si el resultado es positivo se añadirá al JSON.
+
+Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
+
+https://holstein.fdi.ucm.es/tfg-analogias/easyhyponym/json/word=inmueble\&level=2
+
+Y en la Figura \ref{fig:peticionGetEasyHyponym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} de hipónimo fácil , la lista de hipónimos fáciles así como el \textit{offsetFather}, este identificador corresponde al \textit{offset} de uno de los \textit{synsets} de inmueble. De esta forma, si una palabra buscada dispone de varios \textit{synsets}, se podrá mostrar sus correspondientes sinónimos e hipónimos.
+
+\begin{figure}[!h]
+	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionGetEasyHyponym.png}
+	\centering
+	\caption{JSON para la palabra ``inmueble'' devuelto por el servicio web para la obtención de hipónimos fáciles}
+	\label{fig:peticionGetEasyHyponym}
+\end{figure}
+
+%\figura{Bitmap/Capitulo5/peticionGetEasyHyponym}{width=1.0\textwidth}{fig:peticionGetEasyHyponym}{JSON devuelto al buscar los hipónimos fáciles de inmueble}
+
 %-------------------------------------------------------------------
 \subsubsection{Servicio Web  para la obtención de metáforas}
 %-------------------------------------------------------------------
