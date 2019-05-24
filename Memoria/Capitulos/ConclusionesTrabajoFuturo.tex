@@ -1,14 +1,75 @@
 \chapter{Conclusiones y Trabajo Futuro}
 \label{cap:conclusionesyFuturo}
 
-Conclusiones del trabajo y líneas de trabajo futuro.
+ 
 
 \section{Conclusiones}
 \label{cap:sec:conclusiones}
 
+Tras finalizar el proyecto y explicar todo lo recogido en esta memoria, se han podido recabar una serie de conclusiones atendiendo a los objetivos planteados y como se han conseguido.
+
+Como se ha explicado desde el inicio de este trabajo, existen ciertos colectivos en nuestra sociedad que sufren de discapacidad cognitiva, haciendo que el significado de ciertas palabras no puedan ser entendidos. Esto les afecta directamente en su vida personal y profesional, ya que supone una gran limitación para ellos.
+El objetivo principal del presente trabajo, era crear una aplicación web basada en servicios web que dada una palabra compleja para el usuario, devuelva mediante el uso de figuras retóricas, en este caso mediante metáforas y símiles, un concepto mucho más sencillo.
+
+Definir el concepto de sencillo es bastante relativo según para que persona, ya que no existe un grado definido de que es una palabra fácil. Por lo que, para la realización de este trabajo se tomó como referencia los listados facilitados por la RAE de las 1.000, 5.000 y 10.000 palabras más usadas del castellano.
+
+La implementación de cada servicio web se ha hecho de manera modular y están accesibles en una API pública, para que de esta forma puedan ser reutilizados en futuras aplicaciones por distintos desarrolladores.
+
+ Respecto a la creación de la interfaz, se han utilizado colores que resaltan sobre fondos claros, así como intentando que esta fuese lo más juvenil posible.
+ En especial, hay que recalcar que gracias a la opinión de expertos que trabajan en centros dedicados a la educación de este colectivo, nos han ayudado a que elementos deberían aparecer y de que manera, así como se deberían mostrar los resultados, entre otros aspectos. 
+
+Para crear una aplicación que fuese aún más útil, se añadieron una serie de opciones configurables, consiguiendo de esta forma que los usuarios pudieran decidir como quieren obtener los resultados. Estas opciones configurables son: 
+\begin{itemize}
+	\item Poder convertir todo el texto de la página en mayúsculas: Esto facilita la lectura puesto que están familiarizados a leer en mayúscula y es como aprenden a escribir.
+    \item Poder mostrar pictogramas o no: Gracias a la utilización de pictogramas, los conceptos pueden ser entendidos perfectamente.
+    \item Poder mostrar una definición y ejemplo del resultado: Por si el pictograma no terminara de ayudar al usuario a comprender el concepto, decidimos añadir una definición y un ejemplo para ayudarles aún más en su comprensión.
+\end{itemize}
+
+	Cabe destacar que la aplicación se construyó desde cero, sin hacer uso de plantillas externas.
+	La aplicación web ha sido sometida a una evaluación con usuarios finales, donde pudimos probar tanto su funcionalidad como su interfaz. Tras esta evaluación pudimos comprobar que la aplicación solamente es útil para personas con problemas semánticos no muy altos y surgieron bastantes aspectos que mejorar.
+	
+	 Este trabajo ha sido una oportunidad para aplicar todos los conocimientos adquiridos en distintas asignaturas cursadas durante la carrera a un proyecto grande y de impacto real.
+	 Entre estas asignaturas cabe destacar:
+	 
+ 	Entre estas asignaturas cabe destacar:
+ 	
+ 	\begin{itemize}
+ 		\item \textbf{Estructura de Datos y Algoritmos }para ayudarnos a pensar en el código de una manera eficiente y estructurada, así como a elegir las estructuras de datos más adecuadas.
+ 		\item \textbf{Fundamentos de la Programación} y \textbf{Tecnología de la Programación} para las base de la lógica interna de la aplicación.
+ 		\item \textbf{Aplicaciones Web} e \textbf{Interfaces de Usuario} para obtener los conocimientos suficientes de HTML, CSS, Bootstrap, jQuery y JavaScript para desarrollar la aplicación así como el funcionamiento básico de una aplicación web y las reglas básicas que debe contener una interfaz.
+ 		\item \textbf{Base de Datos} y \textbf{Ampliación de Base de Datos} para el tratamiento y gestión de múltiples datos.
+ 		\item \textbf{Gestión de Proyectos Software} para la gestión adecuada de la aplicación.
+ 		\item \textbf{Administración de Sistemas y Redes} que nos ayudo a la configuración del servidor así como al despliegue de la aplicación en el mismo.
+ 		\item \textbf{Ingeniería del Software} y \textbf{Modelado del Software} para la realización de la parte de modelado y los respectivos diagramas.
+ 		\item \textbf{Ética, Legislación y Profesión} para obtener los conocimientos sobre licencias, tanto para nuestro propio código como para tratar y utilizar el código de terceros.
+ 	\end{itemize}
+
+	Por otro lado, también hemos aprendido bastantes cosas nuevas, como puede ser Django, Python, Latex, configurar un servidor y Procesamiento de Lenguaje Natural. 
+	Ambos integrantes del equipo hemos aprendido sobre las discapacidades cognitivas existentes, y gracias a la evaluación de la aplicación pudimos convivir unas horas con ellos, haciendo que fuese una experiencia muy enriquecedora en lo personal ya que pudimos comprobar las dificultades que afrontan en su día a día y como se enfrentan a ellas con positivismo y naturalidad.
+
+	En definitiva, de los objetivos que se plantearon en la sección \ref{cap:sec:objetivos} se han cumplido la gran mayoría, y los que no se pudieron cumplir se explicarán en la siguiente apartado.
+	
+	
 
 \section{Trabajo Futuro}
 \label{cap:sec:TrabajoFuturo}
 
+Como se ha comentado en el apartado anterior, no se han podido cumplir todos los objetivos marcados en un primer momento. El motivo principal de esto es por falta de tiempo, ya que al ser un proyecto tan grande y al tener que cubrir el mayor número de necesidades posible, se convierte en un trabajo aún mayor.
+Por ello, todos los aspectos que no se han llegado a suplir, tanto los fijados en un primer momento como los sugeridos en la evaluación final se dejarán aquí reflejados como trabajo futuro. 
 
+\begin{itemize}
+	\item Mostrar resultado mediante analogías: Al igual que nuestra aplicación muestra los resultados mediante metáforas y símiles, también deberían mostrarse mediante analogías. Por ello, habría que buscar la información necesaria para saber como enlazar el concepto buscado y el resultado mostrado y ver que características comparten ambos.
+	\item Añadir reconocimiento por voz: En cada elemento de la interfaz debería haber una descripción auditiva del elemento seleccionado para facilitar aún más su uso.
+	\item Video explicativo del pictograma: Al lado de cada pictograma debería aparecer un botón que al ser pulsado mostrara un video explicativo del concepto.
+	\item Mostrar primero significado más utilizado: Una vez que el usuario haya buscado una palabra y se muestren los resultados en fichas, dentro de cada una debería aparecer primero el concepto más relacionado con el término buscado.
+	\item Mostrar pictograma con la acepción correcta: En vez de realizar la búsqueda del pictograma de una metáfora o un símil, debería buscarse el pictograma de la relación existente entre el resultado y el concepto buscado.
+	\item Poder buscar palabras más sencillas y obtención de resultados más sencillos: En vez de comparar los resultados obtenidos con las 1.000, 5.000 y 10.000 palabras de la RAE, se debería encontrar la manera de poder obtener resultados aún más sencillos para conceptos no tan complejos.
+	\item Implementación de la aplicación móvil: Sería bastante útil que los usuarios pudieran tener en su teléfono la aplicación para poder acceder a ella siempre que quisieran.
+	\item Actualización de la interfaz para que el nivel de conformidad fuese AAA con el fin de que la aplicación fuese accesible para personas con daltonismo, ceguera, etc.
+	
+	
+\end{itemize}
+
+
+En un futuro próximo nos gustaría poder seguir con este trabajo, ya que nos hemos involucrado a nivel personal con el y nos gustaría que en un futuro pueda ser una aplicación usable por cualquier persona.
 
