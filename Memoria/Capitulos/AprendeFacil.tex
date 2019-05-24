@@ -605,7 +605,7 @@ En la Figura \ref{fig:peticionDefYEjemplos} se puede ver el resultado obtenido e
 
 Se han implementado dos servicios web para la obtención de pictogramas: uno que recibiendo una palabra se obtiene el pictograma correspondiente y otro que recibe un \textit{offset} en vez de la palabra para devolver el pictograma. 
 
-Para acceder al primero se debe de realizar una petición GET de la siguiente manera: https://holstein.fdi.ucm.es/tfg-analogias/image\_word/\textit{palabra}.
+Para acceder al primero se debe de realizar una petición GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/image\_word/\textit{palabra}}.
 
 
 En la Figura \ref{fig:swpictos_palabra} se puede ver el Diagrama de Flujo del servicio web.
@@ -618,12 +618,12 @@ En la Figura \ref{fig:swpictos_palabra} se puede ver el Diagrama de Flujo del se
 
 El servicio web, recibe la palabra por parámetro y busca en la tabla pictos de la base de datos si hay alguna palabra que coincida, si es así, recupera la imagen, la decodifica y la muestra en formato PNG.
 
-Por ejemplo, si se quisieran obtener el pictograma la palabra coche se haría de esta manera:
+Por ejemplo, si se quisiera obtener el pictograma de la palabra coche se haría de esta manera:
 
 https://holstein.fdi.ucm.es/tfg-analogias/image\_word/coche
 
 
-Por otro lado, para acceder al segundo se debe hacer una petición GET a la siguiente url: https://holstein.fdi.ucm.es/tfg-analogias/image\_offset/\textit{offset}
+Por otro lado, para acceder al segundo servicio web para la obtención de pictogramas se debe hacer una petición GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/image\_offset/\textit{offset}} 
 
 
 
