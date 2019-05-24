@@ -5,10 +5,10 @@ Como se ha comentado en el anterior capítulo, el objetivo principal de este tra
 
 En primer lugar, se deben buscar los conceptos relacionados con la palabra introducida por el usuario. Para ello, se ha utilizado una rama de la Inteligencia Artificial llamada Procesamiento del Lenguaje Natural (PLN). En la sección \ref{cap:sec:lenguajenatural} se explicará en qué consiste y las distintas herramientas disponibles para la búsqueda de conceptos relacionados con una palabra específica.
 
-Una vez obtenidas las palabras relacionadas con el concepto introducido, se debe hacer una distinción de cuales de las palabras relacionadas pertenecen al grupo de palabras fáciles y cuales al grupo de palabras dificiles, es decir, distinguir entre aquellas palabras que se utilizan asiduamente y las que no.
-Esta distinción es necesaria ya que uno de nuestros objetivos es trabajar únicamente con las palabras fáciles para facilitar la compresión del significado de un concepto devolviendo un resultado lo más sencillo posible. Dado que este trabajo está enfocado para personas con discapacidad cognitiva, el concepto de lectura fácil nos ayuda a comprender como debemos trabajar con las palabras fáciles y por ello en la sección \ref{cap:sec:lecturafacil} se explicará que es la lectura fácil y algunas pautas que se pueden seguir para escribir correctamente un texto con esta adaptación, así como la definición de palabras faciles y difíciles y los documentos que se utilizarán como referencia para las palabras fáciles.
+Una vez obtenidas las palabras relacionadas con el concepto introducido, se debe hacer una distinción de cuales de las palabras relacionadas pertenecen al grupo de palabras fáciles y cuales al grupo de palabras difíciles, es decir, distinguir entre aquellas palabras que se utilizan asiduamente y las que no.
+Esta distinción es necesaria ya que uno de nuestros objetivos es trabajar únicamente con las palabras fáciles para facilitar la compresión del significado de un concepto devolviendo un resultado lo más sencillo posible. Dado que este trabajo está enfocado para personas con discapacidad cognitiva, el concepto de lectura fácil nos ayuda a comprender como debemos trabajar con las palabras fáciles y por ello en la sección \ref{cap:sec:lecturafacil} se explicará que es la lectura fácil y algunas pautas que se pueden seguir para escribir correctamente un texto con esta adaptación, así como la definición de palabras fáciles y difíciles y los documentos que se utilizarán como referencia para las palabras fáciles.
 
-Tras identificar las palabras fáciles relacionadsa con el concepto introducido, se utilizarán figuras retóricas para comparar el concepto complejo con otros conceptos más sencillos que ayuden a entender el significado del concepto complejo introducido por el usuario. En la sección \ref{cap:sec:figurasretoricas} se hablará de las figuras retóricas y se explicarán los tres tipos fundamentales que se van a utilizar para la realización de este trabajo. 
+Tras identificar las palabras fáciles relacionadas con el concepto introducido, se utilizarán figuras retóricas para comparar el concepto complejo con otros conceptos más sencillos que ayuden a entender el significado del concepto complejo introducido por el usuario. En la sección \ref{cap:sec:figurasretoricas} se hablará de las figuras retóricas y se explicarán los tres tipos fundamentales que se van a utilizar para la realización de este trabajo. 
 
 Por último, vamos a hacer uso de servicios web para dotar a la aplicación de funcionalidad. Como se ha comentado en el anterior capítulo, uno de los objetivos tecnológicos de este trabajo es construir la aplicación con servicios web y en la sección \ref{cap:sec:serviciosweb} se explicará detalladamente que es un servicio web, los tipos que existen, sus características principales, su arquitectura y las ventajas de ser utilizados así como sus desventajas.
 
@@ -53,15 +53,15 @@ Existen principalmente tres tipos de redes semánticas \citep{tiposRedesSemantic
 	\end{figure}
 \end{itemize}
 
-Para el trabajo que queremos realizar, existen varias redes semánticas que disponen de una representación del conocimiento que necesitaremos para relacionar el concepto díficil introducido por el usuario con otros conceptos. A continuación, describiremos las más representativas.
+Para el trabajo que queremos realizar, existen varias redes semánticas que disponen de una representación del conocimiento que necesitaremos para relacionar el concepto difícil introducido por el usuario con otros conceptos. A continuación, describiremos las más representativas.
 
 %\figura{Bitmap/Capitulo2/busquedaConcepnet}{width=.9\textwidth}{fig:busquedaConcepnet}{Resultados de ConcepNet para la palabra chaqueta} 
 \subsection{ConceptNet} 
 \label{cap:subsec:concepnet}
 
-ConcepNet es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, fue diseñada para ayudar a los ordenadores a entender el significado de las palabras. ConceptNet ofrece la posibilidad de obtener de una palabra un listado de sinónimos, términos relacionados, términos derivados, el contexto de la palabra, resultados etimológicamente relacionados, símbolos, etc. 
+ConceptNet es una red semántica creada por el MIT \textit{(Massachusetts Institute of Technology)} en 1999, fue diseñada para ayudar a los ordenadores a entender el significado de las palabras. ConceptNet ofrece la posibilidad de obtener de una palabra un listado de sinónimos, términos relacionados, términos derivados, el contexto de la palabra, resultados etimologicamente relacionados, símbolos, etc. 
 
-ConcepNet dispone de una aplicación web\footnote{http://conceptnet.io/} donde se pueden buscar palabras en distintos idiomas,  como el español, el inglés o el chino.
+ConceptNet dispone de una aplicación web\footnote{http://conceptnet.io/} donde se pueden buscar palabras en distintos idiomas,  como el español, el inglés o el chino.
 En la Figura \ref{fig:busquedaConcepnet} se puede ver la información que devuelve la aplicación ConcepNet para la palabra chaqueta. Como se puede ver en la Figura hay una columna con los sinónimos del concepto  en distintos idiomas (americana, \textit{jacket} o \textit{blouson}), otra columna con los términos relacionados (saco o chaquetear) también en distintos idiomas, otra columna que muestra los términos derivados del concepto (chaquetero, chaquetilla o chaquetita) y por último una columna que muestra otra forma de la palabra, en este caso el plural (chaquetas).  Para algunos de los resultados de ConcepNet además aparece a la derecha de la palabra y entre paréntesis, una sola letra que indica si es un verbo, un sustantivo o un adjetivo. 
 
 \begin{figure}[!h]
@@ -72,7 +72,7 @@ En la Figura \ref{fig:busquedaConcepnet} se puede ver la información que devuel
 ConcepNet no realiza ninguna agrupación de los resultados en función del significado, si no que muestra todo el listado de palabras y en algunas de ellas aparece el contexto al cual se refieren. Por ejemplo, para la palabra arco algunos de los resultados que devuelve son referentes al significado arco de arquitectura y otros son referentes al arco de geometría.
 
 
-Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con la palabra chaqueta, se pueden ver en el Listado \ref{lst:json} los resultados devueltos por el servicio web para chaqueta. El JSON devuelto en este caso consta de cuatro campos principales\footnote{https://github.com/commonsense/conceptnet5/wiki/AP}:
+Por otro lado, ConceptNet dispone de un servicio web\footnote{http://api.conceptnet.io} que devuelve los resultados en formato JSON. Siguiendo con la palabra chaqueta, se pueden ver en el Listado \ref{lst:json} los resultados devueltos por el servicio web para chaqueta. El JSON devuelto en este caso consta de cuatro campos principales\footnote{https://github.com/commonsense/conceptnet5/wiki/AP}:
 \begin{itemize}
 	\item @context: URL enlazada a un archivo de información del JSON para comprender la API. También puede contener comentarios que pueden ser útiles para el usuario.
 	\item @id: concepto que se ha buscado y su idioma. En nuestro caso, aparece de la siguiente manera: \textit{/c/es/chaqueta}, donde  \textit{c} significa que es un concepto o término,  \textit{es} indica el lenguaje, en este caso, el español y por último \textit{chaqueta} que es la palabra buscada.
@@ -89,7 +89,7 @@ Por otro lado, ConcepNet dispone de un servicio web\footnote{http://api.conceptn
 			\item language: lenguaje en el que está la palabra devuelta de la consulta.
 			\item term: enlace a una versión mas general del propio término. Normalmente, suele coincidir con la URI.			
 		\end{itemize}
-		\item license: aporta información sobre como debe usarse la información proporcionada por conceptnet.
+		\item license: aporta información sobre como debe usarse la información proporcionada por ConceptNet.
 		\item rel: describe la relación que hay entre la palabra origen y destino, dentro del cual hay tres campos: @id, @type y label, descritos anteriormente.
 		\item sources: indica porqué ConceptNet guarda esa información, este campo como los anteriores, es un objeto que tiene su propio id y un campo @type, A parte, hay un campo \textit{contributor}, en el que aparece la fuente por la que se ha obtenido ese resultado y por último un campo \textit{process} indicando si la palabra se ha añadido mediante un proceso automático.
 		\item start: describe el nodo origen, es decir, la palabra que hemos introducido en ConceptNet para que haga la consulta, este campo esta compuesto por elementos ya descritos como son: @id, @type, label, language y term.
