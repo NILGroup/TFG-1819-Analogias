@@ -588,7 +588,7 @@ En la Figura \ref{fig:swdef} se puede ver el Diagrama de Flujo del servicio web.
 	\label{fig:swdef}
 \end{figure}
 
-Para la implementación del servicio web, se ha utilizado un código muy similar a los explicados anteriormente, con la diferencia de que en este caso no hace falta hacer ninguna llamada a SpaCy.
+Para la implementación del servicio web, se obtiene la lista de offsets de la palabra buscada, a continuación por cada offset(offsetFather, explicado en apartados anteriores) de la lista se hace otra consulta a la base de datos para obtener sus sinónimos, hipónimos e hiperónimos. Después, se comprueba si estas palabras obtenidas en la segunda consulta son fáciles y en caso afirmativo se añaden al JSON junto con sus definiciones y ejemplos.
 
 Por ejemplo, si se quisieran obtener la definición y ejemplo de la palabra coche con nivel de búsqueda se haría de esta manera:
 
