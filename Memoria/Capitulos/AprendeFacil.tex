@@ -1,6 +1,7 @@
 \chapter{Propuesta solución: Aplicación Aprende Fácil}
 \label{cap:aprendeFacil}
 
+En este capítulo se va a describir la solución propuesta para resolver los problemas mencionados en la sección \ref{cap:sec:motivacion}. En la sección \ref{cap:sec:disenioInterfaz} se hablará del proceso de diseño de la interfaz de la aplicación. A continuación, en el apartado \ref{cap:sec:implementacionApp} se comentará como está hecha la aplicación hablando de su arquitectura, la base de datos utilizada y todos los detalles de diseño tanto del Backend como del Frontend. Por último, en el apartado \ref{cap:sec:evaluacionApp} se detallará la evaluación del proyecto, realizada con usuario finales y las conclusiones obtenidas.
 
 %-------------------------------------------------------------------
 \section{Diseño de la Aplicación}
@@ -231,10 +232,16 @@ Teniendo en cuenta las observaciones de los expertos se creo el diseño final de
 %-------------------------------------------------------------------
 \section{Implementación de la Aplicación}
 %-------------------------------------------------------------------
+\label{cap:sec:implementacionApp}
+
+En esta sección, se va a hablar de los detalles de implementación de la aplicación. En el apartado \ref{cap:subsec:arquitectura} se describirá la arquitectura del proyecto. En la sección \ref{cap:subsec:database} se detallará el diseño de la base de datos así como las partes de las que está compuesta. Por último, en los apartados finales de la presente sección, se hablarán de los detalles de implementación de la aplicación tanto de la lógica interna en el apartado \ref{cap:subsec:backendapp} como de la vista en el apartado \ref{cap:subsec:frontendapp}.
+
+
 %-------------------------------------------------------------------
 \subsection{Arquitectura de Aprende Fácil}
 %-------------------------------------------------------------------
-En este apartado se describirá la arquitectura diseñada para la aplicación. En la Figura \ref{fig:diagrama_arquitectura} se puede ver los distintos componentes por los que está formada.
+\label{cap:subsec:arquitectura}
+En este apartado se describirá la arquitectura de la aplicación. En la Figura \ref{fig:diagrama_arquitectura} se puede ver los distintos componentes por los que está formada.
 
 \begin{figure}[!h]
 	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/DiagramaArquitectura.png}
@@ -261,6 +268,7 @@ Por último, la Universidad Complutense de Madrid nos facilitó un contenedor pa
 %-------------------------------------------------------------------
 \subsection{Base de datos de Aprende Fácil}
 %-------------------------------------------------------------------
+\label{cap:subsec:database}
 
 Para este proyecto, se ha utilizado una base de datos para la persistencia de los datos. El sistema encargado de la gestión de la base de datos corresponde con MariaDB y esta constituida por las tablas que se pueden ver en la Figura \ref{fig:tablasBBDD} :
 
@@ -322,15 +330,16 @@ Para este proyecto, se ha utilizado una base de datos para la persistencia de lo
 %-------------------------------------------------------------------
 \subsection{Backend de Aprende Fácil}
 %-------------------------------------------------------------------
-
+\label{cap:subsec:backendapp}
+Para realizar la aplicación se necesita decidir que red semántica se utilizará finalmente: WordNet o ConceptNet para ello en la sección \ref{cap:subsec:redsemanticautilizada} se hablará del proceso de selección llevado a cabo. En la sección \ref{cap:subsec:disenioeval} se explicará el diseño de la prueba que se ha realizado para ver que red semántica se utilizará finalmente en el proyecto, en la sección \ref{cap:subsec:pruebaCuantitativa} se analizarán los resultados cuantitativos de la prueba realizada, en el punto \ref{sssec:pruebaCualitativa}, se analizarán los resultados obtenidos a nivel cualitativo y en el apartado \ref{sssec:conclusionPruebas} se describirán las conclusiones finales de la evaluación. Por otra parte, en los apartados posteriores, se detallarán los distintos servicios web utilizados para este proyecto, en los apartados \ref{cap:subsec:sw_sinonimosfaciles}, \ref{cap:subsec:sw_hiperonimosfaciles} y \ref{cap:subsec:sw_hiponimosfaciles} se describirán los servicios web que se utilizan para la obtención de sinónimos, hiperónimos e hipónimos fáciles respectivamente. A continuación, se hablará en los puntos \ref{cap:subsec:sw_metaforas} y \ref{cap:subsec:sw_simil} sobre los servicios web utilizados para crear las metáforas y los símiles que finalmente leerá el usuario. Por último, se describirá el servicio web para la obtención de definiciones y ejemplos en la sección \ref{cap:subsec:sw_def_example} y en la sección \ref{cap:subsec:sw_pictos} se hablará de los servicios web para la obtención de pictogramas.
 %-------------------------------------------------------------------
 \subsubsection{Selección de la Red Semántica a utilizar}
 %-------------------------------------------------------------------
 \label{cap:subsec:redsemanticautilizada}
 
 En este trabajo necesitamos una herramienta que nos proporcione las palabras relacionadas con un concepto dado y para ello vamos a emplear una red semántica.
-Como se ha comentado en el capítulo 2 existen varias redes semánticas que facilitan sinónimos, términos relacionados, metáforas, hiperónimos, etc. de un concepto dado. 
-De todas las posibilidades presentadas en la sección 2.1 solo hay dos redes semánticas disponibles para el castellano: WordNet y ConcepNet. Para decidir con cual de las dos quedarnos hicimos una evaluación de ambas para evaluar si los conceptos devueltos por cada herramienta son correctos y sirven para nuestro propósito. En la sección 4.4.1.1 se explicará el diseño de la prueba que se ha realizado para ver que red semántica se utilizará finalmente en el proyecto, en la sección 5.2 se analizarán los resultados cuantitativos de la prueba realizada, en el punto 5.3, se analizarán los resultados obtenidos a nivel cualitativo y en el 5.4 se describirán las conclusiones finales de la evaluación. Por otra parte, en los apartados posteriores, se detallarán los distintos servicios web utilizados para este proyecto, en la sección 5.5 se hablará de la base de datos utilizada y de su estructura, en los apartados 5.6, 5.7 y 5.8 se describirán los servicios web que se utilizan para la obtención de sinónimos, hipónimos e hiperónimos fáciles respectivamente. Por último, se hablará en los puntos 5.9 y 5.10 sobre los servicios web utilizados para crear las metáforas y los símiles que finalmente leerá el usuario.
+Como se ha comentado en el capítulo \ref{cap:estadoDeLaCuestion} existen varias redes semánticas que facilitan sinónimos, términos relacionados, metáforas, hiperónimos, etc. de un concepto dado. 
+De todas las posibilidades presentadas en la sección \ref{cap:sec:lenguajenatural} solo hay dos redes semánticas disponibles para el castellano: WordNet y ConceptNet. 
 
 
 %-------------------------------------------------------------------
@@ -346,7 +355,7 @@ A continuación se comprobó de manera independiente cuantos de los sinónimos y
 %-------------------------------------------------------------------
 \subsubsection{Resultados cuantitativos}
 %-------------------------------------------------------------------
-\label{cap:sec:pruebaCuantitativa}
+\label{cap:subsec:pruebaCuantitativa}
 \begin{figure}[!h]
 \includegraphics[width=.8\textwidth]{Imagenes/Bitmap/Capitulo4/tabla_cuantitativa}
 \centering
@@ -640,6 +649,7 @@ En la Figura \ref{fig:swpictos_offset} se puede ver el Diagrama de Flujo de este
 %-------------------------------------------------------------------
 \subsection{Frontend de Aprende Fácil}
 %-------------------------------------------------------------------
+\label{cap:subsec:frontendapp}
 Igual que la parte interna de una aplicación es de suma importancia, la parte visual y como el usuario interactúa con ella es una parte a tener en cuenta siempre. Para este trabajo, como se ha comentado en la sección \ref{cap:sec:disenioInterfaz}  se necesita aún más tener en cuenta cuales son los usuarios finales y sus necesidades, por lo que la interfaz debe adecuarse a ellos.
 Lo primero que debemos decir respecto a la implementación, es que para la creación de los elementos visuales de la interfaz, así como para la colocación de los distintos elementos se ha uso de HTML, CSS y Bootstrap4 y para el funcionamiento de los distintos elementos así como para obtener los resultados que proporcionan los servicios web se ha hecho uso de JavaScript y jQuery.
 
@@ -695,13 +705,13 @@ Por último, también se puede realizar la búsqueda de algún resultado obtenid
 %-------------------------------------------------------------------
 \section{Evaluación de Aprende Fácil}
 %-------------------------------------------------------------------
-
+\label{cap:sec:evaluacionApp}
 El día 17 de Mayo de 2019 a las 10:30h tuvo lugar la evaluación final en el colegio Estudio3 Afanias\footnote{https://afanias.org/que-hacemos/educacion/colegio-estudio-3/} situado en la Comunidad de Madrid. Este colegio era el mismo donde se realizó la evaluación con los expertos explicado en la sección \ref{cap:subsec:evaluacionExpertos}. A esta evaluación acudieron los integrantes del equipo junto con los directores.
 
 La evaluación se realizó con dos grupos: El primer grupo formado por 7 alumnos de la edad de 17 años y 1 profesor, y un segundo grupo formado por 7 alumnos de la edad de 14 años y 1 profesor.
 Cabe destacar que el primer grupo estaba formado mayoritariamente por alumnos autónomos e independientes, en contraposición del segundo grupo que tenían un mayor grado de discapacidad.
 En un primer momento se realizó un formulario de Google Forms, dividido en dos secciones: Una primera sección guiada enfocada al análisis de los resultados, viendo si estos eran útiles y correctos.  Y otra sección dedicada a la usabilidad de la aplicación.
-Dicho formulario  puede encontrarse en nuestro repositorio de GitHub, y en el Ápendice ..X..
+Dicho formulario  puede encontrarse en nuestro repositorio de GitHub, y en el apéndice ..X..
 
 La idea principal era que cada usuario probará la aplicación y realizara el formulario de forma individual, pero finalmente se decidió que los integrantes del equipo fueran los que realizaran la evaluación in situ mientras los alumnos daban su opinión y se recogían sus respuestas.
 La primera sección del formulario se dividía en distintas pruebas según lo que se quería evaluar, a continuación se  

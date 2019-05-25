@@ -14,7 +14,15 @@ Yo me encargué de conectar las vistas html con la lógica en Python, a continua
 
 En cuanto a la memoria me la dividí a partes iguales con Pablo, intentando que los dos toquemos todo, por lo que ambos redactamos tanto una parte de la introducción (en la que redacté la motivación) como el estado de la cuestión (yo hice el apartado de lectura fácil y Procesamiento del Lenguaje Natural). \newline
 
-La investigación de como funcionaba Conceptnet y su API la hicimos conjuntamente.
+La investigación de como funcionaba ConceptNet y su API la hicimos conjuntamente. A partir de aquí se realizó un prototipo con esta red semántica que contenía dos servicios web uno para los sinónimos y otro para los términos relacionados. 
+
+Por otro lado se obtuvieron ficheros con las 1.000, 5.000 y 10.000 palabras más usadas según la RAE, se hizo un filtrado de estas palabras para quedarnos solo con adjetivos, verbos y nombres utilizando SpaCy(Pablo).
+
+Tras la realización del prototipo y hacer las pruebas correspondientes nos dimos cuenta que los resultados obtenidos no eran válidos por lo que se buscó otra red semántica.
+
+Se decidió probar con WordNet, inicialmente tuvimos muchos problemas para poder obtener los recursos, ya que no tienen una API, sino que es una base de datos que te debes descargar.
+
+Inicialmente se probó con el corpus WordNet de nltk, pero se descubrió que tanto sus definiciones como sus ejemplos solo estaban en inglés asique se investigaron los recursos que utilizaban interfaces como eurowordnet que tenian tanto definiciones como ejemplos en español y se descargó dicha base de datos de la pagina de princeton.
 
 
 \section{Trabajo realizado por Pablo}
@@ -28,5 +36,5 @@ A continuación empezamos el desarrollo del prototipo tecnológico primero inves
 
 Irene y yo nos dividimos la redacción de la memoria de tal manera que los dos hicimos tanto la parte de la introducción como del estado de la cuestión, de la introducción a mí me tocó la parte de los objetivos y del estado de la cuestión la parte de figuras retóricas y servicios web. \newline
 
-La investigación de como funcionaba Conceptnet y su API la hicimos de manera conjunta.
+La investigación de como funcionaba ConceptNet y su API la hicimos de manera conjunta.
 
