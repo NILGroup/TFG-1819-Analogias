@@ -212,10 +212,10 @@ Lo primero que hicimos fue presentarles la aplicación y mostrarles los prototip
 Una vez expuestos los distintos prototipos, nos dieron la enhorabuena y nos hicieron participes de la gran ayuda que supondría esta herramienta. A continuación nos dieron su opinión sobre distintos aspectos que se podrían mejorar:
 
 \begin{itemize} 
-	\item Modificar el color amarillo-mostaza de los textos por un color más oscuro que contraste más con el fondo blanco.
+
 	\item El tipo de letra debe ser Arial o Script, ya que son las letras con las que los alumnos están familiarizados y las que mejor entienden.
 	\item Añadir un reproductor que lea la frase, para hacer la aplicación accesible a aquellas personas que no puedan leer.
-	\item Incluir la opción de poder ver un video para complementar la información devuelta por la aplicación.
+	\item Incluir la opción de poder ver un vídeo para complementar la información devuelta por la aplicación.
 	\item Los pictogramas deben situarse debajo de la palabra y no al lado, ya que poner el pictograma junto a la palabra puede llevar a confusión a los usuarios finales al pensar que sería otra palabra más para leer. 
 	\item Introducción de distintas personalizaciones:
 	\begin{itemize}
@@ -273,59 +273,74 @@ Por último, la Universidad Complutense de Madrid nos facilitó un contenedor pa
 %-------------------------------------------------------------------
 \label{cap:subsec:database}
 
-Para este proyecto, se ha utilizado una base de datos para la persistencia de los datos. El sistema encargado de la gestión de la base de datos corresponde con MariaDB y esta constituida por las tablas que se pueden ver en la Figura \ref{fig:tablasBBDD} :
+ El sistema encargado de la gestión de nuestra base de datos es MariaDB. La base de datos consta de tres partes: WordNet, pictogramas y palabras fáciles. Estas partes se describirán a continuación:
 
-\begin{figure}[!h]
-	\includegraphics[width=.8\textwidth]{Imagenes/Bitmap/Capitulo4/tablasBBDD.png}
-	\centering
-	\caption{Tablas utilizadas en la Base de Datos}
-	\label{fig:tablasBBDD}
-\end{figure}
+%\begin{figure}[!h]
+	%\includegraphics[width=.8\textwidth]{Imagenes/Bitmap/Capitulo4/tablasBBDD.png}
+	%\centering
+	%\caption{Tablas utilizadas en la Base de Datos}
+	%\label{fig:tablasBBDD}
+%\end{figure}
 
 \begin{itemize}
-	\item Se ha hecho uso de la base de datos propia de WordNet, llamada MCR (\textit{Multilingual Central Repository})\footnote{http://adimen.si.ehu.es/web/MCR/}, y se ha utilizado la versión 3.0.  MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués.  
-	
-	Se han utilizado principalmente cuatro tablas: ``wei\_spa-30\_variant'', ``wei\_spa-30\_relation'', ``wei\_spa-30\_examples'' y ``wei\_spa-30\_synset''. 
-	De la tabla ``wei\_spa-30\_variant'' solamente se han utilizado estos atributos:
+	\item Base de datos de WordNet. Versión 3.0 de MCR (\textit{Multilingual Central Repository}). Se descargaron los ficheros\footnote{http://adimen.si.ehu.es/web/MCR/}, y se integraron en nuestra base de datos.  MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguas diferentes: inglés, español, catalán, vasco, gallego y portugués. Nosotros, integramos únicamente la versión en español,  
+	utilizando principalmente cuatro tablas: ``wei\_spa-30\_variant'', ``wei\_spa-30\_relation'', ``wei\_spa-30\_examples'' y ``wei\_spa-30\_synset''. Estas tablas se describirán a continuación:
 	\begin{itemize}
-		\item \textit{word}: Contiene la palabra. Cuando el usuario introduce la palabra en la aplicación, se realiza una búsqueda en dicha tabla para saber si la palabra buscada se encuentra .
-		\item \textit{offset}: Es el identificador de la palabra, aunque una misma palabra puede tener distintos \textit{offsets} (uno por cada acepción). 
-	\end{itemize}
-
-	De la tabla ``wei\_spa-30\_relation'', solamente se han utilizado estos atributos:
-	\begin{itemize}
-		\item \textit{sourceSynset}: Contiene el \textit{offset} de hipónimo.  
-		\item \textit{targetSynset}: Contiene el \textit{offset} de hiperónimo.  
-	\end{itemize}
-
-
-	De la tabla ``wei\_spa-30\_examples'', se han utilizado los siguientes atributos:
+		\item Tabla ``wei\_spa-30\_variant'': Guarda la palabra con su \textit{offset} correspondiente y el tipo de palabra. Contiene los siguientes atributos:
 		\begin{itemize}
-		\item \textit{offset}: Contiene el \textit{offset} de la palabra.  
-		\item \textit{examples}: Contiene el ejemplo correspondiente.
+			\item \textit{word}: Palabra.
+			\item \textit{sense}: Acepción que tiene asignada la palabra.
+			\item \textit{offset}: Identificador de la palabra. Aunque una misma palabra, si es polisémica, puede tener distintos \textit{offsets} (uno por cada significado).
+			\item \textit{pos}: Categoría gramatical de la palabra.
+			\item \textit{csco}: Puntuación asignada.
+			
+		\end{itemize}
+		\item Tabla ``wei\_spa-30\_relation'': Esta tabla contiene las relaciones entre \textit{synsets} y el tipo de las mismas. Consta de los siguientes atributos:
+			\begin{itemize}
+				\item \textit{relation}: Tipo de relación.
+				\item \textit{sourceSynset}: Contiene el \textit{offset} que identifica al \textit{synset} que está relacionado con \textit{targetSynset}.  
+				\item \textit{targetSynset}: Contiene el \textit{offset} que identifica al \textit{synset} que está relacionado con \textit{sourceSynset}.
+				\item \textit{csco}: Puntuación asignada.
+				\item \textit{wnSource}: WordNet de origen de la información.
+			\end{itemize}
+		\item Tabla ``wei\_spa-30\_examples'': Contiene los ejemplos de las palabras. Sus atributos son:
+			\begin{itemize}
+				\item \textit{word}: Palabra que tiene asignada el ejemplo.
+				\item \textit{sense}:Acepción que tiene asignada la palabra.
+				\item \textit{examples}: Contiene el ejemplo correspondiente.
+				\item \textit{offset}: Contiene el \textit{offset} de la palabra. 
+				\item \textit{pos}: Categoría gramatical de la palabra.
+				
+			\end{itemize}
+		\item Tabla ``wei\_spa-30\_synset'': Contiene las definiciones de las palabras. Sus atributos son los siguientes:
+			\begin{itemize}
+				\item \textit{offset}: \textit{Offset} que identifica a la palabra.
+				\item \textit{pos}: Categoría gramatical de la palabra.
+				\item \textit{gloss}: Definición correspondiente.
+			\end{itemize} 
 	\end{itemize}
-	
-	De la tabla ``wei\_spa-30\_synset'', se han utilizado los siguientes atributos:
-	\begin{itemize}
-		\item \textit{offset}: Contiene el \textit{offset} de la palabra.  
-		\item \textit{gloss}: Contiene la definición correspondiente.
-	\end{itemize} 
 
-
-	\item En vez de tener tres ficheros donde guardar las 1.000, 5.000 y 10.000 palabras más usadas de la RAE, se guardaron los datos en tres tablas llamadas ``1000\_palabras\_faciles'', ``5000\_palabras\_faciles'' y ``10000\_palabras\_faciles''. Las tres se componen de dos columnas:
+	\item Palabras fáciles: Son tres tablas llamadas ``1000\_palabras\_faciles'', ``5000\_palabras\_faciles'' y ``10000\_palabras\_faciles'' que contienen la palabras fáciles de la RAE. Las tres se componen de dos columnas:
 	\begin{itemize}
 		\item \textit{word}: Contiene la palabra fácil.  
 		\item \textit{tag}: Contiene el tipo de palabra que es (sustantivo, adjetivo o verbo).
 	\end{itemize} 
 	 
 	 
-	\item Una tabla llamada ``pictos'', que almacena la información de los pictogramas y está formada por las siguientes columnas:
+	\item Pictogramas: Formado por una tabla llamada ``pictos'', que almacena la información de los pictogramas. Para formar esta tabla se siguió el siguiente proceso:
 	\begin{itemize}
-		\item \textit{offset30}: Es el identificador del \textit{synset} en la versión 3.0 de WordNet.
-		\item palabra: Contiene la palabra del pictograma.
-		\item id\_picto: Es el identificador del pictograma.
-		\item imagen: Contiene el pictograma con una codificación binaria ``base64''.
+		\item Primer paso: Descarga de pictogramas. Se descargaron todos los pictogramas disponibles en \textit{ARASAAC} a través de su página web.\footnote{http://www.arasaac.org/descargas.php} Cada pictograma tiene como nombre la palabra que representa.
+		\item Segundo paso: Relacionar el pictograma de \textit{ARASAAC} con el \textit{offset} de la versión 3.0 de WordNet. Para ello se implementó un script, que realizando peticiones GET \footnote{https://api.arasaac.org/api/pictograms/es/search/<palabra>} obtenía tanto el id que le asignaba \textit{ARASAAC} al pictograma, como el \textit{offset} que le correspondía en WordNet. Sin embargo, el \textit{offset} obtenido, se corresponde con la versión 3.1 de \textit{WordNet}, y nosotros trabajamos con la versión 3.0. Con cada \textit{offset} obtenido mediante este proceso, se hacía otra petición GET\footnote{https://wordnet-rdf.princeton.edu/json/id/<offset3.1>} para obtener su correspondiente \textit{offset} en la versión 3.0.
+		\item Tercer paso: Subida de datos a la tabla ``pictos''. Para ello, se implementó otro script que con todos los datos recopilados anteriormente, codificaba la imagen obtenida a binario, utilizando una numeración ``base64'' y asignándole: el \textit{offset} de WordNet 3.0, el id de \textit{ARASAAC} y la palabra representada. Quedando como resultado una tabla con las siguientes columnas:
+		\begin{itemize}
+			\item \textit{offset30}: Es el identificador del \textit{synset} en la versión 3.0 de WordNet.
+			\item palabra: Contiene la palabra del pictograma.
+			\item id\_picto: Es el identificador del pictograma.
+			\item imagen: Contiene el pictograma en formato binario.
+		\end{itemize}
+		
 	\end{itemize}
+	
 
 \end{itemize}
 
