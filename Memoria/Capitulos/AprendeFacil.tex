@@ -326,14 +326,8 @@ Para este proyecto, se ha utilizado una base de datos para la persistencia de lo
 
 \end{itemize}
 
-
 %-------------------------------------------------------------------
-\subsection{Backend de Aprende Fácil}
-%-------------------------------------------------------------------
-\label{cap:subsec:backendapp}
-Para realizar la aplicación se necesita decidir que red semántica se utilizará finalmente: WordNet o ConceptNet para ello en la sección \ref{cap:subsec:redsemanticautilizada} se hablará del proceso de selección llevado a cabo. En la sección \ref{cap:subsec:disenioeval} se explicará el diseño de la prueba que se ha realizado para ver que red semántica se utilizará finalmente en el proyecto, en la sección \ref{cap:subsec:pruebaCuantitativa} se analizarán los resultados cuantitativos de la prueba realizada, en el punto \ref{sssec:pruebaCualitativa}, se analizarán los resultados obtenidos a nivel cualitativo y en el apartado \ref{sssec:conclusionPruebas} se describirán las conclusiones finales de la evaluación. Por otra parte, en los apartados posteriores, se detallarán los distintos servicios web utilizados para este proyecto, en los apartados \ref{cap:subsec:sw_sinonimosfaciles}, \ref{cap:subsec:sw_hiperonimosfaciles} y \ref{cap:subsec:sw_hiponimosfaciles} se describirán los servicios web que se utilizan para la obtención de sinónimos, hiperónimos e hipónimos fáciles respectivamente. A continuación, se hablará en los puntos \ref{cap:subsec:sw_metaforas} y \ref{cap:subsec:sw_simil} sobre los servicios web utilizados para crear las metáforas y los símiles que finalmente leerá el usuario. Por último, se describirá el servicio web para la obtención de definiciones y ejemplos en la sección \ref{cap:subsec:sw_def_example} y en la sección \ref{cap:subsec:sw_pictos} se hablará de los servicios web para la obtención de pictogramas.
-%-------------------------------------------------------------------
-\subsubsection{Selección de la Red Semántica a utilizar}
+\subsection{Selección de la Red Semántica a utilizar}
 %-------------------------------------------------------------------
 \label{cap:subsec:redsemanticautilizada}
 
@@ -357,10 +351,10 @@ A continuación se comprobó de manera independiente cuantos de los sinónimos y
 %-------------------------------------------------------------------
 \label{cap:subsec:pruebaCuantitativa}
 \begin{figure}[!h]
-\includegraphics[width=.8\textwidth]{Imagenes/Bitmap/Capitulo4/tabla_cuantitativa}
-\centering
-\caption{Tabla de resultados de la prueba cuantitativa}
-\label{fig:tabla_cuantitativa}
+	\includegraphics[width=.8\textwidth]{Imagenes/Bitmap/Capitulo4/tabla_cuantitativa}
+	\centering
+	\caption{Tabla de resultados de la prueba cuantitativa}
+	\label{fig:tabla_cuantitativa}
 \end{figure}
 
 En la Tabla \ref{fig:tabla_cuantitativa} se muestran los resultados de la prueba cuantitativa realizada, como se puede observar, en términos generales, WordNet ofrece mejores resultados que ConceptNet ya que el porcentaje de palabras sin términos relacionados, sinónimos o ambas, es mayor en esta última. En el caso de la primera lista utilizada (1.000 palabras fáciles) ConceptNet no encontró ningún resultado para el 68,2\% de las palabras introducidas mientras que WordNet no encontró nada para el 62,6\%. En el caso de los términos relacionados, ConceptNet no encontró ninguno para el 68,75\% de las palabras, mientras que en el caso de WordNet fue del 24,72\%. Para el porcentaje de palabras sin sinónimos los resultados fueron de 88,06 para ConceptNet y 26,5 para WordNet. La siguiente lista probada fue la de 5.000 palabras fáciles, para la cual, como se ha explicado anteriormente, se han evaluado los mismos parámetros. Las palabras sin resultado han sido el 49,6\% para el caso de ConceptNet y 56,5\% en el caso de WordNet. El porcentaje de palabras sin términos relacionados ha sido de 47,15\% en ConceptNet y 16,19\% en WordNet. En los sinónimos, no se encontraron para el 77,84\% de las palabras utilizando ConceptNet  y tan solo en un 15,05\% con WordNet. A continuación, utilizando la lista de 10.000 palabras fáciles, los resultados han sido: ConceptNet ha dejado un 43,4\% de palabras sin resultado frente al 55\% de WordNet, en los términos relacionados el 43,75\% usando ConceptNet  frente al 15,05\% de WordNet. En los sinónimos, ConceptNet no ha encontrado resultados en el 76,7\% de las palabras y WordNet en el 9,2\%. Por último, se ha realizado un conteo de las palabras totales que ha generado cada red semántica, con un resultado de 2.652 sinónimos y términos relacionados generado por ConceptNet, mientras que WordNet ha generado 14.172.
@@ -391,6 +385,13 @@ Valorando los datos obtenidos en ambas pruebas se puede concluir lo siguiente: d
 Por otro lado, en la prueba cualitativa realizada, los resultados obtenidos son muy parecidos entre ambas redes semánticas, aunque una vez más, con la que se han obtenido mejores resultados ha sido WordNet ya que ha ganado 4 de los 6 parámetros medidos. Especialmente, en el caso de la lista de las 10.000 palabras, en donde gana ambas mediciones (53,03\% en el caso de los sinónimos correctos con ConceptNet frente a 60,73\% con WordNet y 55,19\% de términos relacionados correctos frente a 55,3\% con ConceptNet y WordNet respectivamente).
 
 Por estos motivos, la red semántica que se ha decidido utilizar finalmente para la aplicación final ha sido WordNet.
+
+
+%-------------------------------------------------------------------
+\subsection{Backend de Aprende Fácil: Servicios Web de la aplicación}
+%-------------------------------------------------------------------
+\label{cap:subsec:backendapp}
+Para realizar la aplicación se necesita decidir que red semántica se utilizará finalmente: WordNet o ConceptNet para ello en la sección \ref{cap:subsec:redsemanticautilizada} se hablará del proceso de selección llevado a cabo. En la sección \ref{cap:subsec:disenioeval} se explicará el diseño de la prueba que se ha realizado para ver que red semántica se utilizará finalmente en el proyecto, en la sección \ref{cap:subsec:pruebaCuantitativa} se analizarán los resultados cuantitativos de la prueba realizada, en el punto \ref{sssec:pruebaCualitativa}, se analizarán los resultados obtenidos a nivel cualitativo y en el apartado \ref{sssec:conclusionPruebas} se describirán las conclusiones finales de la evaluación. Por otra parte, en los apartados posteriores, se detallarán los distintos servicios web utilizados para este proyecto, en los apartados \ref{cap:subsec:sw_sinonimosfaciles}, \ref{cap:subsec:sw_hiperonimosfaciles} y \ref{cap:subsec:sw_hiponimosfaciles} se describirán los servicios web que se utilizan para la obtención de sinónimos, hiperónimos e hipónimos fáciles respectivamente. A continuación, se hablará en los puntos \ref{cap:subsec:sw_metaforas} y \ref{cap:subsec:sw_simil} sobre los servicios web utilizados para crear las metáforas y los símiles que finalmente leerá el usuario. Por último, se describirá el servicio web para la obtención de definiciones y ejemplos en la sección \ref{cap:subsec:sw_def_example} y en la sección \ref{cap:subsec:sw_pictos} se hablará de los servicios web para la obtención de pictogramas.
 
 
 
