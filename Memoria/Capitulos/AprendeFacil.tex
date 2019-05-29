@@ -706,62 +706,122 @@ Por último, también se puede realizar la búsqueda de algún resultado obtenid
 \section{Evaluación de Aprende Fácil}
 %-------------------------------------------------------------------
 \label{cap:sec:evaluacionApp}
-El día 17 de Mayo de 2019 a las 10:30h tuvo lugar la evaluación final en el colegio Estudio3 Afanias\footnote{https://afanias.org/que-hacemos/educacion/colegio-estudio-3/} situado en la Comunidad de Madrid. Este colegio era el mismo donde se realizó la evaluación con los expertos explicado en la sección \ref{cap:subsec:evaluacionExpertos}. A esta evaluación acudieron los integrantes del equipo junto con los directores.
 
+La evaluación final de la aplicación, se realizó en el colegio Estudio3 Afanias\footnote{https://afanias.org/que-hacemos/educacion/colegio-estudio-3/} situado en la Comunidad de Madrid. Este colegio era el mismo donde se realizó la evaluación con los expertos explicado en la sección \ref{cap:subsec:evaluacionExpertos}.
+Gracias a realizar esta evaluación se pudo probar la funcionalidad de la aplicación final, y de esta forma comprobar si realmente ayudaba  a quienes son los usuarios  finales o si por lo contrario, la aplicación no les era útil y les ocasionaba mayor confusión al intentar entender el significado de un concepto.
+En las siguientes secciones se explicará con mayor detalle como se ha realizado dicha evaluación, los resultados obtenidos tras realizarla y el análisis que se ha realizado de los resultados.
+%-------------------------------------------------------------------
+\subsection{Diseño de la evaluación}
+%-------------------------------------------------------------------
+\label{cap:subsec:disenioEvaluacion}
+Se creó un formulario de Google Forms, el cual se puede encontrar en nuestro repositorio de GitHub, dividido en dos secciones: una primera sección donde la primera parte era guiada y el usuario debía introducir distintos conceptos ya predefinidos por nosotros e ir probando diferentes configuraciones de la aplicación. De esta forma se intentó abarcar todas las posibilidades que la aplicación ofrece y obtener así, de primera mano, la opinión de los usuarios. Dentro de la primera sección, existía una segunda parte de uso libre. El usuario podía introducir los conceptos deseados y utilizar la aplicación con las configuraciones que estimase más oportuno. Por otro lado, existía una segunda sección en el formulario donde se realizaba un cuestionario sobre la usabilidad y las opiniones referentes a la aplicación en general.
+
+En la primera parte del formulario tomábamos datos demográficos: edad y sexo del usuario.
+
+A continuación, se pedía introducir la palabra ``puente'' con un nivel de búsqueda fácil.  El objetivo era comprobar que los usuarios entendían el significado del concepto buscado mediante los resultados mostrados.
+
+En la segunda parte, se pedía introducir la palabra ``puente'' pero esta vez con nivel de búsqueda medio. La aplicación mostraba más resultados que con el nivel de búsqueda facil, y por ello lo que se quería comprobar era si la búsqueda en este nivel ayudaba a los usuarios a comprender aún más el significado del concepto introducido, o sin embargo, les llevaba a confusión.
+
+En la tercera parte, se pedía al usuario introducir la palabra ``puente'' con nivel de búsqueda avanzado. Igual que ocurre con el nivel de búsqueda medio, se muestran más resultados para la palabra introducida, de esta forma se puede saber si a los usuarios les ha servido más la búsqueda en un nivel que en otro, o entienden los resultados mostrados en todos los niveles de búsqueda.
+
+En la cuarta parte, se probó a buscar un concepto que devolvía únicamente un conjunto de resultados relacionados entre sí, es decir, una única ficha. La palabra introducida era ``dictador'' y con un nivel de búsqueda avanzado. 
+
+A continuación, en la quinta y sexta parte se introducía la palabra ``defensa'' con un nivel de búsqueda fácil y ``danza'' con un nivel de búsqueda avanzado. El objetivo de esta quinta y sexta parte era obtener más de una ficha con resultados. Esto quiere decir que la palabra introducida dispone de distintos significados según el contexto en que se utilice, por lo que el fin principal era comprobar si los usuarios entendían todos ellos.
+
+En la séptima parte, se pedía introducir la palabra ``portero'' con un nivel de búsqueda avanzado. En esta parte el objetivo era obtener únicamente metáforas con un concepto polisémico y así comprobar si los usuarios entendían correctamente los diferentes resultados obtenidos. 
+
+Después, en la octava parte se pedía introducir la palabra ``funcionario'' con un nivel de búsqueda fácil. En esta parte solamente se quería obtener símiles, e igual que ocurre con las anteriores pruebas el objetivo era comprobar si los usuarios entendían correctamente los resultados obtenidos.
+
+En la novena y décima parte, se pedía introducir la palabra ``régimen'' con un nivel de búsqueda fácil y ``vehículo'' con un nivel de búsqueda avanzado. El objetivo principal era obtener resultados que tuvieran tanto metáforas como símiles y comprobar si los resultados obtenidos eran correctos y entendibles para los usuarios o si, por el contrario, les resultaba más útiles unos que otros, o si ningún resultado le facilitaba a entender el significado del concepto introducido.
+
+En la undécima y duodécima parte, el objetivo principal era obtener resultados pero añadiendo la opción de mostrar pictogramas. La palabra a introducir era ``detective'' y ``medalla'' , ambos con un nivel de búsqueda fácil. Con esta parte, se quería comprobar si añadiendo la opción de mostrar pictogramas a los usuarios les era más fácil comprender los resultados obtenidos o no. Una vez que se muestran los resultados, se pedía al usuario seleccionar la opción de no mostrar pictogramas y comprobar así que la funcionalidad de mostrar y ocultar los pictogramas se realizaba correctamente.
+
+En la décimotercera parte, se pedía introducir la palabra ``familia'' seleccionado la opción de mostrar definición y ejemplo. El objetivo principal era comprobar si añadiendo en la búsqueda de un concepto esta opción, les ayudaba aún más a los usuarios a comprender mejor el significado de la palabra. Una vez que se muestran los resultados, se pedía al usuario seleccionar la opción de no mostrar definición y ejemplo, y comprobar así que la funcionalidad de mostrar y ocultar la definición y el ejemplo se realizaba correctamente.
+
+En la décimocuarta y décimoquinta parte, se pedía al usuario seleccionar la opción de mostrar en mayúsculas con la búsqueda realizada en la décimotercera parte y posteriormente seleccionar la opción de mostrar en minúscula. El objetivo principal era comprobar si la aplicación convertía todo el texto de la página a mayúsculas y minúsculas correctamente y saber si para los usuarios era más cómodo leer el texto con una opción u otra.
+
+En la décimosexta parte, se pedía al usuario introducir la palabra ``casa'' con un nivel de búsqueda fácil y una vez obtenidos los resultados pinchar sobre la palabra ``escuela''. El objetivo principal era comprobar si la búsqueda se realizaba correctamente sobre el resultado y saber si para los usuarios era útil dicha opción.
+
+Por último, en la décimoséptima parte le pedíamos al usuario que probara la aplicación libremente, introduciendo las palabras que el deseara y seleccionado las distintas opciones que la aplicación ofrece. El objetivo de esta parte, era comprobar si el usuario podía utilizar la aplicación sin necesidad de una guía y si los resultados obtenidos eran correctos y útiles para el usuario.
+
+En la segunda sección del formulario, se realizaba una serie de afirmaciones al usuario relacionadas con la usabilidad de la aplicación, donde ellos mediante una escala \textit{likert} de cinco puntos, siendo 1 totalmente en desacuerdo y 5 totalmente de acuerdo, debían valorar. Las afirmaciones realizadas eran las siguientes:
+\begin{itemize}
+	\item La aplicación es fácil de usar.
+	\item Me gustaría usar la aplicación en mi día a día.
+	\item Recomendaría esta aplicación a otras personas.
+	\item Las definiciones se ajustan a los resultados obtenidos por la aplicación.
+	\item Me parece útil poder modificar la opción de mostrar y ocultar la definición y ejemplo con los resultados ya mostrados.
+	\item Los pictogramas se ajustan a la palabra buscada.
+	\item Los pictogramas se ajustan a los resultados obtenidos por la aplicación.
+	\item Me parece útil poder modificar la opción de mostrar y ocultar los pictogramas con los resultados ya mostrados.
+	\item Me parece útil que se pueda hacer la búsqueda pinchando sobre cualquier resultado.
+	\item Me parece útil que las opciones se encuentren siempre visibles arriba.
+	\item Me parece útil que en cada ficha se muestren primero las metáforas y después los símiles.
+	
+\end{itemize}
+ 	Y por último, se añadió un apartado de observaciones donde el usuario puede escribir su opinión escrita sobre la aplicación.
+ 	
+ 	Una vez se realizaba el formulario, se enviaba y las respuestas quedaban registradas para su posterior análisis. 
+
+%-------------------------------------------------------------------
+\section{Resultados de la evaluación}
+%-------------------------------------------------------------------
+\label{cap:subsec:resultadosEvaluacion}
+El día 17 de Mayo de 2019 a las 10:30h tuvo lugar la evaluación final . A esta evaluación acudieron los integrantes del equipo junto con los directores.
 La evaluación se realizó con dos grupos: El primer grupo formado por 7 alumnos de la edad de 17 años y 1 profesor, y un segundo grupo formado por 7 alumnos de la edad de 14 años y 1 profesor.
 Cabe destacar que el primer grupo estaba formado mayoritariamente por alumnos autónomos e independientes, en contraposición del segundo grupo que tenían un mayor grado de discapacidad.
-En un primer momento se realizó un formulario de Google Forms, dividido en dos secciones: Una primera sección guiada enfocada al análisis de los resultados, viendo si estos eran útiles y correctos.  Y otra sección dedicada a la usabilidad de la aplicación.
-Dicho formulario  puede encontrarse en nuestro repositorio de GitHub, y en el apéndice ..X..
 
-La idea principal era que cada usuario probará la aplicación y realizara el formulario de forma individual, pero finalmente se decidió que los integrantes del equipo fueran los que realizaran la evaluación in situ mientras los alumnos daban su opinión y se recogían sus respuestas.
-La primera sección del formulario se dividía en distintas pruebas según lo que se quería evaluar, a continuación se  
+La idea principal era que cada usuario probará la aplicación y realizara el formulario de forma individual, pero una vez allí nos dimos cuenta que los alumnos presentes según estaba realizado el formulario, les iba a resultar complicado o incluso imposible poder hacerlo. Si en vez de utilizar la escala \textit{likert} numerada, hubiéramos añadido un código de colores donde rojo significa que los resultados obtenidos no eran correctos, naranja para indicar que los resultados son más o menos entendibles, y verde para indicar que todos los resultados son correctos hubiera sido mucho más fácil para ellos, ya que están familiarizados con ese tipo de código de colores en vez de un tipo numérico.  Por ello, finalmente se decidió que los integrantes del equipo fueran los que realizaran la evaluación in situ mientras los alumnos daban su opinión y se recogían sus respuestas.
+
+Cabe destacar que en ambos grupos no se pudo llegar a realizar el formulario completo. Uno de los motivos fue por falta de tiempo y otro por que a los usuarios del segundo grupo no conseguimos captar su completa atención.
+A continuación, se explicará detalladamente el resultado obtenido en cada parte del formulario.
 \begin{itemize}
-	\item PRUEBA 1 - Búsqueda con nivel fácil: La primera palabra introducida fue ``PUENTE'' con un nivel de búsqueda fácil y con las opciones de pictograma y definición y ejemplo predeterminadas. En la Figura  \ref{fig:puenteFacil} se pueden ver los resultados obtenidos, donde los alumnos comprendían tanto el resultado ``construcción'' como ``estructura'' . Y nos comentaron que les pareció bastante útil puesto que les ayudaba aún más a comprender el significado del concepto buscado.
-
-		\begin{figure}[!h]
+	\item Búsqueda con nivel fácil: La primera palabra introducida fue ``puente'' con un nivel de búsqueda fácil y con las opciones de pictograma y definición y ejemplo predeterminadas. En la Figura  \ref{fig:puenteFacil} se pueden ver los resultados obtenidos, donde los alumnos comprendían tanto el resultado ``construcción'' como ``estructura'' . Y nos comentaron que les pareció bastante útil puesto que les ayudaba aún más a comprender el significado del concepto buscado.
+	
+	\begin{figure}[!h]
 		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/1puentefacil.png}
 		\centering
 		\caption{Resultado obtenido para la palabra ``Puente'' con un nivel de búsqueda fácil}
 		\label{fig:puenteFacil}
-		\end{figure}
+	\end{figure}
 	
-	\item PRUEBA 2 - Búsqueda con nivel medio: Se introdujo la misma palabra ``PUENTE'' pero aumentando el nivel de búsqueda a medio. En la Figura \ref{fig:puenteMedio} se pueden ver los resultados obtenidos. En este caso hubo que explicar a los alumnos los dos nuevos resultados. Por un lado, para la palabra ``arco'' no entendían la relación existente de este  con la palabra buscada y por otro lado, para la palabra ``circuito'' relacionaban dicho concepto con un circuito de carreras en vez de un circuito electrónico, siendo este último el significado obtenido por la aplicación.
+	\item Búsqueda con nivel medio: Se introdujo la misma palabra ``puente'' pero aumentando el nivel de búsqueda a medio. En la Figura \ref{fig:puenteMedio} se pueden ver los resultados obtenidos. En este caso hubo que explicar a los alumnos los dos nuevos resultados. Por un lado, para la palabra ``arco'' no entendían la relación existente de este  con la palabra buscada y por otro lado, para la palabra ``circuito'' relacionaban dicho concepto con un circuito de carreras en vez de un circuito electrónico, siendo este último el significado obtenido por la aplicación.
 	
-		\begin{figure}[!h]
+	\begin{figure}[!h]
 		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/2puentemedio.png}
 		\centering
 		\caption{Resultado obtenido para la palabra ``Puente'' con un nivel de búsqueda medio}
 		\label{fig:puenteMedio}
-		\end{figure}
-
-
-	\item PRUEBA 3 - Búsqueda con nivel avanzado: Esta vez, se volvió a introducir la palabra ``PUENTE'' con un nivel de búsqueda avanzado. En la Figura  \ref{fig:puenteAvanzado} se pueden ver los resultados obtenidos donde se puede ver que con este nivel se muestra un resultado más que en el anterior nivel. La palabra ``placa'' puede tener diversos significados según el contexto en el que se utilice, por lo que para los alumnos era complicado entender la relación de ``placa'' con ``puente''. Una vez explicado, los alumnos entendieron perfectamente su significado.
-		\begin{figure}[!h]
+	\end{figure}
+	
+	
+	\item Búsqueda con nivel avanzado: Esta vez, se volvió a introducir la palabra ``puente'' con un nivel de búsqueda avanzado. En la Figura  \ref{fig:puenteAvanzado} se pueden ver los resultados obtenidos donde se puede ver que con este nivel se muestra un resultado más que en el anterior nivel. La palabra ``placa'' puede tener diversos significados según el contexto en el que se utilice, por lo que para los alumnos era complicado entender la relación de ``placa'' con ``puente''. Una vez explicado, los alumnos entendieron perfectamente su significado.
+	\begin{figure}[!h]
 		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/3puenteavanzado.png}
 		\centering
 		\caption{Resultado obtenido para la palabra ``Puente'' con un nivel de búsqueda avanzado}
 		\label{fig:puenteAvanzado}
-		\end{figure}
+	\end{figure}
 	
-	\item PRUEBA 4 - Obteniendo un único resultado: La palabra introducida fue ``DICTADOR'' con un nivel de búsqueda avanzado y sin mostrar ni pictogramas ni definición y ejemplo. En la Figura \ref{fig:dictadorAvanzado} se pueden ver los resultados obtenidos, de estos comprendieron el resultado ``lider'' pero no sabían que era ``soberano''. De los demás resultados obtenidos, entendían ``gobernador'' pero no sabían la diferencia que existía entre este y ``gobernante'', lo que les llevo a confusión no dejando claro el significado del concepto.
+	\item Obteniendo un único resultado: La palabra introducida fue ``dictador'' con un nivel de búsqueda avanzado y sin mostrar ni pictogramas ni definición y ejemplo. En la Figura \ref{fig:dictadorAvanzado} se pueden ver los resultados obtenidos, de estos comprendieron el resultado ``lider'' pero no sabían que era ``soberano''. De los demás resultados obtenidos, entendían ``gobernador'' pero no sabían la diferencia que existía entre este y ``gobernante'', lo que les llevo a confusión no dejando claro el significado del concepto.
 	
-		\begin{figure}[!h]
-			\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/4dictadoravanzado.png}
-			\centering
-			\caption{Resultado obtenido para la palabra ``Dictador'' con un nivel de búsqueda avanzado}
-			\label{fig:dictadorAvanzado}
-		\end{figure}
+	\begin{figure}[!h]
+		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/4dictadoravanzado.png}
+		\centering
+		\caption{Resultado obtenido para la palabra ``Dictador'' con un nivel de búsqueda avanzado}
+		\label{fig:dictadorAvanzado}
+	\end{figure}
 	
-	\item PRUEBA 5 - Obteniendo varios resultados (I):  Se introdujo la palabra ``DEFENSA'' con un nivel de búsqueda fácil. En la Figura \ref{fig:defensaFacil} se pueden ver los resultados obtenidos donde los alumnos entendían todos. Para profundizar aún más, en esta búsqueda se añadió la opción de mostrar pictogramas, la respuesta de los alumnos fue que los resultados se entienden de una manera más clara y sencilla, ya que les ayuda a entender el significado según el contexto en el que se está utilizando.
-		
-			\begin{figure}[!h]
-			\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/5defensafacil.png}
-			\centering
-			\caption{Resultado obtenido para la palabra ``Defensa'' con un nivel de búsqueda fácil}
-			\label{fig:defensaFacil}
-		\end{figure}
+	\item Obteniendo varios resultados (I):  Se introdujo la palabra ``defensa'' con un nivel de búsqueda fácil. En la Figura \ref{fig:defensaFacil} se pueden ver los resultados obtenidos donde los alumnos entendían todos. Para profundizar aún más, en esta búsqueda se añadió la opción de mostrar pictogramas, la respuesta de los alumnos fue que los resultados se entienden de una manera más clara y sencilla, ya que les ayuda a entender el significado según el contexto en el que se está utilizando.
 	
-	\item PRUEBA 6 - Obteniendo varios resultados (II):  Se realizó otra prueba para obtener varios resultados. En este caso de introdujo la palabra ``DANZA''  sin pictogramas y con un nivel de búsqueda avanzado. En la Figura \ref{fig:danzaAvanzado} se pueden ver los resultados obtenidos, de los cuales los alumnos entendieron todos sin ningún problema.
+	\begin{figure}[!h]
+		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/5defensafacil.png}
+		\centering
+		\caption{Resultado obtenido para la palabra ``Defensa'' con un nivel de búsqueda fácil}
+		\label{fig:defensaFacil}
+	\end{figure}
+	
+	\item Obteniendo varios resultados (II):  Se realizó otra prueba para obtener varios resultados. En este caso de introdujo la palabra ``danza''  sin pictogramas y con un nivel de búsqueda avanzado. En la Figura \ref{fig:danzaAvanzado} se pueden ver los resultados obtenidos, de los cuales los alumnos entendieron todos sin ningún problema.
 	
 	\begin{figure}[!h]
 		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/6danzaavanzado.png}
@@ -770,7 +830,7 @@ La primera sección del formulario se dividía en distintas pruebas según lo qu
 		\label{fig:danzaAvanzado}
 	\end{figure}
 	
-	\item PRUEBA 7 - Obtención de metáforas:  Se introdujo la palabra ``PORTERO'' con un nivel de búsqueda avanzado y añadiendo la opción de mostrar pictogramas. Se puede ver en la Figura \ref{fig:porteroAvanzado} los resultados obtenidos. Todos fueron correctos excepto para el resultado ``funcionario'' y ``administrador'', que no entendían su significado. Después, se cambio el nivel de búsqueda a medio, para saber si con un nivel inferior donde se obtendrían menos resultados, les era más sencillo entenderlo. De esta forma se obtuvieron dos resultados: ``Portero es un guardia'' y ``Portero es un funcionario'' de los cuales el primero lo entendieron y el segundo solamente si se añade la opción de mostrar pictograma.
+	\item Obtención de metáforas:  Se introdujo la palabra ``portero'' con un nivel de búsqueda avanzado y añadiendo la opción de mostrar pictogramas. Se puede ver en la Figura \ref{fig:porteroAvanzado} los resultados obtenidos. Todos fueron correctos excepto para el resultado ``funcionario'' y ``administrador'', que no entendían su significado. Después, se cambio el nivel de búsqueda a medio, para saber si con un nivel inferior donde se obtendrían menos resultados, les era más sencillo entenderlo. De esta forma se obtuvieron dos resultados: ``Portero es un guardia'' y ``Portero es un funcionario'' de los cuales el primero lo entendieron y el segundo solamente si se añade la opción de mostrar pictograma.
 	
 	\begin{figure}[!h]
 		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/7porteroavanzadopictos.png}
@@ -778,57 +838,57 @@ La primera sección del formulario se dividía en distintas pruebas según lo qu
 		\caption{Resultado obtenido para la palabra ``Portero'' con un nivel de búsqueda avanzado y mostrando pictogramas}
 		\label{fig:porteroAvanzado}
 	\end{figure}
-
-\item PRUEBA 8 - Obtención de símiles:  Se introdujo la palabra ``FUNCIONARIO'' con un nivel de búsqueda fácil. Se puede ver en la Figura \ref{fig:funcionarioFacil} los resultados obtenidos, donde todos fueron comprendidos perfectamente por los alumnos. 
-
-\begin{figure}[!h]
-	\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/8funcionariofacil.png}
-	\centering
-	\caption{Resultado obtenido para la palabra ``Funcionario'' con un nivel de búsqueda fácil}
-	\label{fig:funcionarioFacil}
-\end{figure}
-
-
-\item PRUEBA 9 - Definición y ejemplo:  Se buscó la palabra ``FAMILIA'' con un nivel de búsqueda fácil y añadiendo la opción de mostrar definición y ejemplo. Se puede ver en la Figura \ref{fig:familiaFacilDef} los resultados obtenidos, De estos, en la primera ficha no entienden el resultado ``clase'' pero si les ayuda la definición \textit{(``Grupo de cosas que están juntas o que se puede considerar como un todo'')}. Igual ocurre en la ficha tres pero con el resultado ``línea'' \textit{(``Descendientes de un individuo'')}, donde ellos entienden línea como una recta, pero leyendo la definición comprenden que se refiere a línea sucesoria.
-
-\begin{figure}[!h]
-	\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/9familiafacildef.png}
-	\centering
-	\caption{Resultado obtenido para la palabra ``Familia'' con un nivel de búsqueda fácil y añadiendo la opción ``Mostrar definición y ejemplo''}
-	\label{fig:familiaFacilDef}
-\end{figure}
- 
-\item PRUEBA 10 - Uso de mayúsculas:  Con la misma palabra ``FAMILIA'', se realizó el cambio de minúsculas a mayúsculas como se puede ver en la Figura \ref{fig:familiaMayusculas}, los alumnos nos comentaron que prefieren esta opción puesto que están más familiarizados y es como aprenden a escribir.
-
-\begin{figure}[!h]
-	\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/10familiamayusculas.png}
-	\centering
-	\caption{Resultado obtenido para la palabra ``Familia'' convirtiendo el texto a mayúsculas}
-	\label{fig:familiaMayusculas}
-\end{figure}
-
+	
+	\item  Obtención de símiles:  Se introdujo la palabra ``funcionario'' con un nivel de búsqueda fácil. Se puede ver en la Figura \ref{fig:funcionarioFacil} los resultados obtenidos, donde todos fueron comprendidos perfectamente por los alumnos. 
+	
+	\begin{figure}[!h]
+		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/8funcionariofacil.png}
+		\centering
+		\caption{Resultado obtenido para la palabra ``Funcionario'' con un nivel de búsqueda fácil}
+		\label{fig:funcionarioFacil}
+	\end{figure}
+	
+	
+	\item  Definición y ejemplo:  Se buscó la palabra ``familia'' con un nivel de búsqueda fácil y añadiendo la opción de mostrar definición y ejemplo. Se puede ver en la Figura \ref{fig:familiaFacilDef} los resultados obtenidos, De estos, en la primera ficha no entienden el resultado ``clase'' pero si les ayuda la definición \textit{(``Grupo de cosas que están juntas o que se puede considerar como un todo'')}. Igual ocurre en la ficha tres pero con el resultado ``línea'' \textit{(``Descendientes de un individuo'')}, donde ellos entienden línea como una recta, pero leyendo la definición comprenden que se refiere a línea sucesoria.
+	
+	\begin{figure}[!h]
+		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/9familiafacildef.png}
+		\centering
+		\caption{Resultado obtenido para la palabra ``Familia'' con un nivel de búsqueda fácil y añadiendo la opción ``Mostrar definición y ejemplo''}
+		\label{fig:familiaFacilDef}
+	\end{figure}
+	
+	\item  Uso de mayúsculas:  Con la misma palabra ``familia'', se realizó el cambio de minúsculas a mayúsculas como se puede ver en la Figura \ref{fig:familiaMayusculas}, los alumnos nos comentaron que prefieren esta opción puesto que están más familiarizados y es como aprenden a escribir.
+	
+	\begin{figure}[!h]
+		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/10familiamayusculas.png}
+		\centering
+		\caption{Resultado obtenido para la palabra ``Familia'' convirtiendo el texto a mayúsculas}
+		\label{fig:familiaMayusculas}
+	\end{figure}
+	
 \end{itemize}
 
 
 Por último, se llevo a cabo la sección de uso libre, donde los alumnos nos decían palabras para buscar y posteriormente nos daban su opinión sobre los resultados. Las palabras introducidas fueron las siguientes:
 \begin{itemize}
-	\item La primera palabra que dijeron fue ``PASADO'' con un nivel de búsqueda fácil. Los resultados obtenidos se pueden ver en la Figura \ref{fig:pasadoFacil}. Los alumnos nos explicaron que los resultados obtenidos los entendían perfectamente.
+	\item La primera palabra que dijeron fue ``pasado'' con un nivel de búsqueda fácil. Los resultados obtenidos se pueden ver en la Figura \ref{fig:pasadoFacil}. Los alumnos nos explicaron que los resultados obtenidos los entendían perfectamente.
 	\begin{figure}[!h]
 		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/1pasadofacil.png}
 		\centering
 		\caption{Resultado obtenido para la palabra ``Pasado'' con un nivel de búsqueda fácil}
 		\label{fig:pasadoFacil}
 	\end{figure}
-
-	\item La siguiente palabra que dijeron fue ``ENAMORARSE'' con un nivel de búsqueda fácil. No mostraba ningún resultado puesto que es un verbo conjugado y en la aplicación solo se pueden introducir infinitivos, por lo que se buscó ``ENAMORAR'' con un nivel de búsqueda avanzado y añadiendo la opción de mostrar pictogramas. El resultado obtenido se puede ver en la Figura \ref{fig:enamorarAvanzado} y gracias al pictograma en el resultado ``atraer'' pudieron comprender su significado sin necesidad de explicárselo.
+	
+	\item La siguiente palabra que dijeron fue ``enamorarse'' con un nivel de búsqueda fácil. No mostraba ningún resultado puesto que es un verbo conjugado y en la aplicación solo se pueden introducir infinitivos, por lo que se buscó ``enamorar'' con un nivel de búsqueda avanzado y añadiendo la opción de mostrar pictogramas. El resultado obtenido se puede ver en la Figura \ref{fig:enamorarAvanzado} y gracias al pictograma en el resultado ``atraer'' pudieron comprender su significado sin necesidad de explicárselo.
 	\begin{figure}[!h]
 		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/2enamoraravanzado.png}
 		\centering
 		\caption{Resultado obtenido para la palabra ``Enamorar'' con un nivel de búsqueda avanzado y añadiendo pictogramas}
 		\label{fig:enamorarAvanzado}
 	\end{figure}
-
-	\item Otra palabra que se buscó fue ``FIESTA'' con un nivel de búsqueda avanzado añadiendo la opción de mostrar definición y ejemplo. Los resultados obtenidos se pueden ver en la Figura \ref{fig:fiestaAvanzado}. En la ficha número 4 aparece la palabra ``suceso'', la cual a los alumnos les confunde un poco.
+	
+	\item Otra palabra que se buscó fue ``fiesta'' con un nivel de búsqueda avanzado añadiendo la opción de mostrar definición y ejemplo. Los resultados obtenidos se pueden ver en la Figura \ref{fig:fiestaAvanzado}. En la ficha número 4 aparece la palabra ``suceso'', la cual a los alumnos les confunde un poco.
 	Por ello, decidimos comprobar si la definición y el ejemplo que aparecía les podría ayudar (\textit{``Una ocasión en la que la gente puede reunirse para la interacción y el entretenimiento social'', ``Un evento social especificado vagamente'', ``Él planeo una fiesta para celebrar el Día de la Bastilla''}), pero esta definiciones y ejemplo llevan a un mayor grado de confusión al utilizar palabras como ``interacción'', ``vagamente'' o ``Día de la Bastilla'', términos con los cuales no están familiarizados y no conocen sus significados. En cambio, la definición que se muestra en la ficha número 2 (\textit{``Cualquier tipo de diversión que produce alegría''}), la entendían perfectamente al utilizar palabras que conocen su significado.
 	\begin{figure}[!h]
 		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/3fiestaavanzadodef.png}
@@ -836,8 +896,8 @@ Por último, se llevo a cabo la sección de uso libre, donde los alumnos nos dec
 		\caption{Resultado obtenido para la palabra ``Fiesta'' con un nivel de búsqueda avanzado y añadiendo tanto pictogramas como definición y ejemplo}
 		\label{fig:fiestaAvanzado}
 	\end{figure}
-
-	\item A continuación, se introdujo la palabra  ``DETECTIVE'' con un nivel de búsqueda avanzado sin mostrar pictogramas ni definición y ejemplo. Los resultados obtenidos se pueden ver en la Figura \ref{fig:detectiveAvanzado}. El resultado de la primera ficha (``Detective es como un agente'') la entendían sin ningún problema, pero en la segunda ficha aparece el resultado ``Detective es un paco'', el cual hace referencia a una obra de teatro y los alumnos no entienden la relación existente entre ese término y el buscado.
+	
+	\item A continuación, se introdujo la palabra  ``detective'' con un nivel de búsqueda avanzado sin mostrar pictogramas ni definición y ejemplo. Los resultados obtenidos se pueden ver en la Figura \ref{fig:detectiveAvanzado}. El resultado de la primera ficha (``Detective es como un agente'') la entendían sin ningún problema, pero en la segunda ficha aparece el resultado ``Detective es un paco'', el cual hace referencia a una obra de teatro y los alumnos no entienden la relación existente entre ese término y el buscado.
 	De los resultados obtenidos, se pinchó en uno de ellos para realizar la búsqueda de ese término en concreto en vez de tener que introducirlo en el buscador. La palabra pinchada fue ``investigador'' y de los resultados obtenidos, los alumnos entendieron todos los significados.
 	\begin{figure}[!h]
 		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/4detectiveavanzado.png}
@@ -847,31 +907,31 @@ Por último, se llevo a cabo la sección de uso libre, donde los alumnos nos dec
 	\end{figure}
 	
 	
-	\item La siguiente palabra que se busco fue ``POLICIA'' con un nivel de búsqueda avanzado sin mostrar pictogramas ni definición y ejemplo. Los resultados obtenidos se pueden ver en la Figura \ref{fig:policiaAvanzado} y de la primera ficha sabían el significado de todos los conceptos excepto de ``dotación'' y de la segunda ficha no entendían la relación existente entre el concepto buscado y el resultado ``tira''. Posteriormente se les explicó que ``tira'' se refería al verbo tirar.
+	\item La siguiente palabra que se busco fue ``policía'' con un nivel de búsqueda avanzado sin mostrar pictogramas ni definición y ejemplo. Los resultados obtenidos se pueden ver en la Figura \ref{fig:policiaAvanzado} y de la primera ficha sabían el significado de todos los conceptos excepto de ``dotación'' y de la segunda ficha no entendían la relación existente entre el concepto buscado y el resultado ``tira''. Posteriormente se les explicó que ``tira'' se refería al verbo tirar.
 	\begin{figure}[!h]
 		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/5policiaavanzado.png}
 		\centering
 		\caption{Resultado obtenido para la palabra ``Policía'' con un nivel de búsqueda avanzado}
 		\label{fig:policiaAvanzado}
 	\end{figure}
-
- 
- 	\item Después se introdujo la palabra ``SIRENA'' con un nivel de búsqueda avanzado y mostrando pictogramas. Los resultados obtenidos se pueden ver en la Figura \ref{fig:sirenaAvanzado}, de los cuales entendían todos pero echaban en falta el resultado de sirena relacionado con el ser mitológico.
- \begin{figure}[!h]
- 	\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/6sirenaavanzado.png}
- 	\centering
- 	\caption{Resultado obtenido para la palabra ``Sirena'' con un nivel de búsqueda avanzado y añadiendo la opción de mostrar pictogramas}
- 	\label{fig:sirenaAvanzado}
- \end{figure}
- 
-	\item Por último, se introdujo la palabra ``SOSO'' con un nivel de búsqueda avanzado y mostrando pictogramas. Los resultados obtenidos se pueden ver en la Figura \ref{fig:sosoAvanzado}, y fue correcto excepto que el pictograma de ``pesado'' en el cual aparece comida, no tiene relación directa con el propio significado de la palabra buscada.
-\begin{figure}[!h]
-	\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/7sosoavanzado.png}
-	\centering
-	\caption{Resultado obtenido para la palabra ``Soso'' con un nivel de búsqueda avanzado y añadiendo la opción de mostrar pictogramas}
-	\label{fig:sosoAvanzado}
-\end{figure}
-	\end{itemize}
+	
+	
+	\item Después se introdujo la palabra ``sirena'' con un nivel de búsqueda avanzado y mostrando pictogramas. Los resultados obtenidos se pueden ver en la Figura \ref{fig:sirenaAvanzado}, de los cuales entendían todos pero echaban en falta el resultado de sirena relacionado con el ser mitológico.
+	\begin{figure}[!h]
+		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/6sirenaavanzado.png}
+		\centering
+		\caption{Resultado obtenido para la palabra ``Sirena'' con un nivel de búsqueda avanzado y añadiendo la opción de mostrar pictogramas}
+		\label{fig:sirenaAvanzado}
+	\end{figure}
+	
+	\item Por último, se introdujo la palabra ``soso'' con un nivel de búsqueda avanzado y mostrando pictogramas. Los resultados obtenidos se pueden ver en la Figura \ref{fig:sosoAvanzado}, y fue correcto excepto que el pictograma de ``pesado'' en el cual aparece comida, no tiene relación directa con el propio significado de la palabra buscada.
+	\begin{figure}[!h]
+		\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/7sosoavanzado.png}
+		\centering
+		\caption{Resultado obtenido para la palabra ``Soso'' con un nivel de búsqueda avanzado y añadiendo la opción de mostrar pictogramas}
+		\label{fig:sosoAvanzado}
+	\end{figure}
+\end{itemize}
 
 
 Después de realizar la evaluación guiada, les hicimos unas preguntas relacionadas con la usabilidad de la aplicación. Les preguntamos si la utilizarían habitualmente en su día a día y todos nos contestaron que sí, argumentando que les sirve para poder explicar y entender conceptos más complejos. Otra pregunta que se les realizó fue que si las opciones de mostrar o no tanto los pictogramas, como la definición y el ejemplo y convertir a mayúsculas o minúsculas preferían que fuese configurable o no. La respuesta de todos ellos es que es mucho más cómodo que sea configurable para que de esta forma pueden elegir como mostrar los resultados del concepto buscado.
@@ -882,24 +942,24 @@ En definitiva, a todos los allí presentes les encantó la aplicación así como
 Tras terminar la evaluación con el primer grupo, se realizó con el segundo grupo. En esta evaluación, se intentó seguir el mismo proceso utilizado con el primer grupo pero debido a que los alumnos eran más pequeños y se desconcentraban con mayor facilidad, solo pudimos seguir la parte guiada en unas cuantas preguntas y el resto se analizó con el profesor en ese momento presente. Los resultados obtenidos se explican a continuación:
 
 \begin{itemize}
-	\item PRUEBA 1 - Búsqueda con nivel fácil: La primera palabra introducida fue ``PUENTE'' con un nivel de búsqueda fácil y con las opciones de pictograma y definición y ejemplo predeterminadas. En la Figura \ref{fig:puenteFacil} se pueden ver los resultados obtenidos, donde a los alumnos no les quedaba claro los distintos significados, asi que probamos a añadir la opción de mostrar pictogramas y de esta forma si los comprendían.
+	\item  Búsqueda con nivel fácil: La primera palabra introducida fue ``puente'' con un nivel de búsqueda fácil y con las opciones de pictograma y definición y ejemplo predeterminadas. En la Figura \ref{fig:puenteFacil} se pueden ver los resultados obtenidos, donde a los alumnos no les quedaba claro los distintos significados, asi que probamos a añadir la opción de mostrar pictogramas y de esta forma si los comprendían.
 	
-	\item PRUEBA 2 - Búsqueda con nivel medio: Se introdujo la misma palabra ``PUENTE'' pero aumentando el nivel de búsqueda a medio. En la Figura \ref{fig:puenteMedio} se pueden ver los resultados obtenidos. En este caso hubo ocurrió lo mismo que en la prueba 1, y es que si se añaden los pictogramas entienden mucho mejor los resultados que sin ellos, por ejemplo para la palabra ``arco''.
+	\item Búsqueda con nivel medio: Se introdujo la misma palabra ``puente'' pero aumentando el nivel de búsqueda a medio. En la Figura \ref{fig:puenteMedio} se pueden ver los resultados obtenidos. En este caso hubo ocurrió lo mismo que en la prueba 1, y es que si se añaden los pictogramas entienden mucho mejor los resultados que sin ellos, por ejemplo para la palabra ``arco''.
 	
-	\item PRUEBA 3 - Búsqueda con nivel avanzado: Esta vez, se volvió a introducir la palabra ``PUENTE'' con un nivel de búsqueda avanzado. En la Figura  \ref{fig:puenteAvanzado} se pueden ver los resultados obtenidos donde se puede ver que con este nivel se muestra un resultado más que en el anterior nivel. A los alumnos les ocurrió lo mismo que al grupo 1 con la palabra ``placa'', ya que no entendían su significado en dicho contexto.
+	\item  Búsqueda con nivel avanzado: Esta vez, se volvió a introducir la palabra ``puente'' con un nivel de búsqueda avanzado. En la Figura  \ref{fig:puenteAvanzado} se pueden ver los resultados obtenidos donde se puede ver que con este nivel se muestra un resultado más que en el anterior nivel. A los alumnos les ocurrió lo mismo que al grupo 1 con la palabra ``placa'', ya que no entendían su significado en dicho contexto.
 	
-	\item PRUEBA 4 - Obteniendo un único resultado: La palabra introducida fue ``DICTADOR'' con un nivel de búsqueda avanzado y sin mostrar ni pictogramas ni definición y ejemplo. En la Figura \ref{fig:dictadorAvanzado} se pueden ver los resultados obtenidos, de estos no entendían el significado de la palabra ``soberano'', asi que se modificó el nivel a medio donde comprendían mejor los resultados. En general, ellos entendían la palabra ``dictador'' como persona que dicta un texto a alguien, por lo que a través de la aplicación supieron nuevas acepciones para dicho  concepto.
-
-	\item PRUEBA 5 - Obteniendo varios resultados (I):  Se introdujo la palabra ``DEFENSA'' con un nivel de búsqueda fácil. En la Figura \ref{fig:defensaFacil} se pueden ver los resultados obtenidos. Estos resultados eran bastante complicados de entender para los alumnos. En la dicha número 1, les confundía la palabra ``construcción'', aunque explicándoselo si sabían lo que era.
+	\item  Obteniendo un único resultado: La palabra introducida fue ``dictador'' con un nivel de búsqueda avanzado y sin mostrar ni pictogramas ni definición y ejemplo. En la Figura \ref{fig:dictadorAvanzado} se pueden ver los resultados obtenidos, de estos no entendían el significado de la palabra ``soberano'', así que se modificó el nivel a medio donde comprendían mejor los resultados. En general, ellos entendían la palabra ``dictador'' como persona que dicta un texto a alguien, por lo que a través de la aplicación supieron nuevas acepciones para dicho  concepto.
 	
-	\item PRUEBA 6 - Obteniendo varios resultados (II):  Se realizó otra prueba para obtener varios resultados. En este caso de introdujo la palabra ``DANZA''  sin pictogramas y con un nivel de búsqueda avanzado. En la Figura \ref{fig:danzaAvanzado} se pueden ver los resultados obtenidos, de los cuales los alumnos entendieron todos sin ningún problema.
+	\item  Obteniendo varios resultados (I):  Se introdujo la palabra ``defensa'' con un nivel de búsqueda fácil. En la Figura \ref{fig:defensaFacil} se pueden ver los resultados obtenidos. Estos resultados eran bastante complicados de entender para los alumnos. En la dicha número 1, les confundía la palabra ``construcción'', aunque explicándoselo si sabían lo que era.
 	
-	\item PRUEBA 7 - Obtención de metáforas:  Se introdujo la palabra ``PORTERO'' con un nivel de búsqueda avanzado y añadiendo la opción de mostrar pictogramas. Se puede ver en la Figura \ref{fig:porteroAvanzado} los resultados obtenidos. Los alumnos conocían los significados que están relacionados con portero de deporte y portero de profesión, pero la palabra ``funcionario'' y ``administrador'' no la entendían. A parte, echaban en falta que apareciese el resultado de portero automático.
+	\item  Obteniendo varios resultados (II):  Se realizó otra prueba para obtener varios resultados. En este caso de introdujo la palabra ``danza''  sin pictogramas y con un nivel de búsqueda avanzado. En la Figura \ref{fig:danzaAvanzado} se pueden ver los resultados obtenidos, de los cuales los alumnos entendieron todos sin ningún problema.
+	
+	\item  Obtención de metáforas:  Se introdujo la palabra ``portero'' con un nivel de búsqueda avanzado y añadiendo la opción de mostrar pictogramas. Se puede ver en la Figura \ref{fig:porteroAvanzado} los resultados obtenidos. Los alumnos conocían los significados que están relacionados con portero de deporte y portero de profesión, pero la palabra ``funcionario'' y ``administrador'' no la entendían. A parte, echaban en falta que apareciese el resultado de portero automático.
 \end{itemize}
 
 
 A partir de este momento, la prueba se realizó con el profesor. Nos comentó que en su día a día al impartir clase existían ciertas palabras que no sabe como explicar su significado a los alumnos.
-Una de ellas fue ``TALAR'', la cuál la buscamos en la aplicación con nivel de búsqueda avanzado y añadiendo pictogramas. El resultado obtenido se puede ver en la Figura \ref{fig:talarAvanzado} y este era correcto, pero nos comentó que faltaba el pictograma que representa el concepto en sí. Del resultado que se obtuvo (``talar es cortar''), el pictograma de ``cortar'' no era el adecuado según su acepción, ya que debería aparecer uno de ``talar'' en vez de ``cortar''.
+Una de ellas fue ``talar'', la cuál la buscamos en la aplicación con nivel de búsqueda avanzado y añadiendo pictogramas. El resultado obtenido se puede ver en la Figura \ref{fig:talarAvanzado} y este era correcto, pero nos comentó que faltaba el pictograma que representa el concepto en sí. Del resultado que se obtuvo (``talar es cortar''), el pictograma de ``cortar'' no era el adecuado según su acepción, ya que debería aparecer uno de ``talar'' en vez de ``cortar''.
 
 \begin{figure}[!h]
 	\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/talaravanzado.png}
@@ -908,7 +968,7 @@ Una de ellas fue ``TALAR'', la cuál la buscamos en la aplicación con nivel de 
 	\label{fig:talarAvanzado}
 \end{figure}
 
-Otra palabra que se buscó fue ``SACUDIR'' con nivel de búsqueda avanzado y mostrando tanto los pictogramas como la definición y el ejemplo. Los resultados obtenidos se pueden ver en la Figura \ref{fig:sacudirAvanzado} . Algunos de estos fueron correctos y otros no. De los correctos, el profesor indicó que debería aparecer primero el resultado más común o el que mejor define el concepto (en este caso ``mover'' antes que ``batir''), y otros resultados como ``trasladar'' y ``reducir'' no deberían aparecer por que no están relacionados con el concepto buscado.
+Otra palabra que se buscó fue ``sacudir'' con nivel de búsqueda avanzado y mostrando tanto los pictogramas como la definición y el ejemplo. Los resultados obtenidos se pueden ver en la Figura \ref{fig:sacudirAvanzado} . Algunos de estos fueron correctos y otros no. De los correctos, el profesor indicó que debería aparecer primero el resultado más común o el que mejor define el concepto (en este caso ``mover'' antes que ``batir''), y otros resultados como ``trasladar'' y ``reducir'' no deberían aparecer por que no están relacionados con el concepto buscado.
 Por otro lado, la definición y ejemplo que aparecen son correctos (\textit{Mover o causar movimiento de un lado a otro}). 
 \begin{figure}[!h]
 	\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/EvaluacionFinal/sacudiravanzado.png}
@@ -919,7 +979,29 @@ Por otro lado, la definición y ejemplo que aparecen son correctos (\textit{Move
 
 Nos comentó también que prefiere que la aplicación este en mayúsculas, pero que sea configurable. Y lo mismo para los pictogramas.
 
-Finalmente tras realizar dicha evaluación con dos grupos tan dispares entre sí y con necesidades totalmente distintas, llegamos a la conclusión de que la aplicación solamente sería útil para usuarios cuyo grado de discapacidad no fuera muy elevado. Puesto que si la aplicación fuera destinada para personas como las del grupo 2 no les ayudaría, si no todo lo contrario, les complicaría aún más el poder entender el significado de cierto concepto.
+%-------------------------------------------------------------------
+\section{Análisis de los resultados}
+%-------------------------------------------------------------------
+\label{cap:subsec:analisisResultadosEvaluacion}
+Finalmente, tras realizar la evaluación con ambos grupos y teniendo ya resultados firmes nos dimos cuenta de la gran diferencia que existía entre la utilización de la aplicación por parte del primer grupo y del segundo.
 
+La mayoría de los resultados obtenidos en el  primer grupo fueron entendidos sin ningún problema. En el caso de la búsqueda de palabras polisémicas, conocían el significado de gran parte de los resultados obtenidos e incluso echaban en falta que apareciesen más conceptos relacionados con la palabra buscada.
+En cambio, en el segundo grupo eran muy pocos los resultados que comprendían sin necesidad de explicárselo, estos son conceptos bastante complicados para ellos, haciendo así que les lleve a más confusión en vez de aclararles y facilitarles la comprensión del significado.
+
+Por otro lado, el orden en que se muestran los resultados para el primer grupo es correcto pero en cambio para el segundo grupo no. Para ellos debería aparecer primero el resultado más común y directo con la palabra búsqueda.
+
+En cuanto a los pictogramas, a ambos grupos les resultaba necesario su aparición. Haciendo así que un resultado que no comprendían, gracias a estos podían hacerse una idea cercana de su significado.  Hay que destacar que para el segundo grupo, los pictogramas mostrados deberían ser aún mas aclaratorios, es decir, debería aparecer el pictograma resultante de la relación existente entre el resultado y el contexto en el que se utiliza y no el pictograma de la palabra en sí.
+
+Sobre la definición y el ejemplo, la gran mayoría de resultados no sirve para ayudar a entender el significado, puesto que son frases complejas, muy largas y algunas no tienen una relación directa con el resultado en sí. Sobre todo para el segundo grupo, las definiciones y ejemplos mostrados les confundía más ya que no se llegaba a entender ni la definición ni el ejemplo de la mayoría de las palabras buscadas.
+
+Por último, la diferencia entre leer el texto en mayúsculas y minúsculas era bastante considerable. Un texto en mayúsculas les ayudaba a leer con mayor facilidad.
+
+Tras estos resultados, obtuvimos distintas conclusiones. La principal es que la aplicación solo es útil para usuarios cuyo grado de discapacidad cognitivo no fuera muy elevado.  Puesto que si la aplicación fuera destinada para personas como las del grupo 2 no les ayudaría, si no todo lo contrario, les complicaría aún más el poder entender el significado de cierto concepto. Sin embargo, para personas con un grado de discapacidad menor les sería de gran utilidad.
 Ellos necesitan resultados mucho más fáciles de los que la aplicación devuelve y organizados en una estructura totalmente distinta a la que nosotros implementamos. En cambio, para personas con un mayor grado de independencia les resultaría bastante útil y les simplificaría ciertas situaciones que puedan vivir.
 
+Por otro lado, la aplicación debería mostrar los pictogramas según la relación existente entre el resultado obtenido y la palabra buscada y no de la palabra en sí. De esta forma, a los usuarios les sería de gran utilidad.
+Igualmente deberían aparecer pictogramas en todos los resultados y no solo en algunos.
+
+Las definiciones y ejemplos que se muestran no son de gran utilidad, deberían aparecer resultados mucho más sencillos, con frases mucho más cortas y sin utilizar palabras tan complejas.
+
+La aplicación en sí no es precisa en cuanto a los resultados obtenidos, muchos de ellos no tienen relación directa con el concepto buscado por lo que devuelve datos erróneos. Pero en cambio, para otras palabras devuelve resultados claros y precisos haciendo que su entendimiento sea mucho más fácil y rápido.
