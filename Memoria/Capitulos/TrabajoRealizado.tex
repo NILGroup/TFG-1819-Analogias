@@ -10,9 +10,9 @@ En este capítulo vamos a describir que trabajo hemos hecho cada uno
 
 Primero investigué las bibliotecas que utilizaremos para el procesado de las palabras, al principio encontramos una biblioteca para el procesado de texto en Python, que es la ntlk pero vimos que las etiquetas que ponía a las palabras no eran del todo correctas por lo que buscamos otra biblioteca y encontramos Spacy, con esta ya pudimos etiquetar bien todas las palabras diseñando un programa inicialmente en el Jupyter. A continuación, investigué que tecnologías utilizar para la realización del prototipo tecnológico, encontramos como entorno de desarrollo Pycharm y como framework Django. Una vez seleccionadas las tecnologías, investigamos como se utilizaban y nos pusimos a trabajar en el prototipo tecnológico.
 
-Yo me encargué de conectar las vistas html con la lógica en Python, a continuación vimos como se implementaba un formulario y como se hacia una redirección a vista. Cuando supimos como se hacia todo esto, integramos el código desarrollado en Jupyter en nuestro servicio web finalizando el prototipo tecnológico. \newline
+Yo me encargué de conectar las vistas html con la lógica en Python, a continuación vimos como se implementaba un formulario y como se hacia una redirección a vista. Cuando supimos como se hacia todo esto, integramos el código desarrollado en Jupyter en nuestro servicio web finalizando el prototipo tecnológico.
 
-En cuanto a la memoria me la dividí a partes iguales con Pablo, intentando que los dos toquemos todo, por lo que ambos redactamos tanto una parte de la introducción (en la que redacté la motivación) como el estado de la cuestión (yo hice el apartado de lectura fácil y Procesamiento del Lenguaje Natural). \newline
+En cuanto a la memoria me la dividí a partes iguales con Pablo, intentando que los dos toquemos todo, por lo que ambos redactamos tanto una parte de la introducción (en la que redacté la motivación) como el estado de la cuestión (yo hice el apartado de lectura fácil y Procesamiento del Lenguaje Natural).
 
 La investigación de como funcionaba ConceptNet y su API la hicimos conjuntamente. A partir de aquí se realizó un prototipo con esta red semántica que contenía dos servicios web uno para los sinónimos y otro para los términos relacionados. 
 
@@ -22,19 +22,68 @@ Tras la realización del prototipo y hacer las pruebas correspondientes nos dimo
 
 Se decidió probar con WordNet, inicialmente tuvimos muchos problemas para poder obtener los recursos, ya que no tienen una API, sino que es una base de datos que te debes descargar.
 
-Inicialmente se probó con el corpus WordNet de nltk, pero se descubrió que tanto sus definiciones como sus ejemplos solo estaban en inglés asique se investigaron los recursos que utilizaban interfaces como eurowordnet que tenian tanto definiciones como ejemplos en español y se descargó dicha base de datos de la pagina de princeton.
+
+Con los recursos descargados, estudiamos como estaban estructurados para poder utilizarlos según nuestros intereses y nos pusimos a programar el prototipo.
+
+Nos descargamos los ficheros de la base de datos e investigamos como funcionaban para poder utilizarlos. Yo empecé a diseñar la vista del prototipo. Y después, nos pusimos los dos con la parte del backend.
+
+
+Después, ya empezamos a trabajar en lo que sería el proyecto propiamente dicho, empezando por diseñar la vista. Para ello realizamos una iteración competitiva tanto Pablo como yo, para ver con que diseño nos quedábamos finalmente.
+
+Se decidió que mi diseño de la vista era el que se va a implementar, añadiendo algunos aspectos que había añadido Pablo en su diseño. Por lo que adapté mi vista añadiendo dichos cambios para utilizarla en el proyecto que se desarrollaría finalmente.
+
+A continuación, desarrollé la parte de la lógica de la vista de la aplicación, ya que aparte de la lógica de negocio desarrollada en Python, para mostrar los datos correctamente utilizamos jQuery con peticiones ajax para tratar los datos. Esta parte me llevó varios ya que se presentaron varias dificultades.
+
+Al terminar esta tarea, nos reunimos para desplegar el proyecto en el servidor que nos proporcionó el grupo NIL de la facultad de informática. 
+
+Cuando subimos el proyecto, nos dimos cuenta de que en el servidor había varios problemas, por lo que estuvimos varios días solucionándolos para que funcionase correctamente de cara a la evaluación que teníamos por delante en pocos días.
+
+
+Cuando se solucionaron los errores, terminamos la escritura de la memoria y diseñamos la evaluación que iba a tener lugar unos días más tarde, dando por terminado el proyecto.
 
 
 \section{Trabajo realizado por Pablo}
 \label{cap:sec:trabajo_Pablo}
 
-Al igual que mi compañera, lo primero que hicimos fue investigar como podíamos etiquetar las palabras, encontramos la librería ntlk de Python para hacerlo, pero tras un primer intento nos dimos cuenta de que muchas palabras no estaban etiquetadas como deberían por lo que decidimos buscar alternativas, indagando un poco encontramos Spacy, la probamos y obtuvimos unos resultados mucho mejores que con ntlk por lo que decidimos utilizar esta última (todo esto lo hicimos desde el Jupyter). 
+Al igual que mi compañera, lo primero que hicimos fue investigar como podíamos etiquetar las palabras, encontramos la librería NLTK de Python para hacerlo, pero tras un primer intento nos dimos cuenta de que muchas palabras no estaban etiquetadas como deberían por lo que decidimos buscar alternativas, indagando un poco encontramos Spacy, la probamos y obtuvimos unos resultados mucho mejores que con NLTK por lo que decidimos utilizar esta última (todo esto lo hicimos desde el Jupyter). 
 
 Cuando terminamos de etiquetar las palabras nos pusimos a investigar herramientas para el desarrollo del prototipo tecnológico y nos decantamos por utilizar Django como framework integrado en Pycharm, que es el entorno de desarrollo.
 
-A continuación empezamos el desarrollo del prototipo tecnológico primero investigando como se utilizaban estas tecnologías(implementar formularios, hacer las redirecciones a vista...). Para finalizar migramos lo hecho desde Jupyter a nuestro servicio web. \newline
+A continuación empezamos el desarrollo del prototipo tecnológico primero investigando como se utilizaban estas tecnologías(implementar formularios, hacer las redirecciones a vista...). Para finalizar migramos lo hecho desde Jupyter a nuestro servicio web.
 
-Irene y yo nos dividimos la redacción de la memoria de tal manera que los dos hicimos tanto la parte de la introducción como del estado de la cuestión, de la introducción a mí me tocó la parte de los objetivos y del estado de la cuestión la parte de figuras retóricas y servicios web. \newline
+Irene y yo nos dividimos la redacción de la memoria de tal manera que los dos hicimos tanto la parte de la introducción como del estado de la cuestión, de la introducción a mí me tocó la parte de los objetivos y del estado de la cuestión la parte de figuras retóricas y servicios web.
 
 La investigación de como funcionaba ConceptNet y su API la hicimos de manera conjunta.
+
+Tras investigar el funcionamiento de esta red semántica, empezamos a implementar un prototipo para probar si es funcional.
+
+Mientras estábamos trabajando en esto, avanzamos en la redacción de la memoria, dividiéndonos el trabajo intentando tocar los dos todas las partes de la misma.
+
+Cuando terminamos la implementación del prototipo, se lo presentamos a los directores del TFG y nos dimos cuenta de que no iba a ser útil por lo que empezamos a trabajar en otra red semántica: WordNet.
+
+Investigamos como funcionaba esta red semántica, estuvimos varios días con esto, hasta que descubrimos para acceder a los datos no hay una API pública sino que es una base de datos que hay que descargarse.
+
+Encontramos varios sitios que hacían uso de la misma y para poder descargarse los recursos había que registrarse. Me registré en varios de ellos pero no nos servían ya que no estaban en castellano. Finalmente tras varios días encontramos los recursos necesarios en la página web de la universidad de Princeton.
+
+Con los recursos descargados, estudiamos como estaban estructurados para poder utilizarlos según nuestros intereses y nos pusimos a programar el prototipo.
+
+Mientras Irene empezaba a diseñar la vista, yo empecé a desarrollar la lógica interna para integrarla con los recursos descargados.
+
+Después nos pusimos los dos con la parte de la lógica del prototipo para terminarlo cuanto antes.
+
+A continuación, empecé a diseñar una prueba estadística para comprobar de manera empírica que red semántica ofrece mejores resultados. Realicé la prueba y la puse en común con Irene para analizar los resultados obtenidos.
+
+Con los resultados de las pruebas y tras enseñar a los directores del TFG los resultados que ofrecía, decidimos que con estos recursos se desarrollaría la aplicación. 
+
+Empezamos a realizar la aplicación final. Me puse a trabajar en mi prototipo visual para la iteración competitiva con Irene para ver como sería el diseño visual.
+
+A continuación, empecé a desarrollar la base de datos de pictogramas para integrarlos en nuestra aplicación. Me descargué los pictogramas e implementé un script que relacionaba los pictogramas descargados con los recursos de WordNet, utilizando la API pública de ARASAAC, que relacionaba sus pictogramas con los recursos de WordNet mediante el offset. Sin embargo, estos offset correspondían a una versión de WordNet que no era la que estábamos utilizando, por lo que tuve que utilizar una API de la universidad de Princeton para traducir dichos offset a los que utiliza la versión que trabajamos nosotros, que es la 3.0.
+
+Cuando acabé la base de datos de pictogramas, Irene y yo subimos la aplicación que teníamos implementada en local al servidor ofrecido por el grupo NIL de la facultad de informática para que pudiese estar disponible para todo el mundo. 
+
+Cuando subimos el proyecto, nos dimos cuenta de que en el servidor había varios problemas, por lo que estuvimos varios días solucionándolos para que funcionase correctamente de cara a la evaluación que teníamos por delante en pocos días.
+
+
+Una vez subido y con los errores corregidos, seguimos avanzando en el desarrollo de la memoria y comenzamos a diseñar un formulario para realizar la evaluación de la aplicación con usuarios finales terminando el desarrollo del proyecto.
+
 
