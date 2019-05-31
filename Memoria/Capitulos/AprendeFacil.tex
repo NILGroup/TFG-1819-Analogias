@@ -212,10 +212,10 @@ Lo primero que hicimos fue presentarles la aplicación y mostrarles los prototip
 Una vez expuestos los distintos prototipos, nos dieron la enhorabuena y nos hicieron participes de la gran ayuda que supondría esta herramienta. A continuación nos dieron su opinión sobre distintos aspectos que se podrían mejorar:
 
 \begin{itemize} 
-
+	\item Modificar el color amarillo-mostaza de los textos por un color más oscuro que contraste más con el fondo blanco.
 	\item El tipo de letra debe ser Arial o Script, ya que son las letras con las que los alumnos están familiarizados y las que mejor entienden.
 	\item Añadir un reproductor que lea la frase, para hacer la aplicación accesible a aquellas personas que no puedan leer.
-	\item Incluir la opción de poder ver un vídeo para complementar la información devuelta por la aplicación.
+	\item Incluir la opción de poder ver un video para complementar la información devuelta por la aplicación.
 	\item Los pictogramas deben situarse debajo de la palabra y no al lado, ya que poner el pictograma junto a la palabra puede llevar a confusión a los usuarios finales al pensar que sería otra palabra más para leer. 
 	\item Introducción de distintas personalizaciones:
 	\begin{itemize}
@@ -226,9 +226,14 @@ Una vez expuestos los distintos prototipos, nos dieron la enhorabuena y nos hici
 	\end{itemize}
 \end{itemize}
 
-Teniendo en cuenta las observaciones de los expertos se creo el diseño final de la aplicación, que se puede ver en la Figura ........
+Teniendo en cuenta las observaciones de los expertos se creo el diseño final de la aplicación, que se puede ver en la Figura \ref{fig:disenioFinal}.
 
-
+\begin{figure}[!h]
+	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/aplicacionFinal.png}
+	\centering
+	\caption{Diseño final de la aplicación}
+	\label{fig:disenioFinal}
+\end{figure}
 
 
 
@@ -237,7 +242,7 @@ Teniendo en cuenta las observaciones de los expertos se creo el diseño final de
 %-------------------------------------------------------------------
 \label{cap:sec:implementacionApp}
 
-En esta sección, se va a hablar de los detalles de implementación de la aplicación. En el apartado \ref{cap:subsec:arquitectura} se describirá la arquitectura del proyecto. En la sección \ref{cap:subsec:database} se detallará el diseño de la base de datos así como las partes de las que está compuesta. Por último, en los apartados finales de la presente sección, se hablarán de los detalles de implementación de la aplicación tanto de la lógica interna en el apartado \ref{cap:subsec:backendapp} como de la vista en el apartado \ref{cap:subsec:frontendapp}.
+En esta sección, se va a hablar de los detalles de implementación de la aplicación. En el apartado \ref{cap:subsec:arquitectura} se describirá la arquitectura del proyecto, los distintos elementos que la componen como pueden ser la base de datos, el backend y el frontend En la sección \ref{cap:subsec:database} se detallará el diseño de la base de datos así como las tablas que la componen Por último, en los apartados finales de la presente sección, se hablarán de los detalles de implementación de la aplicación tanto de la lógica interna en el apartado \ref{cap:subsec:backendapp} donde se describirán los distintos servicios web implementados, como de la vista en el apartado \ref{cap:subsec:frontendapp} donde se describirán los elementos que la forman y su funcionalidad.
 
 
 %-------------------------------------------------------------------
@@ -257,7 +262,7 @@ La aplicación está formada por una interfaz (\textit{frontend}) la cuál reali
 Si el usuario introduce una palabra, dejando por defecto las distintas opciones que vienen y realiza la búsqueda de un concepto, la aplicación invocará a los servicios web relacionados con la obtención de metáforas (\textit{getMetaphor}) y símiles (\textit{getSimil}). A parte, si el usuario seleccionara la opción de ``Mostrar definición y ejemplo'', el servicio web invocado sería el \textit{getDefAndExample} y en caso de seleccionar la opción  ``Mostrar pictos'' se invocaría al servicio web ``getImagen'' para obtener el pictograma del resultado principal y ``getImagenPalabra'' para obtener el pictograma de cada resultado mostrado.
 
 \begin{figure}[!h]
-	\includegraphics[width=\textwidth]{Imagenes/Bitmap/Capitulo4/RelacionBackFront.png}
+	\includegraphics[width=1.2\textwidth]{Imagenes/Bitmap/Capitulo4/RelacionBackFront.png}
 	\centering
 	\caption{Relación entre \textit{Backend} y \textit{Frontend}}
 	\label{fig:relacionBackFront}
@@ -273,74 +278,59 @@ Por último, la Universidad Complutense de Madrid nos facilitó un contenedor pa
 %-------------------------------------------------------------------
 \label{cap:subsec:database}
 
- El sistema encargado de la gestión de nuestra base de datos es MariaDB. La base de datos consta de tres partes: WordNet, pictogramas y palabras fáciles. Estas partes se describirán a continuación:
+Para este proyecto, se ha utilizado una base de datos para la persistencia de los datos. El sistema encargado de la gestión de la base de datos corresponde con MariaDB y esta constituida por las tablas que se pueden ver en la Figura \ref{fig:tablasBBDD} :
 
-%\begin{figure}[!h]
-	%\includegraphics[width=.8\textwidth]{Imagenes/Bitmap/Capitulo4/tablasBBDD.png}
-	%\centering
-	%\caption{Tablas utilizadas en la Base de Datos}
-	%\label{fig:tablasBBDD}
-%\end{figure}
+\begin{figure}[!h]
+	\includegraphics[width=.8\textwidth]{Imagenes/Bitmap/Capitulo4/tablasBBDD.png}
+	\centering
+	\caption{Tablas utilizadas en la Base de Datos}
+	\label{fig:tablasBBDD}
+\end{figure}
 
 \begin{itemize}
-	\item Base de datos de WordNet. Versión 3.0 de MCR (\textit{Multilingual Central Repository}). Se descargaron los ficheros\footnote{http://adimen.si.ehu.es/web/MCR/}, y se integraron en nuestra base de datos.  MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguas diferentes: inglés, español, catalán, vasco, gallego y portugués. Nosotros, integramos únicamente la versión en español,  
-	utilizando principalmente cuatro tablas: ``wei\_spa-30\_variant'', ``wei\_spa-30\_relation'', ``wei\_spa-30\_examples'' y ``wei\_spa-30\_synset''. Estas tablas se describirán a continuación:
+	\item Se ha hecho uso de la base de datos propia de WordNet, llamada MCR (\textit{Multilingual Central Repository})\footnote{http://adimen.si.ehu.es/web/MCR/}, y se ha utilizado la versión 3.0.  MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués.  
+	
+	Se han utilizado principalmente cuatro tablas: ``wei\_spa-30\_variant'', ``wei\_spa-30\_relation'', ``wei\_spa-30\_examples'' y ``wei\_spa-30\_synset''. 
+	De la tabla ``wei\_spa-30\_variant'' solamente se han utilizado estos atributos:
 	\begin{itemize}
-		\item Tabla ``wei\_spa-30\_variant'': Guarda la palabra con su \textit{offset} correspondiente y el tipo de palabra. Contiene los siguientes atributos:
-		\begin{itemize}
-			\item \textit{word}: Palabra.
-			\item \textit{sense}: Acepción que tiene asignada la palabra.
-			\item \textit{offset}: Identificador de la palabra. Aunque una misma palabra, si es polisémica, puede tener distintos \textit{offsets} (uno por cada significado).
-			\item \textit{pos}: Categoría gramatical de la palabra.
-			\item \textit{csco}: Puntuación asignada.
-			
-		\end{itemize}
-		\item Tabla ``wei\_spa-30\_relation'': Esta tabla contiene las relaciones entre \textit{synsets} y el tipo de las mismas. Consta de los siguientes atributos:
-			\begin{itemize}
-				\item \textit{relation}: Tipo de relación.
-				\item \textit{sourceSynset}: Contiene el \textit{offset} que identifica al \textit{synset} que está relacionado con \textit{targetSynset}.  
-				\item \textit{targetSynset}: Contiene el \textit{offset} que identifica al \textit{synset} que está relacionado con \textit{sourceSynset}.
-				\item \textit{csco}: Puntuación asignada.
-				\item \textit{wnSource}: WordNet de origen de la información.
-			\end{itemize}
-		\item Tabla ``wei\_spa-30\_examples'': Contiene los ejemplos de las palabras. Sus atributos son:
-			\begin{itemize}
-				\item \textit{word}: Palabra que tiene asignada el ejemplo.
-				\item \textit{sense}:Acepción que tiene asignada la palabra.
-				\item \textit{examples}: Contiene el ejemplo correspondiente.
-				\item \textit{offset}: Contiene el \textit{offset} de la palabra. 
-				\item \textit{pos}: Categoría gramatical de la palabra.
-				
-			\end{itemize}
-		\item Tabla ``wei\_spa-30\_synset'': Contiene las definiciones de las palabras. Sus atributos son los siguientes:
-			\begin{itemize}
-				\item \textit{offset}: \textit{Offset} que identifica a la palabra.
-				\item \textit{pos}: Categoría gramatical de la palabra.
-				\item \textit{gloss}: Definición correspondiente.
-			\end{itemize} 
+		\item \textit{word}: Contiene la palabra. Cuando el usuario introduce la palabra en la aplicación, se realiza una búsqueda en dicha tabla para saber si la palabra buscada se encuentra .
+		\item \textit{offset}: Es el identificador de la palabra, aunque una misma palabra puede tener distintos \textit{offsets} (uno por cada acepción). 
 	\end{itemize}
 
-	\item Palabras fáciles: las palabras fáciles utilizadas se almacenan en tres tablas llamadas ``1000\_palabras\_faciles'', ``5000\_palabras\_faciles'' y ``10000\_palabras\_faciles'' que contienen la palabras fáciles de la RAE. Las tres se componen de dos columnas:
+	De la tabla ``wei\_spa-30\_relation'', solamente se han utilizado estos atributos:
+	\begin{itemize}
+		\item \textit{sourceSynset}: Contiene el \textit{offset} de hipónimo.  
+		\item \textit{targetSynset}: Contiene el \textit{offset} de hiperónimo.  
+	\end{itemize}
+
+
+	De la tabla ``wei\_spa-30\_examples'', se han utilizado los siguientes atributos:
+		\begin{itemize}
+		\item \textit{offset}: Contiene el \textit{offset} de la palabra.  
+		\item \textit{examples}: Contiene el ejemplo correspondiente.
+	\end{itemize}
+	
+	De la tabla ``wei\_spa-30\_synset'', se han utilizado los siguientes atributos:
+	\begin{itemize}
+		\item \textit{offset}: Contiene el \textit{offset} de la palabra.  
+		\item \textit{gloss}: Contiene la definición correspondiente.
+	\end{itemize} 
+
+
+	\item En vez de tener tres ficheros donde guardar las 1.000, 5.000 y 10.000 palabras más usadas de la RAE, se guardaron los datos en tres tablas llamadas ``1000\_palabras\_faciles'', ``5000\_palabras\_faciles'' y ``10000\_palabras\_faciles''. Las tres se componen de dos columnas:
 	\begin{itemize}
 		\item \textit{word}: Contiene la palabra fácil.  
 		\item \textit{tag}: Contiene el tipo de palabra que es (sustantivo, adjetivo o verbo).
 	\end{itemize} 
 	 
 	 
-	\item Pictogramas: Formado por una tabla llamada ``pictos'', que almacena la información de los pictogramas. Para formar esta tabla se siguió el siguiente proceso:
+	\item Una tabla llamada ``pictos'', que almacena la información de los pictogramas y está formada por las siguientes columnas:
 	\begin{itemize}
-		\item Primer paso: Descarga de pictogramas. Se descargaron todos los pictogramas disponibles en \textit{ARASAAC} a través de su página web.\footnote{http://www.arasaac.org/descargas.php} Cada pictograma tiene como nombre la palabra que representa.
-		\item Segundo paso: Relacionar el pictograma de \textit{ARASAAC} con el \textit{offset} de la versión 3.0 de WordNet. Para ello se implementó un script, que realizando peticiones GET \footnote{https://api.arasaac.org/api/pictograms/es/search/<palabra>} obtenía tanto el id que le asignaba \textit{ARASAAC} al pictograma, como el \textit{offset} que le correspondía en WordNet. Sin embargo, el \textit{offset} obtenido, se corresponde con la versión 3.1 de \textit{WordNet}, y nosotros trabajamos con la versión 3.0. Con cada \textit{offset} obtenido mediante este proceso, se hacía otra petición GET\footnote{https://wordnet-rdf.princeton.edu/json/id/<offset3.1>} para obtener su correspondiente \textit{offset} en la versión 3.0.
-		\item Tercer paso: Subida de datos a la tabla ``pictos''. Para ello, se implementó otro script que con todos los datos recopilados anteriormente, codificaba la imagen obtenida a binario, utilizando una numeración ``base64'' y asignándole: el \textit{offset} de WordNet 3.0, el id de \textit{ARASAAC} y la palabra representada. Quedando como resultado una tabla con las siguientes columnas:
-		\begin{itemize}
-			\item \textit{offset30}: Es el identificador del \textit{synset} en la versión 3.0 de WordNet.
-			\item palabra: Contiene la palabra del pictograma.
-			\item id\_picto: Es el identificador del pictograma.
-			\item imagen: Contiene el pictograma en formato binario.
-		\end{itemize}
-		
+		\item \textit{offset30}: Es el identificador del \textit{synset} en la versión 3.0 de WordNet.
+		\item palabra: Contiene la palabra del pictograma.
+		\item id\_picto: Es el identificador del pictograma.
+		\item imagen: Contiene el pictograma con una codificación binaria ``base64''.
 	\end{itemize}
-	
 
 \end{itemize}
 
@@ -375,13 +365,7 @@ A continuación se comprobó de manera independiente cuantos de los sinónimos y
 	\label{fig:tabla_cuantitativa}
 \end{figure}
 
-En la Tabla \ref{fig:tabla_cuantitativa} se muestran los resultados de la prueba cuantitativa realizada, como se puede observar, en términos generales, WordNet ofrece mejores resultados que ConceptNet ya que el porcentaje de palabras sin términos relacionados, sinónimos o ambas, es mayor en esta última. 
-
-En el caso de la primera lista utilizada (1.000 palabras fáciles) ConceptNet no encontró ningún resultado para el 68,2\% de las palabras introducidas mientras que WordNet no encontró nada para el 62,6\%. En el caso de los términos relacionados, ConceptNet no encontró ninguno para el 68,75\% de las palabras, mientras que en el caso de WordNet fue del 24,72\%. Para el porcentaje de palabras sin sinónimos los resultados fueron de 88,06 para ConceptNet y 26,5 para WordNet. 
-
-La siguiente lista probada fue la de 5.000 palabras fáciles, para la cual, como se ha explicado anteriormente, se han evaluado los mismos parámetros. Las palabras sin resultado han sido el 49,6\% para el caso de ConceptNet y 56,5\% en el caso de WordNet. El porcentaje de palabras sin términos relacionados ha sido de 47,15\% en ConceptNet y 16,19\% en WordNet. En los sinónimos, no se encontraron para el 77,84\% de las palabras utilizando ConceptNet  y tan solo en un 15,05\% con WordNet. 
-
-A continuación, utilizando la lista de 10.000 palabras fáciles, los resultados han sido: ConceptNet ha dejado un 43,4\% de palabras sin resultado frente al 55\% de WordNet, en los términos relacionados el 43,75\% usando ConceptNet  frente al 15,05\% de WordNet. En los sinónimos, ConceptNet no ha encontrado resultados en el 76,7\% de las palabras y WordNet en el 9,2\%. Por último, se ha realizado un conteo de las palabras totales que ha generado cada red semántica, con un resultado de 2.652 sinónimos y términos relacionados generado por ConceptNet, mientras que WordNet ha generado 14.172.
+En la Tabla \ref{fig:tabla_cuantitativa} se muestran los resultados de la prueba cuantitativa realizada, como se puede observar, en términos generales, WordNet ofrece mejores resultados que ConceptNet ya que el porcentaje de palabras sin términos relacionados, sinónimos o ambas, es mayor en esta última. En el caso de la primera lista utilizada (1.000 palabras fáciles) ConceptNet no encontró ningún resultado para el 68,2\% de las palabras introducidas mientras que WordNet no encontró nada para el 62,6\%. En el caso de los términos relacionados, ConceptNet no encontró ninguno para el 68,75\% de las palabras, mientras que en el caso de WordNet fue del 24,72\%. Para el porcentaje de palabras sin sinónimos los resultados fueron de 88,06 para ConceptNet y 26,5 para WordNet. La siguiente lista probada fue la de 5.000 palabras fáciles, para la cual, como se ha explicado anteriormente, se han evaluado los mismos parámetros. Las palabras sin resultado han sido el 49,6\% para el caso de ConceptNet y 56,5\% en el caso de WordNet. El porcentaje de palabras sin términos relacionados ha sido de 47,15\% en ConceptNet y 16,19\% en WordNet. En los sinónimos, no se encontraron para el 77,84\% de las palabras utilizando ConceptNet  y tan solo en un 15,05\% con WordNet. A continuación, utilizando la lista de 10.000 palabras fáciles, los resultados han sido: ConceptNet ha dejado un 43,4\% de palabras sin resultado frente al 55\% de WordNet, en los términos relacionados el 43,75\% usando ConceptNet  frente al 15,05\% de WordNet. En los sinónimos, ConceptNet no ha encontrado resultados en el 76,7\% de las palabras y WordNet en el 9,2\%. Por último, se ha realizado un conteo de las palabras totales que ha generado cada red semántica, con un resultado de 2.652 sinónimos y términos relacionados generado por ConceptNet, mientras que WordNet ha generado 14.172.
 
 
 
@@ -423,20 +407,19 @@ Para realizar la aplicación se necesita decidir que red semántica se utilizar�
 
 
 %-------------------------------------------------------------------
-\subsubsection{Servicio Web para la obtención de Sinónimos Fáciles}
+\subsubsection{Servicio Web para la Obtención de Sinónimos Fáciles}
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_sinonimosfaciles}
-
-La petición que se realizará a este servicio será de tipo GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easysynonym/json/word=\textit{palabra}\&level=\textit{nivel}}.
-Servicio web que recibe como entrada una palabra y un nivel de búsqueda, y devuelve todos los sinónimos fáciles en formato JSON. 
-
-Donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, el cual puede tomar los siguientes valores:
+Servicio web\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easysynonym/json/word=\textit{palabra}\&level=\textit{nivel}} que recibe como entrada una palabra y un nivel de búsqueda, y devuelve todos los sinónimos fáciles en formato JSON. La \textit{palabra} será el concepto a buscar y \textit{nivel} será el nivel de búsqueda, el cual puede tomar los siguientes valores:
 \begin{itemize}
-	\item Nivel 1 (Nivel sencillo): Se filtran los sinónimos que están entre las 1.000 palabras más usadas de la RAE.
-	\item Nivel 2 (Nivel medio): Se filtran los sinónimos que están entre las 5.000 palabras más usadas de la RAE.
-	\item Nivel 3 (Nivel avanzado): Se filtran los sinónimos que están entre las 10.000 palabras más usadas de la RAE.
+	\item Nivel = 1 (Nivel sencillo): Se filtran los sinónimos que están entre las 1.000 palabras más usadas de la RAE.
+	\item Nivel = 2 (Nivel medio): Se filtran los sinónimos que están entre las 5.000 palabras más usadas de la RAE.
+	\item Nivel = 3 (Nivel avanzado): Se filtran los sinónimos que están entre las 10.000 palabras más usadas de la RAE.
 \end{itemize}
-En la Figura \ref{fig:swsinonimos} se puede ver el Diagrama de Flujo del servicio web.
+
+
+Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos de WordNet. A través de una \textit{queryset} sobre la tabla \textit{WeiSpa30Variant}, se obtienen todos los \textit{offsets} cuya palabra sea igual a la introducida.
+Si se obtienen resultados, se vuelve a buscar en la base de datos de WordNet, y se realiza de nuevo una \textit{queryset} sobre la misma tabla nombrada con anterioridad, para obtener las palabras asociadas a cada \textit{offset}. Por cada palabra obtenida  se comprueba que es distinta del concepto introducido. Y en función del nivel de búsqueda introducido, se realizará la búsqueda en una de las tres tablas que contienen las palabras fáciles de la RAE. Si la palabra se encuentra en las palabras más usadas de la RAE, se añade a su correspondiente campo del JSON. En la Figura \ref{fig:swsinonimos} se puede ver el Diagrama de Flujo del servicio web.
 
 \begin{figure}[!h]
 	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/ServiciosWeb/DiagramaFlujoSinonimos.png}
@@ -444,32 +427,32 @@ En la Figura \ref{fig:swsinonimos} se puede ver el Diagrama de Flujo del servici
 	\caption{Diagrama de flujo del Servicio Web para la obtención de Sinónimos Fáciles}
 	\label{fig:swsinonimos}
 \end{figure}
-Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos a través de una \textit{queryset} para obtener todos los \textit{offsets} cuya palabra sea igual a la introducida.
-Si se obtienen resultados, se vuelve a buscar en la base de datos para obtener las palabras de cada \textit{offset}. Por cada palabra obtenida  se comprueba que es distinta del concepto introducido. Y en función del nivel de búsqueda introducido, se realizará la búsqueda en una de las tres tablas que contienen las palabras fáciles de la RAE y comprobará si alguna de estas palabras se encuentra en dicha tabla.
+ Si no se obtiene ningún resultado se devolverá el JSON solamente con un campo que guarda la palabra que se ha introducido, y si hay resultados devolverá el JSON con el campo que guarda la palabra buscada, y un objeto donde se guarda el \textit{offset} de dicho concepto y un array de los sinónimos fáciles.
 
-Si la palabra se encuentra en las palabras más usadas de la RAE, se añade a su correspondiente campo del JSON, y si no se obtiene ningún resultado se devolverá el JSON solamente con un campo que guarda la palabra que se ha introducido.
+Por ejemplo, si se realiza la búsqueda\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easysynonym/json/word=tren\&level=3} para la palabra ``tren'' con un nivel de búsqueda 3 (nivel avanzado), se devuelve el JSON que se puede ver en la Figura \ref{fig:peticionGetEasySynonym}.
 
-Por ejemplo, si se realizará una búsqueda para la palabra ``inmueble'' con un nivel de búsqueda 2 (nivel medio), la petición GET sería de la siguiente manera:
-
-\noindent \url{https://holstein.fdi.ucm.es/tfg-analogias/easysynonym/json/word=inmueble\&level=2}
-
-Y en la Figura \ref{fig:peticionGetEasySynonym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye tanto el \textit{offset} como la lista de sinónimos fáciles .
+En primer lugar aparece la palabra buscada, en este caso ``tren'' y a continuación un objeto que incluye tanto el \textit{offset} de la palabra como la lista de sinónimos fáciles .
 
 \begin{figure}[!h]
-	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionGetEasySynonym.png}
+	\includegraphics[width=.4\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionGetEasySynonym.png}
 	\centering
-	\caption{JSON  para la palabra ``inmueble'' devuelto por el servicio web para la obtención de sinónimos fáciles}
+	\caption{JSON  para la palabra ``tren'' devuelto por el servicio web para la obtención de sinónimos fáciles}
 	\label{fig:peticionGetEasySynonym}
 \end{figure}
 
 %\figura{Bitmap/Capitulo5/peticionGetEasySynonym}{width=.5\textwidth}{fig:peticionGetEasySynonym}{JSON devuelto al buscar los sinónimos fáciles de inmueble}
 
 %-------------------------------------------------------------------
-\subsubsection{Servicio Web para la obtención de hiperónimos fáciles}
+\subsubsection{Servicio Web para la Obtención de Hiperónimos Fáciles}
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_hiperonimosfaciles}
-La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todos los hiperónimos fáciles de dicha palabra en formato JSON. La petición que se realizará a este servicio será de tipo GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easyhyperonym/json/word=\textit{palabra}\&level=\textit{nivel}}, donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, igual que en el caso explicado anteriormente de la obtención de sinónimos. En la Figura \ref{fig:swhiperonimos} se puede ver el Diagrama de Flujo del servicio web.
+Servicio web\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easyhyperonym/json/word=\textit{palabra}\&level=\textit{nivel}} que dada una palabra y un nivel de búsqueda, devuelve todos los hiperónimos fáciles de dicha palabra en formato JSON. La \textit{palabra} será el concepto a buscar y \textit{nivel} será el nivel de búsqueda, igual que en el caso explicado anteriormente en el servicio web para la obtención de sinónimos.
 
+Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos de WordNet. A través de una \textit{queryset} sobre la tabla \textit{WeiSpa30Variant}, se obtienen todos los \textit{offsets} de la palabra.
+Por cada \textit{offset} volveremos a buscar en la tabla \textit{WeiSpa30Relation} de la base de datos de WordNet para obtener los \textit{offsets} que se encuentran en la columna \textit{sourceSynset}, es decir, se obtienen los hiperónimos. Después, con cada \textit{offset} obtenido de esta \textit{queryset}, se realizará la búsqueda en la tabla \textit{WeiSpa30Variant} para obtener las palabras cuyo identificador sea igual que el \textit{offset} de \textit{sourcetSynset}.
+Cada palabra asociada a los \textit{offsets} se buscará en una de las tres tablas de la RAE (en función del nivel introducido) y se buscará si alguna de estas palabras se encuentra en dicha tabla.
+Si el resultado es positivo se añadirá al JSON.
+En la Figura \ref{fig:swhiperonimos} se puede ver el Diagrama de Flujo del servicio web.
 \begin{figure}[!h]
 	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/ServiciosWeb/DiagramaFlujoHiperonimos.png}
 	\centering
@@ -477,32 +460,28 @@ La implementación de dicho servicio web se basa en que introduciendo una palabr
 	\label{fig:swhiperonimos}
 \end{figure}
 
-Una vez introducida la palabra y el nivel, se realiza una consulta a la base de datos de MCR 3.0 a través de una \textit{queryset} para obtener todos los \textit{offsets} cuya palabra sea igual que la introducida.
-Por cada \textit{offset} volveremos a buscar en la tabla \textit{Relation} de la base de datos de MCR 3.0 para obtener los offsets que se encuentran esta vez y con diferencia de la búsqueda de hipónimos fáciles, en la columna \textit{sourceSynset}. Después, con cada \textit{offset} obtenido de esta \textit{queryset}, se realizará la búsqueda en la tabla \textit{Variant} para obtener las palabras cuyo identificador sea igual que el offset de \textit{sourcetSynset}.
-Mediante un cursor se realizará una búsqueda en una de las tres tablas de la RAE (en función del nivel introducido) y buscará si alguna de estas palabras se encuentra en dicha tabla.
-Si el resultado es positivo se añadirá al JSON.
+Por ejemplo, si se realiza la búsqueda\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easyhyperonym/json/word=nivel\&level=1} para la palabra ``nivel'' con un nivel de búsqueda 1 (nivel fácil), se obtendría el JSON mostrado en la Figura \ref{fig:peticionGetEasyHyperonym}.
 
-Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
-
-\noindent \url{https://holstein.fdi.ucm.es/tfg-analogias/easyhyperonym/json/word=inmueble\&level=2}
-
-En la Figura \ref{fig:peticionGetEasyHyperonym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} de hiperónimo fácil, la lista de hiperónimos fáciles así como el \textit{offsetFather}, ya explicado en el apartado anterior.
+ En este JSON, en primer lugar aparece la palabra buscada, en este caso ``nivel'' y a continuación un objeto que incluye el \textit{offset} del hiperónimo fácil, el \textit{offsetFather} (\textit{offset} del \textit{synset} ``nivel'' con el que están relacionados los hiperónimos) y la lista de hiperónimos fáciles.
 
 \begin{figure}[!h]
 	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionGetEasyHyperonym.png}
 	\centering
-	\caption{JSON para la palabra ``inmueble'' devuelto por el servicio web para la obtención de hiperónimos fáciles}
+	\caption{JSON para la palabra ``nivel'' devuelto por el servicio web para la obtención de hiperónimos fáciles}
 	\label{fig:peticionGetEasyHyperonym}
 \end{figure}
 
 %\figura{Bitmap/Capitulo5/peticionGetEasyHyperonym}{width=1.0\textwidth}{fig:peticionGetEasyHyperonym}{JSON devuelto al buscar los hiperónimos fáciles de inmueble}
 
 %-------------------------------------------------------------------
-\subsubsection{Servicio Web para la obtención de hipónimos fáciles}
+\subsubsection{Servicio Web para la Obtención de Hipónimos fáciles}
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_hiponimosfaciles}
-La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todos los hipónimos fáciles de dicha palabra en formato JSON. La petición que se realizará a este servicio será de tipo GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easyhyponym/json/word=\textit{palabra}\&level=\textit{nivel}}, donde \textit{palabra} es el concepto a buscar y \textit{nivel} es el grado de búsqueda, igual que en el caso explicado anteriormente de la obtención de sinónimos. En la Figura \ref{fig:swhiponimos} se puede ver el Diagrama de Flujo del servicio web.
 
+Servicio web\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easyhyponym/json/word=\textit{palabra}\&level=\textit{nivel}} que dada una palabra y un nivel de búsqueda, devuelve todos los hipónimos fáciles de dicha palabra en formato JSON. La \textit{palabra} será el concepto a buscar y \textit{nivel} será el nivel de búsqueda.
+
+La implementación de este servicio web es igual que el servicio web para la obtención de hiperónimos fáciles, con la única diferencia de que en este en vez de obtener los \textit{offset} de la columna \textit{sourceSynset}, se obtiene de \textit{targetSynset}, es decir, los hipónimos.
+En la Figura \ref{fig:swhiponimos} se puede ver el Diagrama de Flujo del servicio web.
 \begin{figure}[!h]
 	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/ServiciosWeb/DiagramaFlujoHiponimos.png}
 	\centering
@@ -510,30 +489,43 @@ La implementación de dicho servicio web se basa en que introduciendo una palabr
 	\label{fig:swhiponimos}
 \end{figure}
 
-La implementación de este servicio web es igual que el servicio web para la obtención de hiperónimos fáciles, con la única diferencia de que en este en vez de obtener los \textit{offset} de la columna \textit{sourceSynset}, se obtiene de \textit{targetSynset}.
 
 
-Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
+Por ejemplo, si se realiza la búsqueda\footnote{https://holstein.fdi.ucm.es/tfg-analogias/easyhyponym/json/word=tren\&level=3} para la palabra ``tren'' con un nivel de búsqueda 3 (nivel avanzado), se obtiene el JSON mostrado en la Figura \ref{fig:peticionGetEasyHyponym}.
+En este JSON, en primer lugar aparece la palabra buscada, en este caso ``tren'' y a continuación un objeto que incluye el \textit{offset} del hipónimo fácil, el \textit{offsetFather} (\textit{offset} del \textit{synset} ``tren'' con el que están relacionados los hipónimos) y la lista de hipónimos fáciles.
 
-\noindent \url{https://holstein.fdi.ucm.es/tfg-analogias/easyhyponym/json/word=inmueble\&level=2}
 
-Y en la Figura \ref{fig:peticionGetEasyHyponym} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} de hipónimo fácil , la lista de hipónimos fáciles así como el \textit{offsetFather}, este identificador corresponde al \textit{offset} de uno de los \textit{synsets} de inmueble. De esta forma, si una palabra buscada dispone de varios \textit{synsets}, se podrá mostrar sus correspondientes sinónimos e hipónimos.
+En primer lugar aparece la palabra buscada, en este caso ``tren'' y a continuación un objeto que incluye el \textit{offset} del hipónimo fácil , la lista de hipónimos fáciles así como el \textit{offsetFather}, este identificador corresponde al \textit{offset} de uno de los \textit{synsets} de inmueble. 
 
 \begin{figure}[!h]
 	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionGetEasyHyponym.png}
 	\centering
-	\caption{JSON para la palabra ``inmueble'' devuelto por el servicio web para la obtención de hipónimos fáciles}
+	\caption{JSON para la palabra ``tren'' devuelto por el servicio web para la obtención de hipónimos fáciles}
 	\label{fig:peticionGetEasyHyponym}
 \end{figure}
 
 %\figura{Bitmap/Capitulo5/peticionGetEasyHyponym}{width=1.0\textwidth}{fig:peticionGetEasyHyponym}{JSON devuelto al buscar los hipónimos fáciles de inmueble}
 
 %-------------------------------------------------------------------
-\subsubsection{Servicio Web para la obtención de metáforas}
+\subsubsection{Servicio Web para la Obtención de Metáforas}
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_metaforas}
-La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todas las metáforas de dicha palabra en formato JSON. La petición que se realizará a este servicio será de tipo GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/metaphor/json/word=\textit{palabra}\&level=\textit{nivel}}. La metáfora estará formada por sinónimos e hiperónimos, ya que ambos devuelven resultados similares al concepto. En la Figura \ref{fig:swmetafora} se puede ver el Diagrama de Flujo del servicio web.
+Servicio web\footnote{https://holstein.fdi.ucm.es/tfg-analogias/metaphor/json/word=\textit{palabra}\&level=\textit{nivel}} que dada una palabra y un nivel de búsqueda, devuelve todos las metáforas para dicha palabra en formato JSON. La \textit{palabra} será el concepto a buscar y \textit{nivel} será el nivel de búsqueda.
+Las metáforas devueltas estarán formadas por los sinónimos e hiperónimos de la palabra de entrada.
 
+Una vez introducida la palabra, se realiza una consulta a la base de datos de WordNet. A través de una \textit{queryset} a la tabla \textit{WeiSpa30Variant}, se obtienen todos los \textit{offsets} de la palabra.
+A continuación, se invoca al servicio web para la obtención de sinónimos y al servicio web para la obtención de hiperónimos, obteniendo así los sinónimos e hiperónimos fáciles. Después, se invoca a otro servicio web\footnote{https://holstein.fdi.ucm.es/nlp-api/analisis/\textit{palabra}} (facilitado por el grupo NiL\footnote{http://nil.fdi.ucm.es}  de la Facultad de Informática) que permite obtener un JSON con la información morfológica de la palabra introducida, en este caso se introduce cada sinónimo e hiperónimos fácil.
+Con esta información, se construye cada metáfora correctamente y se añaden al JSON.
+
+\begin{figure}[!h]
+	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionMetaphor.png}
+	\centering
+	\caption{JSON para la palabra ``sala'' devuelto por el servicio web para la obtención de metáforas}
+	\label{fig:peticionMetaphor}
+\end{figure}
+
+
+En la Figura \ref{fig:swmetafora} se puede ver el Diagrama de Flujo del servicio web.
 \begin{figure}[!h]
 	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/ServiciosWeb/DiagramaFlujoMetafora.png}
 	\centering
@@ -541,30 +533,28 @@ La implementación de dicho servicio web se basa en que introduciendo una palabr
 	\label{fig:swmetafora}
 \end{figure}
 
-La implementación de dicho servicio es idéntico al ya explicado en el servicio web para obtener sinónimos fáciles e hiperónimos fáciles, con la única diferencia que para poder formar la metáfora se llama a otro servicio implementado, el cual utiliza SpaCy para definir si el concepto es masculino o femenino y si está en singular o plural.
+Por ejemplo, si se realiza la búsqueda\footnote{https://holstein.fdi.ucm.es/tfg-analogias/metaphor/json/word=sala\&level=1} para la palabra ``sala'' con un nivel de búsqueda 1 (nivel fácil), se obtendría el JSON mostrado en la Figura \ref{fig:peticionMetaphor}. En primer lugar aparece la palabra buscada, en este caso ``sala'' y a continuación un objeto que incluye el \textit{offset} del sinónimo o hiperónimo fácil, en el caso de que sea un hiperónimo aparecerá el \textit{offsetFather}, ya explicado en apartados anteriores. A continuación, se muestra la lista de metáforas (es un cuarto, es una zona) y por último un campo que indica si es un sinónimo o un hiperónimo. 
 
-Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
-
- \url{https://holstein.fdi.ucm.es/tfg-analogias/metaphor/json/word=portero\&level=3}
-
-En la Figura \ref{fig:peticionMetaphor} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} del sinónimo o hiperónimo fácil, el \textit{offsetFather}  ya explicado en apartados anteriores y la lista de metáforas (es una casa, es una construcción, son unos edificios, es un edificio). 
-
-\begin{figure}[!h]
-	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionMetaphor.png}
-	\centering
-	\caption{JSON para la palabra ``portero'' devuelto por el servicio web para la obtención de metáforas}
-	\label{fig:peticionMetaphor}
-\end{figure}
 
 
 %\figura{Bitmap/Capitulo5/peticionMetaphor}{width=1.0\textwidth}{fig:peticionMetaphor}{JSON devuelto al buscar las metáforas de la palabra inmueble}
 %-------------------------------------------------------------------
-\subsubsection{Servicio Web para la obtención de Símiles}
+\subsubsection{Servicio Web para la Obtención de Símiles}
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_simil}
-La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todas los símiles de dicha palabra en formato JSON. La petición que se realizará a este servicio será de tipo GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/simil/json/word=\textit{palabra}\&level=\textit{nivel}}.
+Servicio web\footnote{https://holstein.fdi.ucm.es/tfg-analogias/simil/json/word=\textit{palabra}\&level=\textit{nivel}} que dada una palabra y un nivel de búsqueda, devuelve todos los símiles para dicha palabra en formato JSON. La \textit{palabra} será el concepto a buscar y \textit{nivel} será el nivel de búsqueda.
+Los símiles devueltos estarán formados por los hipónimos de la palabra de entrada.
 
-El símil estará formado por hipónimos ya que estos devuelven resultados inferiores al del concepto buscado.
+La implementación de dicho servicio web es igual que la realizada en el servicio web para la obtención de metáforas pero con la diferencia de que este invoca únicamente al servicio web para la obtención de hipónimos.
+
+
+\begin{figure}[!h]
+	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionSimil.png}
+	\centering
+	\caption{JSON para la palabra ``palabra'' devuelto por el servicio web para la obtención de símiles}
+	\label{fig:peticionSimil}
+\end{figure}
+
 En la Figura \ref{fig:swsimil} se puede ver el Diagrama de Flujo del servicio web.
 \begin{figure}[!h]
 	\includegraphics[width=.9\textwidth]{Imagenes/Bitmap/Capitulo4/ServiciosWeb/DiagramaFlujoSimil.png}
@@ -573,30 +563,20 @@ En la Figura \ref{fig:swsimil} se puede ver el Diagrama de Flujo del servicio we
 	\label{fig:swsimil}
 \end{figure}
 
-Para la implementación de dicho servicio, se utiliza exactamente el mismo código explicado en el apartado de obtención de hipónimos fáciles pero incluyendo la llamada al servicio de SpaCy para volver a definir si el concepto es masculino o femenino y si es singular o plural.
 
-Por ejemplo, si se realizará una búsqueda para la palabra inmueble con un nivel de búsqueda 2, la petición GET sería de la siguiente manera:
 
-\url{https://holstein.fdi.ucm.es/tfg-analogias/simil/json/word=}
+Por ejemplo, si se realiza la búsqueda\footnote{https://holstein.fdi.ucm.es/tfg-analogias/simil/json/word=palabra\&level=1} para el concepto ``palabra'' con un nivel de búsqueda 1 (nivel fácil), se obtendría el JSON mostrado en la Figura \ref{fig:peticionSimil}. En primer lugar aparece la palabra buscada, en este caso ``palabra'' y a continuación un objeto que incluye el \textit{offset} del hipónimo fácil, el \textit{offsetFather}, ya explicado en apartados anteriores. Y por último, una lista de símiles (es como una forma, es como un lenguaje).
 
- \url{funcionario\&level=3}
-
-En la Figura \ref{fig:peticionSimil} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso inmueble y a continuación un objeto que incluye el \textit{offset} del hipónimo fácil, el \textit{offsetFather}  ya explicado en apartados anteriores y la lista de símiles (es como una biblioteca es como un colegio, es como un restaurante).
-
-\begin{figure}[!h]
-	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/peticionSimil.png}
-	\centering
-	\caption{JSON para la palabra ``funcionario'' devuelto por el servicio web para la obtención de símiles}
-	\label{fig:peticionSimil}
-\end{figure}
 
 %\figura{Bitmap/Capitulo5/peticionSimil}{width=1.0\textwidth}{fig:peticionSimil}{JSON devuelto al buscar los símiles de la palabra inmueble}
 
-\subsubsection{Servicio Web para la obtención de definiciones y ejemplos}
+\subsubsection{Servicio Web para la Obtención de Definiciones y Ejemplos}
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_def_example}
+Servicio web\footnote{https://holstein.fdi.ucm.es/tfg-analogias/def\_examen/json/word=\textit{palabra}\&level=\textit{nivel}} que dada una palabra y un nivel de búsqueda, devuelve todos las definiciones y ejemplos para dicha palabra en formato JSON. La \textit{palabra} será el concepto a buscar y \textit{nivel} será el nivel de búsqueda.
 
-La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este devuelve todas las definiciones y ejemplos de dicha palabra en formato JSON. Se podrá acceder a dicho servicio realizando una petición GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/def\_example/json/word=\textit{palabra}\&level=\textit{nivel}}
+La implementación de dicho servicio web se basa en que introduciendo una palabra y un nivel de búsqueda, este invoca al servicio web para la obtención de metáforas y al servicio web para la obtención de símiles. Por cada metáfora y por cada símil se realiza una consulta a la base de datos mediante una \textit{queryset} a las tablas \textit{WeiSpa30Synset} y \textit{WeiSpa30Examples} respectivamente para obtener las definiciones y los ejemplos.
+
 
 En la Figura \ref{fig:swdef} se puede ver el Diagrama de Flujo del servicio web.
 \begin{figure}[!h]
@@ -606,18 +586,15 @@ En la Figura \ref{fig:swdef} se puede ver el Diagrama de Flujo del servicio web.
 	\label{fig:swdef}
 \end{figure}
 
-Para la implementación del servicio web, se obtiene la lista de offsets de la palabra buscada, a continuación por cada offset(offsetFather, explicado en apartados anteriores) de la lista se hace otra consulta a la base de datos para obtener sus sinónimos, hipónimos e hiperónimos. Después, se comprueba si estas palabras obtenidas en la segunda consulta son fáciles y en caso afirmativo se añaden al JSON junto con sus definiciones y ejemplos.
 
-Por ejemplo, si se quisieran obtener la definición y ejemplo de la palabra coche con nivel de búsqueda se haría de esta manera:
+Por ejemplo, si se realiza la búsqueda\footnote{https://holstein.fdi.ucm.es/tfg-analogias/metaphor/json/word=agua\&level=1} para la palabra ``agua'' con un nivel de búsqueda 1 (nivel fácil), se obtendría el JSON mostrado en la Figura \ref{fig:peticionDefYEjemplos}. En primer lugar aparece la palabra buscada, en este caso ``agua'' y a continuación un objeto metáforas que incluye un campo \textit{example}, el \textit{offset}, la definicion, el \textit{offsetFather} y por último, el tipo de palabra que es (sinónimo, hiperónimo o hipónimo).
 
-\noindent \url{https://holstein.fdi.ucm.es/tfg-analogias/def\_example/json/word=coche\&level=3}
-
-En la Figura \ref{fig:peticionDefYEjemplos} se puede ver el resultado obtenido en formato JSON. En primer lugar aparece la palabra buscada, en este caso coche y a continuación un objeto que incluye el ejemplo, la relación que tiene con la palabra buscada(sinónimo, hipónimo o hiperónimo), su definición y el \textit{offset} al que corresponden la definición y ejemplo mostrados.
+ 
 
 \begin{figure}[!h]
 	\includegraphics[width=.6\textwidth]{Imagenes/Bitmap/Capitulo4/JSON-SW/def_example.png}
 	\centering
-	\caption{JSON para la palabra ``coche'' devuelto por el servicio web para la obtención de definiciones y ejemplos}
+	\caption{JSON para la palabra ``agua'' devuelto por el servicio web para la obtención de definiciones y ejemplos}
 	\label{fig:peticionDefYEjemplos}
 \end{figure}
 
@@ -626,7 +603,7 @@ En la Figura \ref{fig:peticionDefYEjemplos} se puede ver el resultado obtenido e
 
 
 
-\subsubsection{Servicios Web para la obtención de pictogramas}
+\subsubsection{Servicios Web para la Obtención de Pictogramas}
 %-------------------------------------------------------------------
 \label{cap:subsec:sw_pictos}
 
@@ -647,7 +624,7 @@ El servicio web, recibe la palabra por parámetro y busca en la tabla pictos de 
 
 Por ejemplo, si se quisiera obtener el pictograma de la palabra coche se haría de esta manera:
 
-\url{https://holstein.fdi.ucm.es/tfg-analogias/image\_word/coche}
+https://holstein.fdi.ucm.es/tfg-analogias/image\_word/coche
 
 
 Por otro lado, para acceder al segundo servicio web para la obtención de pictogramas se debe hacer una petición GET\footnote{https://holstein.fdi.ucm.es/tfg-analogias/image\_offset/\textit{offset}} 
@@ -708,10 +685,9 @@ A continuación, se explicarán como se construye cada elemento:
 \begin{itemize}
 	\item Elemento número 1 - Texto informativo: Da información constante de la palabra que se ha buscado. En caso de que la palabra introducida sea inventada aparecerá ``No hay resultados para la palabra X''. Este texto informativo se añade a la interfaz mediante jQuery una vez que se ha realizado la petición AJAX y se puede saber si tiene o no resultados.
 	
-	\item Elemento número 2 y 3 - Ficha: Como se ha explicado anteriormente, hay que mostrar los resultados según su significado, por lo que la relación entre el significado de la palabra buscada, y el significado de la palabra mostrada es el \textit{offset}. Con JavaScript se recorre \textit{offset} a \textit{offset}, y por cada uno de ellos se comprueba que resultados tienen el mismo identificador. Esta ficha se crea dinamicamente según el número de resultados que se obtengan y es un <div> con una clase donde se añade un estilo para redondear los bordes, y la propiedad ``box-shadow'' para el sombreado, dando así sensación de que la ficha está superpuesta a la página. A parte, se debe saber si el resultado principal dispone de pictograma o no, por lo que se mediante la siguiente url ``\url{https://holstein.fdi.ucm.es/tfg-analogias/imagen/offset}'' donde \textit{offset} es el identificador, se realiza una petición GET al servicio web correspondiente.
+	\item Elemento número 2 y 3 - Ficha: Como se ha explicado anteriormente, hay que mostrar los resultados según su significado, por lo que la relación entre el significado de la palabra buscada, y el significado de la palabra mostrada es el \textit{offset}. Con JavaScript se recorre \textit{offset} a \textit{offset}, y por cada uno de ellos se comprueba que resultados tienen el mismo identificador. Esta ficha se crea dinamicamente según el número de resultados que se obtengan y es un <div> con una clase donde se añade un estilo para redondear los bordes, y la propiedad ``box-shadow'' para el sombreado, dando así sensación de que la ficha está superpuesta a la página. A parte, se debe saber si el resultado principal dispone de pictograma o no, por lo que se mediante la siguiente url ``https://holstein.fdi.ucm.es/tfg-analogias/imagen/\textit{offset}'' donde \textit{offset} es el identificador, se realiza una petición GET al servicio web correspondiente.
 	
-	\item Elemento número 4 - Resultado en formato lista: Como se puede observar los resultados se muestran en formato lista, primero aparecen las metáforas y después los símiles. Para poder obtener la frase completa, se recoge la metáfora (en este caso ``familia es una grupo'') se realiza un \textit{split} para poder quedarnos con la última palabra y se vuelve hacer una petición GET al servicio web con la url
-	``\url{https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/palabra}''  donde palabra, siguiendo con el ejemplo anterior, sería ``grupo'' y así se obtiene el pictograma correspondiente.
+	\item Elemento número 4 - Resultado en formato lista: Como se puede observar los resultados se muestran en formato lista, primero aparecen las metáforas y después los símiles. Para poder obtener la frase completa, se recoge la metáfora (en este caso ``familia es una grupo'') se realiza un \textit{split} para poder quedarnos con la última palabra y se vuelve hacer una petición GET al servicio web con la siguiente url ``https://holstein.fdi.ucm.es/tfg-analogias/imagenByPalabra/\textit{palabra}'' donde palabra, siguiendo con el ejemplo anterior sería ``grupo'' y así se obtiene el pictograma correspondiente.
 	
 	\item Elemento número 5 - Botón definición y ejemplo: Se muestra la definición y ejemplo cuyo \textit{offset} concida con el \textit{offset} de la ficha principal. En caso de que no tenga se mostrará ``NO HAY DEFINICIÓN NI EJEMPLO''. Este botón siempre aparecerá después de mostrar todas las metáforas y símiles.
  
@@ -720,8 +696,6 @@ A continuación, se explicarán como se construye cada elemento:
 
 Cabe destacar que una vez mostrados los resultados, tenemos la posibilidad de ocultar o mostrar los pictogramas así como la definición y el ejemplo sin tener que volver a realizar la búsqueda. Esto se consigue teniendo un manejador de eventos, el cual una vez que se pincha sobre los diferentes ``checkbox'' se añaden o eliminar las clases necesarias para que la interfaz se vea siempre correctamente. Por ejemplo, si en la Figura se pulsara sobre ``Ocultar pictos'', estos desaparecían y la palabra se quedaría perfectamente alineada con el texto de la metáfora. En el caso de pinchar sobre ``Convertir a mayúsculas'' se le añadiría un estilo CSS a la etiqueta <body>con la propiedad ``text-transform: uppercase''.
 Por último, también se puede realizar la búsqueda de algún resultado obtenido pinchando sobre el, haciendo así que se vuelva a realizar una petición AJAX, recogiendo los resultados que se han comentado anteriormente y siguiendo el mismo proceso para mostrar los resultados.
-
-\vfill
 
 %-------------------------------------------------------------------
 \section{Evaluación de Aprende Fácil}
