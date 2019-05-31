@@ -4,14 +4,80 @@
 \section{Motivation}
 \label{sec:motivation}
 
+Nowadays, Spanish is the second most spoken language around the world and is formed by more than 90,000 words.
+It's a language with many terms, and depending on the context in which they are found, they can have multiple meanings. For example, the word cat can refer to an animal or a tool to lift a car. If this is hard for any person, for certain groups affected by some cognitive disorder it is even more so, affecting them in their daily, professional or personal life. For example, the simple action of reading a newspaper is very difficult for them since many words don't know what they mean. Another example could be to read an instruction manual, they are in the same situation of not being able to understand certain concepts.
+
+
+One of the solutions that could be thought of at first, is to look up its meaning in a dictionary. But this doesn't help them, since the definitions that appear in many cases don't use easy terms or phrases. For example, the word computer has the following definition in the dictionary: \textit{Electronic machine that, through certain programs, can store and process information, and solve problems of various kinds}. This definition can be quite complicated to understand by some person with cognitive disability since it uses more technical terms and it's a long sentence.
+
+
+The solution that has been thought to be able to solve this problem, is to offer a definition that compares the concept with other easier concepts already known by the user. To make these comparisons we will use rhetorical figures, more specifically we will make use of metaphors, analogies and similes.
+For example, for the word computer the following results could be obtained:
+
+\begin{itemize}
+	\item Metaphor:\textit{A computer is a computer}.
+	\item Analogy: \textit{A computer is a machine}.
+	\item Simile: \textit{A computer is strong like a stone}.
+\end{itemize}
+
+We think that the use of rhetorical figures will makes easier the understanding of the concept. In these definitions, short sentences and simple concepts will be used.
+In addition, we will add pictograms to the results to reach a broader collective.
+
+Therefore, what we propose is to create an application that, when a complex word is searched, returns a definition of that word formed by comparisons with simpler concepts making use of rhetorical figures.
+
+
 \section{Goals}
 \label{sec:goals}
+
+The main goal of this project is to create a web application based on web services that, when the user search complex word, returns a definition of that word comparing it with other simpler words using similes, analogies or metaphors.
+
+In order to obtain these definitions, it will be necessary to study how to obtain the terms related to a concept, as well as to make out which of these results are easy words and which are difficult words.
+It will also be necessary to know what kind of rhetorical figures exist and what to use according to the relation between the initial concept and the easy concept, in this way the final user can get a correct and satisfactory result.
+
+The application will be built with web services that provide functionality to the application and that are reusable in other applications, making it adaptable to the needs of the users.
+The developed web services will be available in a public API so that everyone can use them and can be used by other developers to integrate our services in their applications.
+The application will be built incrementally, adding value to the product little by little. In this way, we can test the different working hypotheses little by little and make modifications in a simple way to get an application that meets the needs of users.
+
+The design of the interface will be centered on the user, and for this, as much information as possible about the end user should be obtained. In this way, a design is made based on the users needs.
+Since this work is focused on people with cognitive disabilities, a design that adapts even more to their needs and limitations should be made.
+
+Finally, we must not forget the academic objectives of this work, such as putting into practice the knowledge acquired during the degree and expanding our knowledge in different areas.
+
+By achieving the objectives described above, we will achieve a quality product, with great social and academic utility, that can help many users to learn new concepts in a simpler way.
 
 \section{Project management methodology}
 \label{sec:project_management}
 
+Since the beginning of the project, efficiency and continuous improvement have been sought, which is why meetings have been held with the directors of this work, every two or three weeks. In these meetings the work done since the last meeting was reviewed. We looked for solutions to the problems and doubts that could arise and we fixed the tasks to be carried out until the next meeting. On the other hand, there has been constant communication with both directors via email to ask questions.
+In relation to configuration management, the online development platform GitHub has been used to keep track of project versions. In addition, a task manager that has served as an information radiator has been used and all project members have been able to know at any time the status of the project and each of its tasks. For this, Trello has been chosen, since it has a simple, friendly interface that does not lead to confusion when creating new tasks.
+
+
+There are two types of tasks on our board: those related to code and those related to memory. A distinction has been made between both, since the way to change their status on the board varies significantly depending on the type of task. In order to make this distinction in the tasks, the word CODIGO or the word MEMORIA has been written as it corresponds in front of the description. Our task board has three columns:
+
+\begin{itemize}
+	\item TO DO: Tasks to be carried out, stripped to the greatest possible detail and trying to make them as independent as possible from each other. In this way, it is ensured that each member of the team works on a specific task that does not influence the work of the other partner.
+	\item In process: At the moment in which a member of the team is assigned a task, it is passed from the TO DO column to the column "In process", which indicates that it is in the process of develop and no other partner can be to work on it.
+	\item In review: In this column are the tasks completed but not validated. The validation depends on the type of task: if the task is of type code, the validation must be done by the team members, performing tests to verify that it really fulfills its objective and does not cause any error, and if it is of the memory type the validation must do the directors.
+	\item Done: In this column are the tasks already validated by the directors or by the members of the team depending on the type of task.
+\end{itemize} 
+
+
 \section{Memory structure}
 \label{sec:memory_structure}
+
+In \textbf{chapter 2} the state of the question is presented, in which the semantic networks will be explained: what are they, what types exist and some tools that implement them. Afterwards, it will be explained what it is the easy reading and how it is applied, and the rhetorical figures will be discussed. Finally, we will explain what web services are, the types that exist, their architecture, and the advantages and disadvantages of their use.
+
+
+In \textbf{chapter 3}, the tools used for the creation of this work will be explained, such as Django for the development of the application and SpaCy for the labeling of words. We will describe what these tools are used for and their characteristics.
+
+
+In \textbf{chapter 4}, we will explain everything related to the application. Its design, the implementation, how the database is designed, what semantic network was used, the backend and the frontend. Finally, the evaluation carried out with experts will be described.
+
+
+In \textbf{chapter 5}, we describe the work carried out by each of the authors of this project.
+
+
+In \textbf{chapter 6}, we detail the conclusions obtained after finishing the project as well as the future work that could be done.
 
 
 
