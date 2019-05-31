@@ -242,7 +242,7 @@ Teniendo en cuenta las observaciones de los expertos se creo el diseño final de
 %-------------------------------------------------------------------
 \label{cap:sec:implementacionApp}
 
-En esta sección, se va a hablar de los detalles de implementación de la aplicación. En el apartado \ref{cap:subsec:arquitectura} se describirá la arquitectura del proyecto, los distintos elementos que la componen como pueden ser la base de datos, el backend y el frontend En la sección \ref{cap:subsec:database} se detallará el diseño de la base de datos así como las tablas que la componen Por último, en los apartados finales de la presente sección, se hablarán de los detalles de implementación de la aplicación tanto de la lógica interna en el apartado \ref{cap:subsec:backendapp} donde se describirán los distintos servicios web implementados, como de la vista en el apartado \ref{cap:subsec:frontendapp} donde se describirán los elementos que la forman y su funcionalidad.
+En esta sección, se va a hablar de los detalles de implementación de la aplicación. En el apartado \ref{cap:subsec:arquitectura} se describirá la arquitectura del proyecto, los distintos elementos que la componen como pueden ser la base de datos, el backend y el frontend En la sección \ref{cap:subsec:database} se detallará el diseño de la base de datos así como las tablas que la componen. En la sección \ref{cap:subsec:redsemanticautilizada} se explicará la red semántica elegida para implementar la aplicación, junto con las pruebas realizadas para su elección. Por último, en los apartados finales de la presente sección, se hablarán de los detalles de implementación de la aplicación, tanto de la lógica interna en el apartado \ref{cap:subsec:backendapp} donde se describirán los distintos servicios web implementados, como de la vista en el apartado \ref{cap:subsec:frontendapp} donde se describirán los elementos que la forman y su funcionalidad.
 
 
 %-------------------------------------------------------------------
@@ -252,7 +252,7 @@ En esta sección, se va a hablar de los detalles de implementación de la aplica
 En este apartado se describirá la arquitectura de la aplicación. 
 
 La aplicación está formada por una interfaz (\textit{frontend}) la cuál realiza peticiones a la parte interna (\textit{backend}), y este le devuelve la información correspondiente. Para ello, la parte \textit{backend} debe realizar consultas a la base de datos. En la Figura \ref{fig:relacionBackFront}  se puede ver la relación que existe entre el \textit{frontend} con el \textit{backend}, y los servicios web que son utilizados para la obtención de los resultados.
-Si el usuario introduce una palabra, dejando por defecto las distintas opciones que vienen y realiza la búsqueda de un concepto, la aplicación invocará a los servicios web relacionados con la obtención de metáforas (\textit{getMetaphor}) y símiles (\textit{getSimil}). A parte, si el usuario seleccionara la opción de ``Mostrar definición y ejemplo'', el servicio web invocado sería el \textit{getDefAndExample} y en caso de seleccionar la opción  ``Mostrar pictos'' se invocaría al servicio web ``getImagen'' para obtener el pictograma del resultado principal y ``getImagenPalabra'' para obtener el pictograma de cada resultado mostrado.
+
 
 \begin{figure}[!h]
 	\includegraphics[width=1.2\textwidth]{Imagenes/Bitmap/Capitulo4/RelacionBackFront.png}
@@ -264,22 +264,14 @@ Si el usuario introduce una palabra, dejando por defecto las distintas opciones 
 
  Igualmente en los siguientes apartados se explicará con mayor detalle tanto la implementación del \textit{frontend} como del \textit{backend} . 
 
-Por último, la Universidad Complutense de Madrid nos facilitó un contenedor para poder alojar nuestro trabajo, accesible en la dirección \textit{holstein.fdi.ucm.es}. Este servidor no tenía instalado ningún servicio por lo que se tuvo que realizar la instalación de todo lo necesario (python, pyp, git, mysql, etc). Una vez clonada la rama de GitHub donde tenemos el proyecto, el siguiente paso fue dejar el servidor siempre activo, para ello se tuvo que crear un servicio (\textit{.service}) donde se guardaría la ruta del proyecto.
+La aplicación esta desplegada en un contenedor\footnote{holstein.fdi.ucm.es/tfg-analogias} proporcionado por el grupo NiL de la Universidad Complutense de Madrid. Este contenedor no tenía instalado ningún servicio por lo que se tuvo que realizar la instalación de todo lo necesario para Python, pyp, git, mysql, etc. Una vez clonada la rama de GitHub donde tenemos el proyecto, el siguiente paso fue dejar el servidor siempre activo, para ello se tuvo que crear un servicio (\textit{.service}) donde se guardaría la ruta del proyecto.
 
 %-------------------------------------------------------------------
 \subsection{Base de datos de Aprende Fácil}
 %-------------------------------------------------------------------
 \label{cap:subsec:database}
 
-Para este proyecto, se ha utilizado una base de datos para la persistencia de los datos. El sistema encargado de la gestión de la base de datos corresponde con MariaDB y esta constituida por las tablas que se pueden ver en la Figura \ref{fig:tablasBBDD} :
-
-\begin{figure}[!h]
-	\includegraphics[width=.8\textwidth]{Imagenes/Bitmap/Capitulo4/tablasBBDD.png}
-	\centering
-	\caption{Tablas utilizadas en la Base de Datos}
-	\label{fig:tablasBBDD}
-\end{figure}
-
+Para este proyecto, se ha utilizado una base de datos para la persistencia de los datos. El sistema encargado de la gestión de la base de datos corresponde con MariaDB y esta constituida por las siguientes tablas:
 \begin{itemize}
 	\item Se ha hecho uso de la base de datos propia de WordNet, llamada MCR (\textit{Multilingual Central Repository})\footnote{http://adimen.si.ehu.es/web/MCR/}, y se ha utilizado la versión 3.0.  MCR es una base de datos de código abierto que integra distintas versiones de WordNet para seis lenguajes diferentes: Inglés, Español, Catalán, Vasco, Gallego y Portugués.  
 	
@@ -376,7 +368,8 @@ Para las 10.000 palabras fáciles, los resultados han sido: ConceptNet ha encont
 \label{sssec:pruebaCualitativa}
 
 \begin{figure}[!h]
-	\includegraphics[width=1.0\textwidth]{Imagenes/Bitmap/Capitulo4/tabla_cualitativa}
+	\includegraphics[width=.7\textwidth]{Imagenes/Bitmap/Capitulo4/tabla_cualitativa}
+	\centering
 	\caption{Tabla de resultados de la prueba cualitativa}
 	\label{fig:tabla_cualitativa}
 \end{figure}
@@ -399,8 +392,7 @@ Por estos motivos, la red semántica que se ha decidido utilizar finalmente para
 %-------------------------------------------------------------------
 \subsection{Backend de Aprende Fácil: Servicios Web de la aplicación}
 %-------------------------------------------------------------------
-\label{cap:subsec:backendapp}
-Para realizar la aplicación se necesita decidir que red semántica se utilizará finalmente: WordNet o ConceptNet para ello en la sección \ref{cap:subsec:redsemanticautilizada} se hablará del proceso de selección llevado a cabo. En la sección \ref{cap:subsec:disenioeval} se explicará el diseño de la prueba que se ha realizado para ver que red semántica se utilizará finalmente en el proyecto, en la sección \ref{cap:subsec:pruebaCuantitativa} se analizarán los resultados cuantitativos de la prueba realizada, en el punto \ref{sssec:pruebaCualitativa}, se analizarán los resultados obtenidos a nivel cualitativo y en el apartado \ref{sssec:conclusionPruebas} se describirán las conclusiones finales de la evaluación. Por otra parte, en los apartados posteriores, se detallarán los distintos servicios web utilizados para este proyecto, en los apartados \ref{cap:subsec:sw_sinonimosfaciles}, \ref{cap:subsec:sw_hiperonimosfaciles} y \ref{cap:subsec:sw_hiponimosfaciles} se describirán los servicios web que se utilizan para la obtención de sinónimos, hiperónimos e hipónimos fáciles respectivamente. A continuación, se hablará en los puntos \ref{cap:subsec:sw_metaforas} y \ref{cap:subsec:sw_simil} sobre los servicios web utilizados para crear las metáforas y los símiles que finalmente leerá el usuario. Por último, se describirá el servicio web para la obtención de definiciones y ejemplos en la sección \ref{cap:subsec:sw_def_example} y en la sección \ref{cap:subsec:sw_pictos} se hablará de los servicios web para la obtención de pictogramas.
+En este capítulo se explicará la implementación de los distintos servicios web. En los apartados \ref{cap:subsec:sw_sinonimosfaciles}, \ref{cap:subsec:sw_hiperonimosfaciles} y \ref{cap:subsec:sw_hiponimosfaciles} se describirán los servicios web que se utilizan para la obtención de sinónimos, hiperónimos e hipónimos fáciles respectivamente. A continuación, se hablará en los puntos \ref{cap:subsec:sw_metaforas} y \ref{cap:subsec:sw_simil} sobre los servicios web utilizados para crear las metáforas y los símiles que finalmente leerá el usuario. Por último, se describirá el servicio web para la obtención de definiciones y ejemplos en la sección \ref{cap:subsec:sw_def_example} y en la sección \ref{cap:subsec:sw_pictos} se hablará de los servicios web para la obtención de pictogramas.
 
 
 
