@@ -17,7 +17,7 @@ En cuanto a la memoria, dividimos su elaboración en dos partes iguales entre lo
 
 La investigación de como funcionaba ConceptNet y su API la hicimos conjuntamente. A partir de aquí se realizó un prototipo con esta red semántica que contenía dos servicios web uno para los sinónimos y otro para los términos relacionados. 
 
-Por otro lado se obtuvieron ficheros con las 1.000, 5.000 y 10.000 palabras más usadas según la RAE, se hizo un filtrado de estas palabras para quedarnos solo con adjetivos, verbos y nombres utilizando SpaCy(Pablo).
+Por otro lado se obtuvieron ficheros con las 1.000, 5.000 y 10.000 palabras más usadas según la RAE, se hizo un filtrado de estas palabras para quedarnos solo con adjetivos, verbos y nombres utilizando SpaCy.
 
 Tras la realización del prototipo y hacer las pruebas correspondientes nos dimos cuenta que los resultados obtenidos no eran válidos por lo que se buscó otra red semántica.
 
@@ -27,20 +27,22 @@ Se decidió probar con WordNet, inicialmente tuvimos muchos problemas para poder
 Con los recursos descargados, estudiamos como estaban estructurados para poder utilizarlos según nuestros intereses y nos pusimos a programar el prototipo.
 
 Nos descargamos los ficheros de la base de datos e investigamos como funcionaban para poder utilizarlos. Yo empecé a diseñar la vista del prototipo. Y después, nos pusimos los dos con la parte del backend.
+La implementación de todos los servicios web se realizó conjuntamente entre mi compañero y yo.
 
 
 Después, ya empezamos a trabajar en lo que sería el proyecto propiamente dicho, empezando por diseñar la vista. Para ello realizamos una iteración competitiva tanto Pablo como yo, para ver con que diseño nos quedábamos finalmente.
 
 Se decidió que mi diseño de la vista era el que se va a implementar, añadiendo algunos aspectos que había añadido Pablo en su diseño. Por lo que adapté mi vista añadiendo dichos cambios para utilizarla en el proyecto que se desarrollaría finalmente.
 
-A continuación, desarrollé la parte de la lógica de la vista de la aplicación, ya que aparte de la lógica de negocio desarrollada en Python, para mostrar los datos correctamente utilizamos jQuery con peticiones ajax para tratar los datos. Esta parte me llevó varios ya que se presentaron varias dificultades.
+A continuación, desarrollé la parte de la lógica de la vista de la aplicación, ya que aparte de la lógica de negocio desarrollada en Python, para mostrar los datos correctamente utilizamos jQuery con peticiones ajax para tratar los datos. Esta parte me llevó varios días ya que se presentaron varias dificultades.
 
-Al terminar esta tarea, nos reunimos para desplegar el proyecto en el servidor que nos proporcionó el grupo NIL de la facultad de informática. 
+Al terminar esta tarea, nos reunimos Pablo y yo para desplegar el proyecto en el contenedor que nos proporcionó el grupo NIL de la facultad de informática. 
 
-Cuando subimos el proyecto, nos dimos cuenta de que en el servidor había varios problemas, por lo que estuvimos varios días solucionándolos para que funcionase correctamente de cara a la evaluación que teníamos por delante en pocos días.
+Cuando subimos el proyecto al contenedor, nos dimos cuenta de que  había varios problemas, por lo que estuvimos varios días solucionándolos para que funcionase correctamente de cara a la evaluación que teníamos por delante en pocos días.
 
+Para la evaluación de la aplicación, creamos entre Pablo y yo un formulario de Google Forms. Y una vez realizada, se transcribió a la memoria también entre los dos.
 
-Cuando se solucionaron los errores, terminamos la escritura de la memoria y diseñamos la evaluación que iba a tener lugar unos días más tarde, dando por terminado el proyecto.
+En todo momento, a la vez que se realizaba la implementación de código (ya sea backend o fronted) se iba realizando la memoria. Siempre dividida a partes iguales entre mi compañero y yo. 
 
 
 \section{Trabajo realizado por Pablo}
@@ -58,7 +60,7 @@ La investigación de como funcionaba ConceptNet y su API la hicimos de manera co
 
 Tras investigar el funcionamiento de esta red semántica, empezamos a implementar un prototipo para probar si es funcional.
 
-Mientras estábamos trabajando en esto, avanzamos en la redacción de la memoria, dividiéndonos el trabajo intentando tocar los dos todas las partes de la misma.
+Mientras estábamos trabajando en esto, avanzamos en la redacción de la memoria, dividiéndonos el trabajo equitativamente.
 
 Cuando terminamos la implementación del prototipo, se lo presentamos a los directores del TFG y nos dimos cuenta de que no iba a ser útil por lo que empezamos a trabajar en otra red semántica: WordNet.
 
@@ -86,5 +88,7 @@ Cuando subimos el proyecto, nos dimos cuenta de que en el servidor había varios
 
 
 Una vez subido y con los errores corregidos, seguimos avanzando en el desarrollo de la memoria y comenzamos a diseñar un formulario para realizar la evaluación de la aplicación con usuarios finales terminando el desarrollo del proyecto.
+
+
 
 
