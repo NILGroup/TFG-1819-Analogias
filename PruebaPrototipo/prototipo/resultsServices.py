@@ -11,6 +11,8 @@ from django.db import connection
 import urllib
 import base64
 import pandas as pd
+from django.http import JsonResponse
+from django.http import HttpResponse
 repeatWords = set()
 
 ### SERVICIO QUE DADA UNA PALABRA Y UN NIVEL DEVUELVE SUS SINONIMOS FACILES  ###
@@ -494,9 +496,42 @@ def allOffsets(word):
     return dataJson
 
 
+def getImagePalabra(palabra):
+    if not os.path.exists('prototipo/pictogramas'):
+        os.makedirs('prototipo/pictogramas', mode=0o777)
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT imagen FROM pictos WHERE palabra = %s', [palabra])
+        rows = cursor.fetchall()
+        #print(len(rows))
+        if len(rows) > 0:
+            image_64_decode = base64.decodebytes(rows[0][0])
+            image_result = open('prototipo/pictogramas/'+palabra+'.png', 'wb')
+            image_result.write(image_64_decode)
+            image_result.close()
+            imagen = open('prototipo/pictogramas/'+palabra+'.png', 'rb').read()
 
+            return HttpResponse(imagen, content_type="image/png")
+    notFound = ['pictograma no encontrado']
+    return JsonResponse(notFound, safe=False)
 
+def getImageOffset(offset):
+    if not os.path.exists('prototipo/pictogramas'):
+        os.makedirs('prototipo/pictogramas', mode=0o777)
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT imagen FROM pictos WHERE offset30 = %s', [offset])
+        rows = cursor.fetchall()
+        #print(len(rows))
+        if len(rows) > 0:
+            image_64_decode = base64.decodebytes(rows[0][0])
+            image_result = open('prototipo/pictogramas/'+offset+'.png', 'wb')
+            image_result.write(image_64_decode)
+            image_result.close()
+            imagen = open('prototipo/pictogramas/'+offset+'.png', 'rb').read()
 
+            return HttpResponse(imagen, content_type="image/png")
+
+    notFound = ['pictograma no encontrado']
+    return JsonResponse(notFound, safe=False)
 
 
 
