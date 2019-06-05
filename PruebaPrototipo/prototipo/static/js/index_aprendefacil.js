@@ -316,7 +316,7 @@ function mostrarJson(json){
             if(json.metaphor.length > 0){
                  
                 json.metaphor.find(elem =>{             
-                    if(elem.type == "SYNONYM" && elem.offset == offset.offset || elem.type == "HYPERONYM" && elem.offsetFather == offset.offset ){
+                    if(elem.type == "SYNONYM" && elem.offset == offset.offset && elem.metaphor.length > 0 || elem.type == "HYPERONYM" && elem.offsetFather == offset.offset && elem.metaphor.length > 0 ){
                         existMetaphor = true;
                         arrayMetaforas.push(elem);
                     }

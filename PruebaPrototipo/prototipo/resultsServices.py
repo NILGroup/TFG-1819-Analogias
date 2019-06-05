@@ -22,6 +22,8 @@ def getEasySynonyms(word, level):
     index = 1
     dataJson.insert(0, {'word': ""})
     dataJson[0]["word"] = word
+    tipo, gender, number = spacy.genderAndNumberAPI(word)
+
 
     for offset in listOffsetToTheSynset:
         ##   Devuelve todos los sinónimos de esa palabra
@@ -35,11 +37,14 @@ def getEasySynonyms(word, level):
             if synonym['word'] != word:
                 with connection.cursor() as cursor:
                     if level == "1":
-                        cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s', [synonym['word']])
+                        cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
+                                               [synonym['word'], tipo])
                     elif level == "2":
-                        cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s', [synonym['word']])
+                        cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
+                                               [synonym['word'], tipo])
                     else:
-                        cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s', [synonym['word']])
+                        cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
+                                               [synonym['word'], tipo])
 
                     result = cursor.fetchone()[0]
                     if result > 0:
@@ -71,6 +76,7 @@ def getEasyHyponyms(word, level):
     dataJson = []
     ##  Devuelve todos los offsets de los synsets de dicha palabra
     listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
+    tipo, gender, number = spacy.genderAndNumberAPI(word)
     index = 1
     dataJson.insert(0, {'word': ""})
     dataJson[0]["word"] = word
@@ -88,14 +94,14 @@ def getEasyHyponyms(word, level):
                     if hyponym['word'] != word:
                         with connection.cursor() as cursor:
                             if level == "1":
-                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
-                                               [hyponym['word']])
+                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
+                                               [hyponym['word'], tipo])
                             elif level == "2":
-                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
-                                               [hyponym['word']])
+                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
+                                               [hyponym['word'], tipo])
                             else:
-                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
-                                               [hyponym['word']])
+                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
+                                               [hyponym['word'], tipo])
 
                             result = cursor.fetchone()[0]
                             if result > 0:
@@ -119,6 +125,7 @@ def getEasyHyperonyms(word, level):
     index = 1
     dataJson.insert(0, {'word': ""})
     dataJson[0]["word"] = word
+    tipo, gender, number = spacy.genderAndNumberAPI(word)
 
     for offset in listOffsetToTheSynset:
         offsetMatchTargetSynset = (WeiSpa30Relation.objects.filter(targetsynset=offset['offset'], relation=12)).values(
@@ -134,14 +141,14 @@ def getEasyHyperonyms(word, level):
                     if hyperonym['word'] != word:
                         with connection.cursor() as cursor:
                             if level == "1":
-                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s',
-                                               [hyperonym['word']])
+                                cursor.execute('SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
+                                               [hyperonym['word'], tipo])
                             elif level == "2":
-                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s',
-                                               [hyperonym['word']])
+                                cursor.execute('SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
+                                               [hyperonym['word'], tipo])
                             else:
-                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s',
-                                               [hyperonym['word']])
+                                cursor.execute('SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
+                                               [hyperonym['word'], tipo])
 
                             result = cursor.fetchone()[0]
                             if result > 0:
@@ -164,13 +171,10 @@ def getMetaphor(word, level):
 
     dataJson = []
     global repeatWords
-    ##  Devuelve todos los offsets de los synsets de dicha palabra
-
-    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
 
     dataJson.insert(0, {'word': ""})
     dataJson[0]["word"] = word
-    tipo, gender, number = spacy.genderAndNumberAPI(word)
+
 
     listEasySynonymsWords = getEasySynonyms(word, level)
 
@@ -233,59 +237,27 @@ def getSimil(word, level):
     dataJson = []
     global repeatWords
     ##  Devuelve todos los offsets de los synsets de dicha palabra
-    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
     index = 1
     dataJson.insert(0, {'word': ""})
     dataJson[0]["word"] = word
-    tipo, gender, number = spacy.genderAndNumberAPI(word)
 
-    for offset in listOffsetToTheSynset:
-        offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset['offset'], relation=12)).values(
-            'targetsynset').distinct()
-        listEasyWords = list()
-        if len(offsetMatchSourceSynset) > 0:
 
-            for targetSynset in offsetMatchSourceSynset:
-                listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values(
-                    'word').distinct()
-
-                for hyponym in listaWordsHyponyms:
-                    if hyponym['word'] != dataJson[0]["word"]:
-
-                        with connection.cursor() as cursor:
-                            if level == "1":
-
-                                cursor.execute(
-                                    'SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
-                                    [hyponym['word'], tipo])
-                            elif level == "2":
-
-                                cursor.execute(
-                                    'SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
-                                    [hyponym['word'], tipo])
-                            else:
-                                cursor.execute(
-                                    'SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
-                                    [hyponym['word'], tipo])
-
-                            result = cursor.fetchone()[0]
-                            if result > 0:
-                                if hyponym['word'] not in repeatWords:
-                                    repeatWords.add(hyponym['word'])
-                                    listEasyWords.append(hyponym['word'])
-
-            phraseHyponym = list()
-            if len(listEasyWords) > 0:
-                dataJson.append(
-                    {'offsetFather': "", 'offset': "",
-                     'simil': []})  # , 'definition': "", 'example': "", 'picto': ""})
-                dataJson[index]["offsetFather"] = offset['offset']
-                dataJson[index]["offset"] = targetSynset["targetsynset"]
-                for word in listEasyWords:
-                    phraseHyponym.append(spacy.phraseMakerForHyponyms(word))
+    listEasyWords = getEasyHyponyms(word, level)
+    phraseHyponym = list()
+    if len(listEasyWords) > 1:
+        for elem in range(len(listEasyWords) - 1):
+            dataJson.append(
+                {'offsetFather': "", 'offset': "",
+                 'simil': []})  # , 'definition': "", 'example': "", 'picto': ""})
+            dataJson[index]["offsetFather"] = listEasyWords[index]['offsetFather']
+            dataJson[index]["offset"] = listEasyWords[index]["offset"]
+            for hyponym in listEasyWords[index]['hyponyms']:
+                if hyponym not in repeatWords:
+                    repeatWords.add(hyponym)
+                    phraseHyponym.append(spacy.phraseMakerForHyponyms(hyponym))
                     dataJson[index]['simil'] = phraseHyponym
 
-                index += 1
+            index += 1
 
     #print("palabras repetidas simil")
     #print(repeatWords)
