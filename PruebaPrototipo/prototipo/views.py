@@ -68,8 +68,8 @@ def index(request):
              #   word = word.lower()
 
             level = request.POST.get('level')
-            print("NIVEL")
-            print(level)
+            #print("NIVEL")
+            #print(level)
 
             allOffset = result.allOffsets(word)
             simil = result.getSimil(word, level)
@@ -226,7 +226,7 @@ def version2(request):
             # print(resultsHyponyms)
             # print("SYNONYMS")
             #print(resultsSynonyms)
-            print(fichas)
+            #print(fichas)
             '''
             if len(resultsHyperonyms) > 0:
                 for elem in resultsHyperonyms:
