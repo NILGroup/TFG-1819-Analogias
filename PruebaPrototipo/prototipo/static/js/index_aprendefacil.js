@@ -325,7 +325,7 @@ function mostrarJson(json){
             if(json.simil.length > 0){ 
                  
                 json.simil.find(elem =>{
-                    if (elem.offsetFather == offset.offset){
+                    if (elem.offsetFather == offset.offset && elem.simil.length > 0){
                         existSimil = true;
                         arraySimiles.push(elem);
                     }
