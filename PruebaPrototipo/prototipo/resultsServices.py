@@ -284,206 +284,72 @@ def getDefAndExample(word, level):
     dataJson = []
 
     global repeatWords
-    ##  Devuelve todos los offsets de los synsets de dicha palabra
-    listOffsetToTheSynset = WeiSpa30Variant.objects.filter(word=word).values('offset')
-    index = 1
-    tipo, gender, number = spacy.genderAndNumberAPI(word)
+
     dataJson.insert(0, {'word' : ""})
     dataJson.insert(1, {"metaphor" : []})
     dataJson.insert(2, {"simil" : []})
     dataJson[0]["word"] = word
-    i = 0
+
     i_simil = 0
+    i_simil_entrada = 1
+    i_metaphor = 0
+    i_metaphor_entrada = 1
 
-    # HIPONIMOS #
-    for offset in listOffsetToTheSynset:
+    data_simil = getSimil(word, level)
+    if len(data_simil) > 1:
 
-        offsetMatchSourceSynset = (WeiSpa30Relation.objects.filter(sourcesynset=offset['offset'], relation=12)).values(
-            'targetsynset').distinct()
+        for elem in range(len(data_simil) - 1):
+            definitionHypo = WeiSpa30Synset.objects.filter(offset=data_simil[i_simil_entrada]['offset']).values('gloss')
+            exampleHypo = WeiSpa30Examples.objects.filter(offset=data_simil[i_simil_entrada]['offset']).values(
+                'examples')
+            if definitionHypo[0]["gloss"] != "None" or len(exampleHypo) > 0:
+                listExamplesHypo = list()
+                # print("ELEM")
+                # print(elem)
+                dataJson[2]['simil'].append(
+                    ({'type': "HYPONYM", 'offsetFather': "", 'offset': "", 'definition': "", 'example': []}))
 
-        if len(offsetMatchSourceSynset) > 0:
-            listEasyWords = list()
-            listExamplesHypo = list()
-            for targetSynset in offsetMatchSourceSynset:
+                dataJson[2]['simil'][i_simil]['offsetFather'] = data_simil[i_simil_entrada]['offsetFather']
+                dataJson[2]['simil'][i_simil]['offset'] = data_simil[i_simil_entrada]['offset']
 
-                listaWordsHyponyms = WeiSpa30Variant.objects.filter(offset=targetSynset['targetsynset']).values(
-                    'word').distinct()
-                definitionHypo = WeiSpa30Synset.objects.filter(offset=targetSynset["targetsynset"]).values('gloss')
-                exampleHypo = WeiSpa30Examples.objects.filter(offset=targetSynset["targetsynset"]).values('examples')
+                if definitionHypo[0]["gloss"] != "None":
+                    if len(definitionHypo) > 0:
+                        dataJson[2]['simil'][i_simil]["definition"] = definitionHypo[0]['gloss']
 
-                for hyponym in listaWordsHyponyms:
-                    if hyponym['word'] != dataJson[0]["word"]:
-                        with connection.cursor() as cursor:
-                            if level == "1":
+                if len(exampleHypo) > 0:
+                    for example in exampleHypo:
+                        listExamplesHypo.append(example['examples'])
+                    dataJson[2]['simil'][i_simil]["example"] = listExamplesHypo
+                i_simil += 1
+            i_simil_entrada += 1
 
-                                cursor.execute(
-                                    'SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
-                                    [hyponym['word'], tipo])
-                            elif level == "2":
+    data_metaphor = getMetaphor(word, level)
+    if len(data_metaphor) > 1:
+        for elem in range(len(data_metaphor) - 1):
+            definitionMeta = WeiSpa30Synset.objects.filter(offset=data_metaphor[i_metaphor_entrada]['offset']).values(
+                'gloss')
+            exampleMeta = WeiSpa30Examples.objects.filter(offset=data_metaphor[i_metaphor_entrada]['offset']).values(
+                'examples')
+            if definitionMeta[0]["gloss"] != "None" or len(exampleMeta) > 0:
+                listExamplesMeta = list()
+                dataJson[1]['metaphor'].append(({'type': "", 'offsetFather': "", 'offset': "", 'definition': "", 'example': []}))
+                dataJson[1]['metaphor'][i_metaphor]['offset'] = data_metaphor[i_metaphor_entrada]['offset']
+                dataJson[1]['metaphor'][i_metaphor]['type'] = data_metaphor[i_metaphor_entrada]['type']
+                if data_metaphor[i_metaphor_entrada]['type'] == "HYPERONYM":
+                    dataJson[1]['metaphor'][i_metaphor]['offsetFather'] = data_metaphor[i_metaphor_entrada]['offsetFather']
+                if definitionMeta[0]["gloss"] != "None":
+                    if len(definitionMeta) > 0:
+                        dataJson[1]['metaphor'][i_metaphor]["definition"] = definitionMeta[0]['gloss']
 
-                                cursor.execute(
-                                    'SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
-                                    [hyponym['word'], tipo])
-                            else:
-                                cursor.execute(
-                                    'SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
-                                    [hyponym['word'], tipo])
-
-                            result = cursor.fetchone()[0]
-                            if result > 0:
-                                if hyponym['word'] not in repeatWords:
-                                    repeatWords.add(hyponym['word'])
-                                    listEasyWords.append(hyponym['word'])
-
-            if len(listEasyWords) > 0:
-
-                if definitionHypo[0]["gloss"] != "None" or len(exampleHypo) > 0:
-                    dataJson[2]['simil'].append(
-                        ({'type': "HYPONYM", 'offsetFather': "", 'offset': "", 'definition': "", 'example': []}))
-
-                    dataJson[2]['simil'][i_simil]['offsetFather'] = offset['offset']
-                    dataJson[2]['simil'][i_simil]['offset'] = targetSynset["targetsynset"]
-
-                    if definitionHypo[0]["gloss"] != "None":
-                        if len(definitionHypo) > 0:
-                            dataJson[2]['simil'][i_simil]["definition"] = definitionHypo[0]['gloss']
-
-                    if len(exampleHypo) > 0:
-                        for example in exampleHypo:
-                            listExamplesHypo.append(example['examples'])
-                        dataJson[2]['simil'][i_simil]["example"] = listExamplesHypo
-                    i_simil += 1
-                    index += 1
-
-    # SINONIMOS #
-    for offset in listOffsetToTheSynset:
-        ##   Devuelve todos los sinónimos de esa palabra
-        listaSynonyms = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('word').distinct()
-        definition = WeiSpa30Synset.objects.filter(offset=offset['offset']).values('gloss')
-        examples = WeiSpa30Examples.objects.filter(offset=offset['offset']).values('examples')
-
-        ##   Por cada sinónimo, busca si se encuentra en la base de datos de las palabras fáciles
-        listEasySynonymsWords = list()
-        listExamples = list()
-        for synonym in listaSynonyms:
-
-            if synonym['word'] != dataJson[0]['word']:
-                with connection.cursor() as cursor:
-                    if level == "1":
-
-                        cursor.execute(
-                            'SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
-                            [synonym['word'], tipo])
-                    elif level == "2":
-
-                        cursor.execute(
-                            'SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
-                            [synonym['word'], tipo])
-                    else:
-                        cursor.execute(
-                            'SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
-                            [synonym['word'], tipo])
-
-                    result = cursor.fetchone()[0]
-                    if result > 0:
-                        if synonym['word'] not in repeatWords:
-                            repeatWords.add(synonym['word'])
-                            listEasySynonymsWords.append(synonym['word'])
-
-
-        if len(listEasySynonymsWords) > 0:
-            #print(examples)
-            #print(len(examples))
-
-            if definition[0]["gloss"] != "None" or len(examples) > 0:
-                dataJson[1]['metaphor'].append(({'type': "SYNONYM", 'offset': "", 'definition': "", 'example': []}))
-                dataJson[1]['metaphor'][i]['offset'] = offset['offset']
-
-                if definition[0]["gloss"] != "None":
-                    dataJson[1]['metaphor'][i]["definition"] = definition[0]['gloss']
-                    #print("DEF SINONIMOS")
-                    #print(definition[0]["gloss"])
-                    #print(definition)
-                if len(examples) > 0:
-                    for example in examples:
-                        listExamples.append(example['examples'])
-                    #print("EXAMPLE SINONIMOS")
-                    #print(example)
-                    dataJson[1]['metaphor'][i]["example"] = listExamples
-                i += 1
-                index += 1
-
-    # HYPERONIMOS #
-    for offset in listOffsetToTheSynset:
-
-        offsetMatchTargetSynset = (WeiSpa30Relation.objects.filter(targetsynset=offset['offset'], relation=12)).values(
-            'sourcesynset').distinct()
-
-        if len(offsetMatchTargetSynset) > 0:
-            listEasyHyperonymsWords = list()
-            listExamplesHyper = list()
-            for sourceSynset in offsetMatchTargetSynset:
-                listaWordsHyperonyms = WeiSpa30Variant.objects.filter(offset=sourceSynset['sourcesynset']).values(
-                    'word').distinct()
-                definitionHyper = WeiSpa30Synset.objects.filter(offset=sourceSynset["sourcesynset"]).values('gloss')
-                exampleHyper = WeiSpa30Examples.objects.filter(offset=sourceSynset["sourcesynset"]).values('examples')
-
-                for hyperonym in listaWordsHyperonyms:
-                    if hyperonym['word'] != dataJson[0]['word']:
-
-
-                        with connection.cursor() as cursor:
-                            if level == "1":
-
-                                cursor.execute(
-                                    'SELECT COUNT(*) FROM 1000_palabras_faciles WHERE word = %s AND tag = %s',
-                                    [hyperonym['word'], tipo])
-                            elif level == "2":
-
-                                cursor.execute(
-                                    'SELECT COUNT(*) FROM 5000_palabras_faciles WHERE word = %s AND tag = %s',
-                                    [hyperonym['word'], tipo])
-                            else:
-                                cursor.execute(
-                                    'SELECT COUNT(*) FROM 10000_palabras_faciles WHERE word = %s AND tag = %s',
-                                    [hyperonym['word'], tipo])
-
-                            result = cursor.fetchone()[0]
-                            if result > 0:
-                                if hyperonym['word'] not in repeatWords:
-                                    repeatWords.add(hyperonym['word'])
-                                    listEasyHyperonymsWords.append(hyperonym['word'])
-
-
-            phraseHyperonym = list()
-            if len(listEasyHyperonymsWords) > 0:
-                #print(definitionHyper)
-                #print(exampleHyper)
-                if definitionHyper[0]["gloss"] != "None" or len(exampleHyper) > 0:
-
-                    dataJson[1]['metaphor'].append(({'type': "HYPERONYM", 'offsetFather': "", 'offset': "", 'definition': "", 'example': []}))
-                    dataJson[1]['metaphor'][i]['offsetFather'] = offset['offset']
-                    dataJson[1]['metaphor'][i]['offset'] = sourceSynset["sourcesynset"]
-
-                    if definitionHyper[0]['gloss'] != 'None':
-                        #print("DEF HIPERONIMOS")
-                        #print(definitionHyper)
-                        dataJson[1]['metaphor'][i]["definition"] = definitionHyper[0]['gloss']
-
-                    if len(exampleHyper) > 0:
-                        for example in examples:
-                            listExamplesHyper.append(example['examples'])
-                        #print("EXAMPLE HIPERONIMOS")
-                        #print(exampleHyper)
-                        dataJson[1]['metaphor'][i]["example"] = listExamplesHyper
-                    i += 1
-                    index += 1
-
-
-
+                if len(exampleMeta) > 0:
+                    for example in exampleMeta:
+                        listExamplesMeta.append(example['examples'])
+                    dataJson[1]['metaphor'][i_metaphor]["example"] = listExamplesMeta
+                i_metaphor += 1
+            i_metaphor_entrada += 1
 
     repeatWords.clear()
-
+    #print(dataJson)
     return dataJson
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
