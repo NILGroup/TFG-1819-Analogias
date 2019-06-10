@@ -6,9 +6,6 @@ urlpatterns = [
 
     path('', views.index, name='index'),
     path('word=<str:word>&level=<str:level>', views.principal, name='principal'),
-    path('version1', views.version1, name='version1'),
-    path('version2', views.version2, name='version2'),
-    path ('prueba', views.prueba, name='prueba'),
     path('image_offset/<str:offset>', views.getImagen, name='getImagen'),
     path('image_word/<str:palabra>', views.getImagenPalabra, name='getImagenPalabra'),
     path('easysynonym/json/word=<str:word>&level=<str:level>', views.getSynonymsJsonResults, name='getSynonymsJsonResults'),

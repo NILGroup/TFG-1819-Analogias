@@ -82,39 +82,7 @@ function pictosCheckboxHandler(){
             $(".p-met").removeClass("position-p-img");  
     
         }
-        /*let texto = $("#text-pictos").find("span").text(); 
-     
-        if (texto == "Mostrar pictos"){
-            $("#text-pictos").find("span").text("Ocultar pictos"); 
-            claseMostrarPictos = "pos-ini-block";            
-            $(".image-picto").removeClass("pos-ini-none");
-            $(".image-picto").addClass("pos-ini-block");
-    
-            clasePosicionPictos = "position-img";
-            $(".position-metaphor").removeClass("panel-img");
-            $(".position-metaphor").addClass("position-img");
 
-            posicionMet = "position-p-img";
-            $(".p-met").addClass("position-p-img");
-            //$(".p-met").removeClass("p-met");
-            
-
-        }else if(texto == "Ocultar pictos"){
-            $("#text-pictos").find("span").text("Mostrar pictos"); 
-            claseMostrarPictos = "pos-ini-none";            
-            $(".image-picto").removeClass("pos-ini-block");
-            $(".image-picto").addClass("pos-ini-none");
-    
-            clasePosicionPictos = "panel-img";
-            $(".position-metaphor").removeClass("position-img");
-            $(".position-metaphor").addClass("panel-img");
-
-            posicionMet = "p-met";
-            $(".p-met").addClass("p-met");
-            $(".p-met").removeClass("position-p-img");   
-        }
-        
-        $("#pictos").prop("checked", false);*/
         
         }
 }
@@ -137,24 +105,7 @@ function defyejemploCheckboxHandler(){
             $(".color-no-defyejemplo").removeClass("panel-buttons-display-block");
             $(".color-no-defyejemplo").addClass("panel-buttons-display-none");
          }
-        /*let texto = $("#text-defyejemplo").find("span").text(); 
-     
-        if (texto == "Mostrar definición y ejemplo"){
-            $("#text-defyejemplo").find("span").text("Ocultar definición y ejemplo"); 
-            clasePanelButtons = "panel-buttons-display-block";
-            $(".panel-buttons").removeClass("panel-buttons-display-none");
-            $(".panel-buttons").addClass("panel-buttons-display-block");
-            $(".color-no-defyejemplo").removeClass("panel-buttons-display-none");
 
-        }else if(texto == "Ocultar definición y ejemplo"){
-            $("#text-defyejemplo").find("span").text("Mostrar definición y ejemplo"); 
-            clasePanelButtons = "panel-buttons-display-none";
-            $(".panel-buttons").removeClass("panel-buttons-display-block");
-            $(".panel-buttons").addClass("panel-buttons-display-none");
-            $(".color-no-defyejemplo").addClass("panel-buttons-display-none");   
-        }
-        
-        $("#defyejemplo").prop("checked", false);*/
         
         }
 }
@@ -205,62 +156,8 @@ function selectOptionHandler(){
         $(".p-met").addClass("position-p-img");
     }
 
-    /*if($("#pictos-oculto").is(':checked')){ 
-        claseMostrarPictos = "pos-ini-none";            
-        $(".image-picto").removeClass("pos-ini-block");
-        $(".image-picto").addClass("pos-ini-none");
 
-        clasePosicionPictos = "panel-img";
-        $(".position-metaphor").removeClass("position-img");
-        $(".position-metaphor").addClass("panel-img");
 
-        posicionMet = "p-met";
-        $(".p-met").addClass("p-met");
-        $(".p-met").removeClass("position-p-img");   
-
-    }*/
-    
-    /*if($("#mayusculas").is(':checked')){
-        if (texto == "Convertir a minúsculas"){
-            $("#text-mayusculas").find("span").text("Convertir a mayúsculas"); 
-            $("body").css("text-transform" ,"");
-
-        }else if(texto == "Convertir a mayúsculas"){
-
-            $("#text-mayusculas").find("span").text("Convertir a minúsculas"); 
-            $("body").css("text-transform" ,"uppercase");
-        }
-        $("#mayusculas").prop("checked", false);
-    }*/
-   
-
-   /* if($("#defyejemplo").is(':checked')){
-        $("#text-defyejemplo").find("span").text("Ocultar definición y ejemplo"); 
-       clasePanelButtons = "panel-buttons-display-block";       
-        $(".panel-buttons").removeClass("panel-buttons-display-none");
-        $(".panel-buttons").addClass("panel-buttons-display-block");
-        $(".color-no-defyejemplo").removeClass("panel-buttons-display-none");
-        $(".color-no-defyejemplo").addClass("panel-buttons-display-block");
-            
-            
-        $("#defyejemplo").prop("checked", false);
-    }
-     */
-    
-
-    /*if($("#pictos").is(':checked')){
-        $("#text-pictos").find("span").text("Ocultar pictos"); 
-        claseMostrarPictos = "pos-ini-block";
-        clasePosicionPictos = "position-img";
-        $(".image-picto").removeClass("pos-ini-none");
-        $(".image-picto").addClass("pos-ini-block");
-
-        posicionMet = "position-p-img";
-        $(".panel-img").removeClass("panel-img");
-        $(".panel-img").addClass("position-img");   
-        $(".p-met").addClass("position-p-img");
-        $("#pictos").prop("checked", false);
-    }  */  
 }
 
 
@@ -297,7 +194,7 @@ function mostrarJson(json){
 
     $("#list-results").html("");
     let contador = 1;
-     console.log(json);
+
     
     if(json.allOffsets.length == 0){
         $(".title").html("");
@@ -307,8 +204,7 @@ function mostrarJson(json){
     }else{
 
         json.allOffsets.forEach(offset => {
-             console.log("offset");
-             console.log(offset);
+
             let arrayMetaforas = [];
             let arraySimiles = [];
             let arrayContent = [];
@@ -390,7 +286,7 @@ function mostrarJson(json){
                     }
 
                 }
-                //aqui ya tienes las variables con valor
+
 				let frase = "";
 				if (genero != "" && numero != "") {
 					if (genero == "masculino") {
@@ -509,7 +405,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
                     }else{
                         elemento += "<li><i class='material-icons color-list mr-3'>lens</i>" + palabra + ' ' + phrase + 
                         "<p class='word-search ml-2 mt-3'>" + enlace + "</p></li><hr>";
-                       // "<a class='ml-2' href='/'>" + enlace + "</a></li><hr>";
+
                     }
                    
                 });
@@ -551,8 +447,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
    
     if(resultadoDefEjemplo.length > 0){
         resultadoDefEjemplo.forEach(result =>{
-            console.log("def");
-            console.log(result.definition);
+
             tieneDef = true;
             definicion += "<p><b> Definición:</b><i>" + result.definition + "</i></p>";
             
@@ -560,8 +455,7 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
                 result.example.forEach(exam =>{
                     tieneEjemplo = true;
                     ejemplo += "<p><b> Ejemplo:</b><i>" + result.example + "</i></p>";
-                    console.log("ejemplo");
-                    console.log(exam);
+
                 });
             }
             
@@ -570,15 +464,12 @@ function formarFicha(hayImg, offset, resultadoMetaforas, resultadoSimiles, resul
 
 
     if(tieneDef || tieneEjemplo){
-        /*elemento += "<div id='panel-button' class='def-example'>" +
-        "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-        "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
-    }*/
+
         elemento += "<div id='panel-button' class='panel-buttons " + clasePanelButtons + "'>" +
         "<div class='dropdown show'><a class='btn btn-def dropdown-toggle' href='#' role='button'  data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
         "Definición y Ejemplo</a><div class='dropdown-menu panel-dropdown-def' aria-labelledby='dropdownMenuLink'><div class='panel-def-example-only-button'>" + definicion + ejemplo;
     } else {
-        elemento += "<div class='color-no-defyejemplo pl-3 pr-3 pt-2 pb-2 " + clasePanelButtons + "'>NO HAY DEFINICIÓN NI EJEMPLO</div>"
+        elemento += "<div class='color-no-defyejemplo pl-3 pr-3 pt-2 pb-2 " + clasePanelButtons + "'>No hay definición ni ejemplo</div>"
     }
     
     $("#list-results").append(elemento);

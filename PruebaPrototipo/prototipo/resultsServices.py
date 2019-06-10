@@ -1,16 +1,15 @@
 from .models import *
 import os
-import csv
-import json
+
 from prototipo import spacyService as spacy
-import prototipo.pictosServices as pictos
+
 import django
 
 django.setup()
 from django.db import connection
-import urllib
+
 import base64
-import pandas as pd
+
 from django.http import JsonResponse
 from django.http import HttpResponse
 repeatWords = set()
@@ -31,8 +30,7 @@ def getEasySynonyms(word, level):
     for offset in listOffsetToTheSynset:
         ##   Devuelve todos los sinónimos de esa palabra
         listaSynonyms = WeiSpa30Variant.objects.filter(offset=offset['offset']).values('word').distinct()
-        #definition = WeiSpa30Synset.objects.filter(offset=offset).values('gloss')
-        #example = WeiSpa30Examples.objects.filter(offset=offset).values('examples')
+
 
         ##   Por cada sinónimo, busca si se encuentra en la base de datos de las palabras fáciles
         listEasyWords = list()
@@ -56,19 +54,12 @@ def getEasySynonyms(word, level):
                             listEasyWords.append(synonym['word'])
 
         if len(listEasyWords) > 0:
-            dataJson.append({'offset': "", 'synonyms': []})  # , 'definition': "", 'example': "", 'picto': ""})
+            dataJson.append({'offset': "", 'synonyms': []})
             dataJson[index]['offset'] = offset['offset']
             dataJson[index]['synonyms'] = listEasyWords
 
             index += 1
-        '''    
-        if definition[0]["gloss"] != "None":
-            dataJson[0]["definition"] = definition[0]['gloss']
-    
-        if len(example) > 0:
-            dataJson[0]["example"] = example[0]['examples']
 
-        '''
 
 
 
@@ -117,13 +108,13 @@ def getEasyHyponyms(word, level):
                                     listEasyWords.append(hyponym['word'])
             if len(listEasyWords) > 0:
                 dataJson.append(
-                    {'offsetFather': "", 'offset': "", 'hyponyms': []})  # , 'definition': "", 'example': "", 'picto': ""})
+                    {'offsetFather': "", 'offset': "", 'hyponyms': []})
                 dataJson[index]["offsetFather"] = offset['offset']
                 dataJson[index]["offset"] = targetSynset["targetsynset"]
                 dataJson[index]["hyponyms"] = listEasyWords
 
                 index += 1
-    #print(dataJson)
+
     return dataJson
 
 ### SERVICIO QUE DADA UNA PALABRA Y UN NIVEL DEVUELVE SUS HIPERONIMOS FACILES ###
@@ -168,7 +159,7 @@ def getEasyHyperonyms(word, level):
                                     listEasyWords.append(hyperonym['word'])
             if len(listEasyWords) > 0:
                 dataJson.append(
-                    {'offsetFather': "", 'offset': "", 'hyperonyms': []})  # , 'definition': "", 'example': "", 'picto': ""})
+                    {'offsetFather': "", 'offset': "", 'hyperonyms': []})
                 dataJson[index]["offsetFather"] = offset['offset']
                 dataJson[index]["offset"] = sourceSynset["sourcesynset"]
                 dataJson[index]["hyperonyms"] = listEasyWords
@@ -191,16 +182,12 @@ def getMetaphor(word, level):
 
     listEasySynonymsWords = getEasySynonyms(word, level)
 
-    #print(listEasySynonymsWords)
-    #print(len(listEasySynonymsWords))
-
-    # print(listEasySynonymsWords)
     index = 1
     if len(listEasySynonymsWords) > 1:
         for elem in range(len(listEasySynonymsWords) - 1):
             phraseSynonym = list()
             dataJson.append(
-            {'type': "SYNONYM", 'offset': "", 'metaphor': []})  # , 'definition': "", 'example': "", 'picto': ""})
+            {'type': "SYNONYM", 'offset': "", 'metaphor': []})
             dataJson[index]['offset'] = listEasySynonymsWords[index]['offset']
 
             for synonym in listEasySynonymsWords[index]['synonyms']:
@@ -209,19 +196,17 @@ def getMetaphor(word, level):
             dataJson[index]['metaphor'] = phraseSynonym
             index += 1
 
-   # print(dataJson)
+
     listEasyHyperonymsWords = getEasyHyperonyms(word, level)
-    #print(word)
-    #print(listEasyHyperonymsWords)
+
 
     indexHyperonym = 1
     if len(listEasyHyperonymsWords) > 1:
         for elem in range(len(listEasyHyperonymsWords) - 1):
             phraseHyperonym = list()
-            #dataJson.append(
-             #{"offsetHyperFather": "", 'offsetHyper': "", 'metaphorHyper': []})  # , 'definition': "", 'example': "", 'picto': ""})
+
             dataJson.append(
-                {'type' : "HYPERONYM", 'offsetFather': "", 'offset': "", 'metaphor': []})  # , 'definition': "", 'example': "", 'picto': ""})
+                {'type' : "HYPERONYM", 'offsetFather': "", 'offset': "", 'metaphor': []})
             dataJson[index]["offsetFather"] = listEasyHyperonymsWords[indexHyperonym]['offsetFather']
             dataJson[index]["offset"] = listEasyHyperonymsWords[indexHyperonym]['offset']
             for hyperonym in listEasyHyperonymsWords[indexHyperonym]['hyperonyms']:
@@ -231,7 +216,7 @@ def getMetaphor(word, level):
             index += 1
             indexHyperonym += 1
 
-    #print(dataJson)
+
     if len(dataJson) == 1:
         dataJson.pop()
 
@@ -256,11 +241,10 @@ def getSimil(word, level):
 
         for elem in range(len(listEasyWords) - 1):
             phraseHyponym = list()
-            #print("ELEM")
-            #print(elem)
+
             dataJson.append(
                 {'offsetFather': "", 'offset': "",
-                 'simil': []})  # , 'definition': "", 'example': "", 'picto': ""})
+                 'simil': []})
             dataJson[index]["offsetFather"] = listEasyWords[index]['offsetFather']
             dataJson[index]["offset"] = listEasyWords[index]["offset"]
             for hyponym in listEasyWords[index]['hyponyms']:
@@ -268,9 +252,7 @@ def getSimil(word, level):
             dataJson[index]['simil'] = phraseHyponym
             index += 1
 
-    #print("palabras repetidas simil")
-    #print(repeatWords)
-    #print(dataJson)
+
     if len(dataJson) == 1:
         dataJson.pop()
     return dataJson
@@ -304,8 +286,7 @@ def getDefAndExample(word, level):
                 'examples')
             if definitionHypo[0]["gloss"] != "None" or len(exampleHypo) > 0:
                 listExamplesHypo = list()
-                # print("ELEM")
-                # print(elem)
+
                 dataJson[2]['simil'].append(
                     ({'type': "HYPONYM", 'offsetFather': "", 'offset': "", 'definition': "", 'example': []}))
 
@@ -349,7 +330,7 @@ def getDefAndExample(word, level):
             i_metaphor_entrada += 1
 
     repeatWords.clear()
-    #print(dataJson)
+
     return dataJson
 
 ####    SERVICIO QUE DADA UNA PALABRA DEVUELVE TODOS SUS OFFSETS    ####
@@ -364,9 +345,7 @@ def allOffsets(word):
         dataJson.insert(index, {'offset': ""})
         dataJson[index]["offset"] = offset['offset']
         index += 1
-    # print("DATA ALL OFFSETS")
-    # print(repr(dataJson))
-    # print(json.dumps(dataJson ,ensure_ascii=False))
+
     return dataJson
 
 
@@ -376,7 +355,7 @@ def getImagePalabra(palabra):
     with connection.cursor() as cursor:
         cursor.execute('SELECT imagen FROM pictos WHERE palabra = %s', [palabra])
         rows = cursor.fetchall()
-        #print(len(rows))
+
         if len(rows) > 0:
             image_64_decode = base64.decodebytes(rows[0][0])
             image_result = open('prototipo/pictogramas/'+palabra+'.png', 'wb')
@@ -394,7 +373,7 @@ def getImageOffset(offset):
     with connection.cursor() as cursor:
         cursor.execute('SELECT imagen FROM pictos WHERE offset30 = %s', [offset])
         rows = cursor.fetchall()
-        #print(len(rows))
+
         if len(rows) > 0:
             image_64_decode = base64.decodebytes(rows[0][0])
             image_result = open('prototipo/pictogramas/'+offset+'.png', 'wb')
